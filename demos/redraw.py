@@ -1,3 +1,5 @@
+from Wrapper import Candy
+
 y = 0
  
 # The statements in the setup() function 
