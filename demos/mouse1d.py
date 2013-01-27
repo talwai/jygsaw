@@ -1,20 +1,10 @@
-void setup():
-  size(640, 360)
-  noStroke()
-  colorMode(RGB, height, height, height)
-  rectMode(CENTER)
+from graphicsWrapper import *
 
 
-void draw():
-  background(0.0)
-
-  float r1 = map(mouseX, 0, width, 0, height)
-  float r2 = height-r1
-
-  fill(r1)
-  rect(width/2 + r1/2, height/2, r1, r1)
-
-  fill(r2)
-  rect(width/2 - r2/2, height/2, r2, r2)
+def setup():
+    size(640, 360)
 
 
+def draw():
+    background(0.0)
+    drawCircle((mouseX, mouseY), 5.0, color=red)
