@@ -9,9 +9,8 @@ from java.awt.Graphics import fillRect, fillOval, setFont
 
 # Filename: GraphicsLib.py
 
-
 class GraphicsWindow(ActionListener, KeyListener, MouseListener):
-
+    
     def __init__(self, title, width, height):
         self.objs = [] # List of Jy_Objects
         self.width = width
@@ -20,47 +19,47 @@ class GraphicsWindow(ActionListener, KeyListener, MouseListener):
                             defaultCloseOperation = JFrame.EXIT_ON_CLOSE,
                             size = (self.width, self.height))
         self.frame.contentPane = Canvas(self, self.objs)
-
+    
     def setVisible(self, isVisible):
         self.frame.visible = isVisible
-
+    
     def draw(self, o):
         self.objs.append(o)
-
+    
     def setDefaultColor(self, c):
         self.frame.contentPane.setDefaultColor(c)
 
 class Canvas(JPanel, ActionListener, KeyListener):
     """ Canvas to draw the action on. Owns the action and key listeners. """
-
+    
     def __init__(self, window, objects):
         self.objs = objects
         self.window = window
         self.defaultColor = gray
-
+    
     def paintComponent(self, g):
         g.background = black
         g.clearRect(0, 0, self.window.width, self.window.height)
         g.setColor(white) # Set color of rectangle
-
+        
         print 'Canvas # objs', len(self.objs)
-
+        
         for i in range(len(self.objs)):
             if self.objs[i].color == None:
                 g.setColor(self.defaultColor)
             else:
                 g.setColor(self.objs[i].getColor())
             self.objs[i]._draw(g)
-
+    
     def actionPerformed(self, a):
         pass
-
+    
     def keyReleased(self, e):
         pass
-
+    
     def keyPressed(self, e):
         pass
-
+    
     def setDefaultColor(self, c):
         self.defaultColor = c
 
@@ -73,57 +72,57 @@ class GraphicsObject(object):
         Anything drawn on the canvas is a child of GraphicsObject.
         This class stores the location of the object (x, y) and
         has methods to rotate, flip, translate and move the object.
-
+        
         """
-
+    
     def __init__(self, (x, y) = (0, 0), color = None):
         super(GraphicsObject, self).__init__()
         self.coordinates = (x, y) # (x,y) tuple of object's position
         self.color = color
-
+    
     # Use degrees, not radians
     def rotate(self, degrees):
         pass
-
+    
     def moveTo(self, x, y):
         self.coordinates = (x, y)
     #redraw?
-
+    
     def move(self, deltaX, deltaY):
         self.moveTo(self.coordinates[0] + deltaX, self.coordinates[1] + deltaY)
-
+    
     # Flip object on horizontal axis (mirror image)
     def flipX(self):
         pass
-
+    
     # Flip object on vertical axis
     def flipY(self):
         pass
-
+    
     def scale(self):
         pass
-
+    
     def getColor(self):
         return self.color
-
+    
     def getCoordinates(self):
         return self.coordinates
-
+    
     def getX(self):
         return  self.coordinates[0]
-
+    
     def getY(self):
         return  self.coordinates[1]
-
+    
     def setColor(self, c):
         self.color = c
-
+    
     def setCoordinates(self, (x, y)):
         self.coordinates = (x, y)
-
+    
     def setX(self, x):
         self.coordinates[0] = x
-
+    
     def setY(self, y):
         self.coordinates[1] = y
 
@@ -135,31 +134,31 @@ class Text(GraphicsObject):
         self.font = font # Font, however it's defined in Java...
         self.size = size
         self.attribute = attribute #bold, italic, underline
-
+    
     def getString(self):
         return self.s
-
+    
     def getSize(self):
         return self.size
-
+    
     def getAttribute(self):
         return self.attribute
-
+    
     def getFont(self):
         return self.font
-
+    
     def setString (self, s):
         self.s = s
-
+    
     def setSize(self, s):
         self.size = s
-
+    
     def setAttribute(self, a):
         self.attribute = a
-
+    
     def setFont(self, f):
         self.font = f
-
+    
     def _draw(self, g):
         g.setFont(Font(self.font, self.attribute, self.size))
         g.drawString(self.s, self.coordinates[0], self.coordinates[1])
@@ -170,25 +169,25 @@ class Image(GraphicsObject):
         self.imageURL = url
         self.width = width
         self.height = height
-
+    
     def setUrl(self, u):
         self.url = u
-
+    
     def setWidth(self, w):
         self.width = w
-
+    
     def setHeight(self, h):
         self.Height = h
-
+    
     def getUrl(self):
         return self.Url
-
+    
     def getWidth(self):
         return self.width
-
+    
     def getHeight(self):
         return self.height
-
+    
     def _draw(self, g):
         img = Toolkit.getDefaultToolKit().getImage(self.imageURL)
         g.drawImage(img, self.coordinates[x], self.coordinates[y], width, height, null)
@@ -199,22 +198,22 @@ class Shape(GraphicsObject):
         self.width = width
         self.height = height
         self.filled = filled
-
+    
     def getWidth(self):
         return self.width
-
+    
     def getHeight(self):
         return self.height
-
+    
     def getFilled(self):
         return self.filled
-
+    
     def setWidth(self, w):
         self.width = w
-
+    
     def setHeight(self, h):
         self.height = h
-
+    
     def setFilled(self, f):
         self.filled = f
 
@@ -222,7 +221,7 @@ class Shape(GraphicsObject):
 class Ellipse(Shape):
     def __init__(self, (x, y), width, height, color = None, filled = True):
         super(Ellipse, self).__init__((x, y), width, height, color, filled)
-
+    
     def _draw(self, g):
         if self.filled:
             g.fillOval(self.coordinates[0],
@@ -239,13 +238,13 @@ class Circle(Ellipse):
     def __init__(self, (x, y), radius, color = None, filled = True):
         super(Circle, self).__init__((x, y), color = self.color, filled = self.filled)
         self.radius = radius
-
+    
     def setRadius(self, r):
         self.radius = r
-
+    
     def getRadius(self):
         return self.radius
-
+    
     def _draw(self, g):
         x = x + self.radius
         y = y + self.radius
@@ -257,7 +256,7 @@ class Circle(Ellipse):
 class Rectangle(Shape):
     def __init__(self, (x, y), width, height, color = None, filled = True):
         super(Rectangle, self).__init__((x, y), width, height, color, filled)
-
+    
     def _draw(self, g):
         g.setColor(self.color)
         if self.filled:
@@ -274,7 +273,7 @@ class Line(Shape):
         self.startY = startY
         self.endX = endX
         self.endY = endY
-
+    
     def _draw(self, g):
         g.drawLine(self.startX, self.startY, self.endX, self.endY)
 
@@ -283,7 +282,7 @@ class Arc(Shape):
         super(Arc, self).__init__((x, y), width, height, color = self.color)
         self.startAngle = startAngle
         self.arcAngle = arcAngle
-
+    
     def _draw(self, g):
         g.fillArc(self.coordinates[0], self.coordinates[1],
                   self.weigth, self.height, self.startAngle, self.arcAngle)
@@ -293,7 +292,7 @@ class Polygon(Shape):
     def __init__(self, vertices, color = None, filled = True):
         super(Polygon, self).__init__(self, color = self.color, filled = True)
         self.vertices = vertices
-
+    
     def _draw(self, g):
         (xValues, yValues) = zip(*vertices)
         if self.filled:
@@ -301,35 +300,39 @@ class Polygon(Shape):
         else:
             g.drawPolygon(xValues, yValues, vertices.length)
 
-        ## Parking lot: class RegPolygon(Polygon):
+## Parking lot: class RegPolygon(Polygon):
 
 class Group():
     def __init__(self, *objects):
         self.group = []
         for o in objects:
-            assert type(o) is GraphicsObject, "%s is not a GraphicsObject" %o
+            assert isinstance(o, GraphicsObject), "%s is not GraphicsObject" % o
             self.group.append(o)
-
-        # removing and adding objects
+    
+    # removing and adding objects
     def remove(self, *objects):
         for o in objects:
-            group.remove(o)
-
+            self.group.remove(o)
+    
     # append
     def append(self, *objects):
         for o in objects:
-            assert type(o) is GraphicsObject, "%s is not a GraphicsObject" %o
+            assert isinstance(o, GraphicsObject), "%s is not a GraphicsObject" % o
             self.group.append(o)
-
-        # translating
-    def move(deltaX, deltaY, *objects):
-        for o in objects:
+    
+    # translating
+    def move(self, deltaX, deltaY):
+        for o in self.group:
             o.move(deltaX, deltaY)
-
-        # rotate all objects on their centers
-    def rotateAroundPoint(degree, *objects):
-        for o in objects:
+    
+    # rotate all objects on their centers
+    def rotateAroundPoint(self, degree):
+        for o in self.group:
             o.rotate(degree)
+    
+    def draw(self, window):
+        for o in self.group:
+            window.draw(o)
 
 if ( __name__ == '__main__' ) or ( __name__ == 'main' ) :
     w = GraphicsWindow('Demo Time', 500, 500)
@@ -340,10 +343,9 @@ if ( __name__ == '__main__' ) or ( __name__ == 'main' ) :
     t = Text((400, 300), "Hello!", "Arial",40)
     sun = Ellipse((115, 110), 75, 75, yellow)
     l = Line ((5,10),(100,150))
-    # z = Group (e,r,sun)
-    w.draw(e)
-    w.draw(r)
-    w.draw(sun)
+    z = Group (r, e, sun)
+    z.move(100, 100)
+    z.draw(w)
     w.draw(t)
     w.draw(l)
     w.setVisible(True)
@@ -353,3 +355,4 @@ if ( __name__ == '__main__' ) or ( __name__ == 'main' ) :
 
 
 #End of GraphicsLib.py
+
