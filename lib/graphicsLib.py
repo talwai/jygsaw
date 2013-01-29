@@ -11,14 +11,14 @@ from java.awt.Graphics import fillRect, fillOval, setFont
 
 class GraphicsWindow(ActionListener, KeyListener, MouseListener):
     
-    def __init__(self, title, width, height):
+    def __init__(self, title, width, height, backgroundColor = white):
         self.objs = [] # List of Jy_Objects
         self.width = width
         self.height = height
         self.frame = JFrame(title,
                             defaultCloseOperation = JFrame.EXIT_ON_CLOSE,
                             size = (self.width, self.height))
-        self.frame.contentPane = Canvas(self, self.objs)
+        self.frame.contentPane = Canvas(self, self.objs, backgroundColor)
     
     def setVisible(self, isVisible):
         self.frame.visible = isVisible
@@ -32,13 +32,14 @@ class GraphicsWindow(ActionListener, KeyListener, MouseListener):
 class Canvas(JPanel, ActionListener, KeyListener):
     """ Canvas to draw the action on. Owns the action and key listeners. """
     
-    def __init__(self, window, objects):
+    def __init__(self, window, objects, backgroundColor):
         self.objs = objects
         self.window = window
         self.defaultColor = gray
+        self.backgroundColor = backgroundColor
     
     def paintComponent(self, g):
-        g.background = black
+        g.background = self.backgroundColor
         g.clearRect(0, 0, self.window.width, self.window.height)
         g.setColor(white) # Set color of rectangle
         
@@ -164,33 +165,33 @@ class Text(GraphicsObject):
         g.drawString(self.s, self.coordinates[0], self.coordinates[1])
 
 class Image(GraphicsObject):
-    def __init__(self, (x, y), url, width, height):
+    def __init__(self, (x, y), url):
         super(Image, self).__init__((x,y))
         self.imageURL = url
-        self.width = width
-        self.height = height
+    #self.width = width
+    #self.height = height
     
     def setUrl(self, u):
         self.url = u
     
-    def setWidth(self, w):
-        self.width = w
+        #def setWidth(self, w):
+    #self.width = w
     
-    def setHeight(self, h):
-        self.Height = h
+        #def setHeight(self, h):
+    #self.Height = h
     
     def getUrl(self):
         return self.Url
     
-    def getWidth(self):
-        return self.width
+        #def getWidth(self):
+    #return self.width
     
-    def getHeight(self):
-        return self.height
+        #def getHeight(self):
+    #return self.height
     
     def _draw(self, g):
         img = Toolkit.getDefaultToolKit().getImage(self.imageURL)
-        g.drawImage(img, self.coordinates[x], self.coordinates[y], width, height, null)
+        g.drawImage(img, self.coordinates[x], self.coordinates[y], null)
 
 class Shape(GraphicsObject):
     def __init__(self, (x, y), width, height, color = None, filled = True):
@@ -222,6 +223,10 @@ class Ellipse(Shape):
     def __init__(self, (x, y), width, height, color = None, filled = True):
         super(Ellipse, self).__init__((x, y), width, height, color, filled)
     
+    def scale(self):
+        pass
+
+    
     def _draw(self, g):
         if self.filled:
             g.fillOval(self.coordinates[0],
@@ -245,6 +250,9 @@ class Circle(Ellipse):
     def getRadius(self):
         return self.radius
     
+    def scale(self, scale):
+        self.radius = self.radius * scale
+    
     def _draw(self, g):
         x = x + self.radius
         y = y + self.radius
@@ -258,7 +266,6 @@ class Rectangle(Shape):
         super(Rectangle, self).__init__((x, y), width, height, color, filled)
     
     def _draw(self, g):
-        g.setColor(self.color)
         if self.filled:
             g.fillRect(self.coordinates[0], self.coordinates[1],
                        self.width, self.height)
@@ -276,6 +283,15 @@ class Line(Shape):
     
     def _draw(self, g):
         g.drawLine(self.startX, self.startY, self.endX, self.endY)
+
+class Point(Line):
+    def __init__(self, (x, y), color = None):
+        super(self, (x, y), None, color)
+        self.x = x
+        self.y = y
+    
+    def _draw(self, g)
+        g.drawLine(self.x, self.y, self.x, self.y)
 
 class Arc(Shape):
     def __init__(self, (x, y), width, height, startAngle, arcAngle, color =  None):
@@ -337,17 +353,20 @@ class Group():
 if ( __name__ == '__main__' ) or ( __name__ == 'main' ) :
     w = GraphicsWindow('Demo Time', 500, 500)
     w.setDefaultColor(pink)
-    e = Ellipse((100, 100), 35, 35)
+    e = Ellipse((100, 100), 35, 35, filled=False)
     r = Rectangle((250, 250), 100, 200, blue)
     w.setDefaultColor(green)
-    t = Text((400, 300), "Hello!", "Arial",40)
+    t = Text((400, 300), "Hello!", "Arial", 40)
     sun = Ellipse((115, 110), 75, 75, yellow)
     l = Line ((5,10),(100,150))
+    image = Image((0, 0), "~/Desktop/IMG_1744.JPG")
+    
     z = Group (r, e, sun)
     z.move(100, 100)
     z.draw(w)
     w.draw(t)
     w.draw(l)
+    w.draw(image)
     w.setVisible(True)
 
 
