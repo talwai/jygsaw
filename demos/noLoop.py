@@ -2,13 +2,9 @@ from balkcomsArmory import *
 
 y = height * 0.5
 
-
-# The statements in the setup() function
-# execute once when the program begins
-def setup():
-    openCanvas(640, 360)    # Size should be the first statement
-    setStroke(255)          # Set line drawing color to white
-    noLoop()
+canvas(640, 360)    # Size should be the first statement
+strokeColor(255)          # Set line drawing color to white
+noLoop()
 
 
 # The statements in draw() are executed until the
@@ -17,8 +13,10 @@ def setup():
 # line is executed again.
 def draw():
     global y
-    setBackground(0)        # Set the background to black
+    background(0)        # Set the background to black
     y = y - 1
-    if (y < 0):
-        y = height
-    drawLine(0, y, width, y)
+    if y < 0:
+        y = height()
+    line(0, y, width(), y)
+
+drawFunction(draw)
