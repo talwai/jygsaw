@@ -21,7 +21,7 @@ line(p3, p2, p3, p3)
 # Draw white points
 strokeColor(white)
 point(p1, p1)
-ooint(p1, p3)
+point(p1, p3)
 point(p2, p4)
 point(p3, p1)
 point(p4, p2)
