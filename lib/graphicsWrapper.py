@@ -26,29 +26,32 @@ class GraphicsWrapper(threading.Thread):
         while (global toLoop):
             draw()
       
-    def gSetup(window_title,width,height):
+    def canvas(window_title,width,height):
         Window = GraphicsWindow (window_title,width,height)
-        #modify Window attributes
     
-    def drawLine((x1,y1),(x2,y2)):
-        global Window
-        line = Line(self, (x1,y1),(x2,y2))
-        Window.draw(line)    
+    def line((x1,y1),(x2,y2), color = None):
+		if color == None:
+			color = global FillColor
+        new_line = Line(self, (x1,y1),(x2,y2))
+        Window.draw(new_line)    
     
-    def drawRect((x, y), rectWidth, rectHeight, filled = True, stroke = False):
-        global Window, FillColor
-        rect = Rectangle(self, (x, y), rectWidth, rectHeight, FillColor, true)
-        Window.draw(rect)
+    def rect((x, y), rectWidth, rectHeight, color = None, filled = True, stroke = False):
+		if color == None:
+			global FillColor
+        new_rect = Rectangle(self, (x, y), rectWidth, rectHeight, color, true)
+        Window.draw(new_rect)
 
-    def drawCircle ((x,y), radius, color = global FillColor, filled = True, stroke = False):
-        global Window
-        circle = Circle(self, (x,y), radius, color, filled, stroke)
-        Window.draw(circle)
+    def circle ((x,y), radius, color = None, filled = True, stroke = False):
+		if color == None:
+			color = global FillColor
+        new_circle = Circle(self, (x,y), radius, FillColor, filled, stroke)
+        Window.draw(new_circle)
         
-    def drawEllipse ((x,y), width, height, color = global Fillcolor, filled = True, stroke = False):
-        global Window
-        ellipse = Ellipse(self, (x,y) , width, height, color, filled)
-        Window.draw(ellipse)
+    def ellipse ((x,y), width, height, color = None, filled = True, stroke = False):
+        if color == None:
+			color = global FillColor
+        new_ellipse = Ellipse(self, (x,y) , width, height, color, filled)
+        Window.draw(new_ellipse)
     
 # It would be nice to have the option to not specify the width
 # and height. Is there a way to get the default width/height of image?
