@@ -6,20 +6,24 @@ from java.awt import Font, Toolkit
 from java.awt.Font import *
 from javax.swing import JFrame, JPanel
 from java.awt.Graphics import fillRect, fillOval, setFont
+
 from java.awt import Image
 from javax.imageio import *
 from java.net import URL
+
+from java.lang import Math
 
 # Filename: GraphicsLib.py
 
 class GraphicsWindow(ActionListener, KeyListener, MouseListener):
     
     def __init__(self, title, width, height, backgroundColor = white):
+        assert width >0, "GraphicsWindow width must be greater than zero"
+        assert height >0, "GraphicsWindow height must be greater than zero"
         self.objs = [] # List of Jy_Objects
         self.width = width
         self.height = height
-        self.frame = JFrame(title,
-                            defaultCloseOperation = JFrame.EXIT_ON_CLOSE,
+        self.frame = JFrame(title,defaultCloseOperation = JFrame.EXIT_ON_CLOSE,
                             size = (self.width, self.height))
         self.frame.contentPane = Canvas(self, self.objs, backgroundColor)
     
@@ -75,9 +79,8 @@ class GraphicsObject(object):
     """
         Anything drawn on the canvas is a child of GraphicsObject.
         This class stores the location of the object (x, y) and
-        has methods to rotate, flip, translate and move the object.
-        
-        """
+        has methods to rotate, flip, translate and move the object.        
+    """
     
     def __init__(self, (x, y) = (0, 0), color = None):
         super(GraphicsObject, self).__init__()
@@ -133,6 +136,7 @@ class GraphicsObject(object):
 
 class Text(GraphicsObject):
     def __init__(self, (x, y), s, font, size, attribute = PLAIN, color = None):
+        assert size >0, "Text size must be greater than zero"
         super(Text, self).__init__((x, y), color)
         self.s = s
         self.font = font # Font, however it's defined in Java...
@@ -168,29 +172,35 @@ class Text(GraphicsObject):
         g.drawString(self.s, self.coordinates[0], self.coordinates[1])
 
 class Image(GraphicsObject):
-    def __init__(self, (x, y), url):
+    def __init__(self, (x, y), url, width, height):
+        assert width >0, "Image width must be greater than zero"
+        assert height >0, "Image height must be greater than zero"
         super(Image, self).__init__((x,y))
+
         self.url = url
-    #self.width = width
-    #self.height = height
+        self.imageURL = url
+        self.width = width
+        self.height = height
     
     def setUrl(self, u):
         self.url = u
     
-        #def setWidth(self, w):
-    #self.width = w
+    def setWidth(self, w):
+        assert w >0, "Image width must be greater than zero"
+        self.width = w
     
-        #def setHeight(self, h):
-    #self.Height = h
+    def setHeight(self, h):
+        assert h >0, "Image height must be greater than zero"
+        self.Height = h
     
     def getUrl(self):
         return self.url
     
-        #def getWidth(self):
-    #return self.width
+    def getWidth(self):
+        return self.width
     
-        #def getHeight(self):
-    #return self.height
+    def getHeight(self):
+        return self.height
     
     def _draw(self, g):
         finalName = URL(getCodeBase(), self.url);
@@ -201,6 +211,8 @@ class Image(GraphicsObject):
 
 class Shape(GraphicsObject):
     def __init__(self, (x, y), width, height, color = None, filled = True):
+        assert width >0, "Shape width must be greater than zero"
+        assert height >0, "Shape height must be greater than zero"
         super(Shape, self).__init__((x, y), color)
         self.width = width
         self.height = height
@@ -216,9 +228,11 @@ class Shape(GraphicsObject):
         return self.filled
     
     def setWidth(self, w):
+        assert w >0, "Shape width must be greater than zero"
         self.width = w
     
     def setHeight(self, h):
+        assert h >0, "Shape height must be greater than zero"
         self.height = h
     
     def setFilled(self, f):
@@ -227,6 +241,8 @@ class Shape(GraphicsObject):
 
 class Ellipse(Shape):
     def __init__(self, (x, y), width, height, color = None, filled = True):
+        assert width >0, "Ellipse width must be greater than zero"
+        assert height >0, "Ellipse height must be greater than zero"
         super(Ellipse, self).__init__((x, y), width, height, color, filled)
     
     def scale(self):
@@ -244,13 +260,18 @@ class Ellipse(Shape):
                        self.coordinates[1],
                        self.width,
                        self.height)
+    
+    def rotate(self, degrees):
+        math.radians(degrees)
 
 class Circle(Ellipse):
     def __init__(self, (x, y), radius, color = None, filled = True):
+        assert radius >0, "Circle radius must be greater than zero"
         super(Circle, self).__init__((x, y), color = self.color, filled = self.filled)
         self.radius = radius
     
     def setRadius(self, r):
+        assert r >0, "Circle radius must be greater than zero"
         self.radius = r
     
     def getRadius(self):
@@ -269,6 +290,8 @@ class Circle(Ellipse):
 
 class Rectangle(Shape):
     def __init__(self, (x, y), width, height, color = None, filled = True):
+        assert width >0, "Rectangle width must be greater than zero"
+        assert height >0, "Rectangle height must be greater than zero"
         super(Rectangle, self).__init__((x, y), width, height, color, filled)
     
     def _draw(self, g):
@@ -301,6 +324,9 @@ class Point(Line):
 
 class Arc(Shape):
     def __init__(self, (x, y), width, height, startAngle, arcAngle, color =  None):
+        # Why does arc have width and height?
+        assert width >0, "Arc width must be greater than zero"
+        assert height >0, "Arc height must be greater than zero"
         super(Arc, self).__init__((x, y), width, height, color = self.color)
         self.startAngle = startAngle
         self.arcAngle = arcAngle
@@ -371,7 +397,6 @@ if ( __name__ == '__main__' ) or ( __name__ == 'main' ) :
     z.move(100, 100)
     z.draw(w)
     w.draw(t)
-    w.draw(l)
     w.draw(image)
     w.setVisible(True)
 
