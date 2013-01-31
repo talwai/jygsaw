@@ -8,21 +8,21 @@ p2 = p1 + d
 p3 = p2 + d
 p4 = p3 + d
 
-openCanvas(640, 360)
-setBackground(0, 0, 0)
+canvas(640, 360)
+background(0, 0, 0)
 
 # Draw gray box
-setStroke(125)
-drawLine(p3, p3, p2, p3)
-drawLine(p2, p3, p2, p2)
-drawLine(p2, p2, p3, p2)
-drawLine(p3, p2, p3, p3)
+strokeColor(125)
+line(p3, p3, p2, p3)
+line(p2, p3, p2, p2)
+line(p2, p2, p3, p2)
+line(p3, p2, p3, p3)
 
 # Draw white points
-setStroke(white)
-drawPoint(p1, p1)
-drawPoint(p1, p3)
-drawPoint(p2, p4)
-drawPoint(p3, p1)
-drawPoint(p4, p2)
-drawPoint(p4, p4)
+strokeColor(white)
+point(p1, p1)
+ooint(p1, p3)
+point(p2, p4)
+point(p3, p1)
+point(p4, p2)
+point(p4, p4)
