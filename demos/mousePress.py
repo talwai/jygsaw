@@ -1,15 +1,16 @@
 from BalkcomArmory import wand
 
-def setup():
-  openCanvas(640, 360)
-  setFill(126)
-  setBackground(102)
+canvas(640, 360)
+fillColor(126)
+background(102)
 
 def draw():
-  if (mousePressed):
-    setStroke(255)
-  else:
-    setStroke(0)
+    if (mousePressed()):
+        strokeColor(255)
+    else:
+        strokeColor(0)
   
-  drawLine((mouseX-66, mouseY), (mouseX+66, mouseY))
-  drawLine((mouseX, mouseY-66), (mouseX, mouseY+66))
+    line((mouseX() - 66, mouseY()), (mouseX() + 66, mouseY()))
+    line((mouseX(), mouseY() - 66), (mouseX(), mouseY() + 66))
+
+drawFunction(draw)
