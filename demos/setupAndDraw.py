@@ -12,7 +12,7 @@ def draw():
     y = y - 1
     if (y < 0):
         y = height
-    drawLine(0, y, width, y)
+    line(0, y, width, y)
 
 canvas(640, 360)        # Size must be the first statement
 strokeColor(255)        # Set line drawing color to white
