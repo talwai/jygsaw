@@ -6,11 +6,10 @@ from java.awt import Font, Toolkit
 from java.awt.Font import *
 from javax.swing import JFrame, JPanel
 from java.awt.Graphics import fillRect, fillOval, setFont
-
 from java.awt import Image
 from javax.imageio import *
 from java.net import URL
-
+from java.lang import String
 from java.lang import Math
 
 # Filename: GraphicsLib.py
@@ -203,16 +202,13 @@ class Image(GraphicsObject):
         return self.height
     
     def _draw(self, g):
-        finalName = URL(getCodeBase(), self.url);
-        img = ImageIO.read(finalName);
+        img = ImageIO.read(URL(String(self.url)))
         g.drawImage(img, self.coordinates[0], self.coordinates[1], None)
         w = img.getWidth(null);
         h = img.getHeight(null);
 
 class Shape(GraphicsObject):
     def __init__(self, (x, y), width, height, color = None, filled = True):
-        assert width >0, "Shape width must be greater than zero"
-        assert height >0, "Shape height must be greater than zero"
         super(Shape, self).__init__((x, y), color)
         self.width = width
         self.height = height
@@ -391,7 +387,7 @@ if ( __name__ == '__main__' ) or ( __name__ == 'main' ) :
     t = Text((400, 300), "Hello!", "Arial", 40)
     sun = Ellipse((115, 110), 75, 75, yellow)
     l = Line ((5,10),(100,150))
-    image = Image((20, 20), "puppy.jpg")
+    image = Image((20, 20), "puppy.jpg", 400, 400)
     
     z = Group (r, e, sun)
     z.move(100, 100)
