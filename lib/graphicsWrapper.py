@@ -37,7 +37,7 @@ class GraphicsWrapper(threading.Thread):
     
     def rect((x, y), rectWidth, rectHeight, color = None, filled = True, stroke = False):
 		if color == None:
-			global FillColor
+			color = global FillColor
         new_rect = Rectangle(self, (x, y), rectWidth, rectHeight, color, true)
         Window.draw(new_rect)
 
