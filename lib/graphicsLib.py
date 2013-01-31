@@ -227,8 +227,6 @@ class Image(GraphicsObject):
 
 class Shape(GraphicsObject):
     def __init__(self, (x, y), width, height, color = None, filled = True):
-        assert width >0, "Shape width must be greater than zero"
-        assert height >0, "Shape height must be greater than zero"
         super(Shape, self).__init__((x, y), color)
         self.width = width
         self.height = height
