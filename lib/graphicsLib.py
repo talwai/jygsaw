@@ -11,6 +11,7 @@ from javax.imageio import *
 from java.net import URL
 from java.lang import String
 from java.lang import Math
+from java.io import File
 
 # Filename: GraphicsLib.py
 from java.awt.geom import AffineTransform
@@ -193,7 +194,6 @@ class Image(GraphicsObject):
         super(Image, self).__init__((x,y))
 
         self.url = url
-        self.imageURL = url
         self.width = width
         self.height = height
     
@@ -218,10 +218,11 @@ class Image(GraphicsObject):
         return self.height
     
     def _draw(self, g):
-        img = ImageIO.read(URL(String(self.url)))
+        img = ImageIO.read(File(self.url))
+        #URL(String(self.url))
         g.drawImage(img, self.coordinates[0], self.coordinates[1], None)
-        w = img.getWidth(null);
-        h = img.getHeight(null);
+        w = img.getWidth(None);
+        h = img.getHeight(None);
 
 class Shape(GraphicsObject):
     def __init__(self, (x, y), width, height, color = None, filled = True):
@@ -403,7 +404,7 @@ if ( __name__ == '__main__' ) or ( __name__ == 'main' ) :
     image = Image((20, 20), "puppy.jpg", 400, 400)
     z = Group (r, e, sun)
     z.move(100, 100)
-    z.draw(w)
+    #    z.draw(w)
     w.draw(t)
     w.draw(image)
     w.setVisible(True)
