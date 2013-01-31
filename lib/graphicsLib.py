@@ -8,6 +8,7 @@ from javax.swing import JFrame, JPanel
 from java.awt.Graphics import fillRect, fillOval, setFont
 
 # Filename: GraphicsLib.py
+from java.awt.geom import AffineTransform
 
 class GraphicsWindow(ActionListener, KeyListener, MouseListener):
     
@@ -23,9 +24,20 @@ class GraphicsWindow(ActionListener, KeyListener, MouseListener):
     def setVisible(self, isVisible):
         self.frame.visible = isVisible
     
-    def draw(self, o):
-        self.objs.append(o)
-    
+    # this argument takes a variable length number of GraphicsObjects and Group objects
+    # using the splat operator, which packages the args into a tuple.
+    # We iterate through each element in the tuple,
+    # and add it to our self.objs.
+    def draw(self, *params):        
+        for arg in params:
+            if isinstance(arg, GraphicsObject):
+                self.objs.append(arg)
+            elif isinstance(arg, Group):
+                for obj in arg.group:
+                    self.objs.append(obj)
+            else:
+                print "you passed in something that's not a group or graphics object"
+
     def setDefaultColor(self, c):
         self.frame.contentPane.setDefaultColor(c)
 
@@ -79,7 +91,8 @@ class GraphicsObject(object):
         super(GraphicsObject, self).__init__()
         self.coordinates = (x, y) # (x,y) tuple of object's position
         self.color = color
-    
+        self.transform = AffineTransform()
+
     # Use degrees, not radians
     def rotate(self, degrees):
         pass
@@ -93,7 +106,10 @@ class GraphicsObject(object):
     
     # Flip object on horizontal axis (mirror image)
     def flipX(self):
-        pass
+#        self.transform.scale(1.0, -1.0)
+        (x, y) = self.coordinates
+        self.coordinates = (x, -1.0 * y)
+
     
     # Flip object on vertical axis
     def flipY(self):
@@ -329,30 +345,56 @@ class Group():
     def rotateAroundPoint(self, degree):
         for o in self.group:
             o.rotate(degree)
-    
-    def draw(self, window):
+
+    def groupDraw(self, window):
         for o in self.group:
             window.draw(o)
+    
 
 if ( __name__ == '__main__' ) or ( __name__ == 'main' ) :
     w = GraphicsWindow('Demo Time', 500, 500)
     w.setDefaultColor(pink)
-    e = Ellipse((100, 100), 35, 35)
-    r = Rectangle((250, 250), 100, 200, blue)
+
+    ell = Ellipse((100, 100), 35, 35)
+    rect = Rectangle((250, 250), 100, 200, blue)
     w.setDefaultColor(green)
+
     t = Text((400, 300), "Hello!", "Arial",40)
     sun = Ellipse((115, 110), 75, 75, yellow)
-    l = Line ((5,10),(100,150))
-    z = Group (r, e, sun)
+
+    line1 = Line ((5,10),(100,150))
+    line1.flipX()
+
+    z = Group (rect, ell)
     z.move(100, 100)
-    z.draw(w)
-    w.draw(t)
-    w.draw(l)
+    w.draw(line1, sun, t, z)
+
     w.setVisible(True)
 
 
 
-
+# TODO
+# implement group.draw() in window class
+#
+# demo of shape responding to mouse/key events
 
 #End of GraphicsLib.py
+
+#use graphics2d, antialiasing
+#animation style:
+# 1) cs1lib, 
+# 2) while loop
+
+
+# instance variables should be functions
+# i.e. mouseX() instead of mouseX
+
+# setStrokeColor() instead of setStroke()
+
+# all graphics library are non thread-safe
+# look up event dispatch thread for swing
+# invoke later
+
+# avoiding two threads
+# 1) wrap things in invokelater()
 
