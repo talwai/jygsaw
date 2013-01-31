@@ -2,10 +2,13 @@ from java.awt.event import ActionListener
 from java.awt.event import KeyListener
 from java.awt.event import MouseListener
 from java.awt.Color import * # so we can just say gray instead of Color.gray
-from java.awt import Font
+from java.awt import Font, Toolkit
 from java.awt.Font import *
 from javax.swing import JFrame, JPanel
 from java.awt.Graphics import fillRect, fillOval, setFont
+from java.awt import Image
+from javax.imageio import *
+from java.net import URL
 
 # Filename: GraphicsLib.py
 
@@ -167,7 +170,7 @@ class Text(GraphicsObject):
 class Image(GraphicsObject):
     def __init__(self, (x, y), url):
         super(Image, self).__init__((x,y))
-        self.imageURL = url
+        self.url = url
     #self.width = width
     #self.height = height
     
@@ -181,7 +184,7 @@ class Image(GraphicsObject):
     #self.Height = h
     
     def getUrl(self):
-        return self.Url
+        return self.url
     
         #def getWidth(self):
     #return self.width
@@ -190,8 +193,11 @@ class Image(GraphicsObject):
     #return self.height
     
     def _draw(self, g):
-        img = Toolkit.getDefaultToolKit().getImage(self.imageURL)
-        g.drawImage(img, self.coordinates[x], self.coordinates[y], null)
+        finalName = URL(getCodeBase(), self.url);
+        img = ImageIO.read(finalName);
+        g.drawImage(img, self.coordinates[0], self.coordinates[1], None)
+        w = img.getWidth(null);
+        h = img.getHeight(null);
 
 class Shape(GraphicsObject):
     def __init__(self, (x, y), width, height, color = None, filled = True):
@@ -290,7 +296,7 @@ class Point(Line):
         self.x = x
         self.y = y
     
-    def _draw(self, g)
+    def _draw(self, g):
         g.drawLine(self.x, self.y, self.x, self.y)
 
 class Arc(Shape):
@@ -351,7 +357,7 @@ class Group():
             window.draw(o)
 
 if ( __name__ == '__main__' ) or ( __name__ == 'main' ) :
-    w = GraphicsWindow('Demo Time', 500, 500)
+    w = GraphicsWindow('Demo Time', 500, 500, black)
     w.setDefaultColor(pink)
     e = Ellipse((100, 100), 35, 35, filled=False)
     r = Rectangle((250, 250), 100, 200, blue)
@@ -359,7 +365,7 @@ if ( __name__ == '__main__' ) or ( __name__ == 'main' ) :
     t = Text((400, 300), "Hello!", "Arial", 40)
     sun = Ellipse((115, 110), 75, 75, yellow)
     l = Line ((5,10),(100,150))
-    image = Image((0, 0), "~/Desktop/IMG_1744.JPG")
+    image = Image((20, 20), "puppy.jpg")
     
     z = Group (r, e, sun)
     z.move(100, 100)
