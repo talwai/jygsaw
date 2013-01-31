@@ -12,7 +12,7 @@ from java.lang import Math
 
 class GraphicsWindow(ActionListener, KeyListener, MouseListener):
     
-    def __init__(self, title, width, height):
+    def __init__(self, title, width, height, backgroundColor = white):
         assert width >0, "GraphicsWindow width must be greater than zero"
         assert height >0, "GraphicsWindow height must be greater than zero"
         self.objs = [] # List of Jy_Objects
@@ -20,7 +20,7 @@ class GraphicsWindow(ActionListener, KeyListener, MouseListener):
         self.height = height
         self.frame = JFrame(title,defaultCloseOperation = JFrame.EXIT_ON_CLOSE,
                             size = (self.width, self.height))
-        self.frame.contentPane = Canvas(self, self.objs)
+        self.frame.contentPane = Canvas(self, self.objs, backgroundColor)
     
     def setVisible(self, isVisible):
         self.frame.visible = isVisible
@@ -34,13 +34,14 @@ class GraphicsWindow(ActionListener, KeyListener, MouseListener):
 class Canvas(JPanel, ActionListener, KeyListener):
     """ Canvas to draw the action on. Owns the action and key listeners. """
     
-    def __init__(self, window, objects):
+    def __init__(self, window, objects, backgroundColor):
         self.objs = objects
         self.window = window
         self.defaultColor = gray
+        self.backgroundColor = backgroundColor
     
     def paintComponent(self, g):
-        g.background = black
+        g.background = self.backgroundColor
         g.clearRect(0, 0, self.window.width, self.window.height)
         g.setColor(white) # Set color of rectangle
         
@@ -73,9 +74,8 @@ class GraphicsObject(object):
     """
         Anything drawn on the canvas is a child of GraphicsObject.
         This class stores the location of the object (x, y) and
-        has methods to rotate, flip, translate and move the object.
-        
-        """
+        has methods to rotate, flip, translate and move the object.        
+    """
     
     def __init__(self, (x, y) = (0, 0), color = None):
         super(GraphicsObject, self).__init__()
@@ -197,7 +197,7 @@ class Image(GraphicsObject):
     
     def _draw(self, g):
         img = Toolkit.getDefaultToolKit().getImage(self.imageURL)
-        g.drawImage(img, self.coordinates[x], self.coordinates[y], width, height, null)
+        g.drawImage(img, self.coordinates[x], self.coordinates[y], null)
 
 class Shape(GraphicsObject):
     def __init__(self, (x, y), width, height, color = None, filled = True):
@@ -235,6 +235,10 @@ class Ellipse(Shape):
         assert height >0, "Ellipse height must be greater than zero"
         super(Ellipse, self).__init__((x, y), width, height, color, filled)
     
+    def scale(self):
+        pass
+
+    
     def _draw(self, g):
         if self.filled:
             g.fillOval(self.coordinates[0],
@@ -263,6 +267,9 @@ class Circle(Ellipse):
     def getRadius(self):
         return self.radius
     
+    def scale(self, scale):
+        self.radius = self.radius * scale
+    
     def _draw(self, g):
         x = x + self.radius
         y = y + self.radius
@@ -278,7 +285,6 @@ class Rectangle(Shape):
         super(Rectangle, self).__init__((x, y), width, height, color, filled)
     
     def _draw(self, g):
-        g.setColor(self.color)
         if self.filled:
             g.fillRect(self.coordinates[0], self.coordinates[1],
                        self.width, self.height)
@@ -296,6 +302,15 @@ class Line(Shape):
     
     def _draw(self, g):
         g.drawLine(self.startX, self.startY, self.endX, self.endY)
+
+class Point(Line):
+    def __init__(self, (x, y), color = None):
+        super(self, (x, y), None, color)
+        self.x = x
+        self.y = y
+    
+    def _draw(self, g)
+        g.drawLine(self.x, self.y, self.x, self.y)
 
 class Arc(Shape):
     def __init__(self, (x, y), width, height, startAngle, arcAngle, color =  None):
@@ -360,17 +375,19 @@ class Group():
 if ( __name__ == '__main__' ) or ( __name__ == 'main' ) :
     w = GraphicsWindow('Demo Time', 500, 500)
     w.setDefaultColor(pink)
-    e = Ellipse((100, 100), 35, 35)
+    e = Ellipse((100, 100), 35, 35, filled=False)
     r = Rectangle((250, 250), 100, 200, blue)
     w.setDefaultColor(green)
-    t = Text((400, 300), "Hello!", "Arial",40)
+    t = Text((400, 300), "Hello!", "Arial", 40)
     sun = Ellipse((115, 110), 75, 75, yellow)
     l = Line ((5,10),(100,150))
+    image = Image((0, 0), "~/Desktop/IMG_1744.JPG")
+    
     z = Group (r, e, sun)
     z.move(100, 100)
     z.draw(w)
     w.draw(t)
-    w.draw(l),
+    w.draw(image)
     w.setVisible(True)
 
 

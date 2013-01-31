@@ -1,10 +1,11 @@
 from graphicsWrapper import *
 
 
-def setup():
-    size(640, 360)
+canvas(640, 360)
 
 
 def draw():
     background(0.0)
-    drawCircle((mouseX, mouseY), 5.0, color=red)
+    circle((mouseX(), mouseY()), 5.0, color=red)
+
+drawFunction(draw)
