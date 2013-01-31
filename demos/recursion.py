@@ -8,7 +8,7 @@ def draw():
 # Recursively draw smaller circles
 def drawCircle(x, radius, level):
     tt = 126 * level / 4.0
-    setFill(tt)
+    fillColor(tt)
     ellipse(x, height / 2, radius * 2, radius * 2)
     if (level > 1):
         level = level - 1
