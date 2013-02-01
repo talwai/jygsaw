@@ -1,16 +1,13 @@
-from java.awt.event import ActionListener
-from java.awt.event import KeyListener
-from java.awt.event import MouseListener
+from java.awt.event import ActionListener, KeyListener, MouseListener
 from java.awt.Color import * # so we can just say gray instead of Color.gray
-from java.awt import Font, Toolkit
+from java.awt import Font
 from java.awt.Font import *
 from javax.swing import JFrame, JPanel
 from java.awt.Graphics import fillRect, fillOval, setFont
 from java.awt import Image
 from javax.imageio import *
 from java.net import URL
-from java.lang import String
-from java.lang import Math
+from java.lang import String, Math
 from java.io import File
 
 # Filename: GraphicsLib.py
@@ -19,8 +16,8 @@ from java.awt.geom import AffineTransform
 class GraphicsWindow(ActionListener, KeyListener, MouseListener):
     
     def __init__(self, title, width, height, backgroundColor = white):
-        assert width >0, "GraphicsWindow width must be greater than zero"
-        assert height >0, "GraphicsWindow height must be greater than zero"
+        assert width > 0, "GraphicsWindow width must be greater than zero"
+        assert height > 0, "GraphicsWindow height must be greater than zero"
         self.objs = [] # List of Jy_Objects
         self.width = width
         self.height = height
@@ -113,7 +110,7 @@ class GraphicsObject(object):
     
     # Flip object on horizontal axis (mirror image)
     def flipX(self):
-#        self.transform.scale(1.0, -1.0)
+#self.transform.scale(1.0, -1.0)
         (x, y) = self.coordinates
         self.coordinates = (x, -1.0 * y)
 
@@ -152,7 +149,7 @@ class GraphicsObject(object):
 
 class Text(GraphicsObject):
     def __init__(self, (x, y), s, font, size, attribute = PLAIN, color = None):
-        assert size >0, "Text size must be greater than zero"
+        assert size > 0, "Text size must be greater than zero"
         super(Text, self).__init__((x, y), color)
         self.s = s
         self.font = font # Font, however it's defined in Java...
@@ -189,8 +186,8 @@ class Text(GraphicsObject):
 
 class Image(GraphicsObject):
     def __init__(self, (x, y), url, width, height):
-        assert width >0, "Image width must be greater than zero"
-        assert height >0, "Image height must be greater than zero"
+        assert width > 0, "Image width must be greater than zero"
+        assert height > 0, "Image height must be greater than zero"
         super(Image, self).__init__((x,y))
 
         self.url = url
@@ -201,11 +198,11 @@ class Image(GraphicsObject):
         self.url = u
     
     def setWidth(self, w):
-        assert w >0, "Image width must be greater than zero"
+        assert w > 0, "Image width must be greater than zero"
         self.width = w
     
     def setHeight(self, h):
-        assert h >0, "Image height must be greater than zero"
+        assert h > 0, "Image height must be greater than zero"
         self.Height = h
     
     def getUrl(self):
@@ -218,8 +215,10 @@ class Image(GraphicsObject):
         return self.height
     
     def _draw(self, g):
+        #Need to check whether it is a file or a url -- Carla will work on this later
         img = ImageIO.read(File(self.url))
-        #URL(String(self.url))
+        #File(self.url)
+        #URL(self.url)
         g.drawImage(img, self.coordinates[0], self.coordinates[1], None)
         w = img.getWidth(None);
         h = img.getHeight(None);
@@ -241,11 +240,11 @@ class Shape(GraphicsObject):
         return self.filled
     
     def setWidth(self, w):
-        assert w >0, "Shape width must be greater than zero"
+        assert w > 0, "Shape width must be greater than zero"
         self.width = w
     
     def setHeight(self, h):
-        assert h >0, "Shape height must be greater than zero"
+        assert h > 0, "Shape height must be greater than zero"
         self.height = h
     
     def setFilled(self, f):
@@ -303,8 +302,8 @@ class Circle(Ellipse):
 
 class Rectangle(Shape):
     def __init__(self, (x, y), width, height, color = None, filled = True):
-        assert width >0, "Rectangle width must be greater than zero"
-        assert height >0, "Rectangle height must be greater than zero"
+        assert width > 0, "Rectangle width must be greater than zero"
+        assert height > 0, "Rectangle height must be greater than zero"
         super(Rectangle, self).__init__((x, y), width, height, color, filled)
     
     def _draw(self, g):
@@ -338,8 +337,8 @@ class Point(Line):
 class Arc(Shape):
     def __init__(self, (x, y), width, height, startAngle, arcAngle, color =  None):
         # Why does arc have width and height?
-        assert width >0, "Arc width must be greater than zero"
-        assert height >0, "Arc height must be greater than zero"
+        assert width > 0, "Arc width must be greater than zero"
+        assert height > 0, "Arc height must be greater than zero"
         super(Arc, self).__init__((x, y), width, height, color = self.color)
         self.startAngle = startAngle
         self.arcAngle = arcAngle
@@ -408,6 +407,9 @@ if ( __name__ == '__main__' ) or ( __name__ == 'main' ) :
     w.draw(t)
     w.draw(image)
     w.setVisible(True)
+
+    #this is a sample url image that we can use for testing things
+    #http://cdn.cutestpaw.com/wp-content/uploads/2011/11/Handsome-l.jpg
 
 
 
