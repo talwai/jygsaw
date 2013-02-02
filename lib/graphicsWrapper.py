@@ -1,78 +1,61 @@
 from GraphicsLibrary import *
-import threading
 
-
-# Still figuring out how to implement threads...
-class Graphics():
-    Window = GraphicsWindow('Empty', 100, 100)
+class GraphicsWrapper():
+    window = GraphicsWindow('Empty', 100, 100)
     FillColor = Color.none
     mouseX, mouseY
     toLoop = False
 
-    #Actually we probably should start thread in draw
-    def setup(window_title, width, height):
-        thread_draw = GraphicsWrapper()
-        thread_draw.start()
-        thread_draw.gSetup(window_title, width, height)
-
-
-class GraphicsWrapper(threading.Thread):
-    global Window
-
-    def __init__(self, window):
-        Thread.__init__()
-        Window = window
-
-    def run(self):
-        global toLoop
-        while (toLoop):
-            draw()
-
-    def canvas(window_title, width, height):
-        Window = GraphicsWindow(window_title, width, height)
+    def canvas(width = 400, height = 400, window_title = ' '):
+        global window
+        window = GraphicsWindow(window_title, width, height)
+        window.setVisible(True)
 
     def line((x1, y1), (x2, y2), color=None):
         global FillColor
         if color == None:
             color = FillColor
         new_line = Line(self, (x1, y1), (x2, y2))
-        Window.draw(new_line)
+        window.draw(new_line)
 
     def rect((x, y), rectWidth, rectHeight, color=None, filled=True, stroke=False):
         global FillColor
         if color == None:
             color = FillColor
         new_rect = Rectangle(self, (x, y), rectWidth, rectHeight, color, true)
-        Window.draw(new_rect)
+        window.draw(new_rect)
 
     def circle((x, y), radius, color=None, filled=True, stroke=False):
         global FillColor
         if color == None:
             color = FillColor
         new_circle = Circle(self, (x, y), radius, FillColor, filled, stroke)
-        Window.draw(new_circle)
+        window.draw(new_circle)
 
     def ellipse((x, y), width, height, color=None, filled=True, stroke=False):
         global FillColor
         if color == None:
             color = FillColor
         new_ellipse = Ellipse(self, (x, y), width, height, color, filled)
-        Window.draw(new_ellipse)
+        window.draw(new_ellipse)
 
 # It would be nice to have the option to not specify the width
 # and height. Is there a way to get the default width/height of image?
     def drawImage((x, y), imagePath, width, height):
-        global Window
+        global window
         img = Image((x, y), imagePath, width, height)
-        Window.draw(img)
+        window.draw(img)
+
+    def fill(color):
+        window.setDefaultColor(color)
 
     def setBackground(r, g, b):
-        global Window
-        Window.contentPane.background = (r, g, b)
+        global window
+        window.contentPane.background = (r, g, b)
 
     def draw():
-        for img in Window.objs:
-            img._draw(Window)
+        for img in window.objs:
+            img._draw(window)
 
 
 #################################### Example #####################################
