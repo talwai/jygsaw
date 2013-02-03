@@ -1,21 +1,38 @@
+from __future__ import with_statement
+from GraphicsObject import *
 from java.awt import Image
 from javax.imageio import *
-from java.net import URL
 from java.io import File
-from GraphicsObject import *
+from java.net import URL
+import urllib2
 
 class Image(GraphicsObject):
-    def __init__(self, (x, y), url, width, height):
-        assert width > 0, "Image width must be greater than zero"
-        assert height > 0, "Image height must be greater than zero"
+    def __init__(self, (x, y), path, width = None, height = None):
         super(Image, self).__init__((x,y))
+        
+        self.url = self.check_valid_url(path)
+        
+        self.path = path
 
-        self.url = url
         self.width = width
         self.height = height
-    
-    def setUrl(self, u):
-        self.url = u
+
+    def check_valid_url(self, path):
+        request = urllib2.Request(path)
+        request.get_method = lambda : 'HEAD'
+        try:
+            response = urllib2.urlopen(request)
+            return True
+        except Exception:
+            try:
+                with open(path) as f: pass
+                return False
+            except Exception:
+                print "Error could not find image"
+
+
+    def setPath(self, p):
+        self.path = p
     
     def setWidth(self, w):
         assert w > 0, "Image width must be greater than zero"
@@ -25,8 +42,8 @@ class Image(GraphicsObject):
         assert h > 0, "Image height must be greater than zero"
         self.Height = h
     
-    def getUrl(self):
-        return self.url
+    def getPath(self):
+        return self.path
     
     def getWidth(self):
         return self.width
@@ -35,10 +52,19 @@ class Image(GraphicsObject):
         return self.height
     
     def _draw(self, g):
-        #Need to check whether it is a file or a url -- Carla will work on this later
-        img = ImageIO.read(File(self.url))
-        #File(self.url)
-        #URL(self.url)
-        g.drawImage(img, self.coordinates[0], self.coordinates[1], None)
-        w = img.getWidth(None);
-        h = img.getHeight(None);
+     
+        img = None
+        if self.url:
+            img = ImageIO.read(URL(self.path))
+        else:
+            img = ImageIO.read(File(self.path))
+            
+        if self.width == None:
+            self.width = img.getWidth()
+        if self.height == None:
+            self.height = img.getHeight()
+
+        print "width = ", self.width
+        print "height = ", self.height
+
+        g.drawImage(img, self.coordinates[0], self.coordinates[1], self.width, self.height, g.backgroundColor, None)

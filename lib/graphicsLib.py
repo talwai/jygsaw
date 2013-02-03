@@ -13,7 +13,7 @@ if ( __name__ == '__main__' ) or ( __name__ == 'main' ) :
     t = Text((400, 300), "Hello!", "Arial", 40)
     sun = Ellipse((115, 110), 75, 75, yellow)
     l = Line ((5,10),(100,150))
-    image = Image((20, 20), "puppy.jpg", 400, 400)
+    image = Image((20, 20), "puppy.jpg")
     z = Group (r, e, sun)
     z.move(100, 100)
     #    z.draw(w)
