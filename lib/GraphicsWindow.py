@@ -13,15 +13,15 @@ from Text import *
 
 
 class GraphicsWindow(ActionListener, KeyListener, MouseListener):
-    
-    def __init__(self, title, width, height, backgroundColor = white):
-        assert width > 0, "GraphicsWindow width must be greater than zero"
-        assert height > 0, "GraphicsWindow height must be greater than zero"
+    #setters and getters for width and height
+    def __init__(self, title, w, h, backgroundColor = white):
+        assert w > 0, "GraphicsWindow width must be greater than zero"
+        assert h > 0, "GraphicsWindow height must be greater than zero"
         self.objs = [] # List of Jy_Objects
-        self.width = width
-        self.height = height
+        self.w = w
+        self.h = h
         self.frame = JFrame(title,defaultCloseOperation = JFrame.EXIT_ON_CLOSE,
-                            size = (self.width, self.height))
+                            size = (self.w, self.h))
         self.frame.contentPane = Canvas(self, self.objs, backgroundColor)
     
     def setVisible(self, isVisible):
@@ -55,7 +55,7 @@ class Canvas(JPanel, ActionListener, KeyListener):
     
     def paintComponent(self, g):
         g.background = self.backgroundColor
-        g.clearRect(0, 0, self.window.width, self.window.height)
+        g.clearRect(0, 0, self.window.w, self.window.h)
         g.setColor(white) # Set color of rectangle
         
         print 'Canvas # objs', len(self.objs)
