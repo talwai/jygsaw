@@ -1,6 +1,8 @@
 from GraphicsObject import *
 from java.awt.Graphics import fillRect, fillOval
 
+# Set stroke for all of the shapes that could possible use it
+
 class Shape(GraphicsObject):
     def __init__(self, (x, y), width, height, color = None, filled = True):
         super(Shape, self).__init__((x, y), color)

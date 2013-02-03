@@ -4,7 +4,7 @@ from GraphicsWindow import *
 ## Parking lot: class RegPolygon(Polygon):
 
 if ( __name__ == '__main__' ) or ( __name__ == 'main' ) :
-    w = GraphicsWindow('Demo Time', 500, 500, black)
+    w = GraphicsWindow('Demo Time', 1000, 1000, black)
     w.setDefaultColor(pink)
     e = Ellipse((100, 100), 35, 35, filled=False)
     r = Rectangle((250, 250), 100, 200, blue)
@@ -12,13 +12,17 @@ if ( __name__ == '__main__' ) or ( __name__ == 'main' ) :
     t = Text((400, 300), "Hello!", "Arial", 40)
     sun = Ellipse((115, 110), 75, 75, yellow)
     l = Line ((5,10),(100,150))
-    image = Image((20, 20), "puppy.jpg")
+    image = Image((300, 400), "puppy.jpg")
+    image2 = Image((100, 400), "http://cdn.cutestpaw.com/wp-content/uploads/2011/11/Handsome-l.jpg")
+
     z = Group (r, e, sun)
     z.move(100, 100)
     w.draw(z)
     w.draw(t)
     w.draw(image)
+    w.draw(image2)
     w.setVisible(True)
+    w.redraw()
 
     #this is a sample url image that we can use for testing things
     #http://cdn.cutestpaw.com/wp-content/uploads/2011/11/Handsome-l.jpg

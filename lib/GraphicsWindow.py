@@ -66,6 +66,9 @@ class GraphicsWindow(ActionListener, KeyListener, MouseInputListener):
     def getBackgroundColor(self):
         return self.background
 
+    def redraw(self):
+        self.frame.contentPane.repaint()
+
     #We put these mouse location methods in the window class in case we implement multiple panels    
     #MouseListener methods
     def mouseEntered (self, e):
