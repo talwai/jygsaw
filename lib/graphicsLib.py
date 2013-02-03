@@ -1,5 +1,4 @@
 # Filename: graphicsLib.py
-
 from GraphicsWindow import *
 
 ## Parking lot: class RegPolygon(Polygon):
@@ -16,7 +15,7 @@ if ( __name__ == '__main__' ) or ( __name__ == 'main' ) :
     image = Image((20, 20), "puppy.jpg")
     z = Group (r, e, sun)
     z.move(100, 100)
-    #    z.draw(w)
+    w.draw(z)
     w.draw(t)
     w.draw(image)
     w.setVisible(True)
@@ -25,6 +24,7 @@ if ( __name__ == '__main__' ) or ( __name__ == 'main' ) :
     #http://cdn.cutestpaw.com/wp-content/uploads/2011/11/Handsome-l.jpg
 
 
+#End of GraphicsLib.py
 
 
 # TODO
@@ -32,13 +32,11 @@ if ( __name__ == '__main__' ) or ( __name__ == 'main' ) :
 #
 # demo of shape responding to mouse/key events
 
-#End of GraphicsLib.py
 
 #use graphics2d, antialiasing
 #animation style:
 # 1) cs1lib, 
 # 2) while loop
-
 
 # instance variables should be functions
 # i.e. mouseX() instead of mouseX
@@ -51,4 +49,3 @@ if ( __name__ == '__main__' ) or ( __name__ == 'main' ) :
 
 # avoiding two threads
 # 1) wrap things in invokelater()
-
