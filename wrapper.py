@@ -20,10 +20,6 @@ strokeColor(30) # Same color scheme as background
 fillColor(30)   # Same color scheme as background
 
 point(p4, p4, color = None)
-line((x1, y1), (x2, y2), color = None)
-circle((x, y), radius, color = None, filled = True, stroke = False)
-rect((x, y), width, height, color = None, filled = True, stroke = False)
-ellipse((x, y), width, height, color = None, filled = True, stroke = Falset)
 polygon((x1, y1), (x2, y2), (x3, y3), color = None, filled = True, stroke = False) # Points (triangle)
 arc((x, y), width, height, startAngle, endAngle, color = None, filled = True, stroke = False)
 
