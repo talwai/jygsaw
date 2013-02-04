@@ -4,6 +4,7 @@ from Group import *
 from Image import *
 from Shape import *
 from Text import *
+from java.awt import Color
 
 
 #class GraphicsWrapper():
@@ -14,21 +15,21 @@ toLoop = False
 """
 Creates a new window. Width, height and title can be set optionally as well
 """
-def canvas(width = 400, height = 400, window_title = ' '):
+def canvas(width = 400, height = 400, window_title = ' ', background = white):
     global window
-    window = GraphicsWindow(window_title, width, height)
+    window = GraphicsWindow(window_title, width, height, background)
 
 
 """
 Returns the width of the window
 """
-def width():
+def width(): # doesn't work
     return window.width
 
 """
 Returns the width of the window
 """
-def height():
+def height(): # doesn't work
     return window.height
 
 """
@@ -38,7 +39,7 @@ def line((x1, y1), (x2, y2), color=None):
     #global FillColor
     #if color == None:
     #    color = FillColor
-    new_line = Line(self, (x1, y1), (x2, y2))
+    new_line = Line((x1, y1), (x2, y2))
     window.draw(new_line)
     return new_line
 
@@ -73,7 +74,7 @@ def ellipse((x, y), width = 100, height = 100, color=None, filled=True, stroke=F
     #global FillColor
     #if color == None:
     #    color = FillColor
-    new_ellipse = Ellipse(self, (x, y), width, height, color, filled)
+    new_ellipse = Ellipse((x, y), width, height, color, filled)
     window.draw(new_ellipse)
     return new_ellipse
 
@@ -81,11 +82,11 @@ def ellipse((x, y), width = 100, height = 100, color=None, filled=True, stroke=F
 Creates a polygon whose points are given in a list as the first argument. Width, height, color, filled status and stroke status can
 be optionally modified
 """
-def polygon (vertices, width = 100, height = 100, color = None, filled = True, stroke = False):
+def polygon (vertices, color = None, filled = True, stroke = False):
     #global FillColor
     #if color == None:
     #    color = FillColor
-    new_polygon = Polygon (self, vertices, color, filled, stroke)
+    new_polygon = Polygon (vertices, color, filled)
     window.draw(new_polygon)
     return new_polygon
 
@@ -122,17 +123,19 @@ def fill(color):
 """
 Sets the background color of the window.
 """
-def setBackground(r, g, b):
-    global window
-    window.contentPane.background = (r, g, b)
-
+def setBackground(color):
+    window.setBackgroundColor(color)
+    # It would be nice to be able to accept multiple types of color input (r,g,b or name of color)
+    # Doesn't seem to work
+    
 """
 Draws all of the objects on the window
 """
-    #def draw():
-    #   for img in window.objs:
-    #      img._draw(window)
+def draw():
+    window.setVisible(True)
 
+def redraw():
+    window.redraw()
 
 
 def mousePressed():
@@ -141,6 +144,20 @@ def mousePressed():
 
 if ( __name__ == '__main__' ) or ( __name__ == 'main' ):
     canvas()
+    
     rect((10,10))
-    circle((10,110))
-    window.setVisible(True)
+    
+    line((150,10),(200,10))
+    
+    ellipse((10,150))
+    
+    vertices = [(150,150),(160,160), (160, 150)]
+    #polygon(vertices)
+    
+    #arc((250, 250))
+        
+    #circle((10,110))
+
+    #setBackground(black)
+    
+    draw()
