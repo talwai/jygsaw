@@ -1,3 +1,7 @@
 *~
 *.py[cod]
+<<<<<<< HEAD
 *.class
+=======
+*.class
+>>>>>>> bd4c9d9ff0e09bfdb459a304edfd6a9c2f4054fd
