@@ -4,12 +4,12 @@ from Group import *
 from Image import *
 from Shape import *
 from Text import *
-from java.awt import Color
+from java.awt.Color import *
 
 
 #class GraphicsWrapper():
 window = GraphicsWindow('Empty', 100, 100)
-#FillColor = Color.white
+#FillColor = white
 toLoop = False
 
 """
@@ -23,14 +23,14 @@ def canvas(width = 400, height = 400, window_title = ' ', background = white):
 """
 Returns the width of the window
 """
-def width(): # doesn't work
-    return window.width
+def width():
+    return window.w
 
 """
 Returns the width of the window
 """
-def height(): # doesn't work
-    return window.height
+def height():
+    return window.h
 
 """
 Draws a line between coordinates (x1, y1), and (x2 and y2). You can optionally set the color as well
@@ -127,7 +127,6 @@ def setBackground(color):
     window.setBackgroundColor(color)
     # It would be nice to be able to accept multiple types of color input (r,g,b or name of color)
     # Doesn't seem to work
-    
 """
 Draws all of the objects on the window
 """
@@ -145,19 +144,25 @@ def mousePressed():
 if ( __name__ == '__main__' ) or ( __name__ == 'main' ):
     canvas()
     
+    fill(blue)
+    
     rect((10,10))
     
     line((150,10),(200,10))
+
+    fill(red)
     
     ellipse((10,150))
+
+    print width(), height()
     
-    vertices = [(150,150),(160,160), (160, 150)]
-    #polygon(vertices)
+    vertices = [(250,250),(360,360), (360, 250)]
+    polygon(vertices)
     
     #arc((250, 250))
         
     #circle((10,110))
 
-    #setBackground(black)
+    setBackground(black)
     
     draw()

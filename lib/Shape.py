@@ -129,12 +129,12 @@ class Arc(Shape):
 
 class Polygon(Shape):
     def __init__(self, vertices, color = None, filled = True):
-        super(Polygon, self).__init__(self, color = self.color, filled = True)
+        super(Polygon, self).__init__(vertices[0], 0, 0, color, True)
         self.vertices = vertices
     
     def _draw(self, g):
-        (xValues, yValues) = zip(*vertices)
+        (xValues, yValues) = zip(*self.vertices)
         if self.filled:
-            g.fillPolygon(xValues, yValues, vertices.length)
+            g.fillPolygon(xValues, yValues, len(self.vertices))
         else:
-            g.drawPolygon(xValues, yValues, vertices.length)
+            g.drawPolygon(xValues, yValues, len(self.vertices))
