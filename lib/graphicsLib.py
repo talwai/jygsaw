@@ -22,6 +22,8 @@ if ( __name__ == '__main__' ) or ( __name__ == 'main' ) :
     w.draw(image)
     w.draw(image2)
     w.setVisible(True)
+    w.setBackgroundColor(white)
+
     w.redraw()
 
     #this is a sample url image that we can use for testing things
