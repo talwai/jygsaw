@@ -61,6 +61,7 @@ class GraphicsWindow(ActionListener, KeyListener, MouseInputListener):
         self.frame.contentPane.setDefaultColor(c)
 
     def setBackgroundColor(self, c):
+        self.frame.contentPane.setBackgroundColor(c)
         self.background = c
 
     def getBackgroundColor(self):
@@ -140,5 +141,8 @@ class Canvas(JPanel):
 
     def setDefaultColor(self, c):
         self.defaultColor = c
+
+    def setBackgroundColor(self, c):
+        self.backgroundColor = c
 
 
