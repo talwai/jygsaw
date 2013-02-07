@@ -8,9 +8,7 @@ from java.awt.Color import *
 import inspect
 
 
-#class GraphicsWrapper():
 window = GraphicsWindow('Empty', 100, 100)
-#FillColor = white
 toLoop = False
 Stroke = False
 
@@ -113,16 +111,50 @@ def setBackground(color):
     window.setBackgroundColor(color)
     # It would be nice to be able to accept multiple types of color input (r,g,b or name of color)
 
+
+# Mouse and Key Listener functions
+"""
+Returns x coordinate of the mouse
+"""
 def mouseX():
-    return window.mouseX()
+    return window.mouseX
 
+"""
+Returns y coordinate of the mouse
+"""
 def mouseY():
-    return window.mouseY()
+    return window.mouseY
 
+"""
+Returns true if mouse is pressed, otherwise false
+"""
+def mousePressed():
+    return window.mouseP
+
+"""
+Returns true if mouse is clicked, otherwise false
+"""
+def mouseClicked():
+    return window.mouseC
+
+"""
+Returns true if mouse is dragged, otherwise false
+"""
+def mouseDragged():
+    return window.mouseD
+
+
+"""
+Sets stroke to false
+"""
 def noStroke():
     global Stroke
     Stroke = False
 
+
+"""
+Sets stroke to true
+"""
 def stroke():
     global Stroke
     Stroke = True
@@ -132,7 +164,6 @@ Redraws all of the objects on the window
 """
 def redraw():
     window.redraw()
-
 
 
 if ( __name__ == '__main__' ) or ( __name__ == 'main' ):
@@ -155,7 +186,14 @@ if ( __name__ == '__main__' ) or ( __name__ == 'main' ):
     polygon(vertices)
     
     #arc(250, 250)
-        
+    
     #circle(10,110)
 
     setBackground(black)
+
+    while True:
+        if mouseClicked():
+            print 'Yay'
+
+    
+
