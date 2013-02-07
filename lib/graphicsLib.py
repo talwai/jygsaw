@@ -1,5 +1,6 @@
 # Filename: graphicsLib.py
 from GraphicsWindow import *
+from time import sleep
 
 ## Parking lot: class RegPolygon(Polygon):
 
@@ -12,6 +13,7 @@ if ( __name__ == '__main__' ) or ( __name__ == 'main' ) :
     t = Text((400, 300), "Hello!", "Arial", 40)
     sun = Ellipse((115, 110), 75, 75, yellow)
     l = Line ((5,10),(100,150))
+    
     image = Image((300, 400), "puppy.jpg")
     image2 = Image((100, 400), "http://cdn.cutestpaw.com/wp-content/uploads/2011/11/Handsome-l.jpg")
 
@@ -24,7 +26,9 @@ if ( __name__ == '__main__' ) or ( __name__ == 'main' ) :
     w.setVisible(True)
     w.setBackgroundColor(white)
 
-    w.redraw()
+    sleep(5)
+
+    w.clear()
 
     #this is a sample url image that we can use for testing things
     #http://cdn.cutestpaw.com/wp-content/uploads/2011/11/Handsome-l.jpg
