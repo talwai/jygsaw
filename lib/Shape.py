@@ -51,14 +51,14 @@ class Ellipse(Shape):
                        self.coordinates[1],
                        self.width,
                        self.height)
-    
+
     def rotate(self, degrees):
         math.radians(degrees)
 
 class Circle(Ellipse):
     def __init__(self, (x, y), radius, color = None, filled = True):
         assert radius >0, "Circle radius must be greater than zero"
-        super(Circle, self).__init__((x, y), color = self.color, filled = self.filled)
+        super(Circle, self).__init__((x, y), color, filled)
         self.radius = radius
     
     def setRadius(self, r):
@@ -118,7 +118,7 @@ class Arc(Shape):
         # Why does arc have width and height?
         assert width > 0, "Arc width must be greater than zero"
         assert height > 0, "Arc height must be greater than zero"
-        super(Arc, self).__init__((x, y), width, height, color = self.color)
+        super(Arc, self).__init__((x, y), width, height, color)
         self.startAngle = startAngle
         self.arcAngle = arcAngle
     
@@ -129,7 +129,7 @@ class Arc(Shape):
 
 class Polygon(Shape):
     def __init__(self, vertices, color = None, filled = True):
-        super(Polygon, self).__init__(self, color = self.color, filled = True)
+        super(Polygon, self).__init__(self, color, filled)
         self.vertices = vertices
     
     def _draw(self, g):

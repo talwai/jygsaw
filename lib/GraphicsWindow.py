@@ -50,6 +50,8 @@ class GraphicsWindow(ActionListener, KeyListener, MouseInputListener):
     def draw(self, *params):        
         for arg in params:
             if isinstance(arg, GraphicsObject):
+                if arg.color == None:
+                    arg.color = self.frame.contentPane.defaultColor
                 self.objs.append(arg)
             elif isinstance(arg, Group):
                 for obj in arg.group:
@@ -133,10 +135,7 @@ class Canvas(JPanel):
         print 'Canvas # objs', len(self.objs)
         
         for i in range(len(self.objs)):
-            if self.objs[i].color == None:
-                g.setColor(self.defaultColor)
-            else:
-                g.setColor(self.objs[i].getColor())
+            g.setColor(self.objs[i].getColor())
             self.objs[i]._draw(g)
 
     def setDefaultColor(self, c):
