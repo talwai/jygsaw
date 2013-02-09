@@ -35,11 +35,23 @@ class GraphicsWindow(ActionListener, KeyListener, MouseInputListener):
         self.mouseP = False
         self.mouseC = False
         self.mouseD = False
-    
+
+        # Mouse callbacks
+        self.onMouseClicked = None
+        self.onMouseDragged = None
+        self.onMouseMoved = None
+        self.onMousePressed = None
+        self.onMouseReleased = None
+        
         #KeyEvent booleans keyPressed, keyTyped
         self.keyP = False
         self.keyT = False
-    
+
+        # Key callbacks
+        self.onKeyPressed = None
+        self.onKeyReleased = None
+        self.onKeyTyped = None
+
     def setVisible(self, isVisible):
         self.frame.visible = isVisible
     
@@ -94,40 +106,47 @@ class GraphicsWindow(ActionListener, KeyListener, MouseInputListener):
     
     def mouseClicked (self,e):
         self.mouseC = True
-    
+        self.onMouseClicked()
+
     def mouseExited (self,e):
         pass
 
     def mousePressed (self,e):
         self.mouseP = True
+        self.onMousePressed()
 
     def mouseReleased (self,e):
         self.mouseP = False
         self.mouseC = False
         self.mouseD = False
+        self.onMouseReleased()
 
     def mouseMoved (self,e):
         self.mouseX = e.getXOnScreen()
         self.mouseY = e.getYOnScreen()
+        self.onMouseMoved()
         print self.mouseX
         print self.mouseY
 
     def mouseDragged (self,e):
         self.mouseD = True
-        
+        self.onMouseDragged()
+
     #KeyListener methods
     def keyTyped (self,e):
         self.keyT = True
         print e.getKeyChar()
+        self.onKeyTyped()
 
     def keyPressed (self,e):
         self.keyP = True
+        self.onKeyPressed()
         print e.getKeyChar()
 
     def keyReleased (self,e):
         self.keyT = False
         self.keyP = False
-
+        self.onKeyReleased()
 
 
 class Canvas(JPanel):
