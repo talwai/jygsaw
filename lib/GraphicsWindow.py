@@ -50,6 +50,8 @@ class GraphicsWindow(ActionListener, KeyListener, MouseInputListener):
     def draw(self, *params):        
         for arg in params:
             if isinstance(arg, GraphicsObject):
+                if arg.color == None:
+                    arg.color = self.frame.contentPane.defaultColor
                 self.objs.append(arg)
             elif isinstance(arg, Group):
                 for obj in arg.group:
@@ -70,6 +72,12 @@ class GraphicsWindow(ActionListener, KeyListener, MouseInputListener):
     def redraw(self):
         self.frame.contentPane.repaint()
 
+    def clear(self):
+        self.objs = []
+        self.frame.contentPane.objs = self.objs
+        self.redraw()
+
+
     #We put these mouse location methods in the window class in case we implement multiple panels    
     #MouseListener methods
     def mouseEntered (self, e):
@@ -89,17 +97,21 @@ class GraphicsWindow(ActionListener, KeyListener, MouseInputListener):
     
     def mouseExited (self,e):
         pass
+
     def mousePressed (self,e):
         self.mouseP = True
+
     def mouseReleased (self,e):
         self.mouseP = False
         self.mouseC = False
         self.mouseD = False
+
     def mouseMoved (self,e):
         self.mouseX = e.getXOnScreen()
         self.mouseY = e.getYOnScreen()
         print self.mouseX
         print self.mouseY
+
     def mouseDragged (self,e):
         self.mouseD = True
         
@@ -107,9 +119,11 @@ class GraphicsWindow(ActionListener, KeyListener, MouseInputListener):
     def keyTyped (self,e):
         self.keyT = True
         print e.getKeyChar()
+
     def keyPressed (self,e):
         self.keyP = True
         print e.getKeyChar()
+
     def keyReleased (self,e):
         self.keyT = False
         self.keyP = False
@@ -133,10 +147,7 @@ class Canvas(JPanel):
         print 'Canvas # objs', len(self.objs)
         
         for i in range(len(self.objs)):
-            if self.objs[i].color == None:
-                g.setColor(self.defaultColor)
-            else:
-                g.setColor(self.objs[i].getColor())
+            g.setColor(self.objs[i].getColor())
             self.objs[i]._draw(g)
 
     def setDefaultColor(self, c):
