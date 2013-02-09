@@ -28,10 +28,10 @@ class GraphicsWindow(ActionListener, KeyListener, MouseInputListener):
         self.frame.addMouseListener(self) 
         self.frame.addMouseMotionListener(self)
         self.frame.addKeyListener(self)
+
+        # MouseEvent booleans
         self.mouseX = 0
         self.mouseY = 0
-        
-        #MouseEvent booleans mousePressed, mouseClicked, mouseDragged
         self.mouseP = False
         self.mouseC = False
         self.mouseD = False
@@ -95,9 +95,10 @@ class GraphicsWindow(ActionListener, KeyListener, MouseInputListener):
     def mouseEntered (self, e):
         self.mouseX = e.getXOnScreen()
         self.mouseY = e.getYOnScreen()
-        print self.mouseX
-        print self.mouseY
-    
+        if __debug__:
+            print self.mouseX
+            print self.mouseY
+        
     def mouseX (self):
         return self.mouseX    
     
@@ -106,47 +107,58 @@ class GraphicsWindow(ActionListener, KeyListener, MouseInputListener):
     
     def mouseClicked (self,e):
         self.mouseC = True
-        self.onMouseClicked()
+        if self.onMouseClicked:
+            self.onMouseClicked()
 
     def mouseExited (self,e):
         pass
 
     def mousePressed (self,e):
         self.mouseP = True
-        self.onMousePressed()
+        if self.onMousePressed:
+            self.onMousePressed()
 
     def mouseReleased (self,e):
         self.mouseP = False
         self.mouseC = False
         self.mouseD = False
-        self.onMouseReleased()
+        if self.onMouseReleased:
+            self.onMouseReleased()
 
     def mouseMoved (self,e):
         self.mouseX = e.getXOnScreen()
         self.mouseY = e.getYOnScreen()
-        self.onMouseMoved()
-        print self.mouseX
-        print self.mouseY
+        if self.onMouseMoved:
+            self.onMouseMoved()
+        if __debug__:
+            print self.mouseX
+            print self.mouseY
 
     def mouseDragged (self,e):
         self.mouseD = True
-        self.onMouseDragged()
+        if self.onMouseDragged:
+            self.onMouseDragged()
 
     #KeyListener methods
     def keyTyped (self,e):
         self.keyT = True
-        print e.getKeyChar()
-        self.onKeyTyped()
+        if __debug__:
+            print e.getKeyChar()
+        if self.onKeyTyped:
+            self.onKeyTyped()
 
     def keyPressed (self,e):
         self.keyP = True
-        self.onKeyPressed()
-        print e.getKeyChar()
+        if self.onKeyPressed:
+            self.onKeyPressed()
+        if __debug__:
+            print e.getKeyChar()
 
     def keyReleased (self,e):
         self.keyT = False
         self.keyP = False
-        self.onKeyReleased()
+        if self.onKeyReleased:
+            self.onKeyReleased()
 
 
 class Canvas(JPanel):
