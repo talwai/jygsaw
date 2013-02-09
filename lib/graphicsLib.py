@@ -1,11 +1,11 @@
 # Filename: graphicsLib.py
-
 from GraphicsWindow import *
+from time import sleep
 
 ## Parking lot: class RegPolygon(Polygon):
 
 if ( __name__ == '__main__' ) or ( __name__ == 'main' ) :
-    w = GraphicsWindow('Demo Time', 500, 500, black)
+    w = GraphicsWindow('Demo Time', 1000, 1000, black)
     w.setDefaultColor(pink)
     e = Ellipse((100, 100), 35, 35, filled=False)
     r = Rectangle((250, 250), 100, 200, blue)
@@ -16,18 +16,26 @@ if ( __name__ == '__main__' ) or ( __name__ == 'main' ) :
     image = Image((20, 20), "puppy.jpg")
     q = Polygon ([(100,100),(150,250),(200,300)],blue)
     p = RegPolygon((200,200),5,50)
-    z = Group (q,p)
-    #z.move(100, 100)
-    #    z.draw(w)
+    z = Group (q,p, r,e,sun)
+    z.move(100, 100)
     w.draw(z)
-    #w.draw(t)
-    #w.draw(image)
+    image2 = Image((100, 400), "http://cdn.cutestpaw.com/wp-content/uploads/2011/11/Handsome-l.jpg")
+    w.draw(z)
+    w.draw(t)
+    w.draw(image)
+    w.draw(image2)
     w.setVisible(True)
+    w.setBackgroundColor(white)
+
+    sleep(5)
+
+    w.clear()
 
     #this is a sample url image that we can use for testing things
     #http://cdn.cutestpaw.com/wp-content/uploads/2011/11/Handsome-l.jpg
 
 
+#End of GraphicsLib.py
 
 
 # TODO
@@ -35,13 +43,11 @@ if ( __name__ == '__main__' ) or ( __name__ == 'main' ) :
 #
 # demo of shape responding to mouse/key events
 
-#End of GraphicsLib.py
 
 #use graphics2d, antialiasing
 #animation style:
 # 1) cs1lib, 
 # 2) while loop
-
 
 # instance variables should be functions
 # i.e. mouseX() instead of mouseX
@@ -54,4 +60,3 @@ if ( __name__ == '__main__' ) or ( __name__ == 'main' ) :
 
 # avoiding two threads
 # 1) wrap things in invokelater()
-

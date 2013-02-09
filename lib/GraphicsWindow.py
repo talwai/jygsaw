@@ -20,24 +20,38 @@ class GraphicsWindow(ActionListener, KeyListener, MouseInputListener):
         self.objs = [] # List of Jy_Objects
         self.w = w
         self.h = h
+        self.backgroundColor = backgroundColor
+
         self.frame = JFrame(title,defaultCloseOperation = JFrame.EXIT_ON_CLOSE,
                             size = (self.w, self.h))
-        self.frame.contentPane = Canvas(self, self.objs, backgroundColor)
+        self.frame.contentPane = Canvas(self, self.objs, self.backgroundColor)
         self.frame.addMouseListener(self) 
         self.frame.addMouseMotionListener(self)
         self.frame.addKeyListener(self)
+
+        # MouseEvent booleans
         self.mouseX = 0
         self.mouseY = 0
-        
-        #MouseEvent booleans mousePressed, mouseClicked, mouseDragged
         self.mouseP = False
         self.mouseC = False
         self.mouseD = False
-    
+
+        # Mouse callbacks
+        self.onMouseClicked = None
+        self.onMouseDragged = None
+        self.onMouseMoved = None
+        self.onMousePressed = None
+        self.onMouseReleased = None
+        
         #KeyEvent booleans keyPressed, keyTyped
         self.keyP = False
         self.keyT = False
-    
+
+        # Key callbacks
+        self.onKeyPressed = None
+        self.onKeyReleased = None
+        self.onKeyTyped = None
+
     def setVisible(self, isVisible):
         self.frame.visible = isVisible
     
@@ -48,6 +62,8 @@ class GraphicsWindow(ActionListener, KeyListener, MouseInputListener):
     def draw(self, *params):        
         for arg in params:
             if isinstance(arg, GraphicsObject):
+                if arg.color == None:
+                    arg.color = self.frame.contentPane.defaultColor
                 self.objs.append(arg)
             elif isinstance(arg, Group):
                 for obj in arg.group:
@@ -58,45 +74,92 @@ class GraphicsWindow(ActionListener, KeyListener, MouseInputListener):
     def setDefaultColor(self, c):
         self.frame.contentPane.setDefaultColor(c)
 
+    def setBackgroundColor(self, c):
+        self.frame.contentPane.setBackgroundColor(c)
+        self.background = c
+
+    def getBackgroundColor(self):
+        return self.background
+
+    def redraw(self):
+        self.frame.contentPane.repaint()
+
+    def clear(self):
+        self.objs = []
+        self.frame.contentPane.objs = self.objs
+        self.redraw()
+
+
     #We put these mouse location methods in the window class in case we implement multiple panels    
     #MouseListener methods
     def mouseEntered (self, e):
         self.mouseX = e.getXOnScreen()
         self.mouseY = e.getYOnScreen()
-        print self.mouseX
-        print self.mouseY
+        if __debug__:
+            print self.mouseX
+            print self.mouseY
+        
     def mouseX (self):
         return self.mouseX    
+    
     def mouseY (self):
         return self.mouseY
+    
     def mouseClicked (self,e):
         self.mouseC = True
+        if self.onMouseClicked:
+            self.onMouseClicked()
+
     def mouseExited (self,e):
         pass
+
     def mousePressed (self,e):
         self.mouseP = True
+        if self.onMousePressed:
+            self.onMousePressed()
+
     def mouseReleased (self,e):
         self.mouseP = False
         self.mouseC = False
         self.mouseD = False
+        if self.onMouseReleased:
+            self.onMouseReleased()
+
     def mouseMoved (self,e):
         self.mouseX = e.getXOnScreen()
         self.mouseY = e.getYOnScreen()
-        print self.mouseX
-        print self.mouseY
+        if self.onMouseMoved:
+            self.onMouseMoved()
+        if __debug__:
+            print self.mouseX
+            print self.mouseY
+
     def mouseDragged (self,e):
         self.mouseD = True
-        
+        if self.onMouseDragged:
+            self.onMouseDragged()
+
     #KeyListener methods
     def keyTyped (self,e):
         self.keyT = True
-        print e.getKeyChar()
+        if __debug__:
+            print e.getKeyChar()
+        if self.onKeyTyped:
+            self.onKeyTyped()
+
     def keyPressed (self,e):
         self.keyP = True
-        print e.getKeyChar()
+        if self.onKeyPressed:
+            self.onKeyPressed()
+        if __debug__:
+            print e.getKeyChar()
+
     def keyReleased (self,e):
         self.keyT = False
         self.keyP = False
+        if self.onKeyReleased:
+            self.onKeyReleased()
+
 
 class Canvas(JPanel):
     """ Canvas to draw the action on. Owns the action and key listeners. """
@@ -115,13 +178,13 @@ class Canvas(JPanel):
         print 'Canvas # objs', len(self.objs)
         
         for i in range(len(self.objs)):
-            if self.objs[i].color == None:
-                g.setColor(self.defaultColor)
-            else:
-                g.setColor(self.objs[i].getColor())
+            g.setColor(self.objs[i].getColor())
             self.objs[i]._draw(g)
 
     def setDefaultColor(self, c):
         self.defaultColor = c
+
+    def setBackgroundColor(self, c):
+        self.backgroundColor = c
 
 

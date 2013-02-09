@@ -3,6 +3,8 @@ from java.awt.Graphics import fillRect, fillOval
 from java.awt.Graphics2D
 from java.lang.Math import PI, cos, sin
 
+# Set stroke for all of the shapes that could possible use it
+
 class Shape(GraphicsObject):
     def __init__(self, (x, y), width, height, color = None, filled = True):
         super(Shape, self).__init__((x, y), color)
@@ -52,15 +54,15 @@ class Ellipse(Shape):
                        self.coordinates[1],
                        self.width,
                        self.height)
-    
-    #def rotate(self, degrees):
-    #      math.radians(degrees)
+
+    def rotate(self, degrees):
+        math.radians(degrees)
 
 class Circle(Ellipse):
     # (x,y) - center of Circle
     def __init__(self, (x, y), radius, color = None, filled = True):
         assert radius >0, "Circle radius must be greater than zero"
-        super(Circle, self).__init__((x, y), color = self.color, filled = self.filled)
+        super(Circle, self).__init__((x, y), color, filled)
         self.radius = radius
     
     def setRadius(self, r):
@@ -130,13 +132,13 @@ class Arc(Shape):
     def __init__(self, (x, y), width, height, startAngle, arcAngle, color =  None):
         assert width > 0, "Arc width must be greater than zero"
         assert height > 0, "Arc height must be greater than zero"
-        super(Arc, self).__init__((x, y), width, height, color = self.color)
+        super(Arc, self).__init__((x, y), width, height, color)
         self.startAngle = startAngle
         self.arcAngle = arcAngle
     
     def _draw(self, g):
         g.fillArc(self.coordinates[0], self.coordinates[1],
-                  self.weigth, self.height, self.startAngle, self.arcAngle)
+                  self.width, self.height, self.startAngle, self.arcAngle)
 
 
 class Polygon(Shape):
