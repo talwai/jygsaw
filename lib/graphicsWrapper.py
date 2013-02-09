@@ -8,9 +8,10 @@ from java.awt.Color import *
 import time
 
 
-window = GraphicsWindow('Empty', 100, 100)
+#window = GraphicsWindow('Empty', 100, 100)
 toLoop = False
 Stroke = False
+frameRate = 48
 
 """
 Creates a new window. Width, height and title can be set optionally as well
@@ -19,7 +20,6 @@ def canvas(width = 400, height = 400, window_title = ' ', background=white):
     global window
     window = GraphicsWindow(window_title, width, height, background)
     window.setVisible(True)
-
 
 """
 Returns the width of the window
@@ -112,7 +112,7 @@ def setBackground(color):
     # It would be nice to be able to accept multiple types of color input (r,g,b or name of color)
 
 
-# Mouse and Key Listener functions
+#-----------Mouse and Key Listener functions---------------
 """
 Returns x coordinate of the mouse
 """
@@ -126,23 +126,42 @@ def mouseY():
     return window.mouseY
 
 """
-Returns true if mouse is pressed, otherwise false
+Sets the window's onMousePressed variable to be the user defined mouseClicked function.
+It will then be called by the window's mouse listener when the event occurs.
 """
 def onMousePressed(mousePressed):
     window.onMousePressed = mousePressed
 
 """
-Returns true if mouse is clicked, otherwise false
+Sets the window's onMouseReleased variable to be the user defined mouseClicked function.
+It will then be called by the window's mouse listener when the event occurs.
+"""
+def onMouseRelease(mouseReleased):
+    window.onMouseReleased = mouseReleased
+
+"""
+Sets the window's onMouseClick variable to be the user defined mouseClicked function.
+It will then be called by the window's mouse listener when the event occurs.
 """
 def onMouseClick(mouseClicked):
     window.onMouseClick = mouseClicked
 
 """
-Returns true if mouse is dragged, otherwise false
+Sets the window's onMouseDragged variable to be the user defined mouseDragged function.
+It will then be called by the window's mouse listener when the event occurs.
 """
 def onMouseDrag(mouseDragged):
-    window.onMouseDrag = mouseDragged
+    window.onMouseDragged = mouseDragged
 
+"""
+Sets the window's onMouseMoved variable to be the user defined mouseMoved function.
+It will then be called by the window's mouse listener when the event occurs.
+"""
+def onMouseMove(mouseMoved):
+    window.onMouseMoved = mouseMoved
+
+#---------------------------------------------------------------
+    
 """
 Sets stroke to false
 """
@@ -151,17 +170,56 @@ def noStroke():
     Stroke = False
 
 """
+Tells the draw function to loop when it is called
+"""
+def loop():
+    global toLoop
+    toLoop = True
+
+"""
+Tells the draw function not to loop when it is called,
+or to stop looping if it has already started. This is the default.
+"""
+def noLoop():
+    global toLoop
+    toLoop = False
+
+
+"""
+Sets the frame rate value
+"""
+def frameRate(rate):
+    global frameRate
+    frameRate = rate
+
+"""
 Sets stroke to true
 """
 def stroke():
     global Stroke
     Stroke = True
 
-def onDraw(draw):
-    
 
 """
-Redraws all of the objects on the window
+Clears the window of all objects
+"""
+def clear():
+    window.clear()
+
+"""
+Callback function which calls the user defined draw function.
+It repeatedly loops if loop() has been called.
+"""
+def onDraw(draw):
+    if toLoop:
+        while toLoop:
+            draw()
+            time.sleep(1/frameRate)
+    else:
+        draw()
+
+"""
+Redraws all of the objects on the window. Not sure there is a point to it.
 """
 def redraw():
     window.redraw()
@@ -169,37 +227,43 @@ def redraw():
 
 if ( __name__ == '__main__' ) or ( __name__ == 'main' ):
     canvas()
-    
-    fill(red)
-    
-    rect(10,10)
-    
-    line(150, 10, 200, 10)
 
-    fill(pink)
-    
-    ellipse(10, 150)
+    mouseX = mouseX()
+    mouseY = mouseY()
 
-    print width(), height()
-    
-    vertices = [(250,250),(360,360), (360, 250)]
-    
-    polygon(vertices)
-    
-    #arc(250, 250)
-    
-    #circle(10,110)
-
-    setBackground(black)
-
-    sleep(1)
-
-    clear()
+    def draw():
+        vertices = [(250,250),(360,360), (360, 250)]
+        
+        fill(red)
+        rect(10,10)
+        line(150, 10, 200, 10)
+        fill(pink)
+        ellipse(10, 150)
+        
+        print width(), height()
+        
+        polygon(vertices)
+        arc(300, 300)
+        #circle(10,110)
+        
+        setBackground(black)
+        clear()
 
     def mousePressed():
-        print 'Poop'
+        print 'Mouse was pressed.'
+
+    def mouseDragged():
+        print 'Mouse is being dragged.'
+        print 'X = ' + str(mouseX) + ' Y = ' + str(mouseY)
+
+    def mouseMoved():
+        mouseX = mouseX()
+        mouseY = mouseY()
 
     onMousePressed(mousePressed)
+    onMouseDrag(mouseDragged)
+    onMouseRelease(mouseReleased)
+    onDraw(draw)
 
     
 
