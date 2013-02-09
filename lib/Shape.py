@@ -130,7 +130,7 @@ class Arc(Shape):
 
     def _draw(self, g):
         g.fillArc(self.coordinates[0], self.coordinates[1],
-                  self.weigth, self.height, self.startAngle, self.arcAngle)
+                  self.width, self.height, self.startAngle, self.arcAngle)
 
 
 class Polygon(Shape):
