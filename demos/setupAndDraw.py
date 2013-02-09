@@ -1,4 +1,4 @@
-from GraphicsWrapper import *
+from graphicsWrapper import *
 y = 100.0
 
 

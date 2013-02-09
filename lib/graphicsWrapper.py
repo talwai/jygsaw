@@ -5,7 +5,7 @@ from Image import *
 from Shape import *
 from Text import *
 from java.awt.Color import *
-import inspect
+import time
 
 
 window = GraphicsWindow('Empty', 100, 100)
@@ -128,21 +128,20 @@ def mouseY():
 """
 Returns true if mouse is pressed, otherwise false
 """
-def mousePressed():
-    return window.mouseP
+def onMousePressed(mousePressed):
+    window.onMousePressed = mousePressed
 
 """
 Returns true if mouse is clicked, otherwise false
 """
-def mouseClicked():
-    return window.mouseC
+def onMouseClick(mouseClicked):
+    window.onMouseClick = mouseClicked
 
 """
 Returns true if mouse is dragged, otherwise false
 """
-def mouseDragged():
-    return window.mouseD
-
+def onMouseDrag(mouseDragged):
+    window.onMouseDrag = mouseDragged
 
 """
 Sets stroke to false
@@ -151,13 +150,15 @@ def noStroke():
     global Stroke
     Stroke = False
 
-
 """
 Sets stroke to true
 """
 def stroke():
     global Stroke
     Stroke = True
+
+def onDraw(draw):
+    
 
 """
 Redraws all of the objects on the window
@@ -191,9 +192,14 @@ if ( __name__ == '__main__' ) or ( __name__ == 'main' ):
 
     setBackground(black)
 
-    while True:
-        if mouseClicked():
-            print 'Yay'
+    sleep(1)
+
+    clear()
+
+    def mousePressed():
+        print 'Poop'
+
+    onMousePressed(mousePressed)
 
     
 

@@ -1,4 +1,4 @@
-from Oven import BakedPotato
+from graphicsWrapper import *
 
 y = 100
 
