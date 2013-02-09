@@ -10,45 +10,49 @@ yOffset = 0.0
 
 
 canvas(640, 360)
-bx = width()/2.0
-by = height()/2.0
+bx = width() / 2.0
+by = height() / 2.0
+
 
 def draw():
-  background(0)
+    background(0)
 
-  # Test if the cursor is over the box
-  if mouseX() > bx-boxSize && mouseX() < bx+boxSize && \
-          mouseY() > by-boxSize && mouseY() < by+boxSize
-    overBox = True
-    if not locked:
-      strokeColor(255)
-      fillColor(153)
+    # Test if the cursor is over the box
+    if (mouseX() > bx - boxSize and mouseX() < bx + boxSize and
+        mouseY() > by - boxSize and mouseY() < by + boxSize):
+        overBox = True
+        if not locked:
+            strokeColor(255)
+            fillColor(153)
 
-    else:
-      strokeColor(153)
-      fillColor(153)
-      overBox = False
+        else:
+            strokeColor(153)
+            fillColor(153)
+            overBox = False
 
-  # Draw the box
-  rect(bx, by, boxSize, boxSize)
+    # Draw the box
+    rect(bx, by, boxSize, boxSize)
+
 
 def mousePressed():
-  if overBox:
-    locked = True
-    fillColor(255, 255, 255)
-  else:
-    locked = False
+    if overBox:
+        locked = True
+        fillColor(255, 255, 255)
+    else:
+        locked = False
 
-  xOffset = mouseX() - bx
-  yOffset = mouseY() - by
+    xOffset = mouseX() - bx
+    yOffset = mouseY() - by
+
 
 def mouseDragged():
-  if locked:
-    bx = mouseX() - xOffset
-    by = mouseY() - yOffset
+    if locked:
+        bx = mouseX() - xOffset
+        by = mouseY() - yOffset
+
 
 def mouseReleased():
-  locked = False
+    locked = False
 
 drawFunction(draw)
 mousePressedFunction(mousePressed)
