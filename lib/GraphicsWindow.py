@@ -12,7 +12,7 @@ from Text import *
 # Buttons, etc
 # class Components:
 
-class GraphicsWindow(ActionListener, KeyListener, MouseListener):
+class GraphicsWindow(ActionListener, KeyListener, MouseInputListener):
     #setters and getters for width and height
     def __init__(self, title, w, h, backgroundColor = white):
         assert w > 0, "GraphicsWindow width must be greater than zero"

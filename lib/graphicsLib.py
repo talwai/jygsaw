@@ -14,11 +14,14 @@ if ( __name__ == '__main__' ) or ( __name__ == 'main' ) :
     sun = Ellipse((115, 110), 75, 75, yellow)
     l = Line ((5,10),(100,150))
     image = Image((20, 20), "puppy.jpg")
-    z = Group (r, e, sun)
-    z.move(100, 100)
+    q = Polygon ([(100,100),(150,250),(200,300)],blue)
+    p = RegPolygon((200,200),5,50)
+    z = Group (q,p)
+    #z.move(100, 100)
     #    z.draw(w)
-    w.draw(t)
-    w.draw(image)
+    w.draw(z)
+    #w.draw(t)
+    #w.draw(image)
     w.setVisible(True)
 
     #this is a sample url image that we can use for testing things
