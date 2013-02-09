@@ -77,4 +77,5 @@ class Image(GraphicsObject):
         if self.height == None:
             self.height = img.getHeight()
 
-        g.drawImage(img, self.coordinates[0], self.coordinates[1], self.width, self.height, g.backgroundColor, None)
+        g.drawImage(img, self.coordinates[0], self.coordinates[1],
+                    self.width, self.height, g.backgroundColor, None)
