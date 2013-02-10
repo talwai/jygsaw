@@ -1,6 +1,6 @@
 from GraphicsObject import *
 from java.awt.Graphics import fillRect, fillOval
-from java.awt.Graphics2D
+from java.awt.Graphics2D import * # Hopefully, refine this later.
 from java.lang.Math import PI, cos, sin
 
 # Set stroke for all of the shapes that could possible use it
