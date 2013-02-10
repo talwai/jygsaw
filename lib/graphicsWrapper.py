@@ -33,6 +33,14 @@ def height():
     return window.h
 
 """
+Draws a point.
+"""
+def point(x, y, color=None)
+    new_point = Point((x,y), color)
+    window.draw(new_point)
+    return new_point
+
+"""
 Draws a line between coordinates (x1, y1), and (x2 and y2). You can optionally set the color as well
 """
 def line(x1, y1, x2, y2, color=None):
