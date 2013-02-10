@@ -1,4 +1,7 @@
-from balkcomsArmory import *
+import sys
+import os
+sys.path.append(os.path.pardir + "/lib")
+from graphicsWrapper import *
 
 y = height * 0.5
 

@@ -15,7 +15,7 @@ class Shape(GraphicsObject):
         self.filled = filled
         self.stroke = False
         self.strokeColor = None
-    
+
     def getWidth(self):
         return self.width
 
@@ -30,7 +30,7 @@ class Shape(GraphicsObject):
 
     def setStrokeColor(self, c):
         self.strokeColor = c
-    
+
     def setWidth(self, w):
         assert w > 0, "Shape width must be greater than zero"
         self.width = w
@@ -79,11 +79,12 @@ class Ellipse(Shape):
     def rotate(self, degrees):
         math.radians(degrees)
 
+
 class Circle(Ellipse):
     # (x,y) - center of Circle
     def __init__(self, (x, y), radius, color=None, filled=True):
         assert radius > 0, "Circle radius must be greater than zero"
-        super(Circle, self).__init__((x, y), radius * 2, radius * 2, color, filled)
+        super(Circle, self).__init__((x - radius, y - radius), radius * 2, radius * 2, color, filled)
         self.radius = radius
 
     def setRadius(self, r):
@@ -98,18 +99,16 @@ class Circle(Ellipse):
 
     # draws an ellipse with the same width and height
     def _draw_shape(self, g):
-        x = x + self.radius
-        y = y + self.radius
+        self.coordinates = (self.coordinates[0] + self.radius, self.coordinates[1] + self.radius)
         if self.filled:
-            g.fillOval(x, y, self.radius * 2, self.radius * 2)
+            g.fillOval(self.coordinates[0], self.coordinates[1], self.radius * 2, self.radius * 2)
         else:
-            g.drawOval(x, y, self.radius * 2, self.radius * 2)
-
+            g.drawOval(self.coordinates[0], self.coordinates[1], self.radius * 2, self.radius * 2)
 
     def _draw_stroke(self, g):
-        x = x + self.radius
-        y = y + self.radius
-        g.drawOval(x, y, self.radius*2, self.radius*2)
+        self.coordinates = (self.coordinates[0] + self.radius, self.coordinates[1] + self.radius)
+        g.drawOval(self.coordinates[0], self.coordinates[1], self.radius * 2, self.radius * 2)
+
 
 class Rectangle(Shape):
     # (x,y) - top-left vertex of Rectangle
@@ -187,19 +186,20 @@ class Polygon(Shape):
         g.drawPolygon(xValues, yValues, len(self.vertices))
 
 class RegPolygon(Shape):
-    def __init__(self, (x,y), sides, length, color=None, filled=True):
-        super(RegPolygon, self).__init__((x,y),0,0,color,True)
-        self.x=x
-        self.y=y
-        self.vertices=[]
-        self.sides=sides
-        self.sideLength=length
-        self.sideAngle=(2*PI)/self.sides
-        self.radius=self.sideLength*sin(.5*(PI-self.sideAngle))/sin(self.sideAngle)
+    def __init__(self, (x, y), sides, length, color=None, filled=True):
+        super(RegPolygon, self).__init__((x, y), 0, 0, color, True)
+        self.x = x
+        self.y = y
+        self.vertices = []
+        self.sides = sides
+        self.sideLength = length
+        self.sideAngle = (2 * PI) / self.sides
+        self.radius = self.sideLength * sin(.5 * (PI - self.sideAngle)) / \
+            sin(self.sideAngle)
         for i in range(self.sides):
-            self.vertices.append((int(round(x+self.radius*cos(self.sideAngle*i))),int(round(y+self.radius*sin(self.sideAngle*i)))))
+            self.vertices.append((int(round(x + self.radius * cos(
+                self.sideAngle * i))), int(round(y + self.radius * sin(self.sideAngle * i)))))
         print "Vertices:", self.vertices
- 
 
     def _draw_shape(self, g):
         (xValues, yValues) = zip(*self.vertices)

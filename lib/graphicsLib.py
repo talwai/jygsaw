@@ -29,7 +29,8 @@ if (__name__ == '__main__') or (__name__ == 'main'):
     z = Group(r, e, sun)
     z.move(100, 100)
     w.draw(z)
-    image2 = Image((100, 400), "http://cdn.cutestpaw.com/wp-content/uploads/2011/11/Handsome-l.jpg")
+    image2 = Image(
+        (100, 400), "http://cdn.cutestpaw.com/wp-content/uploads/2011/11/Handsome-l.jpg")
     w.draw(z)
     w.draw(t)
     #w.draw(image)
