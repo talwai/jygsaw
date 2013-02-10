@@ -194,8 +194,6 @@ class Canvas(JPanel):
         g.clearRect(0, 0, self.window.w, self.window.h)
         g.setColor(white)  # Set color of rectangle
 
-        print 'Canvas # objs', len(self.objs)
-
         for o in self.objs:
             g.setColor(o.getColor())
             o._draw(g)
