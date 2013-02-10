@@ -238,7 +238,6 @@ def redraw():
     window.redraw()
 
 def _color(r, g = None, b = None):
-    print 'r = ', r, ' g = ', g, ' b = ', b
     if g == None or b == None:
         assert r != None and g == None and b == None, \
             "color takes exactly 1 or 3 parameters"
