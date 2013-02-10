@@ -78,7 +78,6 @@ class Ellipse(Shape):
     def rotate(self, degrees):
         math.radians(degrees)
 
-
 class Circle(Ellipse):
     # (x,y) - center of Circle
     def __init__(self, (x, y), radius, color=None, filled=True):
@@ -130,12 +129,11 @@ class Rectangle(Shape):
         g.fillRect(self.coordinates[0], self.coordinates[1],
             self.width, self.height)
 
-
 class Line(Shape):
     # (startX, startY) - coordinate of line's starting point
     # (endX, endY) - coordinate of line's ending point
     def __init__(self, (startX, startY), (endX, endY), color=None):
-        super(Line, self).__init__((startX, startY), None, None, color, None)
+        super(Line, self).__init__((startX, startY), 0, 0, color, True)
         self.startX = startX
         self.startY = startY
         self.endX = endX
@@ -144,19 +142,13 @@ class Line(Shape):
     def _draw(self, g):
         g.drawLine(self.startX, self.startY, self.endX, self.endY)
 
-
 class Point(Line):
     # (x, y) - coordinate of point
     # draws a line with the same start and end point
-
     def __init__(self, (x, y), color=None):
-        super(self, (x, y), None, color)
+        super(Point, self).__init__((x, y), (x, y), color)
         self.x = x
         self.y = y
-
-    def _draw(self, g):
-        g.drawLine(self.x, self.y, self.x, self.y)
-
 
 class Arc(Shape):
     # based in polar coordinate convention, with 0 degrees pointing 3 o'clock
@@ -208,9 +200,13 @@ class RegPolygon(Shape):
         print "Vertices:", self.vertices
  
 
-    def _draw(self, g):
+    def _draw_shape(self, g):
         (xValues, yValues) = zip(*self.vertices)
         if self.filled:
             g.fillPolygon(xValues, yValues, self.sides)
         else:
             g.drawPolygon(xValues, yValues, self.sides)
+
+    def _draw_stroke(self, g):
+        (xValues, yValues) = zip(*self.vertices)
+        g.drawPolygon(xValues, yValues, self.sides)

@@ -17,9 +17,11 @@ if (__name__ == '__main__') or (__name__ == 'main'):
     t = Text((400, 300), "Hello!", "Arial", 40)
     sun = Ellipse((115, 110), 75, 75, yellow)
     l = Line ((5,10),(100,150))
-
-    image = Image((20, 20), "puppy.jpg")
-    q = Polygon ([(100,100),(150,250),(200,300)],blue)
+    w.draw(ls)
+    p = Point((900,9), black)
+    w.draw(p)
+    #image = Image((20, 20), "puppy.jpg")
+    q = Polygon ([(100,100),(150,250),(200,300)], blue)
     p = RegPolygon((200,200),5,50)
     z = Group (q,p, r,e,sun)
     image2 = Image(
@@ -30,14 +32,10 @@ if (__name__ == '__main__') or (__name__ == 'main'):
     image2 = Image((100, 400), "http://cdn.cutestpaw.com/wp-content/uploads/2011/11/Handsome-l.jpg")
     w.draw(z)
     w.draw(t)
-    w.draw(image)
+    #w.draw(image)
     w.draw(image2)
     w.setVisible(True)
     w.setBackgroundColor(white)
-
-    sleep(5)
-
-    w.clear()
 
     # this is a sample url image that we can use for testing things
     # http://cdn.cutestpaw.com/wp-content/uploads/2011/11/Handsome-l.jpg
