@@ -10,7 +10,7 @@ from Text import *
 
 # the -O switch can't be used with jython, which is used to turn off __debug__
 # so we use debug instead
-debug = 0
+debug = 1
 
 # Buttons, etc
 # class Components:
@@ -196,9 +196,9 @@ class Canvas(JPanel):
 
         print 'Canvas # objs', len(self.objs)
 
-        for i in range(len(self.objs)):
-            g.setColor(self.objs[i].getColor())
-            self.objs[i]._draw(g)
+        for o in self.objs:
+            g.setColor(o.getColor())
+            o._draw(g)
 
     def setDefaultColor(self, c):
         self.defaultColor = c
