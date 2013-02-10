@@ -186,19 +186,20 @@ class Polygon(Shape):
         g.drawPolygon(xValues, yValues, len(self.vertices))
 
 class RegPolygon(Shape):
-    def __init__(self, (x,y), sides, length, color=None, filled=True):
-        super(RegPolygon, self).__init__((x,y),0,0,color,True)
-        self.x=x
-        self.y=y
-        self.vertices=[]
-        self.sides=sides
-        self.sideLength=length
-        self.sideAngle=(2*PI)/self.sides
-        self.radius=self.sideLength*sin(.5*(PI-self.sideAngle))/sin(self.sideAngle)
+    def __init__(self, (x, y), sides, length, color=None, filled=True):
+        super(RegPolygon, self).__init__((x, y), 0, 0, color, True)
+        self.x = x
+        self.y = y
+        self.vertices = []
+        self.sides = sides
+        self.sideLength = length
+        self.sideAngle = (2 * PI) / self.sides
+        self.radius = self.sideLength * sin(.5 * (PI - self.sideAngle)) / \
+            sin(self.sideAngle)
         for i in range(self.sides):
-            self.vertices.append((int(round(x+self.radius*cos(self.sideAngle*i))),int(round(y+self.radius*sin(self.sideAngle*i)))))
+            self.vertices.append((int(round(x + self.radius * cos(
+                self.sideAngle * i))), int(round(y + self.radius * sin(self.sideAngle * i)))))
         print "Vertices:", self.vertices
- 
 
     def _draw_shape(self, g):
         (xValues, yValues) = zip(*self.vertices)

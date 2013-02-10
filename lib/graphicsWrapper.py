@@ -111,7 +111,6 @@ def setBackground(color):
     # (r,g,b or name of color)
 
 
-
 #-----------Mouse and Key Listener functions---------------
 """
 Returns x coordinate of the mouse
@@ -162,6 +161,14 @@ def onMouseMove(mouseMoved):
 
 #---------------------------------------------------------------
 
+
+"""
+Sets stroke to false
+"""
+def noStroke():
+    global Stroke
+    Stroke = False
+
 """
 Tells the draw function to loop when it is called
 """
@@ -190,6 +197,7 @@ Sets stroke to true. If a color is given then set the stroke color to that color
 def stroke(color = None):
     window.setStroke(True)
     window.setStrokeColor(color)
+
 
 """
 Sets stroke to false
@@ -243,9 +251,9 @@ if ( __name__ == '__main__' ) or ( __name__ == 'main' ):
         line(150, 10, 200, 10)
         fill(pink)
         ellipse(10, 150)
-        
+
         print width(), height()
-        
+
         polygon(vertices)
         arc(300, 100)
         #circle(10,110)
@@ -279,6 +287,3 @@ if ( __name__ == '__main__' ) or ( __name__ == 'main' ):
     onMouseMove(mouseMoved)
     onMouseClick(mouseClicked)
     onDraw(draw)
-
-    
-
