@@ -19,7 +19,7 @@ def draw():
 
     # Test if the cursor is over the box
     if (mouseX() > bx - boxSize and mouseX() < bx + boxSize and
-        mouseY() > by - boxSize and mouseY() < by + boxSize):
+            mouseY() > by - boxSize and mouseY() < by + boxSize):
         overBox = True
         if not locked:
             strokeColor(255)
