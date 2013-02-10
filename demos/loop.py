@@ -9,9 +9,9 @@ y = 100
 # The statements in the setup() function
 # run once when the program begins
 
-canvas(640, 360)    # Size should be the first statement
-# stroke(255)          # Set stroke color to white
-noLoop()
+canvas(640, 360)        # Size should be the first statement
+# stroke(255)           # Set stroke color to white
+loop()
 
 y = int(height() * 0.5)
 
@@ -22,7 +22,6 @@ y = int(height() * 0.5)
 # line is run again.
 def draw():
     global y
-    print "Y: ", y
     background(black)        # Set the background to black
     line(0, y, width(), y)
 
@@ -31,4 +30,4 @@ def draw():
         y = height()
 
 onDraw(draw)
-onMousePressed(draw)
+onMousePress(draw)

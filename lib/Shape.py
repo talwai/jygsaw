@@ -78,11 +78,12 @@ class Ellipse(Shape):
     def rotate(self, degrees):
         math.radians(degrees)
 
+
 class Circle(Ellipse):
     # (x,y) - center of Circle
     def __init__(self, (x, y), radius, color=None, filled=True):
         assert radius > 0, "Circle radius must be greater than zero"
-        super(Circle, self).__init__((x, y), radius * 2, radius * 2, color, filled)
+        super(Circle, self).__init__((x - radius, y - radius), radius * 2, radius * 2, color, filled)
         self.radius = radius
 
     def setRadius(self, r):
@@ -97,18 +98,16 @@ class Circle(Ellipse):
 
     # draws an ellipse with the same width and height
     def _draw_shape(self, g):
-        x = x + self.radius
-        y = y + self.radius
+        self.coordinates = (self.coordinates[0] + self.radius, self.coordinates[1] + self.radius)
         if self.filled:
-            g.fillOval(x, y, self.radius * 2, self.radius * 2)
+            g.fillOval(self.coordinates[0], self.coordinates[1], self.radius * 2, self.radius * 2)
         else:
-            g.drawOval(x, y, self.radius * 2, self.radius * 2)
-
+            g.drawOval(self.coordinates[0], self.coordinates[1], self.radius * 2, self.radius * 2)
 
     def _draw_stroke(self, g):
-        x = x + self.radius
-        y = y + self.radius
-        g.drawOval(x, y, self.radius*2, self.radius*2)
+        self.coordinates = (self.coordinates[0] + self.radius, self.coordinates[1] + self.radius)
+        g.drawOval(self.coordinates[0], self.coordinates[1], self.radius * 2, self.radius * 2)
+
 
 class Rectangle(Shape):
     # (x,y) - top-left vertex of Rectangle
