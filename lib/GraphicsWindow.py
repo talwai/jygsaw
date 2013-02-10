@@ -16,7 +16,11 @@ debug = 0
 # class Components:
 
 class GraphicsWindow(ActionListener, KeyListener, MouseInputListener):
-    # setters and getters for width and height
+    """
+    Creates a GraphicsWindow with a Canvas object that can be drawn on.
+    Also takes callback functions for Mouse and Key input.
+    
+    """
     def __init__(self, title, w, h, backgroundColor=white):
         assert w > 0, "GraphicsWindow width must be greater than zero"
         assert h > 0, "GraphicsWindow height must be greater than zero"
@@ -59,10 +63,10 @@ class GraphicsWindow(ActionListener, KeyListener, MouseInputListener):
     def setVisible(self, isVisible):
         self.frame.visible = isVisible
 
-    # this argument takes a variable length number of GraphicsObjects and Group objects
-    # using the splat operator, which packages the args into a tuple.
-    # We iterate through each element in the tuple,
-    # and add it to our self.objs.
+    """
+    Takes a variable number of GraphicsObjects, or Groups of GraphicsObjects,
+    and draws them on the window.
+    """
     def draw(self, *params):
         for arg in params:
             if isinstance(arg, GraphicsObject):
@@ -105,9 +109,8 @@ class GraphicsWindow(ActionListener, KeyListener, MouseInputListener):
         self.frame.contentPane.objs = self.objs
         self.redraw()
 
-
-    # We put these mouse location methods in the window class in case we implement multiple panels
-    # MouseListener methods
+    # These methods are implemented the MouseInputListener interface
+    # from Swing
     def mouseEntered(self, e):
         self.mouseX = e.getXOnScreen()
         self.mouseY = e.getYOnScreen()
@@ -152,13 +155,10 @@ class GraphicsWindow(ActionListener, KeyListener, MouseInputListener):
 
     def mouseDragged(self, e):
         self.mouseD = True
-
-    #KeyListener methods
-    def keyTyped (self,e):
         if self.onMouseDragged:
             self.onMouseDragged()
 
-    # KeyListener methods
+    # These methods implement the KeyListener inteface from Swing
     def keyTyped(self, e):
         self.keyT = True
         if debug:
@@ -181,7 +181,6 @@ class GraphicsWindow(ActionListener, KeyListener, MouseInputListener):
 
 class Canvas(JPanel):
     """ Canvas to draw the action on. Owns the action and key listeners. """
-
     def __init__(self, window, objects, backgroundColor):
         self.objs = objects
         self.window = window
