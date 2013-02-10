@@ -11,7 +11,7 @@ import time
 #window = GraphicsWindow('Empty', 100, 100)
 toLoop = False
 Stroke = False
-frameRate = 48
+fR = 48 # Frame Rate
 
 """
 Creates a new window. Width, height and title can be set optionally as well
@@ -129,7 +129,7 @@ def mouseY():
 Sets the window's onMousePressed variable to be the user defined mouseClicked function.
 It will then be called by the window's mouse listener when the event occurs.
 """
-def onMousePressed(mousePressed):
+def onMousePress(mousePressed):
     window.onMousePressed = mousePressed
 
 """
@@ -214,7 +214,7 @@ def onDraw(draw):
     if toLoop:
         while toLoop:
             draw()
-            time.sleep(1/frameRate)
+            time.sleep(1/fR)
     else:
         draw()
 
@@ -227,15 +227,23 @@ def redraw():
 
 if ( __name__ == '__main__' ) or ( __name__ == 'main' ):
     canvas()
+    loop()
+    frameRate(48)
 
-    mouseX = mouseX()
-    mouseY = mouseY()
+    x = None
+    y = None
+
+    rectX = 10
+    rectY = 10
 
     def draw():
+        global rectX
+        global rectY
+        clear()
         vertices = [(250,250),(360,360), (360, 250)]
         
         fill(red)
-        rect(10,10)
+        rect(rectX,rectY)
         line(150, 10, 200, 10)
         fill(pink)
         ellipse(10, 150)
@@ -243,26 +251,38 @@ if ( __name__ == '__main__' ) or ( __name__ == 'main' ):
         print width(), height()
         
         polygon(vertices)
-        arc(300, 300)
+        arc(300, 100)
         #circle(10,110)
         
         setBackground(black)
-        clear()
+        rectX = rectX + 10
+        rectY = rectY + 10
+        
 
     def mousePressed():
         print 'Mouse was pressed.'
 
     def mouseDragged():
         print 'Mouse is being dragged.'
-        print 'X = ' + str(mouseX) + ' Y = ' + str(mouseY)
+        print 'X = ' + str(x) + ' Y = ' + str(y)
+
+    def mouseReleased():
+        print 'Mouse released'
+
+    def mouseClicked():
+        print 'Mouse clicked'
 
     def mouseMoved():
-        mouseX = mouseX()
-        mouseY = mouseY()
+        global x, y
+        x = mouseX()
+        y = mouseY()
+        print 'Mouse moved x = %d, y = %d' % (x, y)
 
-    onMousePressed(mousePressed)
-    onMouseDrag(mouseDragged)
+    onMousePress(mousePressed)
     onMouseRelease(mouseReleased)
+    onMouseDrag(mouseDragged)
+    onMouseMove(mouseMoved)
+    onMouseClick(mouseClicked)
     onDraw(draw)
 
     
