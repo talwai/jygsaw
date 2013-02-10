@@ -9,6 +9,8 @@ class Shape(GraphicsObject):
         self.width = width
         self.height = height
         self.filled = filled
+        self.stroke = False
+        self.strokeColor = None
     
     def getWidth(self):
         return self.width
@@ -18,6 +20,12 @@ class Shape(GraphicsObject):
     
     def getFilled(self):
         return self.filled
+
+    def setStroke(self, s):
+        self.stroke = s
+
+    def setStrokeColor(self, c):
+        self.strokeColor = c
     
     def setWidth(self, w):
         assert w > 0, "Shape width must be greater than zero"
@@ -30,6 +38,11 @@ class Shape(GraphicsObject):
     def setFilled(self, f):
         self.filled = f
 
+    def _draw(self, g):
+        self._draw_shape(g)
+        if self.stroke:
+            self._draw_stroke(g)
+
 class Ellipse(Shape):
     def __init__(self, (x, y), width, height, color = None, filled = True):
         assert width >0, "Ellipse width must be greater than zero"
@@ -39,8 +52,14 @@ class Ellipse(Shape):
     def scale(self):
         pass
 
-    
-    def _draw(self, g):
+    def _draw_stroke(self, g):
+        g.setColor(self.strokeColor)
+        g.drawOval(self.coordinates[0],
+            self.coordinates[1],
+            self.width,
+            self.height)
+
+    def _draw_shape(self, g):
         if self.filled:
             g.fillOval(self.coordinates[0],
                        self.coordinates[1],
@@ -57,12 +76,12 @@ class Ellipse(Shape):
 
 class Circle(Ellipse):
     def __init__(self, (x, y), radius, color = None, filled = True):
-        assert radius >0, "Circle radius must be greater than zero"
+        assert radius > 0, "Circle radius must be greater than zero"
         super(Circle, self).__init__((x, y), color, filled)
         self.radius = radius
     
     def setRadius(self, r):
-        assert r >0, "Circle radius must be greater than zero"
+        assert r > 0, "Circle radius must be greater than zero"
         self.radius = r
     
     def getRadius(self):
@@ -71,7 +90,7 @@ class Circle(Ellipse):
     def scale(self, scale):
         self.radius = self.radius * scale
     
-    def _draw(self, g):
+    def _draw_shape(self, g):
         x = x + self.radius
         y = y + self.radius
         if self.filled:
@@ -79,19 +98,28 @@ class Circle(Ellipse):
         else:
             g.drawOval(x, y, self.radius*2, self.radius*2)
 
+    def _draw_stroke(self, g):
+        x = x + self.radius
+        y = y + self.radius
+        g.drawOval(x, y, self.radius*2, self.radius*2)
+
 class Rectangle(Shape):
     def __init__(self, (x, y), width, height, color = None, filled = True):
         assert width > 0, "Rectangle width must be greater than zero"
         assert height > 0, "Rectangle height must be greater than zero"
         super(Rectangle, self).__init__((x, y), width, height, color, filled)
     
-    def _draw(self, g):
+    def _draw_shape(self, g):
         if self.filled:
             g.fillRect(self.coordinates[0], self.coordinates[1],
                        self.width, self.height)
         else:
             g.drawRect(self.coordinates[0], self.coordinates[1],
                        self.width, self.height)
+
+    def _draw_stroke(self, g):
+        g.fillRect(self.coordinates[0], self.coordinates[1],
+            self.width, self.height)
 
 class Line(Shape):
     def __init__(self, (startX, startY), (endX, endY), color = None):
@@ -103,6 +131,7 @@ class Line(Shape):
     
     def _draw(self, g):
         g.drawLine(self.startX, self.startY, self.endX, self.endY)
+
 
 class Point(Line):
     def __init__(self, (x, y), color = None):
@@ -132,9 +161,13 @@ class Polygon(Shape):
         super(Polygon, self).__init__(vertices[0], 0, 0, color, filled)
         self.vertices = vertices
     
-    def _draw(self, g):
+    def _draw_shape(self, g):
         (xValues, yValues) = zip(*self.vertices)
         if self.filled:
             g.fillPolygon(xValues, yValues, len(self.vertices))
         else:
             g.drawPolygon(xValues, yValues, len(self.vertices))
+
+    def _draw_stroke(self, g):
+        (xValues, yValues) = zip(*self.vertices)
+        g.drawPolygon(xValues, yValues, len(self.vertices))

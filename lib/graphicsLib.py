@@ -7,8 +7,12 @@ from time import sleep
 if ( __name__ == '__main__' ) or ( __name__ == 'main' ) :
     w = GraphicsWindow('Demo Time', 1000, 1000, black)
     w.setDefaultColor(pink)
-    e = Ellipse((100, 100), 35, 35, filled=False)
-    r = Rectangle((250, 250), 100, 200, blue)
+    w.setStrokeColor(green)
+    w.setStroke(True)
+    e = Ellipse((400, 400), 300, 300, filled=True)
+    w.draw(e)
+    w.setStrokeColor(red)
+    r = Ellipse((250, 250), 100, 200, blue)
     w.setDefaultColor(green)
     t = Text((400, 300), "Hello!", "Arial", 40)
     sun = Ellipse((115, 110), 75, 75, yellow)
@@ -17,18 +21,13 @@ if ( __name__ == '__main__' ) or ( __name__ == 'main' ) :
     image = Image((300, 400), "puppy.jpg")
     image2 = Image((100, 400), "http://cdn.cutestpaw.com/wp-content/uploads/2011/11/Handsome-l.jpg")
 
-    z = Group (r, e, sun)
+    z = Group (sun)
     z.move(100, 100)
-    w.draw(z)
-    w.draw(t)
-    w.draw(image)
-    w.draw(image2)
+    w.draw(z, t, image, image2)
+    w.draw(r)
+
     w.setVisible(True)
     w.setBackgroundColor(white)
-
-    sleep(5)
-
-    w.clear()
 
     #this is a sample url image that we can use for testing things
     #http://cdn.cutestpaw.com/wp-content/uploads/2011/11/Handsome-l.jpg
