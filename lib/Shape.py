@@ -64,7 +64,7 @@ class Circle(Ellipse):
     # (x,y) - center of Circle
     def __init__(self, (x, y), radius, color=None, filled=True):
         assert radius > 0, "Circle radius must be greater than zero"
-        super(Circle, self).__init__((x, y), color, filled)
+        super(Circle, self).__init__((x, y), radius * 2, radius * 2, color, filled)
         self.radius = radius
 
     def setRadius(self, r):
