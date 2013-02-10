@@ -2,6 +2,7 @@ from GraphicsObject import *
 from java.awt.Graphics import fillRect, fillOval
 from java.awt.Graphics2D import * # Hopefully, refine this later.
 from java.lang.Math import PI, cos, sin
+from java.awt import Color
 
 # Set stroke for all of the shapes that could possible use it
 
@@ -210,3 +211,21 @@ class RegPolygon(Shape):
     def _draw_stroke(self, g):
         (xValues, yValues) = zip(*self.vertices)
         g.drawPolygon(xValues, yValues, self.sides)
+
+def color(r, g = None, b = None):
+    if g == None or b == None:
+        assert r != None and g == None and b == None, \
+            "color takes exactly 1 or 3 parameters"
+        if isinstance(r, int):
+            # Will create color (r, r, r)
+            return Color(r, r, r)
+        if isinstance(r, Color):
+            return r
+        else:
+            # r is of an unrecognized type
+            pass
+    else:
+        assert r != None and g != None and b != None, \
+            "color takes exactly 1 or 3 parameters"
+        assert isinstance(r, int) and isinstance(g, int), and isinstance(b, int), "color takes 3 integers"
+        return Color(r, g, b)
