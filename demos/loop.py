@@ -1,3 +1,6 @@
+import sys
+import os
+sys.path.append(os.path.pardir + "/lib")
 from graphicsWrapper import *
 
 y = 100
@@ -7,10 +10,10 @@ y = 100
 # run once when the program begins
 
 canvas(640, 360)    # Size should be the first statement
-strokeColor(255)          # Set stroke color to white
+# stroke(255)          # Set stroke color to white
 noLoop()
 
-y = height() * 0.5
+y = int(height() * 0.5)
 
 
 # The statements in draw() are run until the
@@ -19,17 +22,13 @@ y = height() * 0.5
 # line is run again.
 def draw():
     global y
-    background(0)        # Set the background to black
-    line((0, y), (width(), y))
+    print "Y: ", y
+    background(black)        # Set the background to black
+    line(0, y, width(), y)
 
     y = y - 1
     if (y < 0):
         y = height()
 
-
-def mousePressed():
-    loop()
-
-drawFunction(draw)
-
-mousePressedFunction(mousePressed)
+onDraw(draw)
+onMousePressed(draw)

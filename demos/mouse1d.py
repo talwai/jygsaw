@@ -1,11 +1,16 @@
+import sys
+import os
+sys.path.append(os.path.pardir + "/lib")
 from graphicsWrapper import *
 
 
 canvas(640, 360)
+loop()
 
 
 def draw():
-    background(0.0)
-    circle((mouseX(), mouseY()), 5.0, color=red)
+    background(black)
+    circle(mouseX(), mouseY(), 5, color=red)
+    print (mouseX(), mouseY())
 
-drawFunction(draw)
+onDraw(draw)

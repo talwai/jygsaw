@@ -1,3 +1,6 @@
+import sys
+import os
+sys.path.append(os.path.pardir + "/lib")
 from graphicsWrapper import *
 y = 100.0
 
