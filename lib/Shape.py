@@ -1,6 +1,6 @@
 from GraphicsObject import *
 from java.awt.Graphics import fillRect, fillOval
-from java.awt.Graphics2D
+from java.awt.Graphics2D import * # Hopefully, refine this later.
 from java.lang.Math import PI, cos, sin
 
 # Set stroke for all of the shapes that could possible use it
@@ -12,6 +12,8 @@ class Shape(GraphicsObject):
         self.width = width
         self.height = height
         self.filled = filled
+        self.stroke = False
+        self.strokeColor = None
 
     def getWidth(self):
         return self.width
@@ -21,6 +23,12 @@ class Shape(GraphicsObject):
 
     def getFilled(self):
         return self.filled
+
+    def setStroke(self, s):
+        self.stroke = s
+
+    def setStrokeColor(self, c):
+        self.strokeColor = c
 
     def setWidth(self, w):
         assert w > 0, "Shape width must be greater than zero"
@@ -33,6 +41,10 @@ class Shape(GraphicsObject):
     def setFilled(self, f):
         self.filled = f
 
+    def _draw(self, g):
+        self._draw_shape(g)
+        if self.stroke:
+            self._draw_stroke(g)
 
 class Ellipse(Shape):
     # (x,y) - center of Ellipse
@@ -44,7 +56,14 @@ class Ellipse(Shape):
     def scale(self):
         pass
 
-    def _draw(self, g):
+    def _draw_stroke(self, g):
+        g.setColor(self.strokeColor)
+        g.drawOval(self.coordinates[0],
+            self.coordinates[1],
+            self.width,
+            self.height)
+
+    def _draw_shape(self, g):
         if self.filled:
             g.fillOval(self.coordinates[0],
                        self.coordinates[1],
@@ -59,12 +78,11 @@ class Ellipse(Shape):
     def rotate(self, degrees):
         math.radians(degrees)
 
-
 class Circle(Ellipse):
     # (x,y) - center of Circle
     def __init__(self, (x, y), radius, color=None, filled=True):
         assert radius > 0, "Circle radius must be greater than zero"
-        super(Circle, self).__init__((x, y), color, filled)
+        super(Circle, self).__init__((x, y), radius * 2, radius * 2, color, filled)
         self.radius = radius
 
     def setRadius(self, r):
@@ -78,7 +96,7 @@ class Circle(Ellipse):
         self.radius = self.radius * scale
 
     # draws an ellipse with the same width and height
-    def _draw(self, g):
+    def _draw_shape(self, g):
         x = x + self.radius
         y = y + self.radius
         if self.filled:
@@ -87,6 +105,11 @@ class Circle(Ellipse):
             g.drawOval(x, y, self.radius * 2, self.radius * 2)
 
 
+    def _draw_stroke(self, g):
+        x = x + self.radius
+        y = y + self.radius
+        g.drawOval(x, y, self.radius*2, self.radius*2)
+
 class Rectangle(Shape):
     # (x,y) - top-left vertex of Rectangle
     def __init__(self, (x, y), width, height, color=None, filled=True):
@@ -94,7 +117,7 @@ class Rectangle(Shape):
         assert height > 0, "Rectangle height must be greater than zero"
         super(Rectangle, self).__init__((x, y), width, height, color, filled)
 
-    def _draw(self, g):
+    def _draw_shape(self, g):
         if self.filled:
             g.fillRect(self.coordinates[0], self.coordinates[1],
                        self.width, self.height)
@@ -102,12 +125,15 @@ class Rectangle(Shape):
             g.drawRect(self.coordinates[0], self.coordinates[1],
                        self.width, self.height)
 
+    def _draw_stroke(self, g):
+        g.fillRect(self.coordinates[0], self.coordinates[1],
+            self.width, self.height)
 
 class Line(Shape):
     # (startX, startY) - coordinate of line's starting point
     # (endX, endY) - coordinate of line's ending point
     def __init__(self, (startX, startY), (endX, endY), color=None):
-        super(Line, self).__init__((startX, startY), None, None, color, None)
+        super(Line, self).__init__((startX, startY), 0, 0, color, True)
         self.startX = startX
         self.startY = startY
         self.endX = endX
@@ -116,19 +142,13 @@ class Line(Shape):
     def _draw(self, g):
         g.drawLine(self.startX, self.startY, self.endX, self.endY)
 
-
 class Point(Line):
     # (x, y) - coordinate of point
     # draws a line with the same start and end point
-
     def __init__(self, (x, y), color=None):
-        super(self, (x, y), None, color)
+        super(Point, self).__init__((x, y), (x, y), color)
         self.x = x
         self.y = y
-
-    def _draw(self, g):
-        g.drawLine(self.x, self.y, self.x, self.y)
-
 
 class Arc(Shape):
     # based in polar coordinate convention, with 0 degrees pointing 3 o'clock
@@ -154,12 +174,16 @@ class Polygon(Shape):
         super(Polygon, self).__init__(vertices[0], 0, 0, color, filled)
         self.vertices = vertices
 
-    def _draw(self, g):
+    def _draw_shape(self, g):
         (xValues, yValues) = zip(*self.vertices)
         if self.filled:
             g.fillPolygon(xValues, yValues, len(self.vertices))
         else:
             g.drawPolygon(xValues, yValues, len(self.vertices))
+
+    def _draw_stroke(self, g):
+        (xValues, yValues) = zip(*self.vertices)
+        g.drawPolygon(xValues, yValues, len(self.vertices))
 
 
 class RegPolygon(Shape):
@@ -178,9 +202,13 @@ class RegPolygon(Shape):
                 self.sideAngle * i))), int(round(y + self.radius * sin(self.sideAngle * i)))))
         print "Vertices:", self.vertices
 
-    def _draw(self, g):
+    def _draw_shape(self, g):
         (xValues, yValues) = zip(*self.vertices)
         if self.filled:
             g.fillPolygon(xValues, yValues, self.sides)
         else:
             g.drawPolygon(xValues, yValues, self.sides)
+
+    def _draw_stroke(self, g):
+        (xValues, yValues) = zip(*self.vertices)
+        g.drawPolygon(xValues, yValues, self.sides)

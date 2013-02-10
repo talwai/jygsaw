@@ -39,6 +39,7 @@ class Image(GraphicsObject):
                 print "Error could not find image"
 
     def setPath(self, p):
+        self.url = self.check_valid_url(path)
         self.path = p
 
     def setWidth(self, w):
