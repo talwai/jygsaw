@@ -3,14 +3,13 @@ import os
 sys.path.append(os.path.pardir + "/lib")
 from graphicsWrapper import *
 
-
 canvas(640, 360)
+background(black)
 loop()
 
 
 def draw():
-    background(black)
+    clear()
     circle(mouseX(), mouseY(), 5, color=red)
-    print (mouseX(), mouseY())
 
 onDraw(draw)

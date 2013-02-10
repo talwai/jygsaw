@@ -105,7 +105,7 @@ def fill(color):
 """
 Sets the background color of the window.
 """
-def setBackground(color):
+def background(color):
     window.setBackgroundColor(color)
     # It would be nice to be able to accept multiple types of color input
     # (r,g,b or name of color)
@@ -245,7 +245,7 @@ if ( __name__ == '__main__' ) or ( __name__ == 'main' ):
         global rectY
         clear()
         vertices = [(250,250),(360,360), (360, 250)]
-        
+
         fill(red)
         rect(rectX,rectY)
         line(150, 10, 200, 10)
@@ -257,7 +257,7 @@ if ( __name__ == '__main__' ) or ( __name__ == 'main' ):
         polygon(vertices)
         arc(300, 100)
         #circle(10,110)
-        
+
         setBackground(black)
         rectX = rectX + 10
         rectY = rectY + 10
