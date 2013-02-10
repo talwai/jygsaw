@@ -14,7 +14,7 @@ class Shape(GraphicsObject):
         self.filled = filled
         self.stroke = False
         self.strokeColor = None
-    
+
     def getWidth(self):
         return self.width
 
@@ -29,7 +29,7 @@ class Shape(GraphicsObject):
 
     def setStrokeColor(self, c):
         self.strokeColor = c
-    
+
     def setWidth(self, w):
         assert w > 0, "Shape width must be greater than zero"
         self.width = w

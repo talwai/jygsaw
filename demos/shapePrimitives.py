@@ -1,8 +1,10 @@
 # Basic shapes demo
-
+import sys
+import os
+sys.path.append(os.path.pardir + "/lib")
 from graphicsWrapper import *
 
-canvas(640, 800)
+canvas(640, 360)
 background(black)
 noStroke()
 
@@ -22,4 +24,4 @@ fill(gray)
 polygon([(288, 18), (351, 360), (288, 360)])
 
 fill(red)
-arc(479, 300, 280, 280, 180, 360)
+arc(50, 50, 280, 280, 180, 360)

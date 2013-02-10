@@ -1,6 +1,8 @@
 # Basic points and lines demo
-
-from GraphicsWrapper import *
+import sys
+import os
+sys.path.append(os.path.pardir + "/lib")
+from graphicsWrapper import *
 
 d = 70
 p1 = d

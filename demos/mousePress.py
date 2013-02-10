@@ -1,4 +1,7 @@
-from BalkcomArmory import wand
+import sys
+import os
+sys.path.append(os.path.pardir + "/lib")
+from graphicsWrapper import *
 
 canvas(640, 360)
 fillColor(126)
