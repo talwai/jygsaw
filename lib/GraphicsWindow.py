@@ -8,6 +8,9 @@ from Group import *
 from Shape import *
 from Text import *
 
+# the -O switch can't be used with jython, which is used to turn off __debug__
+# so we use debug instead
+debug = 0
 
 # Buttons, etc
 # class Components:
@@ -108,7 +111,7 @@ class GraphicsWindow(ActionListener, KeyListener, MouseInputListener):
     def mouseEntered(self, e):
         self.mouseX = e.getXOnScreen()
         self.mouseY = e.getYOnScreen()
-        if __debug__:
+        if debug:
             print self.mouseX
             print self.mouseY
 
@@ -143,7 +146,7 @@ class GraphicsWindow(ActionListener, KeyListener, MouseInputListener):
         self.mouseY = e.getYOnScreen()
         if self.onMouseMoved:
             self.onMouseMoved()
-        if __debug__:
+        if debug:
             print self.mouseX
             print self.mouseY
 
@@ -158,7 +161,7 @@ class GraphicsWindow(ActionListener, KeyListener, MouseInputListener):
     # KeyListener methods
     def keyTyped(self, e):
         self.keyT = True
-        if __debug__:
+        if debug:
             print e.getKeyChar()
         if self.onKeyTyped:
             self.onKeyTyped()
@@ -167,7 +170,7 @@ class GraphicsWindow(ActionListener, KeyListener, MouseInputListener):
         self.keyP = True
         if self.onKeyPressed:
             self.onKeyPressed()
-        if __debug__:
+        if debug:
             print e.getKeyChar()
 
     def keyReleased(self, e):
