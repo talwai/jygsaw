@@ -17,7 +17,7 @@ if (__name__ == '__main__') or (__name__ == 'main'):
     t = Text((400, 300), "Hello!", "Arial", 40)
     sun = Ellipse((115, 110), 75, 75, yellow)
     l = Line ((5,10),(100,150))
-    w.draw(ls)
+    w.draw(l)
     p = Point((900,9), black)
     w.draw(p)
     #image = Image((20, 20), "puppy.jpg")
