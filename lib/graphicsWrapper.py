@@ -35,7 +35,7 @@ def height():
 """
 Draws a point.
 """
-def point(x, y, color=None)
+def point(x, y, color=None):
     new_point = Point((x,y), color)
     window.draw(new_point)
     return new_point
@@ -107,8 +107,8 @@ def image(x, y, imagePath, width, height):
 """
 Sets the color to fill shapes with.
 """
-def fill(color):
-    window.setDefaultColor(color)
+def fill(r = None, g = None, b = None):
+    window.setDefaultColor(_color(r, g, b))
 
 """
 Sets the background color of the window.
@@ -202,9 +202,9 @@ def frameRate(rate):
 """
 Sets stroke to true. If a color is given then set the stroke color to that color
 """
-def stroke(color = None):
+def stroke(r = None, g = None, b = None):
     window.setStroke(True)
-    window.setStrokeColor(color)
+    window.setStrokeColor(_color(r, g, b))
 
 
 """
@@ -236,6 +236,25 @@ Redraws all of the objects on the window. Not sure there is a point to it.
 """
 def redraw():
     window.redraw()
+
+def _color(r, g = None, b = None):
+    print 'r = ', r, ' g = ', g, ' b = ', b
+    if g == None or b == None:
+        assert r != None and g == None and b == None, \
+            "color takes exactly 1 or 3 parameters"
+        if isinstance(r, int):
+            # Will create color (r, r, r)
+            return Color(r, r, r)
+        if isinstance(r, Color):
+            return r
+        else:
+            # r is of an unrecognized type
+            pass
+    else:
+        assert r != None and g != None and b != None, \
+            "color takes exactly 1 or 3 parameters"
+        assert isinstance(r, int) and isinstance(g, int) and isinstance(b, int), "color takes 3 integers"
+        return Color(r, g, b)
 
 if ( __name__ == '__main__' ) or ( __name__ == 'main' ):
     canvas()
@@ -295,3 +314,4 @@ if ( __name__ == '__main__' ) or ( __name__ == 'main' ):
     onMouseMove(mouseMoved)
     onMouseClick(mouseClicked)
     onDraw(draw)
+

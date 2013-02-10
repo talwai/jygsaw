@@ -97,18 +97,6 @@ class Circle(Ellipse):
     def scale(self, scale):
         self.radius = self.radius * scale
 
-    # draws an ellipse with the same width and height
-    def _draw_shape(self, g):
-        self.coordinates = (self.coordinates[0] + self.radius, self.coordinates[1] + self.radius)
-        if self.filled:
-            g.fillOval(self.coordinates[0], self.coordinates[1], self.radius * 2, self.radius * 2)
-        else:
-            g.drawOval(self.coordinates[0], self.coordinates[1], self.radius * 2, self.radius * 2)
-
-    def _draw_stroke(self, g):
-        self.coordinates = (self.coordinates[0] + self.radius, self.coordinates[1] + self.radius)
-        g.drawOval(self.coordinates[0], self.coordinates[1], self.radius * 2, self.radius * 2)
-
 
 class Rectangle(Shape):
     # (x,y) - top-left vertex of Rectangle
@@ -211,21 +199,3 @@ class RegPolygon(Shape):
     def _draw_stroke(self, g):
         (xValues, yValues) = zip(*self.vertices)
         g.drawPolygon(xValues, yValues, self.sides)
-
-def color(r, g = None, b = None):
-    if g == None or b == None:
-        assert r != None and g == None and b == None, \
-            "color takes exactly 1 or 3 parameters"
-        if isinstance(r, int):
-            # Will create color (r, r, r)
-            return Color(r, r, r)
-        if isinstance(r, Color):
-            return r
-        else:
-            # r is of an unrecognized type
-            pass
-    else:
-        assert r != None and g != None and b != None, \
-            "color takes exactly 1 or 3 parameters"
-        assert isinstance(r, int) and isinstance(g, int), and isinstance(b, int), "color takes 3 integers"
-        return Color(r, g, b)
