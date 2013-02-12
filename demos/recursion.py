@@ -9,7 +9,6 @@ def draw():
     # The redraw is necessary, otherwise window may be shown before
     # all the objects are drawn.
     redraw()
-    
 
 
 # Recursively draw smaller circles

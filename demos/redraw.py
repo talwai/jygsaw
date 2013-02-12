@@ -3,7 +3,7 @@ import os
 sys.path.append(os.path.pardir + "/lib")
 from graphicsWrapper import *
 
-y = 0
+y = int(height() * 0.5)
 
 
 # The statements in draw() are executed until the
@@ -21,6 +21,7 @@ def draw():
 canvas(640, 360)        # Size should be the first statement
 stroke(255)        # Set line drawing color to white
 noLoop()
-y = height() * 0.5
 
+
+onDraw(draw)
 onMousePress(draw)
