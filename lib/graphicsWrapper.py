@@ -27,7 +27,7 @@ def width():
     return window.w
 
 """
-Returns the width of the window
+Returns the height of the window
 """
 def height():
     return window.h
