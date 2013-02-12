@@ -113,10 +113,8 @@ def fill(r = None, g = None, b = None):
 """
 Sets the background color of the window.
 """
-def background(color):
-    window.setBackgroundColor(color)
-    # It would be nice to be able to accept multiple types of color input
-    # (r,g,b or name of color)
+def background(r = None, g = None, b = None):
+    window.setBackgroundColor(_color(r, g, b))
 
 
 #-----------Mouse and Key Listener functions---------------
