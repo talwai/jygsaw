@@ -235,6 +235,11 @@ Redraws all of the objects on the window. Not sure there is a point to it.
 def redraw():
     window.redraw()
 
+def text((x, y), s, font, size, color=None, attribute=PLAIN):
+    newText = Text((x, y), s, font, size, color, attribute)
+    window.draw(newText)
+    return newText
+
 def _color(r, g = None, b = None):
     if g == None or b == None:
         assert r != None and g == None and b == None, \
@@ -282,9 +287,11 @@ if ( __name__ == '__main__' ) or ( __name__ == 'main' ):
         arc(300, 100)
         #circle(10,110)
 
-        setBackground(black)
+        background(black)
         rectX = rectX + 10
         rectY = rectY + 10
+
+        text((200, 200), 'Hello, world', 'Times New Roman', 24, green)
 
     def mousePressed():
         print 'Mouse was pressed.'
