@@ -60,6 +60,10 @@ class GraphicsWindow(ActionListener, KeyListener, MouseInputListener):
         self.onKeyReleased = None
         self.onKeyTyped = None
 
+        # Key values
+        self.lastKeyChar = None
+        self.lastKeyCode = None
+
     def setVisible(self, isVisible):
         self.frame.visible = isVisible
 
@@ -165,19 +169,25 @@ class GraphicsWindow(ActionListener, KeyListener, MouseInputListener):
             print e.getKeyChar()
         if self.onKeyTyped:
             self.onKeyTyped()
+            self.lastKeyChar = e.getKeyChar()
+            self.lastKeyCode = e.getKeyCode()
 
     def keyPressed(self, e):
         self.keyP = True
-        if self.onKeyPressed:
-            self.onKeyPressed()
         if debug:
             print e.getKeyChar()
+        if self.onKeyPressed:
+            self.onKeyPressed()
+            self.lastKeyChar = e.getKeyChar()
+            self.lastKeyCode = e.getKeyCode()
 
     def keyReleased(self, e):
         self.keyT = False
         self.keyP = False
         if self.onKeyReleased:
             self.onKeyReleased()
+            self.lastKeyChar = e.getKeyChar()
+            self.lastKeyCode = e.getKeyCode()
 
 class Canvas(JPanel):
     """ Canvas to draw the action on. Owns the action and key listeners. """
