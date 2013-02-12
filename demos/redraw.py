@@ -15,12 +15,12 @@ def draw():
     global y
     y = y - 4
     if y < 0:
-        y = height
+        y = height()
     line(0, y, width, y)
 
 canvas(640, 360)        # Size should be the first statement
-strokeColor(255)        # Set line drawing color to white
+stroke(255)        # Set line drawing color to white
 noLoop()
-y = height * 0.5
+y = height() * 0.5
 
-mousePressedFunction(draw)
+onMousePress(draw)

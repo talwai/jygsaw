@@ -3,10 +3,9 @@ import os
 sys.path.append(os.path.pardir + "/lib")
 from graphicsWrapper import *
 
-y = height * 0.5
-
-canvas(640, 360)    # Size should be the first statement
-strokeColor(255)          # Set line drawing color to white
+canvas(640, 360)
+y = height() * 0.5  # Size should be the first statement
+stroke(255)          # Set line drawing color to white
 noLoop()
 
 
@@ -22,4 +21,4 @@ def draw():
         y = height()
     line(0, y, width(), y)
 
-drawFunction(draw)
+onDraw(draw)
