@@ -12,230 +12,274 @@ toLoop = False
 Stroke = False
 fR = 48 # Frame Rate
 
-"""
-Creates a new window. Width, height and title can be set optionally as well
-"""
 def canvas(width=400, height=400, window_title=' ', background=white):
+    """
+    Creates a new window. Width, height and title can be set optionally as well
+    """
+
     global window
     window = GraphicsWindow(window_title, width, height, background)
     window.setVisible(True)
 
-"""
-Returns the width of the window
-"""
 def width():
+    """
+    Returns the width of the window
+    """
+
     return window.w
 
-"""
-Returns the height of the window
-"""
 def height():
+    """
+    Returns the height of the window
+    """
+
     return window.h
 
-"""
-Draws a point.
-"""
 def point(x, y, color=None):
+    """
+    Draws a point.
+    """
+
     new_point = Point((x,y), color)
     window.draw(new_point)
     return new_point
 
-"""
-Draws a line between coordinates (x1, y1), and (x2 and y2). You can optionally set the color as well
-"""
 def line(x1, y1, x2, y2, color=None):
+    """
+    Draws a line between coordinates (x1, y1), and (x2 and y2). You can
+    optionally set the color as well
+    """
+
     new_line = Line((x1, y1), (x2, y2))
     window.draw(new_line)
     return new_line
 
-"""
-Creates a rectangle with the upper left corner at the given (x,y) coordinates.
-"""
 def rect(x, y, rectWidth=100, rectHeight=100, color=None, filled=True):
+    """
+    Creates a rectangle with the upper left corner at the given (x,y)
+    coordinates.
+    """
+
     new_rect = Rectangle((x, y), rectWidth, rectHeight, color, filled)
     window.draw(new_rect)
     return new_rect
 
-"""
-Creates a circle centered at the given (x,y) coordinates. The radius, color, filled status, and stoke status can
-be optionally modified.
-"""
 def circle(x, y, radius=50, color=None, filled=True):
+    """
+    Creates a circle centered at the given (x,y) coordinates. The radius,
+    color, filled status, and stoke status can be optionally modified.
+    """
+
     new_circle = Circle((x, y), radius, color, filled)
     window.draw(new_circle)
     return new_circle
 
-"""
-Creates an eclipse centered at the given (x,y) coordinates. Width, height, color, filled status and stroke status
-can be optionally modified.
-"""
 def ellipse(x, y, width=100, height=100, color=None, filled=True):
+    """
+    Creates an eclipse centered at the given (x,y) coordinates. Width, height,
+    color, filled status and stroke status can be optionally modified.
+    """
+
     new_ellipse = Ellipse((x, y), width, height, color, filled)
     window.draw(new_ellipse)
     return new_ellipse
 
-"""
-Creates a polygon whose points are given in a list as the first argument. Width, height, color, filled status and stroke status can
-be optionally modified
-"""
 def polygon(vertices, color=None, filled=True):
+    """
+    Creates a polygon whose points are given in a list as the first argument.
+    Width, height, color, filled status and stroke status can be optionally
+    modified
+    """
+
     new_polygon = Polygon(vertices, color, filled)
     window.draw(new_polygon)
     return new_polygon
 
-"""
-Creates an arc centered at the given (x,y) coordinates. The width, heigh, start angle, end angle, color, filled
-status and stoke status can be optionally modified. Start angle and end angle refer to the
-"""
-def arc(x, y, width=100, height=100, startAngle=0, endAngle=180, color=None, filled=True):
+def arc(x, y, width=100, height=100, startAngle=0, endAngle=180, \
+            color=None, filled=True):
+    """
+    Creates an arc centered at the given (x,y) coordinates. The width, height,
+    start angle, end angle, color, filled status and stoke status can be
+    optionally modified. Start angle and end angle refer to the
+    """
+
     new_arc = Arc((x, y), width, height, startAngle, (endAngle - startAngle), color)
     window.draw(new_arc)
     return new_arc
 
 # It would be nice to have the option to not specify the width
 # and height. Is there a way to get the default width/height of image?
-"""
-Draws an image with upper left corner at the given (x,y) coordinates. The image should be located at imagePath,
-and the desired width and height of the image should be specified in their respective arguments.
-"""
 def image(x, y, imagePath, width, height):
+    """
+    Draws an image with upper left corner at the given (x,y) coordinates.
+    The image should be located at imagePath, and the desired width and
+    height of the image should be specified in their respective arguments.
+    """
+
     global window
     img = Image((x, y), imagePath, width, height)
     window.draw(img)
     return img
 
-"""
-Sets the color to fill shapes with.
-"""
 def fill(r = None, g = None, b = None):
+    """
+    Sets the color to fill shapes with.
+    """
+
     window.setDefaultColor(_color(r, g, b))
 
-"""
-Sets the background color of the window.
-"""
 def background(r = None, g = None, b = None):
+    """
+    Sets the background color of the window.
+    """
+
     window.setBackgroundColor(_color(r, g, b))
 
 
 #-----------Mouse and Key Listener functions---------------
-"""
-Returns x coordinate of the mouse
-"""
 def mouseX():
+    """
+    Returns x coordinate of the mouse
+    """
+
     return window.mouseX
 
-"""
-Returns y coordinate of the mouse
-"""
 def mouseY():
+    """
+    Returns y coordinate of the mouse
+    """
+
     return window.mouseY
 
-"""
-Sets the window's onMousePressed variable to be the user defined mouseClicked function.
-It will then be called by the window's mouse listener when the event occurs.
-"""
 def onMousePress(mousePressed):
+    """
+    Sets the window's onMousePressed variable to be the user defined
+    mouseClicked function. It will then be called by the window's mouse
+    listener when the event occurs.
+    """
+
     window.onMousePressed = mousePressed
 
-"""
-Sets the window's onMouseReleased variable to be the user defined mouseClicked function.
-It will then be called by the window's mouse listener when the event occurs.
-"""
 def onMouseRelease(mouseReleased):
+    """
+    Sets the window's onMouseReleased variable to be the user defined
+    mouseClicked function. It will then be called by the window's mouse
+    listener when the event occurs.
+    """
+
     window.onMouseReleased = mouseReleased
 
-"""
-Sets the window's onMouseClick variable to be the user defined mouseClicked function.
-It will then be called by the window's mouse listener when the event occurs.
-"""
 def onMouseClick(mouseClicked):
+    """
+    Sets the window's onMouseClick variable to be the user defined
+    mouseClicked function. It will then be called by the window's mouse
+    listener when the event occurs.
+    """
+
     window.onMouseClick = mouseClicked
 
-"""
-Sets the window's onMouseDragged variable to be the user defined mouseDragged function.
-It will then be called by the window's mouse listener when the event occurs.
-"""
 def onMouseDrag(mouseDragged):
+    """
+    Sets the window's onMouseDragged variable to be the user defined
+    mouseDragged function. It will then be called by the window's mouse
+    listener when the event occurs.
+    """
+
     window.onMouseDragged = mouseDragged
 
-"""
-Sets the window's onMouseMoved variable to be the user defined mouseMoved function.
-It will then be called by the window's mouse listener when the event occurs.
-"""
 def onMouseMove(mouseMoved):
+    """
+    Sets the window's onMouseMoved variable to be the user defined
+    mouseMoved function. It will then be called by the window's mouse
+    listener when the event occurs.
+    """
+
     window.onMouseMoved = mouseMoved
 
 #---------------------------------------------------------------
 
 
-"""
-Sets stroke to false
-"""
 def noStroke():
+    """
+    Sets stroke to false
+    """
+
     global Stroke
     Stroke = False
 
-"""
-Tells the draw function to loop when it is called
-"""
 def loop():
+    """
+    Tells the draw function to loop when it is called
+    """
+
     global toLoop
     toLoop = True
 
-"""
-Tells the draw function not to loop when it is called,
-or to stop looping if it has already started. This is the default.
-"""
 def noLoop():
+    """
+    Tells the draw function not to loop when it is called,
+    or to stop looping if it has already started. This is the default.
+    """
+
     global toLoop
     toLoop = False
 
-"""
-Sets the frame rate value
-"""
 def frameRate(rate):
+    """
+    Sets the frame rate value
+    """
+
     global frameRate
     frameRate = rate
 
-"""
-Sets stroke to true. If a color is given then set the stroke color to that color
-"""
 def stroke(r = None, g = None, b = None):
+    """
+    Sets stroke to true. If a color is given then set the stroke
+    color to that color
+    """
+
     window.setStroke(True)
     window.setStrokeColor(_color(r, g, b))
 
-
-"""
-Sets stroke to false
-"""
 def noStroke():
+    """
+    Sets stroke to false
+    """
+
     window.setStroke(False)
 
-"""
-Clears the window of all objects
-"""
 def clear():
+    """
+    Clears the window of all objects and redraws screen
+    """
+
     window.clear()
 
-"""
-Callback function which calls the user defined draw function.
-It repeatedly loops if loop() has been called.
-"""
 def onDraw(draw):
+    """
+    Callback function which calls the user defined draw function.
+    It repeatedly loops if loop() has been called.
+    """
+
     if toLoop:
         while toLoop:
             draw()
             time.sleep(1/fR)
     else:
         draw()
-
-"""
-Redraws all of the objects on the window. Not sure there is a point to it.
-"""
 def redraw():
+    """
+    Redraws all of the objects on the window. Not sure there is a point to it.
+    """
+
     window.redraw()
 
 def text((x, y), s, font, size, color=None, attribute=PLAIN):
+    """
+    Draws specified text to the screen at (x, y), with specified font and size
+    and optional color and attribute (PLAIN, BOLD, ITALIC)
+    """
+
     newText = Text((x, y), s, font, size, color, attribute)
     window.draw(newText)
     return newText
