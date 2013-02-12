@@ -5,7 +5,7 @@ from java.awt.Graphics import setFont
 
 
 class Text(GraphicsObject):
-    def __init__(self, (x, y), s, font, size, attribute=PLAIN, color=None):
+    def __init__(self, (x, y), s, font, size, color=None, attribute=PLAIN):
         assert size > 0, "Text size must be greater than zero"
         super(Text, self).__init__((x, y), color)
         self.s = s

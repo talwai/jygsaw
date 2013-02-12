@@ -115,9 +115,6 @@ Sets the background color of the window.
 """
 def background(r = None, g = None, b = None):
     window.setBackgroundColor(_color(r, g, b))
-    # It would be nice to be able to accept multiple types of color input
-    # (r,g,b or name of color)
-
 
 #-----------Mouse functions---------------
 """
@@ -278,6 +275,11 @@ Redraws all of the objects on the window. Not sure there is a point to it.
 def redraw():
     window.redraw()
 
+def text((x, y), s, font, size, color=None, attribute=PLAIN):
+    newText = Text((x, y), s, font, size, color, attribute)
+    window.draw(newText)
+    return newText
+
 def _color(r, g = None, b = None):
     if g == None or b == None:
         assert r != None and g == None and b == None, \
@@ -336,6 +338,8 @@ if ( __name__ == '__main__' ) or ( __name__ == 'main' ):
             rectY = rectY + 1
         else:
             rectY = rectY - 1
+
+        text((200, 200), 'Hello, world', 'Times New Roman', 24, green)
 
     def mousePressed():
         print 'Mouse was pressed.'

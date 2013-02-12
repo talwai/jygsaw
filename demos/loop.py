@@ -10,7 +10,7 @@ y = 100
 # run once when the program begins
 
 canvas(640, 360)        # Size should be the first statement
-# stroke(255)           # Set stroke color to white
+stroke(255)           # Set stroke color to white
 loop()
 
 y = int(height() * 0.5)
