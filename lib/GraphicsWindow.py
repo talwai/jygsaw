@@ -29,8 +29,8 @@ class GraphicsWindow(ActionListener, KeyListener, MouseInputListener):
         self.h = h
         self.backgroundColor = backgroundColor
 
-        self.frame = JFrame(title, defaultCloseOperation = JFrame.EXIT_ON_CLOSE,
-                            size = (self.w, self.h))
+        self.frame = JFrame(title, defaultCloseOperation = JFrame.EXIT_ON_CLOSE,         
+                   size = (self.w, self.h))
 
         self.frame.contentPane = Canvas(self, self.objs, self.backgroundColor)
         self.frame.addMouseListener(self)
@@ -112,11 +112,11 @@ class GraphicsWindow(ActionListener, KeyListener, MouseInputListener):
     # These methods are implemented the MouseInputListener interface
     # from Swing
     def mouseEntered(self, e):
-        self.mouseX = e.getXOnScreen()
-        self.mouseY = e.getYOnScreen()
+        self.mouseX = e.getX()
+        self.mouseY = e.getY() - 25
         if debug:
-            print self.mouseX
-            print self.mouseY
+            print '(%d, %d)' % (self.mouseX, self.mouseY)
+
 
     def mouseX(self):
         return self.mouseX
@@ -145,13 +145,12 @@ class GraphicsWindow(ActionListener, KeyListener, MouseInputListener):
             self.onMouseReleased()
 
     def mouseMoved(self, e):
-        self.mouseX = e.getXOnScreen()
-        self.mouseY = e.getYOnScreen()
+        self.mouseX = e.getX()
+        self.mouseY = e.getY() - 25
         if self.onMouseMoved:
             self.onMouseMoved()
         if debug:
-            print self.mouseX
-            print self.mouseY
+            print '(%d, %d)' % (self.mouseX, self.mouseY)
 
     def mouseDragged(self, e):
         self.mouseD = True
