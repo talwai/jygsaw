@@ -8,12 +8,10 @@ from Group import *
 from Shape import *
 from Text import *
 
-# the -O switch can't be used with jython, which is used to turn off __debug__
-# so we use debug instead
+# The -O switch can't be used with jython, which is used to turn off __debug__
+# so we use debug instead.
 debug = 0
 
-# Buttons, etc
-# class Components:
 
 class GraphicsWindow(ActionListener, KeyListener, MouseInputListener):
     """
@@ -24,7 +22,7 @@ class GraphicsWindow(ActionListener, KeyListener, MouseInputListener):
     def __init__(self, title, w, h, backgroundColor=white):
         assert w > 0, "GraphicsWindow width must be greater than zero"
         assert h > 0, "GraphicsWindow height must be greater than zero"
-        self.objs = []  # List of Jy_Objects
+        self.objs = []  # List of GraphicsObjects
         self.w = w
         self.h = h
         self.backgroundColor = backgroundColor
@@ -65,7 +63,9 @@ class GraphicsWindow(ActionListener, KeyListener, MouseInputListener):
 
     """
     Takes a variable number of GraphicsObjects, or Groups of GraphicsObjects,
-    and draws them on the window.
+    and draws them on the window. If a shape is drawn without specifiying 
+    a color the default color is used. The default stroke option (True or False) 
+    and stokeColor is saved in each object. 
     """
     def draw(self, *params):
         for arg in params:
@@ -83,7 +83,7 @@ class GraphicsWindow(ActionListener, KeyListener, MouseInputListener):
                     obj.stroke = self.frame.contentPane.stroke
                     self.objs.append(obj)
             else:
-                print "you passed in something that's not a group or graphics object"
+                print "Passed in something that's not a group or graphics object"
 
     def setDefaultColor(self, c):
         self.frame.contentPane.setDefaultColor(c)
@@ -104,13 +104,18 @@ class GraphicsWindow(ActionListener, KeyListener, MouseInputListener):
     def redraw(self):
         self.frame.contentPane.repaint()
 
+    """
+    In order to clear the screen, all of the objects are removed
+    from the objects list and then the screen is redrawn.
+    """
     def clear(self):
         self.objs = []
         self.frame.contentPane.objs = self.objs
         self.redraw()
 
-    # These methods are implemented the MouseInputListener interface
-    # from Swing
+    """
+    These methods implemented Swing's MouseInputListener interface.
+    """
     def mouseEntered(self, e):
         self.mouseX = e.getXOnScreen()
         self.mouseY = e.getYOnScreen()
@@ -158,7 +163,9 @@ class GraphicsWindow(ActionListener, KeyListener, MouseInputListener):
         if self.onMouseDragged:
             self.onMouseDragged()
 
-    # These methods implement the KeyListener inteface from Swing
+    """
+    These methods implement Swing's KeyListener inteface.
+    """
     def keyTyped(self, e):
         self.keyT = True
         if debug:
@@ -181,20 +188,27 @@ class GraphicsWindow(ActionListener, KeyListener, MouseInputListener):
 
 class Canvas(JPanel):
     """ Canvas to draw the action on. Owns the action and key listeners. """
+    
     def __init__(self, window, objects, backgroundColor):
         self.objs = objects
         self.window = window
         self.defaultColor = gray
         self.backgroundColor = backgroundColor
         self.strokeColor = black
-        self.stroke = False
+        self.stroke = False  # sets whether or not strokes are being drawn for shapes
     
+    """
+    This fuction is responsible for drawing on the canvas. It is passed a 
+    java graphics object that is needed in order to draw all of the GraphicsObjects.
+    Clears the window by drawing a clear rectangle over the entire window. 
+    The function then runs through the entire list of objs and draws all of them 
+    on the screen.
+    """
+
     def paintComponent(self, g):
         g.background = self.backgroundColor
         g.clearRect(0, 0, self.window.w, self.window.h)
         g.setColor(white)  # Set color of rectangle
-
-        print 'Canvas # objs', len(self.objs)
 
         for i in range(len(self.objs)):
             g.setColor(self.objs[i].getColor())
