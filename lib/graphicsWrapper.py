@@ -15,10 +15,11 @@ fr = 60 # Frame Rate
 """
 Creates a new window. Width, height and title can be set optionally as well
 """
-def canvas(width=400, height=400, window_title=' ', background=white):
+def canvas(width=400, height=400, window_title='Jygsaw Canvas', background=white):
     global window
     window = GraphicsWindow(window_title, width, height, background)
     window.setVisible(True)
+    return window
 
 """
 Returns the width of the window
@@ -340,6 +341,8 @@ if ( __name__ == '__main__' ) or ( __name__ == 'main' ):
             rectY = rectY - 1
 
         text((200, 200), 'Hello, world', 'Times New Roman', 24, green)
+
+        image(x, y, './puppy.jpg', width, height)
 
     def mousePressed():
         print 'Mouse was pressed.'
