@@ -10,7 +10,7 @@ import time
 
 toLoop = False
 Stroke = False
-fr = 60 # Frame Rate
+fr = 30.0 # Frame Rate
 
 def canvas(width=400, height=400, window_title='Jygsaw Canvas', background=white):
     """
@@ -363,7 +363,7 @@ if ( __name__ == '__main__' ) or ( __name__ == 'main' ):
     canvas()
     noLoop()
     stroke()
-    frameRate(60)
+    frameRate(30.0)
 
     x = None
     y = None

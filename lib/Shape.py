@@ -147,7 +147,7 @@ class Rectangle(Shape):
                        self.width, self.height)
 
     def _draw_stroke(self, g):
-        g.fillRect(self.coordinates[0], self.coordinates[1],
+        g.drawRect(self.coordinates[0], self.coordinates[1],
             self.width, self.height)
 
 class Line(Shape):
