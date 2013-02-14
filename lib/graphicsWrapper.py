@@ -10,7 +10,7 @@ import time
 
 toLoop = False
 Stroke = False
-fR = 48 # Frame Rate
+fr = 60 # Frame Rate
 
 def canvas(width=400, height=400, window_title=' ', background=white):
     """
@@ -135,8 +135,9 @@ def background(r = None, g = None, b = None):
 
     window.setBackgroundColor(_color(r, g, b))
 
+#---------------------------------------------------------------
+#-----------Mouse functions-------------------------------------
 
-#-----------Mouse and Key Listener functions---------------
 def mouseX():
     """
     Returns x coordinate of the mouse
@@ -197,6 +198,45 @@ def onMouseMove(mouseMoved):
     window.onMouseMoved = mouseMoved
 
 #---------------------------------------------------------------
+#--------------------Keyboard Methods---------------------------
+
+def onKeyPress(keyPressed):
+    """
+    Callback for window's key listener. Passes the user defined function to the window's keyPressed
+    method.
+    """
+    window.onKeyPressed = keyPressed
+
+def onKeyRelease(keyReleased):
+    """
+    Callback for window's key listener. Passes the user defined function to the window's keyReleased
+    method.
+    """
+    window.onKeyReleased = keyReleased
+
+
+def onKeyType(keyTyped):
+    """
+    Callback for window's key listener. Passes the user defined function to the window's keyTyped
+    method.
+    """
+    window.onKeyTyped = keyTyped
+
+
+def lastKeyChar():
+    """
+    Returns the last key character that was pressed. Non-ascii keys will return a question mark.
+    """
+    return window.lastKeyChar
+
+def lastKeyCode():
+    """
+    Returns the last key code that was pressed. Codes are of the form VK_CODE, from the swing library. All the
+    codes can be found at http://docs.oracle.com/javase/1.4.2/docs/api/java/awt/event/KeyEvent.html.
+    """
+    return window.lastKeyCode
+
+#---------------------------------------------------------------
 
 
 def noStroke():
@@ -229,8 +269,8 @@ def frameRate(rate):
     Sets the frame rate value
     """
 
-    global frameRate
-    frameRate = rate
+    global fr
+    fr = rate
 
 def stroke(r = None, g = None, b = None):
     """
@@ -264,9 +304,12 @@ def onDraw(draw):
     if toLoop:
         while toLoop:
             draw()
-            time.sleep(1/fR)
+            redraw()
+            time.sleep(1/fr)
     else:
         draw()
+        redraw()
+
 def redraw():
     """
     Redraws all of the objects on the window. Not sure there is a point to it.
@@ -305,7 +348,7 @@ def _color(r, g = None, b = None):
 if ( __name__ == '__main__' ) or ( __name__ == 'main' ):
     canvas()
     loop()
-    frameRate(48)
+    frameRate(60)
 
     x = None
     y = None
@@ -325,15 +368,23 @@ if ( __name__ == '__main__' ) or ( __name__ == 'main' ):
         fill(pink)
         ellipse(10, 150)
 
-        print width(), height()
-
         polygon(vertices)
         arc(300, 100)
-        #circle(10,110)
+        circle(10,50)
 
         background(black)
-        rectX = rectX + 10
-        rectY = rectY + 10
+        w = width()
+        h = height()
+        
+        if rectX < (w - 10):
+            rectX = rectX + 1
+        else:
+            rectX = rectX - 1
+
+        if rectY < (h - 10):
+            rectY = rectY + 1
+        else:
+            rectY = rectY - 1
 
         text((200, 200), 'Hello, world', 'Times New Roman', 24, green)
 
@@ -356,10 +407,25 @@ if ( __name__ == '__main__' ) or ( __name__ == 'main' ):
         y = mouseY()
         print 'Mouse moved x = %d, y = %d' % (x, y)
 
-    onMousePress(mousePressed)
-    onMouseRelease(mouseReleased)
-    onMouseDrag(mouseDragged)
-    onMouseMove(mouseMoved)
-    onMouseClick(mouseClicked)
+    def keyPressed(event):
+        char = event.getKeyChar()
+        print 'Key Pressed! Char = %s' % char
+
+    def keyReleased(event):
+        char = event.getKeyChar()
+        print 'Key Released! Char = %s' % char
+
+    def keyTyped(event):
+        char = event.getKeyChar()
+        print 'Key Typed! Char = %s' % char
+
+    #onMousePress(mousePressed)
+    #onMouseRelease(mouseReleased)
+    #onMouseDrag(mouseDragged)
+    #onMouseMove(mouseMoved)
+    #onMouseClick(mouseClicked)
+    onKeyPress(keyPressed)
+    onKeyRelease(keyReleased)
+    onKeyType(keyTyped)
     onDraw(draw)
 

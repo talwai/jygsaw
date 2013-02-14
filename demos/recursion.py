@@ -6,10 +6,6 @@ from graphicsWrapper import *
 
 def draw():
     drawCircle(width() / 2, 280, 6)
-    # The redraw is necessary, otherwise window may be shown before
-    # all the objects are drawn.
-    redraw()
-
 
 # Recursively draw smaller circles
 def drawCircle(x, radius, level):
