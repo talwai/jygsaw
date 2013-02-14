@@ -65,7 +65,8 @@ class Shape(GraphicsObject):
         _draw method that method will be used to draw the object. This is the 
         case for shapes that don't need a stroke. If a shape doesn't have a stroke 
         it will be drawn using _draw_shape(). If it does have a stroke after 
-        the filled circle being drawn 
+        the filled circle is _draw_stroke() will draw an unfilled circle over 
+        it creating a stroke. 
         """
         g.setColor(self.color)
         self._draw_shape(g)
@@ -74,14 +75,14 @@ class Shape(GraphicsObject):
             self._draw_stroke(g)
 
 class Ellipse(Shape):
-    # (x,y) - center of Ellipse
+    """
+    Inherits from Shape. The (x,y) coordinates represent top left hand corner 
+    of the bounding rectangle. 
+    """
     def __init__(self, (x, y), width, height, color=None, filled=True):
         assert width > 0, "Ellipse width must be greater than zero"
         assert height > 0, "Ellipse height must be greater than zero"
         super(Ellipse, self).__init__((x, y), width, height, color, filled)
-
-    def scale(self):
-        pass
 
     def _draw_stroke(self, g):
         g.drawOval(self.coordinates[0],
@@ -100,16 +101,23 @@ class Ellipse(Shape):
                        self.coordinates[1],
                        self.width,
                        self.height)
+    def scale(self):
+        pass
 
     def rotate(self, degrees):
-        math.radians(degrees)
+        pass
+        #math.radians(degrees)
 
 
 class Circle(Ellipse):
+    """
+    Circle inherits its draw methods from Ellipse. The (x, y) coordinates of a Circle represent its center.
+    """
+
     # (x,y) - center of Circle
     def __init__(self, (x, y), radius, color=None, filled=True):
         assert radius > 0, "Circle radius must be greater than zero"
-        super(Circle, self).__init__((x - radius, y - radius), radius * 2, radius * 2, color, filled)
+        super(Circle, self).__init__((x + radius, y + radius), radius * 2, radius * 2, color, filled)
         self.radius = radius
 
     def setRadius(self, r):
@@ -219,7 +227,6 @@ class RegPolygon(Shape):
         for i in range(self.sides):
             self.vertices.append((int(round(x + self.radius * cos(
                 self.sideAngle * i))), int(round(y + self.radius * sin(self.sideAngle * i)))))
-        print "Vertices:", self.vertices
 
     def _draw_shape(self, g):
         (xValues, yValues) = zip(*self.vertices)
