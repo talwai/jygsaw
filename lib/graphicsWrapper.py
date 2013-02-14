@@ -10,7 +10,7 @@ import time
 
 toLoop = False
 Stroke = False
-fr = 30.0 # Frame Rate
+fr = 60.0 # Frame Rate
 
 def canvas(width=400, height=400, window_title='Jygsaw Canvas', background=white):
     """
@@ -282,7 +282,7 @@ def frameRate(rate):
     """
 
     global fr
-    fr = rate
+    fr = float(rate)
 
 def stroke(r = None, g = None, b = None):
     """
@@ -319,7 +319,7 @@ def onDraw(draw):
         while toLoop:
             draw()
             redraw()
-            time.sleep(1/fr)
+            time.sleep(1.0/fr)
     else:
         draw()
         redraw()
