@@ -12,10 +12,11 @@ toLoop = False
 Stroke = False
 fr = 60 # Frame Rate
 
-"""
-Creates a new window. Width, height and title can be set optionally as well
-"""
 def canvas(width=400, height=400, window_title='Jygsaw Canvas', background=white):
+    """
+    Creates a new window. Width, height and title can be set optionally as well
+    """
+    
     global window
     window = GraphicsWindow(window_title, width, height, background)
     window.setVisible(True)
