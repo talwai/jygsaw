@@ -360,17 +360,20 @@ if ( __name__ == '__main__' ) or ( __name__ == 'main' ):
         y = mouseY()
         print 'Mouse moved x = %d, y = %d' % (x, y)
 
-    def keyPressed(event):
-        char = event.getKeyChar()
-        print 'Key Pressed! Char = %s' % char
+    def keyPressed():
+        char = lastKeyChar()
+        code = lastKeyCode()
+        print 'Key Pressed! Char = %s Code = %s' % (char,code)
 
-    def keyReleased(event):
-        char = event.getKeyChar()
-        print 'Key Released! Char = %s' % char
+    def keyReleased():
+        char = lastKeyChar()
+        code = lastKeyCode()
+        print 'Key Released! Char = %s Code = %s' % (char,code)
 
-    def keyTyped(event):
-        char = event.getKeyChar()
-        print 'Key Typed! Char = %s' % char
+    def keyTyped():
+        char = lastKeyChar()
+        code = lastKeyCode()
+        print 'Key Typed! Char = %s Code = %s' % (char,code)
 
     #onMousePress(mousePressed)
     #onMouseRelease(mouseReleased)
