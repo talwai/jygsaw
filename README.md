@@ -27,7 +27,6 @@ def recursiveCircle(x, radius, level):
 
 canvas(640, 360)
 onDraw(draw)
-
 ```
 
 ## Documentation
@@ -36,13 +35,33 @@ onDraw(draw)
 Do stuff.
 ### Tutorial
 Write stuff.
-### Reference
-Stuff happens.
 
 ## Code
 Jygsaw is developed on the Jython platform, using Java's Swing library.
 
 Our git repository is hosted [on Bitbucket](https://bitbucket.org/haplesshero13/cs98library/).
+
+### Building Documentation
+First make sure you have Sphinx installed under Jython. Assuming you have already installed Jython (and possibly Python), one way to do this is using `virtualenv`:
+
+```
+:::bash
+$ cd cs98library
+$ easy_install virtualenv
+$ virtualenv -p jython venv
+$ source venv/bin/activate
+```
+
+Now when you type `python --version` in the command line you should get `Jython 2.5.3` or whatever version of Jython you have installed, and you should be able to build the docs.
+
+```
+:::bash
+$ pip install sphinx
+$ cd doc
+$ make html
+```
+
+The documentation will appear in `doc/_build/html`.
 
 ## Authors
 Balkcom's Army is:

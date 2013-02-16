@@ -12,11 +12,12 @@ from Text import *
 # so we use debug instead
 debug = 1
 
+
 class GraphicsWindow(ActionListener, KeyListener, MouseInputListener):
     """
     Creates a GraphicsWindow with a Canvas object that can be drawn on.
     Also takes callback functions for Mouse and Key input.
-    
+
     """
     def __init__(self, title, w, h, backgroundColor=white):
         assert w > 0, "GraphicsWindow width must be greater than zero"
@@ -26,8 +27,9 @@ class GraphicsWindow(ActionListener, KeyListener, MouseInputListener):
         self.h = h
         self.backgroundColor = backgroundColor
 
-        self.frame = JFrame(title, defaultCloseOperation = JFrame.EXIT_ON_CLOSE,         
-                   size = (self.w, self.h))
+        self.frame = JFrame(
+            title, defaultCloseOperation=JFrame.EXIT_ON_CLOSE,
+            size=(self.w, self.h))
 
         self.frame.contentPane = Canvas(self, self.objs, self.backgroundColor)
         self.frame.addMouseListener(self)
@@ -65,9 +67,9 @@ class GraphicsWindow(ActionListener, KeyListener, MouseInputListener):
 
     """
     Takes a variable number of GraphicsObjects, or Groups of GraphicsObjects,
-    and draws them on the window. If a shape is drawn without specifiying 
-    a color the default color is used. The default stroke option (True or False) 
-    and stokeColor is saved in each object. 
+    and draws them on the window. If a shape is drawn without specifiying
+    a color the default color is used. The default stroke option (True or False)
+    and stokeColor is saved in each object.
     """
     def draw(self, *params):
         for arg in params:
@@ -171,29 +173,30 @@ class GraphicsWindow(ActionListener, KeyListener, MouseInputListener):
         if debug:
             print e.getKeyChar()
         if self.onKeyTyped:
-            self.onKeyTyped()
             self.lastKeyChar = e.getKeyChar()
             self.lastKeyCode = e.getKeyCode()
+            self.onKeyTyped()
 
     def keyPressed(self, e):
         self.keyEventType = e.getID()
         if debug:
             print e.getKeyChar()
         if self.onKeyPressed:
-            self.onKeyPressed()
             self.lastKeyChar = e.getKeyChar()
             self.lastKeyCode = e.getKeyCode()
+            self.onKeyPressed()
 
     def keyReleased(self, e):
         self.keyEventType = e.getID()
         if self.onKeyReleased:
-            self.onKeyReleased()
             self.lastKeyChar = e.getKeyChar()
             self.lastKeyCode = e.getKeyCode()
+            self.onKeyReleased()
+
 
 class Canvas(JPanel):
     """ Canvas to draw the action on. Owns the action and key listeners. """
-    
+
     def __init__(self, window, objects, backgroundColor):
         self.objs = objects
         self.window = window
@@ -201,12 +204,12 @@ class Canvas(JPanel):
         self.backgroundColor = backgroundColor
         self.strokeColor = black
         self.stroke = False  # sets whether or not strokes are being drawn for shapes
-    
+
     """
-    This fuction is responsible for drawing on the canvas. It is passed a 
+    This fuction is responsible for drawing on the canvas. It is passed a
     java graphics object that is needed in order to draw all of the GraphicsObjects.
-    Clears the window by drawing a clear rectangle over the entire window. 
-    The function then runs through the entire list of objs and draws all of them 
+    Clears the window by drawing a clear rectangle over the entire window.
+    The function then runs through the entire list of objs and draws all of them
     on the screen.
     """
 
@@ -230,4 +233,3 @@ class Canvas(JPanel):
 
     def setStroke(self, b):
         self.stroke = b
-

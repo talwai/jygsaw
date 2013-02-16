@@ -1,26 +1,27 @@
 from GraphicsObject import *
 from java.awt.Graphics import fillRect, fillOval
-from java.awt.Graphics2D import * # Hopefully, refine this later.
+from java.awt.Graphics2D import *  # Hopefully, refine this later.
 from java.lang.Math import PI, cos, sin
 from java.awt import Color
 
+
 class Shape(GraphicsObject):
     """
-    Shape inherits from GraphicsObject. Any shape that is drawn on the 
-    canvas inherits from Shape. Shape stores the width and height of the 
-    object. As well a boolean stating whether or not it is filled and 
-    another boolean that stores whether or not the shape should be drawn 
-    with a stroke. The stroke color for the Shape is also stored in this 
-    class. 
+    Shape inherits from GraphicsObject. Any shape that is drawn on the
+    canvas inherits from Shape. Shape stores the width and height of the
+    object. As well a boolean stating whether or not it is filled and
+    another boolean that stores whether or not the shape should be drawn
+    with a stroke. The stroke color for the Shape is also stored in this
+    class.
     """
 
     def __init__(self, (x, y), width, height, color=None, filled=True):
         """
-        Constructor for Shape class. Coordinates and color are passed 
-        to the super class. Coodinates, width and height are required 
-        parameters in order to create the object. If no color is passed 
+        Constructor for Shape class. Coordinates and color are passed
+        to the super class. Coodinates, width and height are required
+        parameters in order to create the object. If no color is passed
         the default color is the default color of the window. Initially
-        stroke is set to False and strokeColor is None. strokeColor and 
+        stroke is set to False and strokeColor is None. strokeColor and
         stroke are later set by the draw method in window.
         """
 
@@ -59,14 +60,14 @@ class Shape(GraphicsObject):
 
     def _draw(self, g):
         """
-        Hidden draw method for all Shape objects. Each shape that inherits from 
-        Shape needs to have its own _draw method or two methods: _draw_shape() 
-        and _draw_stroke(). If the class that inherits from Shape just has a 
-        _draw method that method will be used to draw the object. This is the 
-        case for shapes that don't need a stroke. If a shape doesn't have a stroke 
-        it will be drawn using _draw_shape(). If it does have a stroke after 
-        the filled circle is _draw_stroke() will draw an unfilled circle over 
-        it creating a stroke. 
+        Hidden draw method for all Shape objects. Each shape that inherits from
+        Shape needs to have its own _draw method or two methods: _draw_shape()
+        and _draw_stroke(). If the class that inherits from Shape just has a
+        _draw method that method will be used to draw the object. This is the
+        case for shapes that don't need a stroke. If a shape doesn't have a stroke
+        it will be drawn using _draw_shape(). If it does have a stroke after
+        the filled circle is _draw_stroke() will draw an unfilled circle over
+        it creating a stroke.
         """
         g.setColor(self.color)
         self._draw_shape(g)
@@ -74,10 +75,11 @@ class Shape(GraphicsObject):
             g.setColor(self.strokeColor)
             self._draw_stroke(g)
 
+
 class Ellipse(Shape):
     """
-    Inherits from Shape. The (x,y) coordinates represent top left hand corner 
-    of the bounding rectangle. 
+    Inherits from Shape. The (x,y) coordinates represent top left hand corner
+    of the bounding rectangle.
     """
     def __init__(self, (x, y), width, height, color=None, filled=True):
         assert width > 0, "Ellipse width must be greater than zero"
@@ -86,9 +88,9 @@ class Ellipse(Shape):
 
     def _draw_stroke(self, g):
         g.drawOval(self.coordinates[0],
-            self.coordinates[1],
-            self.width,
-            self.height)
+                   self.coordinates[1],
+                   self.width,
+                   self.height)
 
     def _draw_shape(self, g):
         if self.filled:
@@ -101,12 +103,13 @@ class Ellipse(Shape):
                        self.coordinates[1],
                        self.width,
                        self.height)
+
     def scale(self):
         pass
 
     def rotate(self, degrees):
         pass
-        #math.radians(degrees)
+        # math.radians(degrees)
 
 
 class Circle(Ellipse):
@@ -117,7 +120,8 @@ class Circle(Ellipse):
     # (x,y) - center of Circle
     def __init__(self, (x, y), radius, color=None, filled=True):
         assert radius > 0, "Circle radius must be greater than zero"
-        super(Circle, self).__init__((x - radius, y - radius), radius * 2, radius * 2, color, filled)
+        super(Circle, self).__init__(
+            (x - radius, y - radius), radius * 2, radius * 2, color, filled)
         self.radius = radius
 
     def setRadius(self, r):
@@ -148,7 +152,8 @@ class Rectangle(Shape):
 
     def _draw_stroke(self, g):
         g.drawRect(self.coordinates[0], self.coordinates[1],
-            self.width, self.height)
+                   self.width, self.height)
+
 
 class Line(Shape):
     # (startX, startY) - coordinate of line's starting point
@@ -163,6 +168,7 @@ class Line(Shape):
     def _draw(self, g):
         g.drawLine(self.startX, self.startY, self.endX, self.endY)
 
+
 class Point(Line):
     # (x, y) - coordinate of point
     # draws a line with the same start and end point
@@ -170,6 +176,7 @@ class Point(Line):
         super(Point, self).__init__((x, y), (x, y), color)
         self.x = x
         self.y = y
+
 
 class Arc(Shape):
     # based in polar coordinate convention, with 0 degrees pointing 3 o'clock
@@ -188,14 +195,15 @@ class Arc(Shape):
     def _draw_shape(self, g):
         if self.filled:
             g.fillArc(self.coordinates[0], self.coordinates[1],
-                self.width, self.height, self.startAngle, self.arcAngle)
+                      self.width, self.height, self.startAngle, self.arcAngle)
         else:
             g.drawArc(self.coordinates[0], self.coordinates[1],
-                  self.width, self.height, self.startAngle, self.arcAngle)
+                      self.width, self.height, self.startAngle, self.arcAngle)
 
     def _draw_stroke(self, g):
         g.drawArc(self.coordinates[0], self.coordinates[1],
                   self.width, self.height, self.startAngle, self.arcAngle)
+
 
 class Polygon(Shape):
     def __init__(self, vertices, color=None, filled=True):
@@ -212,6 +220,7 @@ class Polygon(Shape):
     def _draw_stroke(self, g):
         (xValues, yValues) = zip(*self.vertices)
         g.drawPolygon(xValues, yValues, len(self.vertices))
+
 
 class RegPolygon(Shape):
     def __init__(self, (x, y), sides, length, color=None, filled=True):
