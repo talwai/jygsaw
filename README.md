@@ -27,7 +27,6 @@ def recursiveCircle(x, radius, level):
 
 canvas(640, 360)
 onDraw(draw)
-
 ```
 
 ## Documentation
@@ -51,13 +50,13 @@ $ cd cs98library
 $ easy_install virtualenv
 $ virtualenv -p jython venv
 $ source venv/bin/activate
-$ easy_install sphinx
 ```
 
 Now when you type `python --version` in the command line you should get `Jython 2.5.3` or whatever version of Jython you have installed, and you should be able to build the docs.
 
 ```
 :::bash
+$ pip install sphinx
 $ cd doc
 $ make html
 ```
