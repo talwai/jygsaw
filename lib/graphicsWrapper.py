@@ -138,14 +138,14 @@ def fill(r = None, g = None, b = None):
     Sets the color to fill shapes with.
     """
 
-    window.setDefaultColor(_color(r, g, b))
+    window.setDefaultColor(color(r, g, b))
 
 def background(r = None, g = None, b = None):
     """
     Sets the background color of the window.
     """
 
-    window.setBackgroundColor(_color(r, g, b))
+    window.setBackgroundColor(color(r, g, b))
 
 #---------------------------------------------------------------
 #-----------Mouse functions-------------------------------------
@@ -293,7 +293,7 @@ def stroke(r = None, g = None, b = None):
     window.setStroke(True)
     
     if r != None:
-        window.setStrokeColor(_color(r, g, b))
+        window.setStrokeColor(color(r, g, b))
 
 def noStroke():
     """
@@ -341,7 +341,7 @@ def text((x, y), s, font, size, color=None, attribute=PLAIN):
     window.draw(newText)
     return newText
 
-def _color(r, g = None, b = None):
+def color(r, g = None, b = None):
     if g == None or b == None:
         assert r != None and g == None and b == None, \
             "color takes exactly 1 or 3 parameters"
