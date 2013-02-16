@@ -1,3 +1,7 @@
+"""
+GraphicsWrapper contains methods that the user calls directly.
+"""
+
 from GraphicsObject import *
 from GraphicsWindow import *
 from Group import *
@@ -10,60 +14,67 @@ import time
 
 toLoop = False
 Stroke = False
-fr = 60.0 # Frame Rate
+fr = 60.0  # Frame Rate
+
 
 def canvas(width=400, height=400, window_title='Jygsaw Canvas', background=white):
     """
-    Creates a new window. Width, height and title can be set optionally as well
+    Creates and returns a new Jygsaw Canvas.
     """
-    
+
     global window
     window = GraphicsWindow(window_title, width, height, background)
     window.setVisible(True)
     return window
 
+
 def width():
     """
-    Returns the width of the window
+    Returns the width of the Canvas.
     """
 
     return window.w
 
+
 def height():
     """
-    Returns the height of the window
+    Returns the height of the Canvas.
     """
 
     return window.h
 
+
 def point(x, y, color=None):
     """
-    Draws a point.
+    Draws and returns a :py:class:`Point` at (x,y).
     """
 
-    new_point = Point((x,y), color)
+    new_point = Point((x, y), color)
     window.draw(new_point)
     return new_point
 
+
 def line(x1, y1, x2, y2, color=None):
     """
-    Draws a line between coordinates (x1, y1), and (x2 and y2). You can
-    optionally set the color as well
+    Returns a Line. Draws a line between coordinates (x1, y1), and (x2 and y2). You can
+    optionally set the color as well.
     """
 
     new_line = Line((x1, y1), (x2, y2))
     window.draw(new_line)
     return new_line
 
+
 def rect(x, y, rectWidth=100, rectHeight=100, color=None, filled=True):
     """
-    Creates a rectangle with the upper left corner at the given (x,y)
+    Return a Rectangle. Creates a rectangle with the upper left corner at the given (x,y)
     coordinates.
     """
 
     new_rect = Rectangle((x, y), rectWidth, rectHeight, color, filled)
     window.draw(new_rect)
     return new_rect
+
 
 def circle(x, y, radius=50, color=None, filled=True):
     """
@@ -75,6 +86,7 @@ def circle(x, y, radius=50, color=None, filled=True):
     window.draw(new_circle)
     return new_circle
 
+
 def ellipse(x, y, width=100, height=100, color=None, filled=True):
     """
     Creates an eclipse centered at the given x, y coordinates. Width, height,
@@ -84,6 +96,7 @@ def ellipse(x, y, width=100, height=100, color=None, filled=True):
     new_ellipse = Ellipse((x, y), width, height, color, filled)
     window.draw(new_ellipse)
     return new_ellipse
+
 
 def polygon(vertices, color=None, filled=True):
     """
@@ -96,32 +109,37 @@ def polygon(vertices, color=None, filled=True):
     window.draw(new_polygon)
     return new_polygon
 
+
 def regPolygon(x, y, sides=3, length=10, color=None, filled=True):
     """
     Creates a regular polygon with the given number of sides at the given x, y
     coordinates. Each side's length is determined by the given length. Color and filled
     determine the color of the shape and if it is filled or not.
     """
-    
-    new_reg_polygon = RegPolygon((x,y), sides, length, color, filled)
+
+    new_reg_polygon = RegPolygon((x, y), sides, length, color, filled)
     window.draw(new_reg_polygon)
     return new_reg_polygon
 
-def arc(x, y, width=100, height=100, startAngle=0, endAngle=180, \
-            color=None, filled=True):
+
+def arc(x, y, width=100, height=100, startAngle=0, endAngle=180,
+        color=None, filled=True):
     """
     Creates an arc centered at the given (x,y) coordinates. The width, height,
     start angle, end angle, color, filled status and stoke status can be
     optionally modified. Start angle and end angle refer to the
     """
 
-    new_arc = Arc((x, y), width, height, startAngle, (endAngle - startAngle), color)
+    new_arc = Arc(
+        (x, y), width, height, startAngle, (endAngle - startAngle), color)
     window.draw(new_arc)
     return new_arc
 
 # It would be nice to have the option to not specify the width
 # and height. Is there a way to get the default width/height of image?
-def image(x, y, imagePath, width = None, height = None):
+
+
+def image(x, y, imagePath, width=None, height=None):
     """
     Draws an image with upper left corner at the given (x,y) coordinates.
     The image should be located at imagePath, and the desired width and
@@ -133,14 +151,16 @@ def image(x, y, imagePath, width = None, height = None):
     window.draw(img)
     return img
 
-def fill(r = None, g = None, b = None):
+
+def fill(r=None, g=None, b=None):
     """
     Sets the color to fill shapes with.
     """
 
     window.setDefaultColor(color(r, g, b))
 
-def background(r = None, g = None, b = None):
+
+def background(r=None, g=None, b=None):
     """
     Sets the background color of the window.
     """
@@ -150,6 +170,7 @@ def background(r = None, g = None, b = None):
 #---------------------------------------------------------------
 #-----------Mouse functions-------------------------------------
 
+
 def mouseX():
     """
     Returns x coordinate of the mouse
@@ -157,12 +178,14 @@ def mouseX():
 
     return window.mouseX
 
+
 def mouseY():
     """
     Returns y coordinate of the mouse
     """
 
     return window.mouseY
+
 
 def onMousePress(mousePressed):
     """
@@ -173,6 +196,7 @@ def onMousePress(mousePressed):
 
     window.onMousePressed = mousePressed
 
+
 def onMouseRelease(mouseReleased):
     """
     Sets the window's onMouseReleased variable to be the user defined
@@ -181,6 +205,7 @@ def onMouseRelease(mouseReleased):
     """
 
     window.onMouseReleased = mouseReleased
+
 
 def onMouseClick(mouseClicked):
     """
@@ -191,6 +216,7 @@ def onMouseClick(mouseClicked):
 
     window.onMouseClick = mouseClicked
 
+
 def onMouseDrag(mouseDragged):
     """
     Sets the window's onMouseDragged variable to be the user defined
@@ -199,6 +225,7 @@ def onMouseDrag(mouseDragged):
     """
 
     window.onMouseDragged = mouseDragged
+
 
 def onMouseMove(mouseMoved):
     """
@@ -212,12 +239,14 @@ def onMouseMove(mouseMoved):
 #---------------------------------------------------------------
 #--------------------Keyboard Methods---------------------------
 
+
 def onKeyPress(keyPressed):
     """
     Callback for window's key listener. Passes the user defined function to the window's keyPressed
     method.
     """
     window.onKeyPressed = keyPressed
+
 
 def onKeyRelease(keyReleased):
     """
@@ -241,6 +270,7 @@ def lastKeyChar():
     """
     return window.lastKeyChar
 
+
 def lastKeyCode():
     """
     Returns the last key code that was pressed. Codes are of the form VK_CODE, from the swing library. All the
@@ -251,14 +281,6 @@ def lastKeyCode():
 #---------------------------------------------------------------
 
 
-def noStroke():
-    """
-    Sets stroke to false
-    """
-
-    global Stroke
-    Stroke = False
-
 def loop():
     """
     Tells the draw function to loop when it is called
@@ -266,6 +288,7 @@ def loop():
 
     global toLoop
     toLoop = True
+
 
 def noLoop():
     """
@@ -276,6 +299,7 @@ def noLoop():
     global toLoop
     toLoop = False
 
+
 def frameRate(rate):
     """
     Sets the frame rate value
@@ -284,16 +308,18 @@ def frameRate(rate):
     global fr
     fr = float(rate)
 
-def stroke(r = None, g = None, b = None):
+
+def stroke(r=None, g=None, b=None):
     """
     Sets stroke to true. If a color is given then set the stroke
     color to that color
     """
 
     window.setStroke(True)
-    
+
     if r != None:
         window.setStrokeColor(color(r, g, b))
+
 
 def noStroke():
     """
@@ -302,12 +328,14 @@ def noStroke():
 
     window.setStroke(False)
 
+
 def clear():
     """
     Clears the window of all objects and redraws screen
     """
 
     window.clear()
+
 
 def onDraw(draw):
     """
@@ -319,10 +347,11 @@ def onDraw(draw):
         while toLoop:
             draw()
             redraw()
-            time.sleep(1.0/fr)
+            time.sleep(1.0 / fr)
     else:
         draw()
         redraw()
+
 
 def redraw():
     """
@@ -330,6 +359,7 @@ def redraw():
     """
 
     window.redraw()
+
 
 def text((x, y), s, font, size, color=None, attribute=PLAIN):
     """
@@ -341,7 +371,8 @@ def text((x, y), s, font, size, color=None, attribute=PLAIN):
     window.draw(newText)
     return newText
 
-def color(r, g = None, b = None):
+
+def color(r, g=None, b=None):
     if g == None or b == None:
         assert r != None and g == None and b == None, \
             "color takes exactly 1 or 3 parameters"
@@ -356,10 +387,11 @@ def color(r, g = None, b = None):
     else:
         assert r != None and g != None and b != None, \
             "color takes exactly 1 or 3 parameters"
-        assert isinstance(r, int) and isinstance(g, int) and isinstance(b, int), "color takes 3 integers"
+        assert isinstance(r, int) and isinstance(
+            g, int) and isinstance(b, int), "color takes 3 integers"
         return Color(r, g, b)
 
-if ( __name__ == '__main__' ) or ( __name__ == 'main' ):
+if (__name__ == '__main__') or (__name__ == 'main'):
     canvas()
     noLoop()
     stroke()
@@ -375,10 +407,10 @@ if ( __name__ == '__main__' ) or ( __name__ == 'main' ):
         global rectX
         global rectY
         clear()
-        vertices = [(250,250), (250, 370), (360,340), (360, 250)]
+        vertices = [(250, 250), (250, 370), (360, 340), (360, 250)]
 
         fill(red)
-        rect(rectX,rectY)
+        rect(rectX, rectY)
         line(150, 10, 200, 10)
         fill(pink)
         ellipse(10, 150)
@@ -386,12 +418,12 @@ if ( __name__ == '__main__' ) or ( __name__ == 'main' ):
         polygon(vertices)
         regPolygon(10, 300)
         arc(300, 100)
-        circle(50,50)
+        circle(50, 50)
 
         background(white)
         w = width()
         h = height()
-        
+
         if rectX < (w - 10):
             rectX = rectX + 1
         elif rectY >= (w - 10):
@@ -407,7 +439,7 @@ if ( __name__ == '__main__' ) or ( __name__ == 'main' ):
         image(200, 200, './puppy.jpg', 50, 50)
 
     def drawImage():
-        #image(0, 0, './puppy.jpg')
+        # image(0, 0, './puppy.jpg')
         image(0, 0, 'http://imgs.xkcd.com/comics/steroids.png')
 
     def mousePressed():
@@ -432,25 +464,24 @@ if ( __name__ == '__main__' ) or ( __name__ == 'main' ):
     def keyPressed():
         char = lastKeyChar()
         code = lastKeyCode()
-        print 'Key Pressed! Char = %s Code = %s' % (char,code)
+        print 'Key Pressed! Char = %s Code = %s' % (char, code)
 
     def keyReleased():
         char = lastKeyChar()
         code = lastKeyCode()
-        print 'Key Released! Char = %s Code = %s' % (char,code)
+        print 'Key Released! Char = %s Code = %s' % (char, code)
 
     def keyTyped():
         char = lastKeyChar()
         code = lastKeyCode()
-        print 'Key Typed! Char = %s Code = %s' % (char,code)
+        print 'Key Typed! Char = %s Code = %s' % (char, code)
 
-    #onMousePress(mousePressed)
-    #onMouseRelease(mouseReleased)
-    #onMouseDrag(mouseDragged)
-    #onMouseMove(mouseMoved)
-    #onMouseClick(mouseClicked)
+    # onMousePress(mousePressed)
+    # onMouseRelease(mouseReleased)
+    # onMouseDrag(mouseDragged)
+    # onMouseMove(mouseMoved)
+    # onMouseClick(mouseClicked)
     onKeyPress(keyPressed)
     onKeyRelease(keyReleased)
     onKeyType(keyTyped)
     onDraw(draw)
-
