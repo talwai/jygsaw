@@ -151,18 +151,33 @@ def background(r = None, g = None, b = None):
 #-----------Mouse functions-------------------------------------
 
 def mouseX():
-    """
-    Returns x coordinate of the mouse
-    """
-
+    """Returns x coordinate of the mouse"""
     return window.mouseX
 
 def mouseY():
-    """
-    Returns y coordinate of the mouse
-    """
-
+    """Returns y coordinate of the mouse"""
     return window.mouseY
+
+def mousePressed():
+    """Returns if mouse was pressed or not."""
+    return window.mouseEventType == MouseEvent.MOUSE_PRESSED \
+        or window.mouseEventType == MouseEvent.MOUSE_DRAGGED
+
+def mouseReleased():
+    """Returns if mouse was released or not."""
+    return window.mouseEventType == MouseEvent.MOUSE_RELEASED
+
+def mouseClicked():
+    """Returns if mouse was clicked or not."""
+    return window.mouseEventType == MouseEvent.MOUSE_CLICKED
+
+def mouseDragged():
+    """Returns if mouse was dragged or not."""
+    return window.mouseEventType == MouseEvent.MOUSE_DRAGGED
+
+def mouseMoved():
+    """Returns if mouse was moved or not."""
+    return window.mouseEventType == MouseEvent.MOUSE_MOVED
 
 def onMousePress(mousePressed):
     """
@@ -211,6 +226,13 @@ def onMouseMove(mouseMoved):
 
 #---------------------------------------------------------------
 #--------------------Keyboard Methods---------------------------
+def keyPressed():
+    """Returns if key was pressed or not."""
+    return window.keyEventType is KeyEvent.KEY_PRESSED
+
+def keyReleased():
+    """Returns if key was released or not."""
+    return window.keyEventType is  KeyEvent.KEY_RELEASED
 
 def onKeyPress(keyPressed):
     """
@@ -291,7 +313,6 @@ def stroke(r = None, g = None, b = None):
     """
 
     window.setStroke(True)
-    
     if r != None:
         window.setStrokeColor(_color(r, g, b))
 

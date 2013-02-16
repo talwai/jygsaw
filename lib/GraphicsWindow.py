@@ -1,4 +1,4 @@
-from java.awt.event import ActionListener, KeyListener, MouseListener
+from java.awt.event import ActionListener, KeyListener, MouseListener, MouseEvent, KeyEvent, ActionEvent
 from java.awt.Color import *  # so we can just say gray instead of Color.gray
 from javax.swing import JFrame, JPanel
 from javax.swing.event import MouseInputListener
@@ -34,12 +34,10 @@ class GraphicsWindow(ActionListener, KeyListener, MouseInputListener):
         self.frame.addMouseMotionListener(self)
         self.frame.addKeyListener(self)
 
-        # MouseEvent booleans
+        # MouseEvent attributes
+        self.mouseEventType = 0
         self.mouseX = 0
         self.mouseY = 0
-        self.mouseP = False
-        self.mouseC = False
-        self.mouseD = False
 
         # Mouse callbacks
         self.onMouseClicked = None
@@ -49,6 +47,7 @@ class GraphicsWindow(ActionListener, KeyListener, MouseInputListener):
         self.onMouseReleased = None
 
         # KeyEvent booleans keyPressed, keyTyped
+        self.keyEventType = 0
         self.keyP = False
         self.keyT = False
 
@@ -117,42 +116,39 @@ class GraphicsWindow(ActionListener, KeyListener, MouseInputListener):
         self.redraw()
 
     """
-    These methods implemented Swing's MouseInputListener interface.
-    """
+    These methods implemented Swing's MouseInputListener interface.    """
+
     def mouseEntered(self, e):
+        self.mouseEventType = e.getID()
         self.mouseX = e.getX()
         self.mouseY = e.getY() - 25
         if debug:
             print '(%d, %d)' % (self.mouseX, self.mouseY)
 
-
-    def mouseX(self):
-        return self.mouseX
-
-    def mouseY(self):
-        return self.mouseY
-
     def mouseClicked(self, e):
-        self.mouseC = True
+        self.mouseEventType = e.getID()
+        self.mouseX = e.getX()
+        self.mouseY = e.getY() - 25
         if self.onMouseClicked:
             self.onMouseClicked()
 
     def mouseExited(self, e):
-        pass
+        self.mouseEventType = e.getID()
 
     def mousePressed(self, e):
-        self.mouseP = True
+        self.mouseEventType = e.getID()
+        self.mouseX = e.getX()
+        self.mouseY = e.getY() - 25
         if self.onMousePressed:
             self.onMousePressed()
 
     def mouseReleased(self, e):
-        self.mouseP = False
-        self.mouseC = False
-        self.mouseD = False
+        self.mouseEventType = e.getID()
         if self.onMouseReleased:
             self.onMouseReleased()
 
     def mouseMoved(self, e):
+        self.mouseEventType = e.getID()
         self.mouseX = e.getX()
         self.mouseY = e.getY() - 25
         if self.onMouseMoved:
@@ -161,7 +157,9 @@ class GraphicsWindow(ActionListener, KeyListener, MouseInputListener):
             print '(%d, %d)' % (self.mouseX, self.mouseY)
 
     def mouseDragged(self, e):
-        self.mouseD = True
+        self.mouseEventType = e.getID()
+        self.mouseX = e.getX()
+        self.mouseY = e.getY() - 25
         if self.onMouseDragged:
             self.onMouseDragged()
 
@@ -169,7 +167,7 @@ class GraphicsWindow(ActionListener, KeyListener, MouseInputListener):
     These methods implement Swing's KeyListener inteface.
     """
     def keyTyped(self, e):
-        self.keyT = True
+        self.keyEventType = e.getID()
         if debug:
             print e.getKeyChar()
         if self.onKeyTyped:
@@ -178,7 +176,7 @@ class GraphicsWindow(ActionListener, KeyListener, MouseInputListener):
             self.lastKeyCode = e.getKeyCode()
 
     def keyPressed(self, e):
-        self.keyP = True
+        self.keyEventType = e.getID()
         if debug:
             print e.getKeyChar()
         if self.onKeyPressed:
@@ -187,8 +185,7 @@ class GraphicsWindow(ActionListener, KeyListener, MouseInputListener):
             self.lastKeyCode = e.getKeyCode()
 
     def keyReleased(self, e):
-        self.keyT = False
-        self.keyP = False
+        self.keyEventType = e.getID()
         if self.onKeyReleased:
             self.onKeyReleased()
             self.lastKeyChar = e.getKeyChar()
