@@ -12,9 +12,6 @@ from Text import *
 # so we use debug instead
 debug = 1
 
-# Buttons, etc
-# class Components:
-
 class GraphicsWindow(ActionListener, KeyListener, MouseInputListener):
     """
     Creates a GraphicsWindow with a Canvas object that can be drawn on.
@@ -24,7 +21,7 @@ class GraphicsWindow(ActionListener, KeyListener, MouseInputListener):
     def __init__(self, title, w, h, backgroundColor=white):
         assert w > 0, "GraphicsWindow width must be greater than zero"
         assert h > 0, "GraphicsWindow height must be greater than zero"
-        self.objs = []  # List of Jy_Objects
+        self.objs = []  # List of GraphicsObjects
         self.w = w
         self.h = h
         self.backgroundColor = backgroundColor
@@ -69,7 +66,9 @@ class GraphicsWindow(ActionListener, KeyListener, MouseInputListener):
 
     """
     Takes a variable number of GraphicsObjects, or Groups of GraphicsObjects,
-    and draws them on the window.
+    and draws them on the window. If a shape is drawn without specifiying 
+    a color the default color is used. The default stroke option (True or False) 
+    and stokeColor is saved in each object. 
     """
     def draw(self, *params):
         for arg in params:
@@ -87,7 +86,7 @@ class GraphicsWindow(ActionListener, KeyListener, MouseInputListener):
                     obj.stroke = self.frame.contentPane.stroke
                     self.objs.append(obj)
             else:
-                print "you passed in something that's not a group or graphics object"
+                print "Passed in something that's not a group or graphics object"
 
     def setDefaultColor(self, c):
         self.frame.contentPane.setDefaultColor(c)
@@ -108,13 +107,18 @@ class GraphicsWindow(ActionListener, KeyListener, MouseInputListener):
     def redraw(self):
         self.frame.contentPane.repaint()
 
+    """
+    In order to clear the screen, all of the objects are removed
+    from the objects list and then the screen is redrawn.
+    """
     def clear(self):
         self.objs = []
         self.frame.contentPane.objs = self.objs
         self.redraw()
 
-    # These methods are implemented the MouseInputListener interface
-    # from Swing
+    """
+    These methods implemented Swing's MouseInputListener interface.
+    """
     def mouseEntered(self, e):
         self.mouseX = e.getX()
         self.mouseY = e.getY() - 25
@@ -161,43 +165,54 @@ class GraphicsWindow(ActionListener, KeyListener, MouseInputListener):
         if self.onMouseDragged:
             self.onMouseDragged()
 
-    # These methods implement the KeyListener inteface from Swing
+    """
+    These methods implement Swing's KeyListener inteface.
+    """
     def keyTyped(self, e):
         self.keyT = True
         if debug:
             print e.getKeyChar()
         if self.onKeyTyped:
-            self.onKeyTyped()
             self.lastKeyChar = e.getKeyChar()
             self.lastKeyCode = e.getKeyCode()
+            self.onKeyTyped()
 
     def keyPressed(self, e):
         self.keyP = True
         if debug:
             print e.getKeyChar()
         if self.onKeyPressed:
-            self.onKeyPressed()
             self.lastKeyChar = e.getKeyChar()
             self.lastKeyCode = e.getKeyCode()
+            self.onKeyPressed()
 
     def keyReleased(self, e):
         self.keyT = False
         self.keyP = False
         if self.onKeyReleased:
-            self.onKeyReleased()
             self.lastKeyChar = e.getKeyChar()
             self.lastKeyCode = e.getKeyCode()
+            self.onKeyReleased()
 
 class Canvas(JPanel):
     """ Canvas to draw the action on. Owns the action and key listeners. """
+    
     def __init__(self, window, objects, backgroundColor):
         self.objs = objects
         self.window = window
         self.defaultColor = gray
         self.backgroundColor = backgroundColor
         self.strokeColor = black
-        self.stroke = False
+        self.stroke = False  # sets whether or not strokes are being drawn for shapes
     
+    """
+    This fuction is responsible for drawing on the canvas. It is passed a 
+    java graphics object that is needed in order to draw all of the GraphicsObjects.
+    Clears the window by drawing a clear rectangle over the entire window. 
+    The function then runs through the entire list of objs and draws all of them 
+    on the screen.
+    """
+
     def paintComponent(self, g):
         g.background = self.backgroundColor
         g.clearRect(0, 0, self.window.w, self.window.h)

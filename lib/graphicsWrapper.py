@@ -10,12 +10,13 @@ import time
 
 toLoop = False
 Stroke = False
-fr = 60 # Frame Rate
+fr = 60.0 # Frame Rate
 
-"""
-Creates a new window. Width, height and title can be set optionally as well
-"""
 def canvas(width=400, height=400, window_title='Jygsaw Canvas', background=white):
+    """
+    Creates a new window. Width, height and title can be set optionally as well
+    """
+    
     global window
     window = GraphicsWindow(window_title, width, height, background)
     window.setVisible(True)
@@ -76,7 +77,7 @@ def circle(x, y, radius=50, color=None, filled=True):
 
 def ellipse(x, y, width=100, height=100, color=None, filled=True):
     """
-    Creates an eclipse centered at the given (x,y) coordinates. Width, height,
+    Creates an eclipse centered at the given x, y coordinates. Width, height,
     color, filled status and stroke status can be optionally modified.
     """
 
@@ -88,12 +89,23 @@ def polygon(vertices, color=None, filled=True):
     """
     Creates a polygon whose points are given in a list as the first argument.
     Width, height, color, filled status and stroke status can be optionally
-    modified
+    modified.
     """
 
     new_polygon = Polygon(vertices, color, filled)
     window.draw(new_polygon)
     return new_polygon
+
+def regPolygon(x, y, sides=3, length=10, color=None, filled=True):
+    """
+    Creates a regular polygon with the given number of sides at the given x, y
+    coordinates. Each side's length is determined by the given length. Color and filled
+    determine the color of the shape and if it is filled or not.
+    """
+    
+    new_reg_polygon = RegPolygon((x,y), sides, length, color, filled)
+    window.draw(new_reg_polygon)
+    return new_reg_polygon
 
 def arc(x, y, width=100, height=100, startAngle=0, endAngle=180, \
             color=None, filled=True):
@@ -109,7 +121,7 @@ def arc(x, y, width=100, height=100, startAngle=0, endAngle=180, \
 
 # It would be nice to have the option to not specify the width
 # and height. Is there a way to get the default width/height of image?
-def image(x, y, imagePath, width, height):
+def image(x, y, imagePath, width = None, height = None):
     """
     Draws an image with upper left corner at the given (x,y) coordinates.
     The image should be located at imagePath, and the desired width and
@@ -270,7 +282,7 @@ def frameRate(rate):
     """
 
     global fr
-    fr = rate
+    fr = float(rate)
 
 def stroke(r = None, g = None, b = None):
     """
@@ -279,7 +291,9 @@ def stroke(r = None, g = None, b = None):
     """
 
     window.setStroke(True)
-    window.setStrokeColor(_color(r, g, b))
+    
+    if r != None:
+        window.setStrokeColor(_color(r, g, b))
 
 def noStroke():
     """
@@ -305,7 +319,7 @@ def onDraw(draw):
         while toLoop:
             draw()
             redraw()
-            time.sleep(1/fr)
+            time.sleep(1.0/fr)
     else:
         draw()
         redraw()
@@ -347,20 +361,21 @@ def _color(r, g = None, b = None):
 
 if ( __name__ == '__main__' ) or ( __name__ == 'main' ):
     canvas()
-    loop()
-    frameRate(60)
+    noLoop()
+    stroke()
+    frameRate(30.0)
 
     x = None
     y = None
 
-    rectX = 10
-    rectY = 10
+    rectX = 150
+    rectY = 30
 
     def draw():
         global rectX
         global rectY
         clear()
-        vertices = [(250,250),(360,360), (360, 250)]
+        vertices = [(250,250), (250, 370), (360,340), (360, 250)]
 
         fill(red)
         rect(rectX,rectY)
@@ -369,26 +384,31 @@ if ( __name__ == '__main__' ) or ( __name__ == 'main' ):
         ellipse(10, 150)
 
         polygon(vertices)
+        regPolygon(10, 300)
         arc(300, 100)
-        circle(10,50)
+        circle(50,50)
 
-        background(black)
+        background(white)
         w = width()
         h = height()
         
         if rectX < (w - 10):
             rectX = rectX + 1
-        else:
+        elif rectY >= (w - 10):
             rectX = rectX - 1
 
         if rectY < (h - 10):
             rectY = rectY + 1
-        else:
+        elif rectY >= (w - 10):
             rectY = rectY - 1
 
         text((200, 200), 'Hello, world', 'Times New Roman', 24, green)
 
-        image(x, y, './puppy.jpg', width, height)
+        image(200, 200, './puppy.jpg', 50, 50)
+
+    def drawImage():
+        #image(0, 0, './puppy.jpg')
+        image(0, 0, 'http://imgs.xkcd.com/comics/steroids.png')
 
     def mousePressed():
         print 'Mouse was pressed.'

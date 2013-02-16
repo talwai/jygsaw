@@ -13,8 +13,8 @@ yOffset = 0.0
 
 
 canvas(640, 360)
-bx = width() / 2.0
-by = height() / 2.0
+bx = width() / 2
+by = height() / 2
 
 
 def draw():
@@ -25,12 +25,12 @@ def draw():
             mouseY() > by - boxSize and mouseY() < by + boxSize):
         overBox = True
         if not locked:
-            strokeColor(255)
-            fillColor(153)
+            stroke(255)
+            fill(153)
 
         else:
-            strokeColor(153)
-            fillColor(153)
+            stroke(153)
+            fill(153)
             overBox = False
 
     # Draw the box
@@ -40,7 +40,7 @@ def draw():
 def mousePressed():
     if overBox:
         locked = True
-        fillColor(255, 255, 255)
+        fill(255, 255, 255)
     else:
         locked = False
 
@@ -56,8 +56,7 @@ def mouseDragged():
 
 def mouseReleased():
     locked = False
-
-drawFunction(draw)
-mousePressedFunction(mousePressed)
-mouseDraggedFunction(mouseDragged)
-mouseReleasedFunction(mouseReleased)
+onDraw(draw)
+onMousePress(mousePressed)
+onMouseDrag(mouseDragged)
+onMouseRelease(mouseReleased)
