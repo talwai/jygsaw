@@ -3,7 +3,7 @@ import os
 sys.path.append(os.path.pardir + "/lib")
 from graphicsWrapper import *
 
-y = int(height() * 0.5)
+
 
 
 # The statements in draw() are executed until the
@@ -11,16 +11,18 @@ y = int(height() * 0.5)
 # sequence and after the last line is read, the first
 # line is executed again.
 def draw():
+    clear()
     background(0)            # Set the background to black
     global y
     y = y - 4
     if y < 0:
         y = height()
-    line(0, y, width, y)
+    line(0, y, width(), y)
 
 canvas(640, 360)        # Size should be the first statement
 stroke(255)        # Set line drawing color to white
 noLoop()
+y = int(height() * 0.5)
 
 
 onDraw(draw)
