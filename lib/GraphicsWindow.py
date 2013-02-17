@@ -95,16 +95,16 @@ class GraphicsWindow(ActionListener, KeyListener, MouseInputListener):
                 print "Passed in something that's not a group or graphics object"
 
     def setDefaultColor(self, c):
-        self.frame.contentPane.setDefaultColor(c)
+        self.frame.contentPane.defaultColor = c
 
     def setStrokeColor(self, c):
-        self.frame.contentPane.setStrokeColor(c)
+        self.frame.contentPane.strokeColor = c
 
     def setStroke(self, b):
-        self.frame.contentPane.setStroke(b)
+        self.frame.contentPane.stroke = b
 
     def setBackgroundColor(self, c):
-        self.frame.contentPane.setBackgroundColor(c)
+        self.frame.contentPane.backgroundColor = c
         self.background = c
 
     def getBackgroundColor(self):
@@ -205,10 +205,17 @@ class Canvas(JPanel):
     def __init__(self, window, objects, backgroundColor):
         self.objs = objects
         self.window = window
+<<<<<<< HEAD
         self.defaultColor = gray
         self.backgroundColor = backgroundColor
         self.strokeColor = black
         self.stroke = False  # sets whether or not strokes are being drawn for shapes
+=======
+        self._defaultColor = gray
+        self._backgroundColor = backgroundColor
+        self._strokeColor = black
+        self._stroke = False  # sets whether or not strokes are being drawn for shapes
+>>>>>>> f538d69f21b80325b77d820f5951e69c13ec62a5
 
     """
     This fuction is responsible for drawing on the canvas. It is passed a
@@ -223,18 +230,54 @@ class Canvas(JPanel):
         g.clearRect(0, 0, self.window.w, self.window.h)
         g.setColor(white)  # Set color of rectangle
 
+<<<<<<< HEAD
         for o in self.objs:
             g.setColor(o.getColor())
             o._draw(g)
+=======
+        # Iterates through and draws all of the objects
+        for i in range(len(self.objs)):
+            self.objs[i]._draw(g)
+>>>>>>> f538d69f21b80325b77d820f5951e69c13ec62a5
 
-    def setDefaultColor(self, c):
-        self.defaultColor = c
+    def _get_defaultColor(self):
+        """Get the default color of the Canvas"""
+        return self._defaultColor
 
-    def setBackgroundColor(self, c):
-        self.backgroundColor = c
+    def _set_defaultColor(self, c):
+        """Set the default color of the Canvas"""
+        self._defaultColor = c
 
-    def setStrokeColor(self, c):
-        self.strokeColor = c
+    defaultColor = property(_get_defaultColor, _set_defaultColor)
 
+<<<<<<< HEAD
     def setStroke(self, b):
         self.stroke = b
+=======
+    def _get_backgroundColor(self):
+        """Get the background color of the Canvas"""
+        return self._backgroundColor
+
+    def _set_backgroundColor(self, c):
+        """Set the background color of the Canvas"""
+        self._backgroundColor = c
+
+    backgroundColor = property(_get_backgroundColor, _set_backgroundColor)
+
+    def _get_strokeColor(self):
+        return self._strokeColor
+
+    def _set_strokeColor(self, c):
+        self._strokeColor = c
+
+    strokeColor = property(_get_strokeColor, _set_strokeColor)
+
+    def _get_stroke(self):
+        return self._stroke
+
+    def _set_stroke(self, b):
+        self._stroke = b
+
+    stroke = property(_get_stroke, _set_stroke)
+
+>>>>>>> f538d69f21b80325b77d820f5951e69c13ec62a5
