@@ -7,16 +7,16 @@ import urllib2
 
 
 class Image(GraphicsObject):
-    def __init__(self, (x, y), path, width=None, height=None):
-        super(Image, self).__init__((x, y))
+    def __init__(self, x, y, path, width=None, height=None):
+        super(Image, self).__init__(x, y)
 
         # Stores a boolean describing whether or not the path given is a
         # url or file path. Throws an exception if it isn't either
         self.url = self.check_valid_url(path)
 
-        self.path = path  # path can be either a url or a file path
-        self.width = width
-        self.height = height
+        self._path = path  # path can be either a url or a file path
+        self._width = width
+        self._height = height
 
     def check_valid_url(self, path):
         '''
@@ -38,26 +38,32 @@ class Image(GraphicsObject):
             except Exception:
                 print "Error could not find image"
 
-    def setPath(self, p):
+    def _get_path(self):
+        return self._path
+
+    def _set_path(self, p):
         self.url = self.check_valid_url(path)
-        self.path = p
+        self._path = p
 
-    def setWidth(self, w):
+    path = property(_get_path, _set_path)
+
+    def _get_width(self):
+        return self._width
+
+    def _set_width(self, w):
         assert w > 0, "Image width must be greater than zero"
-        self.width = w
+        self._width = w
 
-    def setHeight(self, h):
+    width = property(_get_width, _set_width)
+
+    def _get_height(self):
+        return self._height
+
+    def _set_height(self, h):
         assert h > 0, "Image height must be greater than zero"
-        self.Height = h
+        self._height = h
 
-    def getPath(self):
-        return self.path
-
-    def getWidth(self):
-        return self.width
-
-    def getHeight(self):
-        return self.height
+    height = property(_get_height, _set_height)
 
     def _draw(self, g):
         '''
@@ -78,5 +84,5 @@ class Image(GraphicsObject):
         if self.height == None:
             self.height = img.getHeight()
 
-        g.drawImage(img, self.coordinates[0], self.coordinates[1],
+        g.drawImage(img, self.x, self.y,
                     self.width, self.height, g.backgroundColor, None)

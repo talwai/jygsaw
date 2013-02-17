@@ -66,7 +66,7 @@ The documentation will appear in `doc/_build/html`.
 ## Authors
 Balkcom's Army is:
 
-* Aaditya Taalwi
+* Aaditya Talwai
 * Avery Yen
 * Carla Galarza
 * David Lam

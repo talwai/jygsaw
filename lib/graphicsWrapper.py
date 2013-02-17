@@ -8,10 +8,13 @@ from Group import *
 from Image import *
 from Shape import *
 from Text import *
-from java.awt.Color import *
+from java.awt import Color
 import time
 
-
+rectX = 0
+rectY = 0
+directionX = 1
+directionY = 1
 _toLoop = False
 _fr = 60.0  # Frame Rate
 
@@ -126,7 +129,8 @@ def arc(x, y, width=100, height=100, startAngle=0, endAngle=180,
     """
     Creates an arc centered at the given (x,y) coordinates. The width, height,
     start angle, end angle, color, filled status and stoke status can be
-    optionally modified. Start angle and end angle refer to the
+    optionally modified. The start and end angle degrees refer to a circle where 0 is on
+    the left side of the screen, 90 is at the top, 180 is on the right and 270 is at the bottom.
     """
 
     new_arc = Arc(
@@ -419,9 +423,9 @@ def color(r, g=None, b=None):
 
 if (__name__ == '__main__') or (__name__ == 'main'):
     canvas()
-    noLoop()
+    loop()
     stroke()
-    frameRate(30.0)
+    frameRate(60.0)
 
     x = None
     y = None
@@ -432,6 +436,9 @@ if (__name__ == '__main__') or (__name__ == 'main'):
     def draw():
         global rectX
         global rectY
+        global directionX
+        global directionY
+        
         clear()
         vertices = [(250, 250), (250, 370), (360, 340), (360, 250)]
 
@@ -449,16 +456,23 @@ if (__name__ == '__main__') or (__name__ == 'main'):
         background(white)
         w = width()
         h = height()
+        print("rectX = %s, rectY = %s" % (rectX,rectY))
+        print("directionX = %s, directionY = %s" % (directionX, directionY))
+        print("w - 10 = %s" % (w-10))
+        
+        if rectX >= w:
+            directionX = -1
+        elif rectX < -10:
+            directionX = 1
 
-        if rectX < (w - 10):
-            rectX = rectX + 1
-        elif rectY >= (w - 10):
-            rectX = rectX - 1
+        rectX = rectX + directionX
 
-        if rectY < (h - 10):
-            rectY = rectY + 1
-        elif rectY >= (w - 10):
-            rectY = rectY - 1
+        if rectY >= h:
+            directionY = -1
+        elif rectY < -10:
+            directionY = 1
+
+        rectY = rectY + directionY
 
         text((200, 200), 'Hello, world', 'Times New Roman', 24, green)
 
