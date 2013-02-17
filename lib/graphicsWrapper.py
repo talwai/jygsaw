@@ -12,9 +12,8 @@ from java.awt.Color import *
 import time
 
 
-toLoop = False
-Stroke = False
-fr = 60.0  # Frame Rate
+_toLoop = False
+_fr = 60.0  # Frame Rate
 
 
 def canvas(width=400, height=400, window_title='Jygsaw Canvas', background=white):
@@ -23,7 +22,7 @@ def canvas(width=400, height=400, window_title='Jygsaw Canvas', background=white
     """
 
     global window
-    window = GraphicsWindow(window_title, width, height, background)
+    window = GraphicsWindow(window_title, int(width), int(height), background)
     window.setVisible(True)
     return window
 
@@ -49,7 +48,7 @@ def point(x, y, color=None):
     Draws and returns a :py:class:`Point` at (x,y).
     """
 
-    new_point = Point((x, y), color)
+    new_point = Point((int(x), int(y)), color)
     window.draw(new_point)
     return new_point
 
@@ -60,7 +59,7 @@ def line(x1, y1, x2, y2, color=None):
     optionally set the color as well.
     """
 
-    new_line = Line((x1, y1), (x2, y2))
+    new_line = Line((int(x1), int(y1)), (int(x2), int(y2)))
     window.draw(new_line)
     return new_line
 
@@ -71,7 +70,7 @@ def rect(x, y, rectWidth=100, rectHeight=100, color=None, filled=True):
     coordinates.
     """
 
-    new_rect = Rectangle((x, y), rectWidth, rectHeight, color, filled)
+    new_rect = Rectangle((int(x), int(y)), int(rectWidth), int(rectHeight), color, filled)
     window.draw(new_rect)
     return new_rect
 
@@ -82,7 +81,7 @@ def circle(x, y, radius=50, color=None, filled=True):
     color, filled status, and stoke status can be optionally modified.
     """
 
-    new_circle = Circle((x, y), radius, color, filled)
+    new_circle = Circle((int(x), int(y)), int(radius), color, filled)
     window.draw(new_circle)
     return new_circle
 
@@ -93,7 +92,7 @@ def ellipse(x, y, width=100, height=100, color=None, filled=True):
     color, filled status and stroke status can be optionally modified.
     """
 
-    new_ellipse = Ellipse((x, y), width, height, color, filled)
+    new_ellipse = Ellipse((int(x), int(y)), int(width), int(height), color, filled)
     window.draw(new_ellipse)
     return new_ellipse
 
@@ -117,7 +116,7 @@ def regPolygon(x, y, sides=3, length=10, color=None, filled=True):
     determine the color of the shape and if it is filled or not.
     """
 
-    new_reg_polygon = RegPolygon((x, y), sides, length, color, filled)
+    new_reg_polygon = RegPolygon((int(x), int(y)), int(sides), int(length), color, filled)
     window.draw(new_reg_polygon)
     return new_reg_polygon
 
@@ -131,7 +130,7 @@ def arc(x, y, width=100, height=100, startAngle=0, endAngle=180,
     """
 
     new_arc = Arc(
-        (x, y), width, height, startAngle, (endAngle - startAngle), color)
+        (int(x), int(y)), int(width), int(height), startAngle, (endAngle - startAngle), color)
     window.draw(new_arc)
     return new_arc
 
@@ -147,7 +146,7 @@ def image(x, y, imagePath, width=None, height=None):
     """
 
     global window
-    img = Image((x, y), imagePath, width, height)
+    img = Image((int(x), int(y)), imagePath, width, height)
     window.draw(img)
     return img
 
@@ -316,8 +315,8 @@ def loop():
     Tells the draw function to loop when it is called
     """
 
-    global toLoop
-    toLoop = True
+    global _toLoop
+    _toLoop = True
 
 
 def noLoop():
@@ -326,8 +325,8 @@ def noLoop():
     or to stop looping if it has already started. This is the default.
     """
 
-    global toLoop
-    toLoop = False
+    global _toLoop
+    _toLoop = False
 
 
 def frameRate(rate):
@@ -335,8 +334,8 @@ def frameRate(rate):
     Sets the frame rate value
     """
 
-    global fr
-    fr = float(rate)
+    global _fr
+    _fr = float(rate)
 
 
 def stroke(r=None, g=None, b=None):
@@ -374,10 +373,10 @@ def onDraw(draw):
     draw()
     redraw()
     while True:
-        while toLoop:
+        while _toLoop:
             draw()
             redraw()
-            time.sleep(1.0 / fr)
+            time.sleep(1.0 / _fr)
 
 
 def redraw():
@@ -388,13 +387,13 @@ def redraw():
     window.redraw()
 
 
-def text((x, y), s, font, size, color=None, attribute=PLAIN):
+def text((x, y), string, font, size, color=None, attribute=PLAIN):
     """
-    Draws specified text to the screen at (x, y), with specified font and size
+    Draws specified text "string" to the screen at (x, y), with specified font and size
     and optional color and attribute (PLAIN, BOLD, ITALIC)
     """
 
-    newText = Text((x, y), s, font, size, color, attribute)
+    newText = Text((int(x), int(y)), string, font, int(size), color, attribute)
     window.draw(newText)
     return newText
 
