@@ -10,8 +10,7 @@ from Text import *
 
 # the -O switch can't be used with jython, which is used to turn off __debug__
 # so we use debug instead
-debug = 1
-
+debug = 0
 
 class GraphicsWindow(ActionListener, KeyListener, MouseInputListener):
     """
@@ -47,6 +46,7 @@ class GraphicsWindow(ActionListener, KeyListener, MouseInputListener):
         self.onMouseMoved = None
         self.onMousePressed = None
         self.onMouseReleased = None
+        self.onMouseDragged = None
 
         # KeyEvent booleans keyPressed, keyTyped
         self.keyEventType = 0

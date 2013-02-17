@@ -16,31 +16,36 @@ canvas(640, 360)
 bx = width() / 2
 by = height() / 2
 
+loop()
 
 def draw():
+    global overBox
+    clear()
     background(0)
-
+    
     # Test if the cursor is over the box
-    if (mouseX() > bx - boxSize and mouseX() < bx + boxSize and
-            mouseY() > by - boxSize and mouseY() < by + boxSize):
+    if (mouseX() > bx and  mouseX() < bx + boxSize and 
+        mouseY() > by and mouseY() < by + boxSize):
         overBox = True
         if not locked:
             stroke(255)
             fill(153)
-
-        else:
-            stroke(153)
-            fill(153)
-            overBox = False
+    else:
+        stroke(153)
+        fill(153)
+        overBox = False
 
     # Draw the box
     rect(bx, by, boxSize, boxSize)
 
-
+    
 def mousePressed():
+    global locked, xOffset, yOffset
+
     if overBox:
         locked = True
         fill(255, 255, 255)
+        print "should fill"
     else:
         locked = False
 
@@ -49,14 +54,18 @@ def mousePressed():
 
 
 def mouseDragged():
+    global bx, by
     if locked:
         bx = mouseX() - xOffset
         by = mouseY() - yOffset
 
 
 def mouseReleased():
+    global locked
     locked = False
-onDraw(draw)
+
+
 onMousePress(mousePressed)
 onMouseDrag(mouseDragged)
 onMouseRelease(mouseReleased)
+onDraw(draw)
