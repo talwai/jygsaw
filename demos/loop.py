@@ -11,7 +11,7 @@ y = 100
 
 canvas(640, 360)        # Size should be the first statement
 stroke(255)           # Set stroke color to white
-loop()
+noLoop()
 
 y = int(height() * 0.5)
 
@@ -22,6 +22,7 @@ y = int(height() * 0.5)
 # line is run again.
 def draw():
     global y
+    clear()
     background(black)        # Set the background to black
     line(0, y, width(), y)
 
@@ -29,5 +30,10 @@ def draw():
     if (y < 0):
         y = height()
 
+
+def mousePressed():
+    print 'mousePressed'
+    loop()
+
+onMousePress(mousePressed)
 onDraw(draw)
-onMousePress(draw)
