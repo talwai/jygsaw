@@ -2,7 +2,7 @@ import sys
 import os
 sys.path.append(os.path.pardir + "/lib")
 from graphicsWrapper import *
-y = 100.0
+y = 100
 
 
 # The statements in draw() are executed until the
@@ -12,13 +12,15 @@ y = 100.0
 def draw():
     global y
     background(0)       # Set the background to black
+    clear()
     y = y - 1
     if (y < 0):
-        y = height
-    line(0, y, width, y)
+        y = height()
+    line(0, y, width(), y)
 
 canvas(640, 360)        # Size must be the first statement
-strokeColor(255)        # Set line drawing color to white
+stroke(255)        # Set line drawing color to white
 frameRate(30)
+loop()
 
-drawFunction(draw)
+onDraw(draw)
