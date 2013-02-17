@@ -7,14 +7,16 @@ from random import random
 canvas(640, 360)
 noStroke()
 background(0)
-rectWidth = width()/4
+rectWidth = width() / 4
 loop()
+
 
 def draw():
     # Keep draw to continue looping while waiting for keys.
     # I don't know why this is necessary, but doesn't work without it.
     # Processing also has it in - JL
     pass
+
 
 def keyPressed():
     keyIndex = -1
@@ -29,7 +31,7 @@ def keyPressed():
     else:
         # It's a letter key, fill a rectangle
         fill(int(random() * 255))
-        x = int(float(keyIndex)/26.0 * float(width() - rectWidth))
+        x = int(float(keyIndex) / 26.0 * float(width() - rectWidth))
         rect(x, 0, rectWidth, height())
 
 onKeyPress(keyPressed)

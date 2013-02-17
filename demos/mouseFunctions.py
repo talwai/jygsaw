@@ -18,14 +18,15 @@ by = height() / 2
 
 loop()
 
+
 def draw():
     global overBox
     clear()
     background(0)
-    
+
     # Test if the cursor is over the box
-    if (mouseX() > bx and  mouseX() < bx + boxSize and 
-        mouseY() > by and mouseY() < by + boxSize):
+    if (mouseX() > bx and mouseX() < bx + boxSize and
+            mouseY() > by and mouseY() < by + boxSize):
         overBox = True
         if not locked:
             stroke(255)
@@ -38,7 +39,7 @@ def draw():
     # Draw the box
     rect(bx, by, boxSize, boxSize)
 
-    
+
 def mousePressed():
     global locked, xOffset, yOffset
 

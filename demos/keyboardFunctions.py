@@ -18,13 +18,14 @@ colors = []
 
 canvas(640, 360)
 noStroke()
-background(numChars/2)
+background(numChars / 2)
 loop()
 
 # Set a color for each key
 for i in range(numChars):
 #    colors.append(color(i, numChars, numChars))
     colors.append(red)
+
 
 def draw():
     global newletter
@@ -34,13 +35,14 @@ def draw():
         fill(red)
         if letterHeight == maxHeight:
             y_pos = y
-            rect(x, y_pos, letterWidth, letterHeight, color = blue)
+            rect(x, y_pos, letterWidth, letterHeight, color=blue)
         else:
             y_pos = y + minHeight
             rect(x, y_pos, letterWidth, letterHeight)
-            fill(numChars/2)
+            fill(numChars / 2)
             rect(x, y_pos - minHeight, letterWidth, letterHeight)
         newletter = False
+
 
 def keyPressed():
     # If the key is between 'A' (65) and 'z' (122)
@@ -71,12 +73,12 @@ def keyPressed():
 
     # Wrap horizontally
     if x > width() - letterWidth:
-       x = 0
-       y = y + maxHeight
+        x = 0
+        y = y + maxHeight
 
     # Wrap vertically
     if y > height() - letterHeight:
-        y = 0 # Reset y to 0
-       
+        y = 0  # Reset y to 0
+
 onKeyPress(keyPressed)
 onDraw(draw)

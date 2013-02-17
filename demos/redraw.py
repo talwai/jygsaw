@@ -4,8 +4,6 @@ sys.path.append(os.path.pardir + "/lib")
 from graphicsWrapper import *
 
 
-
-
 # The statements in draw() are executed until the
 # program is stopped. Each statement is executed in
 # sequence and after the last line is read, the first

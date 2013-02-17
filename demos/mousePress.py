@@ -8,6 +8,7 @@ fill(126)
 background(102)
 loop()
 
+
 def draw():
     if (mousePressed()):
         fill(white)

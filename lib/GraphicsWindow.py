@@ -13,6 +13,7 @@ from Text import *
 # so we use debug instead
 debug = 0
 
+
 class GraphicsWindow(ActionListener, KeyListener, MouseInputListener):
     """
     Creates a GraphicsWindow with a Canvas object that can be drawn on.
@@ -32,8 +33,8 @@ class GraphicsWindow(ActionListener, KeyListener, MouseInputListener):
             size=(self.w, self.h))
 
         self.frame.contentPane = Canvas(self, self.objs, self.backgroundColor)
-        self.frame.contentPane.setPreferredSize(Dimension(w,h))
-        
+        self.frame.contentPane.setPreferredSize(Dimension(w, h))
+
         self.frame.addMouseListener(self)
         self.frame.addMouseMotionListener(self)
         self.frame.addKeyListener(self)
