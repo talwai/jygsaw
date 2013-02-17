@@ -362,15 +362,13 @@ def onDraw(draw):
     Callback function which calls the user defined draw function.
     It repeatedly loops if loop() has been called.
     """
-
-    if toLoop:
+    draw()
+    redraw()
+    while True:
         while toLoop:
             draw()
             redraw()
             time.sleep(1.0 / fr)
-    else:
-        draw()
-        redraw()
 
 
 def redraw():
