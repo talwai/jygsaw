@@ -41,7 +41,7 @@ master_doc = 'index'
 
 # General information about the project.
 project = u'Jygsaw'
-copyright = u'2013, Aaditya Taalwi, Avery Yen, Carla Galarza, David Lam, Janet Kim, Jennifer Lure, Kyle Lawson'
+copyright = u'2013, Aaditya Talwai, Avery Yen, Carla Galarza, David Lam, Janet Kim, Jennifer Lure, Kyle Lawson'
 
 # The version info for the project you're documenting, acts as replacement for
 # |version| and |release|, also used in various other places throughout the
@@ -184,7 +184,7 @@ latex_elements = {
 # (source start file, target name, title, author, documentclass [howto/manual]).
 latex_documents = [
   ('index', 'Jygsaw.tex', u'Jygsaw Documentation',
-   u'Aaditya Taalwi, Avery Yen, Carla Galarza, David Lam, Janet Kim, Jennifer Lure, Kyle Lawson', 'manual'),
+   u'Aaditya Talwai, Avery Yen, Carla Galarza, David Lam, Janet Kim, Jennifer Lure, Kyle Lawson', 'manual'),
 ]
 
 # The name of an image file (relative to this directory) to place at the top of
@@ -214,7 +214,7 @@ latex_documents = [
 # (source start file, name, description, authors, manual section).
 man_pages = [
     ('index', 'jygsaw', u'Jygsaw Documentation',
-     [u'Aaditya Taalwi, Avery Yen, Carla Galarza, David Lam, Janet Kim, Jennifer Lure, Kyle Lawson'], 1)
+     [u'Aaditya Talwai, Avery Yen, Carla Galarza, David Lam, Janet Kim, Jennifer Lure, Kyle Lawson'], 1)
 ]
 
 # If true, show URL addresses after external links.
@@ -228,7 +228,7 @@ man_pages = [
 #  dir menu entry, description, category)
 texinfo_documents = [
   ('index', 'Jygsaw', u'Jygsaw Documentation',
-   u'Aaditya Taalwi, Avery Yen, Carla Galarza, David Lam, Janet Kim, Jennifer Lure, Kyle Lawson', 'Jygsaw', 'One line description of project.',
+   u'Aaditya Talwai, Avery Yen, Carla Galarza, David Lam, Janet Kim, Jennifer Lure, Kyle Lawson', 'Jygsaw', 'One line description of project.',
    'Miscellaneous'),
 ]
 
