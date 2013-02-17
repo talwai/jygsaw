@@ -10,9 +10,9 @@ loop()
 
 def draw():
     if (mousePressed()):
-        fill(black)
-    else:
         fill(white)
+    else:
+        fill(black)
 
     line(mouseX() - 66, mouseY(), mouseX() + 66, mouseY())
     line(mouseX(), mouseY() - 66, mouseX(), mouseY() + 66)

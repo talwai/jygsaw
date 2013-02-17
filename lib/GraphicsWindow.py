@@ -1,4 +1,5 @@
 from java.awt.event import ActionListener, KeyListener, MouseListener, MouseEvent, KeyEvent, ActionEvent
+from java.awt import Dimension
 from java.awt.Color import *  # so we can just say gray instead of Color.gray
 from javax.swing import JFrame, JPanel
 from javax.swing.event import MouseInputListener
@@ -31,6 +32,8 @@ class GraphicsWindow(ActionListener, KeyListener, MouseInputListener):
             size=(self.w, self.h))
 
         self.frame.contentPane = Canvas(self, self.objs, self.backgroundColor)
+        self.frame.contentPane.setPreferredSize(Dimension(w,h))
+        
         self.frame.addMouseListener(self)
         self.frame.addMouseMotionListener(self)
         self.frame.addKeyListener(self)
@@ -63,6 +66,7 @@ class GraphicsWindow(ActionListener, KeyListener, MouseInputListener):
         self.lastKeyCode = None
 
     def setVisible(self, isVisible):
+        self.frame.pack()
         self.frame.visible = isVisible
 
     """
