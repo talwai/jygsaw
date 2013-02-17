@@ -18,49 +18,45 @@ colors = []
 
 canvas(640, 360)
 noStroke()
-background(numChars / 2)
+background(0.5)
 loop()
 
 # Set a color for each key
 for i in range(numChars):
-#    colors.append(color(i, numChars, numChars))
-    colors.append(red)
+    colors.append(Color.getHSBColor(float(i) / float(numChars), 1, 1))
 
 
 def draw():
     global newletter
     if newletter == True:
         # Draw the 'letter'
+        print 'letterHeight', letterHeight
         y_pos = 0
-        fill(red)
         if letterHeight == maxHeight:
             y_pos = y
-            rect(x, y_pos, letterWidth, letterHeight, color=blue)
+            rect(x, y_pos, letterWidth, letterHeight)
         else:
             y_pos = y + minHeight
             rect(x, y_pos, letterWidth, letterHeight)
-            fill(numChars / 2)
-            rect(x, y_pos - minHeight, letterWidth, letterHeight)
         newletter = False
 
 
 def keyPressed():
     # If the key is between 'A' (65) and 'z' (122)
-    if lastKeyCode() >= ord('A') and lastKeyCode() <= ord('z'):
+    global letterHeight
+    if ord(lastKeyChar()) >= ord('A') and ord(lastKeyChar()) <= ord('z'):
         keyIndex = -1
-        if lastKeyCode() <= ord('Z'):
-            keyIndex = lastKeyCode() - ord('A')
-            global letterHeight
+        if ord(lastKeyChar()) <= ord('Z'):
+            keyIndex = ord(lastKeyChar()) - ord('A')
             letterHeight = maxHeight
             fill(colors[keyIndex])
         else:
-            keyIndex = lastKeyCode() - ord('a')
-            global letterHeight
-            letterheight = minHeight
+            keyIndex = ord(lastKeyChar()) - ord('a')
+            letterHeight = minHeight
             fill(colors[keyIndex])
+        print 'key', lastKeyChar(), keyIndex, ord(lastKeyChar())
     else:
         fill(0)
-        global letterHeight
         letterHeight = 10
 
     global newletter
