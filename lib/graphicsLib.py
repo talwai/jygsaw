@@ -9,31 +9,34 @@ if (__name__ == '__main__') or (__name__ == 'main'):
     w.setDefaultColor(pink)
     w.setStrokeColor(green)
     w.setStroke(True)
-    e = Ellipse((400, 400), 300, 300, filled=True)
+    
+    e = Ellipse(400, 400, 300, 300, filled=True)
     w.draw(e)
+    
     w.setStrokeColor(red)
-    r = Ellipse((250, 250), 100, 200, blue)
+    r = Ellipse(250, 250, 100, 200, blue)
+    
     w.setDefaultColor(green)
-    t = Text((400, 300), "Hello!", "Arial", 40)
-    sun = Ellipse((115, 110), 75, 75, yellow)
+    t = Text(400, 300, "Hello!", "Arial", 40)
+    sun = Ellipse(115, 110, 75, 75, yellow)
     l = Line ((5,10),(100,150))
     w.draw(l)
-    p = Point((900,9), black)
+    
+    p = Point(900,9, black)
     w.draw(p)
-    #image = Image((20, 20), "puppy.jpg")
+    image = Image(20, 20, "puppy.jpg")
+    w.draw(image)
     q = Polygon ([(100,100),(150,250),(200,300)], blue)
-    p = RegPolygon((200,200),5,50)
-    z = Group (q,p, r,e,sun)
+    p = RegPolygon(200,200,5,50)
+    z = Group (q, p, r, e, sun)
+    
     image2 = Image(
-        (100, 400), "http://cdn.cutestpaw.com/wp-content/uploads/2011/11/Handsome-l.jpg")
+        100, 400, "http://cdn.cutestpaw.com/wp-content/uploads/2011/11/Handsome-l.jpg")
     z = Group(r, e, sun)
     z.move(100, 100)
     w.draw(z)
-    image2 = Image(
-        (100, 400), "http://cdn.cutestpaw.com/wp-content/uploads/2011/11/Handsome-l.jpg")
-    w.draw(z)
     w.draw(t)
-    #w.draw(image)
+    
     w.draw(image2)
     w.setVisible(True)
     w.setBackgroundColor(white)

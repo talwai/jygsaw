@@ -5,38 +5,50 @@ from java.awt.Graphics import setFont
 
 
 class Text(GraphicsObject):
-    def __init__(self, (x, y), s, font, size, attribute=PLAIN, color=None):
+    def __init__(self, x, y, s, font, size, attribute=PLAIN, color=None):
         assert size > 0, "Text size must be greater than zero"
-        super(Text, self).__init__((x, y), color)
-        self.s = s
-        self.font = font  # Font, however it's defined in Java...
-        self.size = size
+        super(Text, self).__init__(x, y, color)
+        self._s = s
+        self._font = font  # Font, however it's defined in Java...
+        self._size = size
         self.attribute = attribute  # bold, italic, underline
 
-    def getString(self):
-        return self.s
 
-    def getSize(self):
-        return self.size
+    def _get_string(self):
+        return self._s
 
-    def getAttribute(self):
-        return self.attribute
+    def _set_string(self, s):
+        self._s = s
 
-    def getFont(self):
-        return self.font
+    s = property(_get_string, _set_string)
 
-    def setString(self, s):
-        self.s = s
+    def _get_size(self):
+        return self._size
 
-    def setSize(self, s):
-        self.size = s
+    def _set_size(self, s):
+        assert _size > 0, "Text size must be greater than zero"
+        self._size = s
 
-    def setAttribute(self, a):
-        self.attribute = a
+    size = property(_get_size, _set_size)
 
-    def setFont(self, f):
-        self.font = f
+
+    def _get_attribute(self):
+        return self._attribute
+
+    def _set_attribute(self, a):
+        self._attribute = a
+
+    attribute = property(_get_attribute, _set_attribute)
+
+    def _get_font(self):
+        return self._font
+
+    def _set_font(self, f):
+        self._font = f
+
+    font = property(_get_font, _set_font)
 
     def _draw(self, g):
+        g.setColor(self.color)
         g.setFont(Font(self.font, self.attribute, self.size))
-        g.drawString(self.s, self.coordinates[0], self.coordinates[1])
+        g.drawString(self.s, self.x, self.y)
