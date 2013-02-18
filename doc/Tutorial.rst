@@ -1,12 +1,13 @@
-=========
 Tutorial
 =========
+
+.. highlight:: python
 
 ------------------------------
 *Getting started with Jygsaw!*
 ------------------------------
 
-To get started, first make sure you have properly [installed] the Jygsaw package. If you're having trouble with your installation, check out the [troubleshooting/installation] page. 
+To get started, first make sure you have properly [installed] the Jygsaw package. If you're having trouble with your installation, check out the [troubleshooting/installation] page.
 
 -----------------------
 *Your first program...*
@@ -15,75 +16,67 @@ To get started, first make sure you have properly [installed] the Jygsaw package
 Basic Shapes
 ^^^^^^^^^^^^
 
-Open up your editor and start with the import statement:
+Open up your editor and start with the import statement::
 
-``
-:::python
-from jygsaw import *
-``
+    from jygsaw import *
 
-Let's set the size of the canvas by inputting a length and width of say, 700 and 400. Since the background is set to a default color gray, let's change it to blue.
+Let's set the size of the canvas by inputting a length and width of say, 700 and 400. Since the background is set to a default color gray, let's change it to blue::
 
-```
-:::python
-canvas(700,300)
-background(blue)
-```
+    canvas(700,300)
+    background(blue)
 
-Let's slap some shapes on the screen. To do this, we'll first need to define a draw function, and then call the callback function onDraw that calls that draw function. The origin (0,0) is located in the top-left corner of the canvas by default.
+Let's slap some shapes on the screen. To do this, we'll first need to define a draw function, and then call the callback function onDraw that calls that draw function. The origin (0,0) is located in the top-left corner of the canvas by default::
 
-```
-def draw():
-    circle(350, 150, 50, color=red)
-    rect(0,0, 150, 75, color=orange)
-    polygon([(450,250),(650,250),(500,300)],color=yellow)
-    ellipse(150, 75, 100, 250, color=green)
-    regPolygon(550, 85, sides=6, length=80, color=magenta)
+    def draw():
+        circle(350, 150, 50, color=red)
+        rect(0,0, 150, 75, color=orange)
+        polygon([(450,250),(650,250),(500,300)],color=yellow)
+        ellipse(150, 75, 100, 250, color=green)
+        regPolygon(550, 85, sides=6, length=80, color=magenta)
 
-onDraw(draw)
-```
+    onDraw(draw)
 
 
-You should now have something that looks like this:
 
-```
-:::python
-from jygsaw import *
+You should now have something that looks like this::
 
-canvas(700,300)
-background(blue)
+    from jygsaw import *
 
-def draw():
-    circle(350, 150, 50, color=red)
-    rect(0,0, 150, 75, color=orange)
-    polygon([(450,250),(650,250),(500,300)],color=yellow)
-    ellipse(150, 75, 100, 250, color=green)
-    regPolygon(550, 85, sides=6, length=80, color=magenta)
+    canvas(700,300)
+    background(blue)
 
-onDraw(draw)
-```
-Awesome! Now let's draw some points and lines. 
+    def draw():
+        circle(350, 150, 50, color=red)
+        rect(0,0, 150, 75, color=orange)
+        polygon([(450,250),(650,250),(500,300)],color=yellow)
+        ellipse(150, 75, 100, 250, color=green)
+        regPolygon(550, 85, sides=6, length=80, color=magenta)
+
+    onDraw(draw)
+
+Awesome! Now let's draw some points and lines.
 
 ^^^^^^^^^^^^^^
 Points & Lines
 ^^^^^^^^^^^^^^
 
-```
-:::python
-from jygsaw import *
 
-canvas(900,500)
-background(darkGray)
+Here is another demo::
 
-#   def point(x, y, color=None):
+    from jygsaw import *
 
-def draw():
-    lineX = random()*800 +50
-    lineY = random()*300 +125 
-    lineColor = choice([lightGray,white,orange, gray])
-    line(width()/2,height(),lineX,lineY,color=lineColor)
-    point(lineX, lineY -100, color=lineColor)
-    loop()
+    canvas(900,500)
+    background(darkGray)
 
-onDraw(draw)
-```
+    #   def point(x, y, color=None):
+
+    def draw():
+        lineX = random()*800 +50
+        lineY = random()*300 +125
+        lineColor = choice([lightGray,white,orange, gray])
+        line(width()/2,height(),lineX,lineY,color=lineColor)
+        point(lineX, lineY -100, color=lineColor)
+        loop()
+
+    onDraw(draw)
+

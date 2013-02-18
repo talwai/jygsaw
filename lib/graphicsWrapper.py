@@ -438,7 +438,7 @@ if (__name__ == '__main__') or (__name__ == 'main'):
         global rectY
         global directionX
         global directionY
-        
+
         clear()
         vertices = [(250, 250), (250, 370), (360, 340), (360, 250)]
 
@@ -456,10 +456,10 @@ if (__name__ == '__main__') or (__name__ == 'main'):
         background(white)
         w = width()
         h = height()
-        print("rectX = %s, rectY = %s" % (rectX,rectY))
+        print("rectX = %s, rectY = %s" % (rectX, rectY))
         print("directionX = %s, directionY = %s" % (directionX, directionY))
-        print("w - 10 = %s" % (w-10))
-        
+        print("w - 10 = %s" % (w - 10))
+
         if rectX >= w:
             directionX = -1
         elif rectX < -10:

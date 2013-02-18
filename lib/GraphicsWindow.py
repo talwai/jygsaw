@@ -205,40 +205,27 @@ class Canvas(JPanel):
     def __init__(self, window, objects, backgroundColor):
         self.objs = objects
         self.window = window
-<<<<<<< HEAD
-        self.defaultColor = gray
-        self.backgroundColor = backgroundColor
-        self.strokeColor = black
-        self.stroke = False  # sets whether or not strokes are being drawn for shapes
-=======
         self._defaultColor = gray
         self._backgroundColor = backgroundColor
         self._strokeColor = black
         self._stroke = False  # sets whether or not strokes are being drawn for shapes
->>>>>>> f538d69f21b80325b77d820f5951e69c13ec62a5
-
-    """
-    This fuction is responsible for drawing on the canvas. It is passed a
-    java graphics object that is needed in order to draw all of the GraphicsObjects.
-    Clears the window by drawing a clear rectangle over the entire window.
-    The function then runs through the entire list of objs and draws all of them
-    on the screen.
-    """
 
     def paintComponent(self, g):
+        """
+        This fuction is responsible for drawing on the canvas. It is passed a
+        java graphics object that is needed in order to draw all of the GraphicsObjects.
+        Clears the window by drawing a clear rectangle over the entire window.
+        The function then runs through the entire list of objs and draws all of them
+        on the screen.
+        """
+
         g.background = self.backgroundColor
         g.clearRect(0, 0, self.window.w, self.window.h)
         g.setColor(white)  # Set color of rectangle
-
-<<<<<<< HEAD
+        # Iterates through and draws all of the objects
         for o in self.objs:
             g.setColor(o.getColor())
             o._draw(g)
-=======
-        # Iterates through and draws all of the objects
-        for i in range(len(self.objs)):
-            self.objs[i]._draw(g)
->>>>>>> f538d69f21b80325b77d820f5951e69c13ec62a5
 
     def _get_defaultColor(self):
         """Get the default color of the Canvas"""
@@ -250,10 +237,9 @@ class Canvas(JPanel):
 
     defaultColor = property(_get_defaultColor, _set_defaultColor)
 
-<<<<<<< HEAD
     def setStroke(self, b):
         self.stroke = b
-=======
+
     def _get_backgroundColor(self):
         """Get the background color of the Canvas"""
         return self._backgroundColor
@@ -279,5 +265,3 @@ class Canvas(JPanel):
         self._stroke = b
 
     stroke = property(_get_stroke, _set_stroke)
-
->>>>>>> f538d69f21b80325b77d820f5951e69c13ec62a5
