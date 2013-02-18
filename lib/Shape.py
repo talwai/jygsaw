@@ -136,7 +136,7 @@ class Circle(Ellipse):
     def __init__(self, x, y, radius, color=None, filled=True):
         assert radius > 0, "Circle radius must be greater than zero"
         super(Circle, self).__init__(
-            x + radius, y + radius, radius * 2, radius * 2, color, filled)
+            x - radius, y - radius, radius * 2, radius * 2, color, filled)
         self._radius = radius
 
     def _get_radius(self):
