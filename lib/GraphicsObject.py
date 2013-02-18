@@ -17,34 +17,34 @@ class GraphicsObject(object):
         self._color = c
         self.transform = AffineTransform()
 
-    def _get_x(self): 
-        """Returns the x coordinate value.""" 
+    def _get_x(self):
+        """Returns the x coordinate value."""
         return self._x
-    
-    def _set_x(self, i): 
-        """Sets the x coordinate value.""" 
+
+    def _set_x(self, i):
+        """Sets the x coordinate value."""
         self._x = i
-    
+
     x = property(_get_x, _set_x, doc="x coordinate")
 
-    def _get_y(self): 
+    def _get_y(self):
         """Returns the y coordinate value."""
         return self._y
 
-    def _set_y(self, i): 
+    def _set_y(self, i):
         """Sets the y coordinate value."""
         self._y = i
-   
+
     y = property(_get_y, _set_y, doc="y coordinate")
 
-    def _get_color(self): 
+    def _get_color(self):
         """Returns the color object"""
         return self._color
-    
-    def _set_color(self, c): 
+
+    def _set_color(self, c):
         """Sets the color object"""
         self._color = c
-    
+
     color = property(_get_color, _set_color, doc="color of object")
 
     def moveTo(self, x, y):

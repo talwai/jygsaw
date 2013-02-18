@@ -9,13 +9,13 @@ if (__name__ == '__main__') or (__name__ == 'main'):
     w.setDefaultColor(pink)
     w.setStrokeColor(green)
     w.setStroke(True)
-    
+
     e = Ellipse(400, 400, 300, 300, filled=True)
     w.draw(e)
-    
+
     w.setStrokeColor(red)
     r = Ellipse(250, 250, 100, 200, blue)
-    
+
     w.setDefaultColor(green)
     t = Text((400, 300), "Hello!", "Arial", 40)
     sun = Ellipse((115, 110), 75, 75, yellow)

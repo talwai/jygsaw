@@ -62,7 +62,7 @@ def line(x1, y1, x2, y2, color=None):
     optionally set the color as well.
     """
 
-    new_line = Line((int(x1), int(y1)), (int(x2), int(y2)))
+    new_line = Line((int(x1), int(y1)), (int(x2), int(y2)), color)
     window.draw(new_line)
     return new_line
 
@@ -73,7 +73,8 @@ def rect(x, y, rectWidth=100, rectHeight=100, color=None, filled=True):
     coordinates.
     """
 
-    new_rect = Rectangle(int(x), int(y), int(rectWidth), int(rectHeight), color, filled)
+    new_rect = Rectangle(
+        int(x), int(y), int(rectWidth), int(rectHeight), color, filled)
     window.draw(new_rect)
     return new_rect
 
@@ -95,7 +96,8 @@ def ellipse(x, y, width=100, height=100, color=None, filled=True):
     color, filled status and stroke status can be optionally modified.
     """
 
-    new_ellipse = Ellipse(int(x), int(y), int(width), int(height), color, filled)
+    new_ellipse = Ellipse(
+        int(x), int(y), int(width), int(height), color, filled)
     window.draw(new_ellipse)
     return new_ellipse
 
@@ -119,7 +121,8 @@ def regPolygon(x, y, sides=3, length=10, color=None, filled=True):
     determine the color of the shape and if it is filled or not.
     """
 
-    new_reg_polygon = RegPolygon(int(x), int(y), int(sides), int(length), color, filled)
+    new_reg_polygon = RegPolygon(
+        int(x), int(y), int(sides), int(length), color, filled)
     window.draw(new_reg_polygon)
     return new_reg_polygon
 
@@ -438,7 +441,7 @@ if (__name__ == '__main__') or (__name__ == 'main'):
         global rectY
         global directionX
         global directionY
-        
+
         clear()
         vertices = [(250, 250), (250, 370), (360, 340), (360, 250)]
 
@@ -456,7 +459,7 @@ if (__name__ == '__main__') or (__name__ == 'main'):
         background(white)
         w = width()
         h = height()
-        
+
         if rectX >= w:
             directionX = -1
         elif rectX < -10:

@@ -14,7 +14,6 @@ class Text(GraphicsObject):
         self._size = size
         self.attribute = attribute  # bold, italic, underline
 
-
     def _get_string(self):
         return self._s
 
@@ -31,7 +30,6 @@ class Text(GraphicsObject):
         self._size = s
 
     size = property(_get_size, _set_size)
-
 
     def _get_attribute(self):
         return self._attribute

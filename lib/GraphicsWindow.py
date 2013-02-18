@@ -210,22 +210,23 @@ class Canvas(JPanel):
         self._strokeColor = black
         self._stroke = False  # sets whether or not strokes are being drawn for shapes
 
-    """
-    This fuction is responsible for drawing on the canvas. It is passed a
-    java graphics object that is needed in order to draw all of the GraphicsObjects.
-    Clears the window by drawing a clear rectangle over the entire window.
-    The function then runs through the entire list of objs and draws all of them
-    on the screen.
-    """
-
     def paintComponent(self, g):
+        """
+        This fuction is responsible for drawing on the canvas. It is passed a
+        java graphics object that is needed in order to draw all of the GraphicsObjects.
+        Clears the window by drawing a clear rectangle over the entire window.
+        The function then runs through the entire list of objs and draws all of them
+        on the screen.
+        """
+
         g.background = self.backgroundColor
         g.clearRect(0, 0, self.window.w, self.window.h)
         g.setColor(white)  # Set color of rectangle
 
         # Iterates through and draws all of the objects
-        for obj in self.window.objs:
-            obj._draw(g)
+        for o in self.objs:
+            g.setColor(o.getColor())
+            o._draw(g)
 
     def _get_defaultColor(self):
         """Get the default color of the Canvas"""
@@ -236,6 +237,9 @@ class Canvas(JPanel):
         self._defaultColor = c
 
     defaultColor = property(_get_defaultColor, _set_defaultColor)
+
+    def setStroke(self, b):
+        self.stroke = b
 
     def _get_backgroundColor(self):
         """Get the background color of the Canvas"""

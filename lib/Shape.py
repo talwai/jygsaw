@@ -219,10 +219,10 @@ class Arc(Shape):
                   self.startAngle, self.arcAngle)
 
 
-
 class Polygon(Shape):
     def __init__(self, vertices, color=None, filled=True):
-        super(Polygon, self).__init__(vertices[0][0], vertices[0][1], 0, 0, color, filled)
+        super(Polygon, self).__init__(
+            vertices[0][0], vertices[0][1], 0, 0, color, filled)
         assert len(vertices) > 0, "Number of vertices must be greater than 0 "
         self._vertices = vertices
 
