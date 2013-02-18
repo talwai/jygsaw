@@ -30,7 +30,6 @@ def draw():
     global newletter
     if newletter == True:
         # Draw the 'letter'
-        print 'letterHeight', letterHeight
         y_pos = 0
         if letterHeight == maxHeight:
             y_pos = y
@@ -54,7 +53,6 @@ def keyPressed():
             keyIndex = ord(lastKeyChar()) - ord('a')
             letterHeight = minHeight
             fill(colors[keyIndex])
-        print 'key', lastKeyChar(), keyIndex, ord(lastKeyChar())
     else:
         fill(0)
         letterHeight = 10
