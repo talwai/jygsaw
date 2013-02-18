@@ -90,7 +90,7 @@ def circle(x, y, radius=50, color=None, filled=True):
     return new_circle
 
 
-def ellipse(x, y, width=100, height=100, color=None, filled=True):
+def ellipse(x, y, width=100, height=50, color=None, filled=True):
     """
     Creates an eclipse centered at the given x, y coordinates. Width, height,
     color, filled status and stroke status can be optionally modified.
@@ -454,7 +454,7 @@ if (__name__ == '__main__') or (__name__ == 'main'):
         polygon(vertices)
         regPolygon(10, 300)
         arc(300, 100)
-        circle(50, 50)
+        circle(0, 0)
 
         background(white)
         w = width()

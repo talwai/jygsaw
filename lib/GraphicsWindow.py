@@ -224,9 +224,9 @@ class Canvas(JPanel):
         g.setColor(white)  # Set color of rectangle
 
         # Iterates through and draws all of the objects
-        for o in self.objs:
-            g.setColor(o.getColor())
-            o._draw(g)
+        for obj in self.window.objs:
+            #g.setColor(o.getColor())
+            obj._draw(g)
 
     def _get_defaultColor(self):
         """Get the default color of the Canvas"""
