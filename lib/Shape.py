@@ -91,6 +91,7 @@ class Shape(GraphicsObject):
         the filled circle is _draw_stroke() will draw an unfilled circle over
         it creating a stroke.
         """
+
         g.setColor(self.color)
         self._draw_shape(g)
         if self.filled and self.stroke:
@@ -221,7 +222,7 @@ class Arc(Shape):
 
 class Polygon(Shape):
     def __init__(self, vertices, color=None, filled=True):
-        super(Polygon, self).__init__(vertices[0], 0, 0, color, filled)
+        super(Polygon, self).__init__(vertices[0][0], vertices[0][1], 0, 0, color, filled)
         assert len(vertices) > 0, "Number of vertices must be greater than 0 "
         self._vertices = vertices
 

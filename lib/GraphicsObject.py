@@ -10,11 +10,11 @@ class GraphicsObject(object):
         still in the process of being created.
     """
 
-    def __init__(self, x=0, y=0, color=None):
+    def __init__(self, x=0, y=0, c=None):
         super(GraphicsObject, self).__init__()
         self._x = x
         self._y = y
-        self._color = color
+        self._color = c
         self.transform = AffineTransform()
 
     def _get_x(self): 

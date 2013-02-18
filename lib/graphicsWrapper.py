@@ -51,7 +51,7 @@ def point(x, y, color=None):
     Draws and returns a :py:class:`Point` at (x,y).
     """
 
-    new_point = Point((int(x), int(y)), color)
+    new_point = Point(int(x), int(y), color)
     window.draw(new_point)
     return new_point
 
@@ -73,7 +73,7 @@ def rect(x, y, rectWidth=100, rectHeight=100, color=None, filled=True):
     coordinates.
     """
 
-    new_rect = Rectangle((int(x), int(y)), int(rectWidth), int(rectHeight), color, filled)
+    new_rect = Rectangle(int(x), int(y), int(rectWidth), int(rectHeight), color, filled)
     window.draw(new_rect)
     return new_rect
 
@@ -84,7 +84,7 @@ def circle(x, y, radius=50, color=None, filled=True):
     color, filled status, and stoke status can be optionally modified.
     """
 
-    new_circle = Circle((int(x), int(y)), int(radius), color, filled)
+    new_circle = Circle(int(x), int(y), int(radius), color, filled)
     window.draw(new_circle)
     return new_circle
 
@@ -95,7 +95,7 @@ def ellipse(x, y, width=100, height=100, color=None, filled=True):
     color, filled status and stroke status can be optionally modified.
     """
 
-    new_ellipse = Ellipse((int(x), int(y)), int(width), int(height), color, filled)
+    new_ellipse = Ellipse(int(x), int(y), int(width), int(height), color, filled)
     window.draw(new_ellipse)
     return new_ellipse
 
@@ -119,7 +119,7 @@ def regPolygon(x, y, sides=3, length=10, color=None, filled=True):
     determine the color of the shape and if it is filled or not.
     """
 
-    new_reg_polygon = RegPolygon((int(x), int(y)), int(sides), int(length), color, filled)
+    new_reg_polygon = RegPolygon(int(x), int(y), int(sides), int(length), color, filled)
     window.draw(new_reg_polygon)
     return new_reg_polygon
 
@@ -134,7 +134,7 @@ def arc(x, y, width=100, height=100, startAngle=0, endAngle=180,
     """
 
     new_arc = Arc(
-        (int(x), int(y)), int(width), int(height), startAngle, (endAngle - startAngle), color)
+        int(x), int(y), int(width), int(height), startAngle, (endAngle - startAngle), color)
     window.draw(new_arc)
     return new_arc
 
@@ -150,7 +150,7 @@ def image(x, y, imagePath, width=None, height=None):
     """
 
     global window
-    img = Image((int(x), int(y)), imagePath, width, height)
+    img = Image(int(x), int(y), imagePath, width, height)
     window.draw(img)
     return img
 
@@ -397,7 +397,7 @@ def text((x, y), string, font, size, color=None, attribute=PLAIN):
     and optional color and attribute (PLAIN, BOLD, ITALIC)
     """
 
-    newText = Text((int(x), int(y)), string, font, int(size), color, attribute)
+    newText = Text(int(x), int(y), string, font, int(size), attribute, color)
     window.draw(newText)
     return newText
 
@@ -456,9 +456,6 @@ if (__name__ == '__main__') or (__name__ == 'main'):
         background(white)
         w = width()
         h = height()
-        print("rectX = %s, rectY = %s" % (rectX,rectY))
-        print("directionX = %s, directionY = %s" % (directionX, directionY))
-        print("w - 10 = %s" % (w-10))
         
         if rectX >= w:
             directionX = -1
