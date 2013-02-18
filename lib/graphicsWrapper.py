@@ -137,7 +137,7 @@ def arc(x, y, width=100, height=100, startAngle=0, endAngle=180,
     """
 
     new_arc = Arc(
-        int(x), int(y), int(width), int(height), startAngle, (endAngle - startAngle), color)
+        int(x), int(y), int(width), int(height), startAngle, (endAngle - startAngle), color, filled)
     window.draw(new_arc)
     return new_arc
 
@@ -446,15 +446,15 @@ if (__name__ == '__main__') or (__name__ == 'main'):
         vertices = [(250, 250), (250, 370), (360, 340), (360, 250)]
 
         fill(red)
-        rect(rectX, rectY)
+        rect(rectX, rectY, filled=False)
         line(150, 10, 200, 10)
         fill(pink)
-        ellipse(10, 150)
+        ellipse(10, 150, filled=False)
 
-        polygon(vertices)
-        regPolygon(10, 300)
-        arc(300, 100)
-        circle(0, 0)
+        polygon(vertices, filled=False)
+        regPolygon(10, 300, filled=False)
+        arc(300, 100, filled=False)
+        circle(0, 0, filled=False)
 
         background(white)
         w = width()

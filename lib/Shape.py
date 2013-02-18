@@ -198,11 +198,11 @@ class Arc(Shape):
     # startAngle is where the arc begins; arc is extended for arcAngle degrees
     # (x,y) - upper left corner of the arc's rectangle to be filled
     # width and height are the width and height of the arc to be filled
-    def __init__(self, x, y, width, height, startAngle, arcAngle, color=None):
+    def __init__(self, x, y, width, height, startAngle, arcAngle, color=None, filled=True):
 
         assert width > 0, "Arc width must be greater than zero"
         assert height > 0, "Arc height must be greater than zero"
-        super(Arc, self).__init__(x, y, width, height, color)
+        super(Arc, self).__init__(x, y, width, height, color, filled=True)
         self.startAngle = startAngle
         self.arcAngle = arcAngle
 
