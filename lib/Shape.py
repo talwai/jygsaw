@@ -249,7 +249,7 @@ class Polygon(Shape):
 
 class RegPolygon(Shape):
     def __init__(self, x, y, sides, length, color=None, filled=True):
-        super(RegPolygon, self).__init__(x, y, 0, 0, color, True)
+        super(RegPolygon, self).__init__(x, y, 0, 0, color, filled)
         assert sides >= 0, "Number of sides must be greater than or equal to 0 "
         assert length > 0, "Length of sides must be greater than 0 "
 
