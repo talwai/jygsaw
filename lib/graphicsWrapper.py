@@ -446,10 +446,11 @@ if (__name__ == '__main__') or (__name__ == 'main'):
         vertices = [(250, 250), (250, 370), (360, 340), (360, 250)]
 
         fill(red)
-        rect(rectX, rectY, filled=False)
+        stroke(blue)
+        rect(rectX, rectY, filled=True)
         line(150, 10, 200, 10)
         fill(pink)
-        ellipse(10, 150, filled=False)
+        ellipse(10, 150, filled=True)
 
         polygon(vertices, filled=False)
         regPolygon(10, 300, filled=False)
