@@ -166,7 +166,7 @@ class Rectangle(Shape):
             g.drawRect(self.x, self.y, self.width, self.height)
 
     def _draw_stroke(self, g):
-        g.fillRect(self.x, self.y, self.width, self.height)
+        g.drawRect(self.x, self.y, self.width, self.height)
 
 
 class Line(Shape):
