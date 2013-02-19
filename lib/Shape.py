@@ -202,7 +202,7 @@ class Arc(Shape):
 
         assert width > 0, "Arc width must be greater than zero"
         assert height > 0, "Arc height must be greater than zero"
-        super(Arc, self).__init__(x, y, width, height, color, filled=True)
+        super(Arc, self).__init__(x, y, width, height, color, filled)
         self.startAngle = startAngle
         self.arcAngle = arcAngle
 
