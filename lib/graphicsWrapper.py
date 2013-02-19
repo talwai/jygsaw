@@ -1,7 +1,7 @@
 """
 GraphicsWrapper contains methods that the user calls directly.
 """
-
+from __future__ import with_statement
 from GraphicsObject import *
 from GraphicsWindow import *
 from Group import *
@@ -10,6 +10,8 @@ from Shape import *
 from Text import *
 from java.awt import Color
 import time
+from threading import Lock
+
 
 rectX = 0
 rectY = 0
@@ -377,11 +379,13 @@ def onDraw(draw):
     Callback function which calls the user defined draw function.
     It repeatedly loops if loop() has been called.
     """
+   
     draw()
     redraw()
     while True:
         while _toLoop:
-            draw()
+            with window.draw_lock:
+                 draw()
             redraw()
             time.sleep(1.0 / _fr)
 
@@ -428,10 +432,7 @@ if (__name__ == '__main__') or (__name__ == 'main'):
     canvas()
     loop()
     stroke()
-    frameRate(60.0)
-
-    x = None
-    y = None
+    frameRate(160.0)
 
     rectX = 150
     rectY = 30
@@ -475,9 +476,9 @@ if (__name__ == '__main__') or (__name__ == 'main'):
 
         rectY = rectY + directionY
 
-        text((200, 200), 'Hello, world', 'Times New Roman', 24, green)
+        text((200, 200), 'Hello, world', 'Times New Roman', 50, black)
 
-        image(200, 200, './puppy.jpg', 50, 50)
+        #image(200, 200, './puppy.jpg', 50, 50)
 
     def drawImage():
         # image(0, 0, './puppy.jpg')
