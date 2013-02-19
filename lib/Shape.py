@@ -87,8 +87,8 @@ class Shape(GraphicsObject):
         and _draw_stroke(). If the class that inherits from Shape just has a
         _draw method that method will be used to draw the object. This is the
         case for shapes that don't need a stroke. If a shape doesn't have a stroke
-        it will be drawn using _draw_shape(). If it does have a stroke after
-        the filled circle is _draw_stroke() will draw an unfilled circle over
+        it will be drawn using _draw_shape(). If it does have a stroke then after
+        the filled shape is drawn, _draw_stroke() will draw an unfilled shape over
         it creating a stroke.
         """
 

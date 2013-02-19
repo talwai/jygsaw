@@ -1,5 +1,6 @@
+from __future__ import with_statement
 from java.awt.event import ActionListener, KeyListener, MouseListener, MouseEvent, KeyEvent, ActionEvent
-from java.awt import Dimension
+from java.awt import Dimension, RenderingHints
 from java.awt.Color import *  # so we can just say gray instead of Color.gray
 from javax.swing import JFrame, JPanel
 from javax.swing.event import MouseInputListener
@@ -8,6 +9,7 @@ from Image import *
 from Group import *
 from Shape import *
 from Text import *
+from threading import Lock
 
 # the -O switch can't be used with jython, which is used to turn off __debug__
 # so we use debug instead
@@ -21,6 +23,7 @@ class GraphicsWindow(ActionListener, KeyListener, MouseInputListener):
 
     """
     def __init__(self, title, w, h, backgroundColor=white):
+        
         assert w > 0, "GraphicsWindow width must be greater than zero"
         assert h > 0, "GraphicsWindow height must be greater than zero"
         self.objs = []  # List of GraphicsObjects
@@ -35,6 +38,11 @@ class GraphicsWindow(ActionListener, KeyListener, MouseInputListener):
         self.frame.contentPane = Canvas(self, self.objs, self.backgroundColor)
         self.frame.contentPane.setPreferredSize(Dimension(w, h))
 
+        #print self.frame.contentPane.isDoubleBuffered()
+
+        self.frame.contentPane.setDoubleBuffered(False)
+
+        
         self.frame.addMouseListener(self)
         self.frame.addMouseMotionListener(self)
         self.frame.addKeyListener(self)
@@ -65,6 +73,8 @@ class GraphicsWindow(ActionListener, KeyListener, MouseInputListener):
         # Key values
         self.lastKeyChar = None
         self.lastKeyCode = None
+
+        self.draw_lock = Lock()
 
     def setVisible(self, isVisible):
         self.frame.pack()
@@ -120,7 +130,6 @@ class GraphicsWindow(ActionListener, KeyListener, MouseInputListener):
     def clear(self):
         self.objs = []
         self.frame.contentPane.objs = self.objs
-        self.redraw()
 
     """
     These methods implemented Swing's MouseInputListener interface.    """
@@ -218,15 +227,16 @@ class Canvas(JPanel):
         The function then runs through the entire list of objs and draws all of them
         on the screen.
         """
+        g.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON)
 
-        g.background = self.backgroundColor
-        g.clearRect(0, 0, self.window.w, self.window.h)
-        g.setColor(white)  # Set color of rectangle
+        with self.window.draw_lock:
+            g.background = self.backgroundColor
+            g.clearRect(0, 0, self.window.w, self.window.h)
+            g.setColor(white)  # Set color of rectangle
 
-        # Iterates through and draws all of the objects
-        for obj in self.window.objs:
-            #g.setColor(o.getColor())
-            obj._draw(g)
+            # Iterates through and draws all of the objects
+            for obj in self.window.objs:
+                obj._draw(g)
 
     def _get_defaultColor(self):
         """Get the default color of the Canvas"""
