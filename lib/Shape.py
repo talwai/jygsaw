@@ -173,13 +173,14 @@ class Line(Shape):
     # (startX, startY) - coordinate of line's starting point
     # (endX, endY) - coordinate of line's ending point
     def __init__(self, (startX, startY), (endX, endY), color=None):
-        super(Line, self).__init__((startX, startY), 0, 0, color, True)
+        super(Line, self).__init__(startX, startY, 0, 0, color, True)
         self.startX = startX
         self.startY = startY
         self.endX = endX
         self.endY = endY
 
     def _draw(self, g):
+        g.setColor(self.color)
         g.drawLine(self.startX, self.startY, self.endX, self.endY)
 
 
