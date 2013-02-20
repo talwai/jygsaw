@@ -390,12 +390,12 @@ def onDraw(draw):
             time.sleep(1.0 / _fr)
 
 
-def redraw():
+def redraw(delay = 0.0):
     """
     Redraws all of the objects on the window. Not sure there is a point to it.
     """
 
-    window.redraw()
+    window.redraw(delay)
 
 
 def text((x, y), string, font, size, color=None, attribute=PLAIN):

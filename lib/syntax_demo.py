@@ -39,6 +39,7 @@ while True:
     #arc(300, 100, filled=False)
     #circle(0, 0, filled=False)
     
+    noFill()  # use processing noFill() syntax
     polygon(vertices)
     regPolygon(10, 300)
     

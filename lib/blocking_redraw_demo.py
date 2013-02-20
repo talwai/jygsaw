@@ -43,5 +43,5 @@ while True:
     
     text((200, 200), 'Hello, world', 'Times New Roman', 50, black)
     
-    redraw()
+    redraw(.01)
     #sleep(.05)
