@@ -38,6 +38,8 @@ class FakeWindow:
         print
         
     def GOODpaintComponent(self):
+        
+        print "******** Paint component called *************"
         # find the index of the last redraw command in the list
         try:
             redraw_index = rindex(self.command_list, "redraw")
@@ -56,8 +58,11 @@ class FakeWindow:
             print
         
             # trim the command list
-            self.command_list = list_head[clear_index:]
+            self.command_list = self.command_list[clear_index:]
             print "trimmed", self.command_list
+    
+            print "*** PC COMPLETE"
+            print
         
         except ValueError:
             pass
