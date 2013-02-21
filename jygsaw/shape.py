@@ -1,4 +1,4 @@
-from GraphicsObject import *
+from graphicsobject import *
 from java.awt.Graphics import fillRect, fillOval
 from java.awt.Graphics2D import *  # Hopefully, refine this later.
 from java.lang.Math import PI, cos, sin

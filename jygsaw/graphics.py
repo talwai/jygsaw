@@ -1,13 +1,13 @@
 """
-jygsaw contains methods that the user calls directly.
+graphics.py contains the methods that the user calls directly.
 """
 from __future__ import with_statement
-from GraphicsObject import *
-from GraphicsWindow import *
-from Group import *
-from Image import *
-from Shape import *
-from Text import *
+from graphicsobject import *
+from graphicswindow import *
+from group import *
+from image import *
+from shape import *
+from text import *
 from java.awt import Color
 import time
 from threading import Lock

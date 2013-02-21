@@ -1,5 +1,5 @@
 from __future__ import with_statement
-from GraphicsObject import *
+from graphicsobject import *
 from javax.imageio import *
 from java.io import File
 from java.net import URL

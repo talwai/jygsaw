@@ -5,10 +5,10 @@ from java.awt.Color import *  # so we can just say gray instead of Color.gray
 from javax.swing import JFrame, JPanel
 from javax.swing.event import MouseInputListener
 from java.lang import Math
-from Image import *
-from Group import *
-from Shape import *
-from Text import *
+from image import *
+from group import *
+from shape import *
+from text import *
 from threading import Lock
 from time import sleep
 
@@ -24,7 +24,7 @@ class GraphicsWindow(ActionListener, KeyListener, MouseInputListener):
 
     """
     def __init__(self, title, w, h, backgroundColor=white):
-        
+
         assert w > 0, "GraphicsWindow width must be greater than zero"
         assert h > 0, "GraphicsWindow height must be greater than zero"
         self.objs = []  # List of GraphicsObjects
@@ -43,7 +43,7 @@ class GraphicsWindow(ActionListener, KeyListener, MouseInputListener):
 
         self.frame.contentPane.setDoubleBuffered(False)
 
-        
+
         self.frame.addMouseListener(self)
         self.frame.addMouseMotionListener(self)
         self.frame.addKeyListener(self)
@@ -241,20 +241,20 @@ class Canvas(JPanel):
             # Iterates through and draws all of the objects
             for obj in self.window.objs:
                 obj._draw(g)
-                
+
         self.redraw_requested = False
 
     def blocking_redraw(self):
-        
+
         #from time import clock
         #oldclock = clock()
-        
+
         self.redraw_requested = True
         self.repaint()
         while self.redraw_requested:
             sleep(.001)
             #pass
-    
+
         #print clock() - oldclock
 
     def _get_defaultColor(self):

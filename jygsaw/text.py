@@ -1,4 +1,4 @@
-from GraphicsObject import *
+from graphicsobject import *
 from java.awt import Font
 from java.awt.Font import *
 from java.awt.Graphics import setFont

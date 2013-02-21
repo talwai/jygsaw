@@ -37,6 +37,10 @@ Jygsaw is developed on the Jython platform, using Java's Swing library.
 
 Our git repository is hosted [on Bitbucket](https://bitbucket.org/haplesshero13/cs98library/).
 
+### Testing
+
+Run `python -m unittest discover`.
+
 ### Building Documentation
 First make sure you have Sphinx installed under Jython. Assuming you have already installed Jython (and possibly Python), one way to do this is using `virtualenv`:
 

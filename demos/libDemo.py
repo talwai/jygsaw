@@ -1,5 +1,5 @@
 # Filename: graphicsLib.py
-from jygsaw.GraphicsWindow import *
+from jygsaw.graphicswindow import *
 
 ## Parking lot: class RegPolygon(Polygon):
 
