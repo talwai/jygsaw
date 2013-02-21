@@ -8,24 +8,27 @@ Here's a quick demo (taken from a Processing demo) to show you what Jygsaw looks
 
 ```
 :::python
-from jygsaw import *
+from jygsaw.graphics import *
 
 
 def draw():
-    recursiveCircle(width() / 2, 280, 6)
+    drawCircle(width() / 2, 280, 6)
 
 
-def recursiveCircle(x, radius, level):
-    circleColor = int(126 * level / 4.0)
-    fill(circleColor)
+def drawCircle(x, radius, level):
+    tt = int(126 * level / 4.0)
+    fill(tt)
     circle(x, height() / 2, radius)
+    # ellipse(x, height() / 2, radius * 2, radius * 2)
     if (level > 1):
         level = level - 1
-        recursiveCircle(x - radius / 2, radius / 2, level)
-        recursiveCircle(x + radius / 2, radius / 2, level)
+        drawCircle(x - radius / 2, radius / 2, level)
+        drawCircle(x + radius / 2, radius / 2, level)
 
 
 canvas(640, 360)
+noStroke()
+noLoop()
 onDraw(draw)
 ```
 
