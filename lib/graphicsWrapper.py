@@ -176,7 +176,7 @@ def background(r=None, g=None, b=None):
     window.setBackgroundColor(color(r, g, b))
 
 #---------------------------------------------------------------
-#-----------Mouse functions-------------------------------------
+#-----------Mouse Methods-------------------------------------
 
 
 def mouseX():
@@ -437,6 +437,8 @@ if (__name__ == '__main__') or (__name__ == 'main'):
     rectX = 150
     rectY = 30
 
+    image(200, 200, './puppy.jpg', 50, 50)
+
     def draw():
         global rectX
         global rectY
@@ -477,12 +479,6 @@ if (__name__ == '__main__') or (__name__ == 'main'):
         rectY = rectY + directionY
 
         text((200, 200), 'Hello, world', 'Times New Roman', 50, black)
-
-        #image(200, 200, './puppy.jpg', 50, 50)
-
-    def drawImage():
-        # image(0, 0, './puppy.jpg')
-        image(0, 0, 'http://imgs.xkcd.com/comics/steroids.png')
 
     def mousePressed():
         print 'Mouse was pressed.'
