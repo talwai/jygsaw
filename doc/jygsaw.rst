@@ -1,7 +1,7 @@
-graphicsWrapper Module
+Jygsaw Module
 ======================
 
-.. automodule:: graphicsWrapper
+.. automodule:: jygsaw
     :members:
     :undoc-members:
     :show-inheritance:
