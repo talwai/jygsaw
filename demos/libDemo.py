@@ -1,8 +1,5 @@
 # Filename: graphicsLib.py
-import sys
-import os
-sys.path.append(os.path.pardir + "/lib")
-from GraphicsWindow import *
+from jygsaw.GraphicsWindow import *
 
 ## Parking lot: class RegPolygon(Polygon):
 
@@ -19,7 +16,7 @@ if (__name__ == '__main__') or (__name__ == 'main'):
     r = Ellipse(250, 250, 100, 200, blue)
 
     w.setDefaultColor(green)
-    t = Text((400, 300), "Hello!", "Arial", 40)
+    t = Text(400, 300, "Hello!", "Arial", 40)
     sun = Ellipse((115, 110), 75, 75, yellow)
     l = Line((5, 10), (100, 150))
     w.draw(l)
@@ -27,7 +24,7 @@ if (__name__ == '__main__') or (__name__ == 'main'):
     w.draw(p)
     # image = Image((20, 20), "puppy.jpg")
     q = Polygon([(100, 100), (150, 250), (200, 300)], blue)
-    p = RegPolygon((200, 200), 5, 50)
+    p = RegPolygon(200, 200, 5, 50)
     z = Group(q, p, r, e, sun)
 
     image2 = Image(
