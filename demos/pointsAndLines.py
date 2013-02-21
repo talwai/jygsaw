@@ -21,7 +21,7 @@ line(p2, p2, p3, p2)
 line(p3, p2, p3, p3)
 
 # Draw white points
-# stroke(white)
+stroke(white)
 point(p1, p1)
 point(p1, p3)
 point(p2, p4)
