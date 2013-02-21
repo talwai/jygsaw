@@ -1,6 +1,8 @@
 # Filename: graphicsLib.py
+import sys
+import os
+sys.path.append(os.path.pardir + "/lib")
 from GraphicsWindow import *
-from time import sleep
 
 ## Parking lot: class RegPolygon(Polygon):
 

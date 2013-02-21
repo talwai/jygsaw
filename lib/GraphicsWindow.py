@@ -10,6 +10,7 @@ from Group import *
 from Shape import *
 from Text import *
 from threading import Lock
+from time import sleep
 
 # the -O switch can't be used with jython, which is used to turn off __debug__
 # so we use debug instead
@@ -120,8 +121,9 @@ class GraphicsWindow(ActionListener, KeyListener, MouseInputListener):
     def getBackgroundColor(self):
         return self.background
 
-    def redraw(self):
-        self.frame.contentPane.repaint()
+    def redraw(self, delay = 0.0):
+        self.frame.contentPane.blocking_redraw()
+        sleep(delay)
 
     """
     In order to clear the screen, all of the objects are removed
@@ -219,6 +221,8 @@ class Canvas(JPanel):
         self._strokeColor = black
         self._stroke = False  # sets whether or not strokes are being drawn for shapes
 
+        self.redraw_requested = True
+
     def paintComponent(self, g):
         """
         This fuction is responsible for drawing on the canvas. It is passed a
@@ -237,6 +241,21 @@ class Canvas(JPanel):
             # Iterates through and draws all of the objects
             for obj in self.window.objs:
                 obj._draw(g)
+                
+        self.redraw_requested = False
+
+    def blocking_redraw(self):
+        
+        #from time import clock
+        #oldclock = clock()
+        
+        self.redraw_requested = True
+        self.repaint()
+        while self.redraw_requested:
+            sleep(.001)
+            #pass
+    
+        #print clock() - oldclock
 
     def _get_defaultColor(self):
         """Get the default color of the Canvas"""

@@ -1,5 +1,5 @@
 """
-GraphicsWrapper contains methods that the user calls directly.
+jygsaw contains methods that the user calls directly.
 """
 from __future__ import with_statement
 from GraphicsObject import *
@@ -379,7 +379,7 @@ def onDraw(draw):
     Callback function which calls the user defined draw function.
     It repeatedly loops if loop() has been called.
     """
-   
+
     draw()
     redraw()
     while True:
@@ -390,12 +390,12 @@ def onDraw(draw):
             time.sleep(1.0 / _fr)
 
 
-def redraw():
+def redraw(delay = 0.0):
     """
     Redraws all of the objects on the window. Not sure there is a point to it.
     """
 
-    window.redraw()
+    window.redraw(delay)
 
 
 def text((x, y), string, font, size, color=None, attribute=PLAIN):
