@@ -2,7 +2,7 @@
 import sys
 import os
 sys.path.append(os.path.pardir + "/lib")
-from graphicsWrapper import *
+from jygsaw import *
 
 d = 70
 p1 = d
@@ -22,9 +22,9 @@ line(p3, p2, p3, p3)
 
 # Draw white points
 # stroke(white)
-# point(p1, p1)
-# point(p1, p3)
-# point(p2, p4)
-# point(p3, p1)
-# point(p4, p2)
-# point(p4, p4)
+point(p1, p1)
+point(p1, p3)
+point(p2, p4)
+point(p3, p1)
+point(p4, p2)
+point(p4, p4)

@@ -1,7 +1,7 @@
 import sys
 import os
 sys.path.append(os.path.pardir + "/lib")
-from graphicsWrapper import *
+from jygsaw import *
 
 maxHeight = 40
 minHeight = 20

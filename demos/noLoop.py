@@ -1,7 +1,7 @@
 import sys
 import os
 sys.path.append(os.path.pardir + "/lib")
-from graphicsWrapper import *
+from jygsaw import *
 
 canvas(640, 360)
 y = int(height() * 0.5)  # Size should be the first statement

@@ -1,5 +1,5 @@
 """
-GraphicsWrapper contains methods that the user calls directly.
+jygsaw contains methods that the user calls directly.
 """
 from __future__ import with_statement
 from GraphicsObject import *
@@ -379,7 +379,7 @@ def onDraw(draw):
     Callback function which calls the user defined draw function.
     It repeatedly loops if loop() has been called.
     """
-   
+
     draw()
     redraw()
     while True:
