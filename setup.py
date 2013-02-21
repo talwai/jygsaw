@@ -11,5 +11,4 @@ setup(
     license='LICENSE.txt',
     description='Jygsaw graphics library.',
     long_description=open('README.rst').read(),
-    install_requires=[],
 )

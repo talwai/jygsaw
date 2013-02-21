@@ -1,7 +1,4 @@
-import sys
-import os
-sys.path.append(os.path.pardir + "/lib")
-from jygsaw import *
+from jygsaw.graphics import *
 
 bx = 0.0
 by = 0.0

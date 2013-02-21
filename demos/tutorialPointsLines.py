@@ -1,7 +1,4 @@
-import sys
-import os
-sys.path.append(os.path.pardir + "/lib")
-from jygsaw import *
+from jygsaw.graphics import *
 from random import random, choice
 
 canvas(900, 500)

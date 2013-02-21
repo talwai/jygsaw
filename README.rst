@@ -44,7 +44,7 @@ Documentation
 Installation
 ~~~~~~~~~~~~
 
-Do stuff. ### Tutorial Write stuff.
+Simply use ``jython setup.py install``. If you are in a virtualenv using jython, ``python setup.py install`` will work, too.
 
 Code
 ----
