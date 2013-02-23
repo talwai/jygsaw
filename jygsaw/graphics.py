@@ -69,7 +69,8 @@ def line(x1, y1, x2, y2, color=None):
     return new_line
 
 
-def rect(x, y, rectWidth=100, rectHeight=100, color=None):
+
+def rect(x, y, rectWidth, rectHeight, color=None):
     """
     Return a Rectangle. Creates a rectangle with the upper left corner at the given (x,y)
     coordinates.
@@ -81,7 +82,8 @@ def rect(x, y, rectWidth=100, rectHeight=100, color=None):
     return new_rect
 
 
-def circle(x, y, radius=50, color=None):
+def circle(x, y, radius, color=None):
+
     """
     Creates a circle centered at the given (x,y) coordinates. The radius,
     color, filled status, and stoke status can be optionally modified.
@@ -92,7 +94,8 @@ def circle(x, y, radius=50, color=None):
     return new_circle
 
 
-def ellipse(x, y, width=100, height=50, color=None):
+def ellipse(x, y, width, height, color=None):
+
     """
     Creates an eclipse centered at the given x, y coordinates. Width, height,
     color, filled status and stroke status can be optionally modified.
@@ -116,7 +119,8 @@ def polygon(vertices, color=None):
     return new_polygon
 
 
-def regPolygon(x, y, sides=3, length=10, color=None):
+
+def regPolygon(x, y, sides, length, color=None):
     """
     Creates a regular polygon with the given number of sides at the given x, y
     coordinates. Each side's length is determined by the given length. Color and filled
@@ -129,7 +133,8 @@ def regPolygon(x, y, sides=3, length=10, color=None):
     return new_reg_polygon
 
 
-def arc(x, y, width=100, height=100, startAngle=0, endAngle=180,
+
+def arc(x, y, width, height, startAngle, endAngle,
         color=None):
     """
     Creates an arc centered at the given (x,y) coordinates. The width, height,
@@ -447,15 +452,15 @@ if (__name__ == '__main__') or (__name__ == 'main'):
 
         fill(red)
         stroke(blue)
-        rect(rectX, rectY)
+        rect(rectX, rectY, 200, 150)
         line(150, 10, 200, 10)
         fill(pink)
-        ellipse(10, 150)
+        ellipse(10, 150, 200, 100)
 
         polygon(vertices)
-        regPolygon(10, 300)
-        arc(300, 100)
-        circle(0, 0)
+        regPolygon(10, 300, 3, 25)
+        arc(300, 100, 100, 100, 0, 170)
+        circle(0, 0, 30)
 
         background(white)
         w = width()

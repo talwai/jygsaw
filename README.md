@@ -40,9 +40,23 @@ Jygsaw is developed on the Jython platform, using Java's Swing library.
 Our git repository is hosted [on Bitbucket](https://bitbucket.org/haplesshero13/cs98library/).
 
 ### Testing
+#### Jython 2.7+
 Run `jython -m unittest discover`.
 
 This will test the version of the code that lives in the current working directory, *not* the system-installed version.
+
+#### Jython < 2.7
+Install `unittest2`. The easiest way to do this is using `virtualenv` to create a local Jython installation in your current working directory. For example:
+
+```
+:::bash
+$ cd cs98library
+$ easy_install virtualenv
+$ virtualenv -p jython venv
+$ source venv/bin/activate
+$ pip install unittest2
+$ unit2 discover
+```
 
 ### Demos
 The demos run using the system-installed version of Jygsaw, so make sure to reinstall Jygsaw in order to run the demos using the latest codebase!
