@@ -58,6 +58,15 @@ $ pip install unittest2
 $ unit2 discover
 ```
 
+#### Running individual tests (any version of Jython)
+You can run any test against the *system-installed* version of Jygsaw.
+
+```
+:::bash
+$ cd jygsaw/test
+$ jython name_of_test.py
+```
+
 ### Demos
 The demos run using the system-installed version of Jygsaw, so make sure to reinstall Jygsaw in order to run the demos using the latest codebase!
 
