@@ -37,8 +37,7 @@ Let's slap some shapes on the screen. To do this, we'll first need to define a d
     onDraw(draw)
 
 
-
-You should now have something that looks like this::
+You should now have code like this::
 
     from jygsaw import *
 
@@ -54,21 +53,21 @@ You should now have something that looks like this::
 
     onDraw(draw)
 
-Awesome! Now let's draw some points and lines.
+That outputs something like this:
+    #Can we output the code on the page
+
+Awesome! 
 
 ^^^^^^^^^^^^^^
 Points & Lines
 ^^^^^^^^^^^^^^
 
-
-Here is another demo::
+Now let's draw some points and lines::
 
     from jygsaw import *
 
     canvas(900,500)
     background(darkGray)
-
-    #   def point(x, y, color=None):
 
     def draw():
         lineX = random()*800 +50
@@ -80,3 +79,39 @@ Here is another demo::
 
     onDraw(draw)
 
+^^^^^
+Text
+^^^^^
+Let's get text on the screen using keyboard input::
+
+    from jygsaw import *
+
+    canvas(750, 360)
+    background(darkGray)
+    loop()
+    words = ""
+    letterWidth = 20
+    y = 60
+    tH = 30
+
+    def draw():
+        text((25, 25), "Type onto the screen:", "Georgia", 25, color=lightGray, attribute=PLAIN)
+        text((25, y), words, "Arial", tH, color=white, attribute=PLAIN)
+
+       
+    def keyPressed():
+        global words, y, tH
+        # If the key is between 'A' (65) and 'z' (122)
+        k = lastKeyChar()
+        c = lastKeyCode()
+        if (c!=10 and c!=16):
+            print k
+            print c
+            words += k
+        elif c==10:
+            y+=tH
+            words=""
+
+
+    onKeyPress(keyPressed)
+    onDraw(draw)
