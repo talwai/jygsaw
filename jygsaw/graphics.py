@@ -385,12 +385,12 @@ def onDraw(draw):
     while True:
         while _toLoop:
             with window.draw_lock:
-                 draw()
+                draw()
             redraw()
             time.sleep(1.0 / _fr)
 
 
-def redraw(delay = 0.0):
+def redraw(delay=0.0):
     """
     Redraws all of the objects on the window. Not sure there is a point to it.
     """
@@ -478,7 +478,7 @@ if (__name__ == '__main__') or (__name__ == 'main'):
 
         text((200, 200), 'Hello, world', 'Times New Roman', 50, black)
 
-        #image(200, 200, './puppy.jpg', 50, 50)
+        # image(200, 200, './puppy.jpg', 50, 50)
 
     def drawImage():
         # image(0, 0, './puppy.jpg')
