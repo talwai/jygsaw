@@ -11,6 +11,7 @@ from text import *
 from java.awt import Color
 import time
 from threading import Lock
+from warnings import warn
 
 
 rectX = 0
