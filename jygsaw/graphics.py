@@ -461,6 +461,7 @@ if (__name__ == '__main__') or (__name__ == 'main'):
         fill(pink)
         ellipse(10, 150, 200, 100)
 
+        fill(green)
         polygon(vertices)
         regPolygon(10, 300, 3, 25)
         arc(300, 100, 100, 100, 0, 170)

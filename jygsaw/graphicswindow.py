@@ -303,7 +303,7 @@ class Canvas(JPanel):
 
     def _get_filled(self):
         """Returns whether or not stoke is True of False"""
-        return self._filled()
+        return self._filled
 
     def _set_filled(self, f):
         self._filled = f
