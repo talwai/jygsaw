@@ -83,20 +83,24 @@ class Shape(GraphicsObject):
     def _draw(self, g):
         """
         Hidden draw method for all Shape objects. Each shape that inherits from
-        Shape needs to have its own _draw method or two methods: _draw_shape()
+        Shape needs to have its own _draw method or two methods: _draw_fill()
         and _draw_stroke(). If the class that inherits from Shape just has a
         _draw method that method will be used to draw the object. This is the
-        case for shapes that don't need a stroke. If a shape doesn't have a stroke
-        it will be drawn using _draw_shape(). If it does have a stroke then after
-        the filled shape is drawn, _draw_stroke() will draw an unfilled shape over
-        it creating a stroke.
+        case for shapes that don't need a stroke. If a shape has a fill,
+        it will be drawn using _draw_fill(). If it does have a stroke, then
+        the shape outline is drawn using _draw_stroke(). If stroke and filled
+        are false, then a warning is thrown.
         """
 
-        g.setColor(self.color)
-        self._draw_shape(g)
-        if self.filled and self.stroke:
+        if self.filled:
+            g.setColor(self.color)
+            self._draw_fill(g)
+        if self.stroke:
             g.setColor(self.strokeColor)
             self._draw_stroke(g)
+        if self.filled == false and self.stroke == false:
+            // Throw a warning!
+            warn('Shape filled and stroke are both set to false')
 
 
 class Ellipse(Shape):
@@ -112,11 +116,8 @@ class Ellipse(Shape):
     def _draw_stroke(self, g):
         g.drawOval(self.x, self.y, self.width, self.height)
 
-    def _draw_shape(self, g):
-        if self.filled:
-            g.fillOval(self.x, self.y, self.width, self.height)
-        else:
-            g.drawOval(self.x, self.y, self.width, self.height)
+    def _draw_fill(self, g):
+        g.fillOval(self.x, self.y, self.width, self.height)
 
     def scale(self):
         pass
@@ -159,11 +160,8 @@ class Rectangle(Shape):
         assert height > 0, "Rectangle height must be greater than zero"
         super(Rectangle, self).__init__(x, y, width, height, color)
 
-    def _draw_shape(self, g):
-        if self.filled:
-            g.fillRect(self.x, self.y, self.width, self.height)
-        else:
-            g.drawRect(self.x, self.y, self.width, self.height)
+    def _draw_fill(self, g):
+        g.fillRect(self.x, self.y, self.width, self.height)
 
     def _draw_stroke(self, g):
         g.drawRect(self.x, self.y, self.width, self.height)
@@ -207,13 +205,9 @@ class Arc(Shape):
         self.startAngle = startAngle
         self.arcAngle = arcAngle
 
-    def _draw_shape(self, g):
-        if self.filled:
-            g.fillArc(self.x, self.y, self.width, self.height,
-                      self.startAngle, self.arcAngle)
-        else:
-            g.drawArc(self.x, self.y, self.width, self.height,
-                      self.startAngle, self.arcAngle)
+    def _draw_fill(self, g):
+        g.fillArc(self.x, self.y, self.width, self.height,
+                  self.startAngle, self.arcAngle)
 
     def _draw_stroke(self, g):
         g.drawArc(self.x, self.y, self.width, self.height,
@@ -236,12 +230,9 @@ class Polygon(Shape):
 
     vertices = property(_get_vertices, _set_vertices)
 
-    def _draw_shape(self, g):
+    def _draw_fill(self, g):
         (xValues, yValues) = zip(*self.vertices)
-        if self.filled:
-            g.fillPolygon(xValues, yValues, len(self.vertices))
-        else:
-            g.drawPolygon(xValues, yValues, len(self.vertices))
+        g.fillPolygon(xValues, yValues, len(self.vertices))
 
     def _draw_stroke(self, g):
         (xValues, yValues) = zip(*self.vertices)
@@ -294,12 +285,9 @@ class RegPolygon(Shape):
 
     sideLength = property(_set_sideLength, _get_sideLength)
 
-    def _draw_shape(self, g):
+    def _draw_fill(self, g):
         (xValues, yValues) = zip(*self.vertices)
-        if self.filled:
-            g.fillPolygon(xValues, yValues, self.sides)
-        else:
-            g.drawPolygon(xValues, yValues, self.sides)
+        g.fillPolygon(xValues, yValues, self.sides)
 
     def _draw_stroke(self, g):
         (xValues, yValues) = zip(*self.vertices)
