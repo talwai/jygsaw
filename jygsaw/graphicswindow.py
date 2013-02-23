@@ -269,7 +269,7 @@ class Canvas(JPanel):
         """Set the default color of the Canvas"""
         self._defaultColor = c
 
-    defaultColor = property(_get_defaultColor, _set_defaultColor)
+    defaultColor = property(_get_defaultColor, _set_defaultColor, "Default fill color for all the objects")
 
     def _get_backgroundColor(self):
         """Get the background color of the Canvas"""
@@ -279,7 +279,7 @@ class Canvas(JPanel):
         """Set the background color of the Canvas"""
         self._backgroundColor = c
 
-    backgroundColor = property(_get_backgroundColor, _set_backgroundColor)
+    backgroundColor = property(_get_backgroundColor, _set_backgroundColor, "Background Color for the window.")
 
     def _get_strokeColor(self):
         """Returns the strokeColor"""
@@ -289,7 +289,7 @@ class Canvas(JPanel):
         """Sets the strokeColor with the color passed as an argument"""
         self._strokeColor = c
 
-    strokeColor = property(_get_strokeColor, _set_strokeColor)
+    strokeColor = property(_get_strokeColor, _set_strokeColor, "Stroke color of the Shape.")
 
     def _get_stroke(self):
         """Returns whether or not stroke is True or False"""
@@ -299,7 +299,7 @@ class Canvas(JPanel):
         """Sets stroke to the boolean given"""
         self._stroke = b
 
-    stroke = property(_get_stroke, _set_stroke)
+    stroke = property(_get_stroke, _set_stroke, "Boolean describing whether a stroke is being drawn or not.")
 
     def _get_filled(self):
         """Returns whether or not stoke is True of False"""
@@ -308,4 +308,4 @@ class Canvas(JPanel):
     def _set_filled(self, f):
         self._filled = f
 
-    filled = property(_get_filled, _set_filled)
+    filled = property(_get_filled, _set_filled, "Boolean describing whether a Shape is filled or not.")
