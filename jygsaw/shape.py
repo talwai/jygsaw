@@ -98,7 +98,7 @@ class Shape(GraphicsObject):
         if self.stroke:
             g.setColor(self.strokeColor)
             self._draw_stroke(g)
-        if self.filled == false and self.stroke == false:
+        if not self.filled and not self.stroke:
             # Throw a warning!
             warn('Shape filled and stroke are both set to false')
 
