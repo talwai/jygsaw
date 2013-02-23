@@ -11,6 +11,7 @@ from text import *
 from java.awt import Color
 import time
 from threading import Lock
+from warnings import warn
 
 
 rectX = 0
@@ -69,54 +70,58 @@ def line(x1, y1, x2, y2, color=None):
     return new_line
 
 
-def rect(x, y, rectWidth, rectHeight, color=None, filled=True):
+
+def rect(x, y, rectWidth, rectHeight, color=None):
     """
     Return a Rectangle. Creates a rectangle with the upper left corner at the given (x,y)
     coordinates.
     """
 
     new_rect = Rectangle(
-        int(x), int(y), int(rectWidth), int(rectHeight), color, filled)
+        int(x), int(y), int(rectWidth), int(rectHeight), color)
     window.draw(new_rect)
     return new_rect
 
 
-def circle(x, y, radius, color=None, filled=True):
+def circle(x, y, radius, color=None):
+
     """
     Creates a circle centered at the given (x,y) coordinates. The radius,
     color, filled status, and stoke status can be optionally modified.
     """
 
-    new_circle = Circle(int(x), int(y), int(radius), color, filled)
+    new_circle = Circle(int(x), int(y), int(radius), color)
     window.draw(new_circle)
     return new_circle
 
 
-def ellipse(x, y, width, height, color=None, filled=True):
+def ellipse(x, y, width, height, color=None):
+
     """
     Creates an eclipse centered at the given x, y coordinates. Width, height,
     color, filled status and stroke status can be optionally modified.
     """
 
     new_ellipse = Ellipse(
-        int(x), int(y), int(width), int(height), color, filled)
+        int(x), int(y), int(width), int(height), color)
     window.draw(new_ellipse)
     return new_ellipse
 
 
-def polygon(vertices, color=None, filled=True):
+def polygon(vertices, color=None):
     """
     Creates a polygon whose points are given in a list as the first argument.
     Width, height, color, filled status and stroke status can be optionally
     modified.
     """
 
-    new_polygon = Polygon(vertices, color, filled)
+    new_polygon = Polygon(vertices, color)
     window.draw(new_polygon)
     return new_polygon
 
 
-def regPolygon(x, y, sides, length, color=None, filled=True):
+
+def regPolygon(x, y, sides, length, color=None):
     """
     Creates a regular polygon with the given number of sides at the given x, y
     coordinates. Each side's length is determined by the given length. Color and filled
@@ -124,13 +129,14 @@ def regPolygon(x, y, sides, length, color=None, filled=True):
     """
 
     new_reg_polygon = RegPolygon(
-        int(x), int(y), int(sides), int(length), color, filled)
+        int(x), int(y), int(sides), int(length), color)
     window.draw(new_reg_polygon)
     return new_reg_polygon
 
 
+
 def arc(x, y, width, height, startAngle, endAngle,
-        color=None, filled=True):
+        color=None):
     """
     Creates an arc centered at the given (x,y) coordinates. The width, height,
     start angle, end angle, color, filled status and stoke status can be
@@ -139,7 +145,7 @@ def arc(x, y, width, height, startAngle, endAngle,
     """
 
     new_arc = Arc(
-        int(x), int(y), int(width), int(height), startAngle, (endAngle - startAngle), color, filled)
+        int(x), int(y), int(width), int(height), startAngle, (endAngle - startAngle), color)
     window.draw(new_arc)
     return new_arc
 
@@ -161,17 +167,19 @@ def image(x, y, imagePath, width=None, height=None):
 
 
 def fill(r=None, g=None, b=None):
-    """
-    Sets the color to fill shapes with.
-    """
+    """ Sets the color to fill shapes with. """
+    window.setFilled(True)
+    if r != None:
+        window.setDefaultColor(color(r, g, b))
 
-    window.setDefaultColor(color(r, g, b))
+
+def noFill():
+    """ Sets filled to False """
+    window.setFilled(False)
 
 
 def background(r=None, g=None, b=None):
-    """
-    Sets the background color of the window.
-    """
+    """ Sets the background color of the window. """
 
     window.setBackgroundColor(color(r, g, b))
 
@@ -385,12 +393,12 @@ def onDraw(draw):
     while True:
         while _toLoop:
             with window.draw_lock:
-                 draw()
+                draw()
             redraw()
             time.sleep(1.0 / _fr)
 
 
-def redraw(delay = 0.0):
+def redraw(delay=0.0):
     """
     Redraws all of the objects on the window. Not sure there is a point to it.
     """
@@ -448,15 +456,16 @@ if (__name__ == '__main__') or (__name__ == 'main'):
 
         fill(red)
         stroke(blue)
-        rect(rectX, rectY, 200, 150, filled=True)
+        rect(rectX, rectY, 200, 150)
         line(150, 10, 200, 10)
         fill(pink)
-        ellipse(10, 150, 200, 100, filled=True)
+        ellipse(10, 150, 200, 100)
 
-        polygon(vertices, filled=False)
-        regPolygon(10, 300, 3, 25, filled=False)
-        arc(300, 100, 100, 100, 0, 170, filled=False)
-        circle(0, 0, 30, filled=False)
+        fill(green)
+        polygon(vertices)
+        regPolygon(10, 300, 3, 25)
+        arc(300, 100, 100, 100, 0, 170)
+        circle(0, 0, 30)
 
         background(white)
         w = width()
@@ -478,7 +487,7 @@ if (__name__ == '__main__') or (__name__ == 'main'):
 
         text((200, 200), 'Hello, world', 'Times New Roman', 50, black)
 
-        #image(200, 200, './puppy.jpg', 50, 50)
+        # image(200, 200, './puppy.jpg', 50, 50)
 
     def drawImage():
         # image(0, 0, './puppy.jpg')

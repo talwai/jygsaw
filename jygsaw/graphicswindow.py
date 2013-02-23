@@ -43,7 +43,6 @@ class GraphicsWindow(ActionListener, KeyListener, MouseInputListener):
 
         self.frame.contentPane.setDoubleBuffered(False)
 
-
         self.frame.addMouseListener(self)
         self.frame.addMouseMotionListener(self)
         self.frame.addKeyListener(self)
@@ -94,6 +93,7 @@ class GraphicsWindow(ActionListener, KeyListener, MouseInputListener):
                     arg.color = self.frame.contentPane.defaultColor
                 arg.strokeColor = self.frame.contentPane.strokeColor
                 arg.stroke = self.frame.contentPane.stroke
+                arg.filled = self.frame.contentPane.filled
                 self.objs.append(arg)
             elif isinstance(arg, Group):
                 for obj in arg.group:
@@ -101,6 +101,7 @@ class GraphicsWindow(ActionListener, KeyListener, MouseInputListener):
                         obj.color = self.frame.contentPane.defaultColor
                     obj.strokeColor = self.frame.contentPane.strokeColor
                     obj.stroke = self.frame.contentPane.stroke
+                    obj.filled = self.frame.contentPane.filled
                     self.objs.append(obj)
             else:
                 print "Passed in something that's not a group or graphics object"
@@ -114,6 +115,9 @@ class GraphicsWindow(ActionListener, KeyListener, MouseInputListener):
     def setStroke(self, b):
         self.frame.contentPane.stroke = b
 
+    def setFilled(self, f):
+        self.frame.contentPane.filled = f
+    
     def setBackgroundColor(self, c):
         self.frame.contentPane.backgroundColor = c
         self.background = c
@@ -133,8 +137,7 @@ class GraphicsWindow(ActionListener, KeyListener, MouseInputListener):
         self.objs = []
         self.frame.contentPane.objs = self.objs
 
-    """
-    These methods implemented Swing's MouseInputListener interface.    """
+    """ These methods implemented Swing's MouseInputListener interface. """
 
     def mouseEntered(self, e):
         self.mouseEventType = e.getID()
@@ -220,6 +223,7 @@ class Canvas(JPanel):
         self._backgroundColor = backgroundColor
         self._strokeColor = black
         self._stroke = False  # sets whether or not strokes are being drawn for shapes
+        self._filled = True 
 
         self.redraw_requested = True
 
@@ -267,9 +271,6 @@ class Canvas(JPanel):
 
     defaultColor = property(_get_defaultColor, _set_defaultColor)
 
-    def setStroke(self, b):
-        self.stroke = b
-
     def _get_backgroundColor(self):
         """Get the background color of the Canvas"""
         return self._backgroundColor
@@ -281,17 +282,30 @@ class Canvas(JPanel):
     backgroundColor = property(_get_backgroundColor, _set_backgroundColor)
 
     def _get_strokeColor(self):
+        """Returns the strokeColor"""
         return self._strokeColor
 
     def _set_strokeColor(self, c):
+        """Sets the strokeColor with the color passed as an argument"""
         self._strokeColor = c
 
     strokeColor = property(_get_strokeColor, _set_strokeColor)
 
     def _get_stroke(self):
+        """Returns whether or not stroke is True or False"""
         return self._stroke
 
     def _set_stroke(self, b):
+        """Sets stroke to the boolean given"""
         self._stroke = b
 
     stroke = property(_get_stroke, _set_stroke)
+
+    def _get_filled(self):
+        """Returns whether or not stoke is True of False"""
+        return self._filled
+
+    def _set_filled(self, f):
+        self._filled = f
+
+    filled = property(_get_filled, _set_filled)
