@@ -169,7 +169,8 @@ def image(x, y, imagePath, width=None, height=None):
 def fill(r=None, g=None, b=None):
     """ Sets the color to fill shapes with. """
     window.setFilled(True)
-    window.setDefaultColor(color(r, g, b))
+    if r != None:
+        window.setDefaultColor(color(r, g, b))
 
 
 def noFill():
