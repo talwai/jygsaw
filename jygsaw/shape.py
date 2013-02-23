@@ -15,7 +15,7 @@ class Shape(GraphicsObject):
     class.
     """
 
-    def __init__(self, x, y, width, height, color=None, filled=True):
+    def __init__(self, x, y, width, height, color=None):
         """
         Constructor for Shape class. Coordinates and color are passed
         to the super class. Coodinates, width and height are required
@@ -28,7 +28,7 @@ class Shape(GraphicsObject):
         super(Shape, self).__init__(x, y, color)
         self._width = width
         self._height = height
-        self._filled = filled
+        self._filled = True
         self._stroke = False
         self._strokeColor = None
 
@@ -104,10 +104,10 @@ class Ellipse(Shape):
     Inherits from Shape. The (x,y) coordinates represent top left hand corner
     of the bounding rectangle.
     """
-    def __init__(self, x, y, width, height, color=None, filled=True):
+    def __init__(self, x, y, width, height, color=None):
         assert width > 0, "Ellipse width must be greater than zero"
         assert height > 0, "Ellipse height must be greater than zero"
-        super(Ellipse, self).__init__(x, y, width, height, color, filled)
+        super(Ellipse, self).__init__(x, y, width, height, color)
 
     def _draw_stroke(self, g):
         g.drawOval(self.x, self.y, self.width, self.height)
@@ -133,10 +133,10 @@ class Circle(Ellipse):
     """
 
     # (x,y) - center of Circle
-    def __init__(self, x, y, radius, color=None, filled=True):
+    def __init__(self, x, y, radius, color=None):
         assert radius > 0, "Circle radius must be greater than zero"
         super(Circle, self).__init__(
-            x - radius, y - radius, radius * 2, radius * 2, color, filled)
+            x - radius, y - radius, radius * 2, radius * 2, color)
         self._radius = radius
 
     def _get_radius(self):
@@ -154,10 +154,10 @@ class Circle(Ellipse):
 
 class Rectangle(Shape):
     # (x,y) - top-left vertex of Rectangle
-    def __init__(self, x, y, width, height, color=None, filled=True):
+    def __init__(self, x, y, width, height, color=None):
         assert width > 0, "Rectangle width must be greater than zero"
         assert height > 0, "Rectangle height must be greater than zero"
-        super(Rectangle, self).__init__(x, y, width, height, color, filled)
+        super(Rectangle, self).__init__(x, y, width, height, color)
 
     def _draw_shape(self, g):
         if self.filled:
@@ -199,11 +199,11 @@ class Arc(Shape):
     # startAngle is where the arc begins; arc is extended for arcAngle degrees
     # (x,y) - upper left corner of the arc's rectangle to be filled
     # width and height are the width and height of the arc to be filled
-    def __init__(self, x, y, width, height, startAngle, arcAngle, color=None, filled=True):
+    def __init__(self, x, y, width, height, startAngle, arcAngle, color=None):
 
         assert width > 0, "Arc width must be greater than zero"
         assert height > 0, "Arc height must be greater than zero"
-        super(Arc, self).__init__(x, y, width, height, color, filled)
+        super(Arc, self).__init__(x, y, width, height, color)
         self.startAngle = startAngle
         self.arcAngle = arcAngle
 
@@ -221,9 +221,9 @@ class Arc(Shape):
 
 
 class Polygon(Shape):
-    def __init__(self, vertices, color=None, filled=True):
+    def __init__(self, vertices, color=None):
         super(Polygon, self).__init__(
-            vertices[0][0], vertices[0][1], 0, 0, color, filled)
+            vertices[0][0], vertices[0][1], 0, 0, color)
         assert len(vertices) > 0, "Number of vertices must be greater than 0 "
         self._vertices = vertices
 
@@ -249,8 +249,8 @@ class Polygon(Shape):
 
 
 class RegPolygon(Shape):
-    def __init__(self, x, y, sides, length, color=None, filled=True):
-        super(RegPolygon, self).__init__(x, y, 0, 0, color, filled)
+    def __init__(self, x, y, sides, length, color=None):
+        super(RegPolygon, self).__init__(x, y, 0, 0, color)
         assert sides >= 0, "Number of sides must be greater than or equal to 0 "
         assert length > 0, "Length of sides must be greater than 0 "
 

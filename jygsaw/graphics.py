@@ -69,7 +69,7 @@ def line(x1, y1, x2, y2, color=None):
     return new_line
 
 
-def rect(x, y, rectWidth=100, rectHeight=100, color=None, filled=True):
+def rect(x, y, rectWidth=100, rectHeight=100, color=None):
     """
     Return a Rectangle. Creates a rectangle with the upper left corner at the given (x,y)
     coordinates.
@@ -81,7 +81,7 @@ def rect(x, y, rectWidth=100, rectHeight=100, color=None, filled=True):
     return new_rect
 
 
-def circle(x, y, radius=50, color=None, filled=True):
+def circle(x, y, radius=50, color=None):
     """
     Creates a circle centered at the given (x,y) coordinates. The radius,
     color, filled status, and stoke status can be optionally modified.
@@ -92,7 +92,7 @@ def circle(x, y, radius=50, color=None, filled=True):
     return new_circle
 
 
-def ellipse(x, y, width=100, height=50, color=None, filled=True):
+def ellipse(x, y, width=100, height=50, color=None):
     """
     Creates an eclipse centered at the given x, y coordinates. Width, height,
     color, filled status and stroke status can be optionally modified.
@@ -104,7 +104,7 @@ def ellipse(x, y, width=100, height=50, color=None, filled=True):
     return new_ellipse
 
 
-def polygon(vertices, color=None, filled=True):
+def polygon(vertices, color=None):
     """
     Creates a polygon whose points are given in a list as the first argument.
     Width, height, color, filled status and stroke status can be optionally
@@ -116,7 +116,7 @@ def polygon(vertices, color=None, filled=True):
     return new_polygon
 
 
-def regPolygon(x, y, sides=3, length=10, color=None, filled=True):
+def regPolygon(x, y, sides=3, length=10, color=None):
     """
     Creates a regular polygon with the given number of sides at the given x, y
     coordinates. Each side's length is determined by the given length. Color and filled
@@ -130,7 +130,7 @@ def regPolygon(x, y, sides=3, length=10, color=None, filled=True):
 
 
 def arc(x, y, width=100, height=100, startAngle=0, endAngle=180,
-        color=None, filled=True):
+        color=None):
     """
     Creates an arc centered at the given (x,y) coordinates. The width, height,
     start angle, end angle, color, filled status and stoke status can be
@@ -161,17 +161,16 @@ def image(x, y, imagePath, width=None, height=None):
 
 
 def fill(r=None, g=None, b=None):
-    """
-    Sets the color to fill shapes with.
-    """
-
+    """ Sets the color to fill shapes with. """
+    window.setFilled(True)
     window.setDefaultColor(color(r, g, b))
 
+def noFill():
+    """ Sets filled to False """
+    window.setFilled(False)
 
 def background(r=None, g=None, b=None):
-    """
-    Sets the background color of the window.
-    """
+    """ Sets the background color of the window. """
 
     window.setBackgroundColor(color(r, g, b))
 
@@ -448,15 +447,15 @@ if (__name__ == '__main__') or (__name__ == 'main'):
 
         fill(red)
         stroke(blue)
-        rect(rectX, rectY, filled=True)
+        rect(rectX, rectY)
         line(150, 10, 200, 10)
         fill(pink)
-        ellipse(10, 150, filled=True)
+        ellipse(10, 150)
 
-        polygon(vertices, filled=False)
-        regPolygon(10, 300, filled=False)
-        arc(300, 100, filled=False)
-        circle(0, 0, filled=False)
+        polygon(vertices)
+        regPolygon(10, 300)
+        arc(300, 100)
+        circle(0, 0)
 
         background(white)
         w = width()
