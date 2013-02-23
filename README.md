@@ -8,38 +8,58 @@ Here's a quick demo (taken from a Processing demo) to show you what Jygsaw looks
 
 ```
 :::python
-from jygsaw import *
+from jygsaw.graphics import *
 
 
 def draw():
-    recursiveCircle(width() / 2, 280, 6)
+    drawCircle(width() / 2, 280, 6)
 
 
-def recursiveCircle(x, radius, level):
-    circleColor = int(126 * level / 4.0)
-    fill(circleColor)
+def drawCircle(x, radius, level):
+    tt = int(126 * level / 4.0)
+    fill(tt)
     circle(x, height() / 2, radius)
     if (level > 1):
         level = level - 1
-        recursiveCircle(x - radius / 2, radius / 2, level)
-        recursiveCircle(x + radius / 2, radius / 2, level)
+        drawCircle(x - radius / 2, radius / 2, level)
+        drawCircle(x + radius / 2, radius / 2, level)
 
 
 canvas(640, 360)
+noStroke()
+noLoop()
 onDraw(draw)
 ```
 
-## Documentation
-
-### Installation
-Do stuff.
-### Tutorial
-Write stuff.
+## Installation
+Simply use `jython setup.py install`. If you are in a virtualenv using jython, `python setup.py install` will work, too.
 
 ## Code
 Jygsaw is developed on the Jython platform, using Java's Swing library.
 
 Our git repository is hosted [on Bitbucket](https://bitbucket.org/haplesshero13/cs98library/).
+
+### Testing
+#### Jython 2.7+
+Run `jython -m unittest discover`.
+
+This will test the version of the code that lives in the current working directory, *not* the system-installed version.
+
+#### Jython < 2.7
+Install `unittest2`. The easiest way to do this is using `virtualenv` to create a local Jython installation in your current working directory. For example:
+
+```
+:::bash
+$ cd cs98library
+$ easy_install virtualenv
+$ virtualenv -p jython venv
+$ source venv/bin/activate
+$ pip install unittest2
+$ unit2 discover
+```
+
+### Demos
+The demos run using the system-installed version of Jygsaw, so make sure to reinstall Jygsaw in order to run the demos using the latest codebase!
 
 ### Building Documentation
 First make sure you have Sphinx installed under Jython. Assuming you have already installed Jython (and possibly Python), one way to do this is using `virtualenv`:

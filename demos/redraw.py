@@ -1,7 +1,4 @@
-import sys
-import os
-sys.path.append(os.path.pardir + "/lib")
-from graphicsWrapper import *
+from jygsaw.graphics import *
 
 
 # The statements in draw() are executed until the

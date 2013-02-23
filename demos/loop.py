@@ -1,7 +1,4 @@
-import sys
-import os
-sys.path.append(os.path.pardir + "/lib")
-from graphicsWrapper import *
+from jygsaw.graphics import *
 
 y = 100
 
@@ -9,7 +6,7 @@ y = 100
 # The statements in the setup() function
 # run once when the program begins
 
-canvas(640, 360)        # Size should be the first statement
+canvas(640, 360)      # Size should be the first statement
 stroke(255)           # Set stroke color to white
 noLoop()
 

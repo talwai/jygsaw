@@ -1,15 +1,17 @@
 """
-GraphicsWrapper contains methods that the user calls directly.
+graphics.py contains the methods that the user calls directly.
 """
-
-from GraphicsObject import *
-from GraphicsWindow import *
-from Group import *
-from Image import *
-from Shape import *
-from Text import *
+from __future__ import with_statement
+from graphicsobject import *
+from graphicswindow import *
+from group import *
+from image import *
+from shape import *
+from text import *
 from java.awt import Color
 import time
+from threading import Lock
+
 
 rectX = 0
 rectY = 0
@@ -67,7 +69,7 @@ def line(x1, y1, x2, y2, color=None):
     return new_line
 
 
-def rect(x, y, rectWidth=100, rectHeight=100, color=None, filled=True):
+def rect(x, y, rectWidth, rectHeight, color=None, filled=True):
     """
     Return a Rectangle. Creates a rectangle with the upper left corner at the given (x,y)
     coordinates.
@@ -79,7 +81,7 @@ def rect(x, y, rectWidth=100, rectHeight=100, color=None, filled=True):
     return new_rect
 
 
-def circle(x, y, radius=50, color=None, filled=True):
+def circle(x, y, radius, color=None, filled=True):
     """
     Creates a circle centered at the given (x,y) coordinates. The radius,
     color, filled status, and stoke status can be optionally modified.
@@ -90,7 +92,7 @@ def circle(x, y, radius=50, color=None, filled=True):
     return new_circle
 
 
-def ellipse(x, y, width=100, height=50, color=None, filled=True):
+def ellipse(x, y, width, height, color=None, filled=True):
     """
     Creates an eclipse centered at the given x, y coordinates. Width, height,
     color, filled status and stroke status can be optionally modified.
@@ -114,7 +116,7 @@ def polygon(vertices, color=None, filled=True):
     return new_polygon
 
 
-def regPolygon(x, y, sides=3, length=10, color=None, filled=True):
+def regPolygon(x, y, sides, length, color=None, filled=True):
     """
     Creates a regular polygon with the given number of sides at the given x, y
     coordinates. Each side's length is determined by the given length. Color and filled
@@ -127,7 +129,7 @@ def regPolygon(x, y, sides=3, length=10, color=None, filled=True):
     return new_reg_polygon
 
 
-def arc(x, y, width=100, height=100, startAngle=0, endAngle=180,
+def arc(x, y, width, height, startAngle, endAngle,
         color=None, filled=True):
     """
     Creates an arc centered at the given (x,y) coordinates. The width, height,
@@ -377,21 +379,23 @@ def onDraw(draw):
     Callback function which calls the user defined draw function.
     It repeatedly loops if loop() has been called.
     """
+
     draw()
     redraw()
     while True:
         while _toLoop:
-            draw()
+            with window.draw_lock:
+                 draw()
             redraw()
             time.sleep(1.0 / _fr)
 
 
-def redraw():
+def redraw(delay = 0.0):
     """
     Redraws all of the objects on the window. Not sure there is a point to it.
     """
 
-    window.redraw()
+    window.redraw(delay)
 
 
 def text((x, y), string, font, size, color=None, attribute=PLAIN):
@@ -428,10 +432,7 @@ if (__name__ == '__main__') or (__name__ == 'main'):
     canvas()
     loop()
     stroke()
-    frameRate(60.0)
-
-    x = None
-    y = None
+    frameRate(160.0)
 
     rectX = 150
     rectY = 30
@@ -447,15 +448,15 @@ if (__name__ == '__main__') or (__name__ == 'main'):
 
         fill(red)
         stroke(blue)
-        rect(rectX, rectY, filled=True)
+        rect(rectX, rectY, 200, 150, filled=True)
         line(150, 10, 200, 10)
         fill(pink)
-        ellipse(10, 150, filled=True)
+        ellipse(10, 150, 200, 100, filled=True)
 
         polygon(vertices, filled=False)
-        regPolygon(10, 300, filled=False)
-        arc(300, 100, filled=False)
-        circle(0, 0, filled=False)
+        regPolygon(10, 300, 3, 25, filled=False)
+        arc(300, 100, 100, 100, 0, 170, filled=False)
+        circle(0, 0, 30, filled=False)
 
         background(white)
         w = width()
@@ -475,9 +476,9 @@ if (__name__ == '__main__') or (__name__ == 'main'):
 
         rectY = rectY + directionY
 
-        text((200, 200), 'Hello, world', 'Times New Roman', 24, green)
+        text((200, 200), 'Hello, world', 'Times New Roman', 50, black)
 
-        image(200, 200, './puppy.jpg', 50, 50)
+        #image(200, 200, './puppy.jpg', 50, 50)
 
     def drawImage():
         # image(0, 0, './puppy.jpg')

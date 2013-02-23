@@ -4,7 +4,7 @@ Modules
 .. toctree::
    :maxdepth: 4
 
-   Jygsaw <graphicsWrapper>
+   Jygsaw <jygsaw>
    GraphicsObject
    GraphicsWindow
    Group

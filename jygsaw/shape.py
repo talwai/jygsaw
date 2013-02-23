@@ -1,4 +1,4 @@
-from GraphicsObject import *
+from graphicsobject import *
 from java.awt.Graphics import fillRect, fillOval
 from java.awt.Graphics2D import *  # Hopefully, refine this later.
 from java.lang.Math import PI, cos, sin
@@ -87,8 +87,8 @@ class Shape(GraphicsObject):
         and _draw_stroke(). If the class that inherits from Shape just has a
         _draw method that method will be used to draw the object. This is the
         case for shapes that don't need a stroke. If a shape doesn't have a stroke
-        it will be drawn using _draw_shape(). If it does have a stroke after
-        the filled circle is _draw_stroke() will draw an unfilled circle over
+        it will be drawn using _draw_shape(). If it does have a stroke then after
+        the filled shape is drawn, _draw_stroke() will draw an unfilled shape over
         it creating a stroke.
         """
 
@@ -173,13 +173,14 @@ class Line(Shape):
     # (startX, startY) - coordinate of line's starting point
     # (endX, endY) - coordinate of line's ending point
     def __init__(self, (startX, startY), (endX, endY), color=None):
-        super(Line, self).__init__((startX, startY), 0, 0, color, True)
+        super(Line, self).__init__(startX, startY, 0, 0, color, True)
         self.startX = startX
         self.startY = startY
         self.endX = endX
         self.endY = endY
 
     def _draw(self, g):
+        g.setColor(self.color)
         g.drawLine(self.startX, self.startY, self.endX, self.endY)
 
 

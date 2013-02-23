@@ -1,10 +1,7 @@
-import sys
-import os
-sys.path.append(os.path.pardir + "/lib")
-from graphicsWrapper import *
+from jygsaw.graphics import *
 
 canvas(640, 360)
-fill(126)
+fill(126)  # line color is set by stroke?
 background(102)
 loop()
 

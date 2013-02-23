@@ -1,4 +1,4 @@
-from GraphicsObject import *
+from graphicsobject import *
 
 
 class Group():
