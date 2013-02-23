@@ -78,7 +78,7 @@ def rect(x, y, rectWidth, rectHeight, color=None):
     """
 
     new_rect = Rectangle(
-        int(x), int(y), int(rectWidth), int(rectHeight), color, filled)
+        int(x), int(y), int(rectWidth), int(rectHeight), color)
     window.draw(new_rect)
     return new_rect
 
@@ -90,7 +90,7 @@ def circle(x, y, radius, color=None):
     color, filled status, and stoke status can be optionally modified.
     """
 
-    new_circle = Circle(int(x), int(y), int(radius), color, filled)
+    new_circle = Circle(int(x), int(y), int(radius), color)
     window.draw(new_circle)
     return new_circle
 
@@ -103,7 +103,7 @@ def ellipse(x, y, width, height, color=None):
     """
 
     new_ellipse = Ellipse(
-        int(x), int(y), int(width), int(height), color, filled)
+        int(x), int(y), int(width), int(height), color)
     window.draw(new_ellipse)
     return new_ellipse
 
@@ -115,7 +115,7 @@ def polygon(vertices, color=None):
     modified.
     """
 
-    new_polygon = Polygon(vertices, color, filled)
+    new_polygon = Polygon(vertices, color)
     window.draw(new_polygon)
     return new_polygon
 
@@ -129,7 +129,7 @@ def regPolygon(x, y, sides, length, color=None):
     """
 
     new_reg_polygon = RegPolygon(
-        int(x), int(y), int(sides), int(length), color, filled)
+        int(x), int(y), int(sides), int(length), color)
     window.draw(new_reg_polygon)
     return new_reg_polygon
 
@@ -145,7 +145,7 @@ def arc(x, y, width, height, startAngle, endAngle,
     """
 
     new_arc = Arc(
-        int(x), int(y), int(width), int(height), startAngle, (endAngle - startAngle), color, filled)
+        int(x), int(y), int(width), int(height), startAngle, (endAngle - startAngle), color)
     window.draw(new_arc)
     return new_arc
 
@@ -171,9 +171,11 @@ def fill(r=None, g=None, b=None):
     window.setFilled(True)
     window.setDefaultColor(color(r, g, b))
 
+
 def noFill():
     """ Sets filled to False """
     window.setFilled(False)
+
 
 def background(r=None, g=None, b=None):
     """ Sets the background color of the window. """
