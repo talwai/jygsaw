@@ -3,6 +3,7 @@ from java.awt.Graphics import fillRect, fillOval
 from java.awt.Graphics2D import *  # Hopefully, refine this later.
 from java.lang.Math import PI, cos, sin
 from java.awt import Color
+from warnings import warn
 
 
 class Shape(GraphicsObject):
