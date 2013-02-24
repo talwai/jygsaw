@@ -1,7 +1,9 @@
 from jygsaw.graphics import *
 
+
+
 canvas(750, 360)
-background(darkGray)
+background(white)
 loop()
 words = ""
 letterWidth = 20
@@ -9,8 +11,9 @@ y = 60
 tH = 30
 
 def draw():
+    clear()
     text((25, 25), "Type onto the screen:", "Georgia", 25, color=lightGray, attribute=PLAIN)
-    text((25, y), words, "Arial", tH, color=white, attribute=PLAIN)
+    text((25, y), words, "Arial", tH, color=black, attribute=PLAIN)
 
    
 def keyPressed():
