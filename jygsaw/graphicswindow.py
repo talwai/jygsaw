@@ -4,12 +4,10 @@ from java.awt import Dimension, RenderingHints
 from java.awt.Color import *  # so we can just say gray instead of Color.gray
 from javax.swing import JFrame, JPanel
 from javax.swing.event import MouseInputListener
-from java.lang import Math
 from image import *
 from group import *
 from shape import *
 from text import *
-from threading import Lock
 from time import sleep
 
 # the -O switch can't be used with jython, which is used to turn off __debug__
@@ -39,7 +37,7 @@ class GraphicsWindow(ActionListener, KeyListener, MouseInputListener):
         self.frame.contentPane = Canvas(self, self.objs, self.backgroundColor)
         self.frame.contentPane.setPreferredSize(Dimension(w, h))
 
-        #print self.frame.contentPane.isDoubleBuffered()
+        # print self.frame.contentPane.isDoubleBuffered()
 
         self.frame.contentPane.setDoubleBuffered(False)
 
@@ -95,6 +93,9 @@ class GraphicsWindow(ActionListener, KeyListener, MouseInputListener):
                 arg.strokeColor = self.frame.contentPane.strokeColor
                 arg.stroke = self.frame.contentPane.stroke
                 arg.filled = self.frame.contentPane.filled
+                if isinstance(arg, Text):
+                    arg.font = self.frame.contentPane.font
+                    arg.size = self.frame.contentPane.textSize
                 self.objs.append(arg)
             elif isinstance(arg, Group):
                 for obj in arg.group:
@@ -103,14 +104,19 @@ class GraphicsWindow(ActionListener, KeyListener, MouseInputListener):
                     obj.strokeColor = self.frame.contentPane.strokeColor
                     obj.stroke = self.frame.contentPane.stroke
                     obj.filled = self.frame.contentPane.filled
+                    if isinstance(arg, Text):
+                        arg.font = self.frame.contentPane.font
+                        arg.size = self.frame.contentPane.textSize
                     self.objs.append(obj)
             else:
                 print "Passed in something that's not a group or graphics object"
 
     def setDefaultColor(self, c):
+        """Sets the default color of the Canvas"""
         self.frame.contentPane.defaultColor = c
 
     def setStrokeColor(self, c):
+        """Sets the stroke color in the Canvas"""
         self.frame.contentPane.strokeColor = c
 
     def setStroke(self, b):
@@ -122,6 +128,13 @@ class GraphicsWindow(ActionListener, KeyListener, MouseInputListener):
     def setBackgroundColor(self, c):
         self.frame.contentPane.backgroundColor = c
         self.background = c
+
+    def setFont(self, f):
+        self.frame.contentPane.font = f
+
+    def setTextSize(self, s):
+        assert s >= 0, "Font size must be greater than or equal to 0"
+        self.frame.contentPane.textSize = s
 
     def getBackgroundColor(self):
         return self.background
@@ -225,6 +238,8 @@ class Canvas(JPanel):
         self._strokeColor = black
         self._stroke = False  # sets whether or not strokes are being drawn for shapes
         self._filled = True
+        self._font = "Times New Roman"
+        self._textSize = 12
 
         self.redraw_requested = True
 
@@ -239,7 +254,8 @@ class Canvas(JPanel):
         if self.window.user_draw_fn:
             self.window.user_draw_fn()
 
-        g.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON)
+        g.setRenderingHint(RenderingHints.KEY_ANTIALIASING,
+                           RenderingHints.VALUE_ANTIALIAS_ON)
 
         # with self.window.draw_lock:
         g.background = self.backgroundColor
@@ -254,16 +270,16 @@ class Canvas(JPanel):
 
     def blocking_redraw(self):
 
-        #from time import clock
-        #oldclock = clock()
+        # from time import clock
+        # oldclock = clock()
 
         self.redraw_requested = True
         self.repaint()
         while self.redraw_requested:
             sleep(.001)
-            #pass
+            # pass
 
-        #print clock() - oldclock
+        # print clock() - oldclock
 
     def _get_defaultColor(self):
         """Get the default color of the Canvas"""
@@ -273,7 +289,8 @@ class Canvas(JPanel):
         """Set the default color of the Canvas"""
         self._defaultColor = c
 
-    defaultColor = property(_get_defaultColor, _set_defaultColor, "Default fill color for all the objects")
+    defaultColor = property(_get_defaultColor, _set_defaultColor,
+                            "Default fill color for all the objects")
 
     def _get_backgroundColor(self):
         """Get the background color of the Canvas"""
@@ -283,7 +300,8 @@ class Canvas(JPanel):
         """Set the background color of the Canvas"""
         self._backgroundColor = c
 
-    backgroundColor = property(_get_backgroundColor, _set_backgroundColor, "Background Color for the window.")
+    backgroundColor = property(_get_backgroundColor, _set_backgroundColor,
+                               "Background Color for the window.")
 
     def _get_strokeColor(self):
         """Returns the strokeColor"""
@@ -293,7 +311,8 @@ class Canvas(JPanel):
         """Sets the strokeColor with the color passed as an argument"""
         self._strokeColor = c
 
-    strokeColor = property(_get_strokeColor, _set_strokeColor, "Stroke color of the Shape.")
+    strokeColor = property(
+        _get_strokeColor, _set_strokeColor, "Stroke color of the Shape.")
 
     def _get_stroke(self):
         """Returns whether or not stroke is True or False"""
@@ -303,7 +322,8 @@ class Canvas(JPanel):
         """Sets stroke to the boolean given"""
         self._stroke = b
 
-    stroke = property(_get_stroke, _set_stroke, "Boolean describing whether a stroke is being drawn or not.")
+    stroke = property(_get_stroke, _set_stroke,
+                      "Boolean describing whether a stroke is being drawn or not.")
 
     def _get_filled(self):
         """Returns whether or not stoke is True of False"""
@@ -312,4 +332,21 @@ class Canvas(JPanel):
     def _set_filled(self, f):
         self._filled = f
 
-    filled = property(_get_filled, _set_filled, "Boolean describing whether a Shape is filled or not.")
+    filled = property(_get_filled, _set_filled,
+                      "Boolean describing whether a Shape is filled or not.")
+
+    def _get_font(self):
+        return self._font
+
+    def _set_font(self, f):
+        self._font = f
+
+    font = property(_get_font, _set_font)
+
+    def _get_textSize(self):
+        return self._textSize
+
+    def _set_textSize(self, f):
+        self._textSize = f
+
+    textSize = property(_get_textSize, _set_textSize)
