@@ -4,12 +4,10 @@ from java.awt import Dimension, RenderingHints
 from java.awt.Color import *  # so we can just say gray instead of Color.gray
 from javax.swing import JFrame, JPanel
 from javax.swing.event import MouseInputListener
-from java.lang import Math
 from image import *
 from group import *
 from shape import *
 from text import *
-from threading import Lock
 from time import sleep
 
 # the -O switch can't be used with jython, which is used to turn off __debug__
@@ -73,7 +71,8 @@ class GraphicsWindow(ActionListener, KeyListener, MouseInputListener):
         self.lastKeyChar = None
         self.lastKeyCode = None
 
-        self.draw_lock = Lock()
+        self.user_draw_fn = None
+        # self.draw_lock = Lock()
 
     def setVisible(self, isVisible):
         self.frame.pack()
@@ -263,17 +262,20 @@ class Canvas(JPanel):
         The function then runs through the entire list of objs and draws all of them
         on the screen.
         """
+        if self.window.user_draw_fn:
+            self.window.user_draw_fn()
+
         g.setRenderingHint(RenderingHints.KEY_ANTIALIASING,
                            RenderingHints.VALUE_ANTIALIAS_ON)
 
-        with self.window.draw_lock:
-            g.background = self.backgroundColor
-            g.clearRect(0, 0, self.window.width, self.window.height)
-            g.setColor(white)  # Set color of rectangle
+        # with self.window.draw_lock:
+        g.background = self.backgroundColor
+        g.clearRect(0, 0, self.window.width, self.window.height)
+        g.setColor(white)  # Set color of rectangle
 
-            # Iterates through and draws all of the objects
-            for obj in self.window.objs:
-                obj._draw(g)
+        # Iterates through and draws all of the objects
+        for obj in self.window.objs:
+            obj._draw(g)
 
         self.redraw_requested = False
 

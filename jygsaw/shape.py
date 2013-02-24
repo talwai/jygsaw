@@ -42,7 +42,8 @@ class Shape(GraphicsObject):
         assert w > 0, "Shape width must be greater than zero"
         self._width = w
 
-    width = property(_get_width, _set_width, doc="Integer describing the width of the Shape")
+    width = property(_get_width, _set_width,
+                     doc="Integer describing the width of the Shape")
 
     def _get_height(self):
         """Return the value of height"""
@@ -53,7 +54,8 @@ class Shape(GraphicsObject):
         assert h > 0, "Shape height must be greater than zero"
         self._height = h
 
-    height = property(_get_height, _set_height, doc="Integer describing the height of the Shape")
+    height = property(_get_height, _set_height,
+                      doc="Integer describing the height of the Shape")
 
     def _get_filled(self):
         """Returns the boolean value of filled"""

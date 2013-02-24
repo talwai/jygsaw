@@ -1,7 +1,6 @@
 """
 graphics.py contains the methods that the user calls directly.
 """
-from __future__ import with_statement
 from graphicsobject import *
 from graphicswindow import *
 from group import *
@@ -10,8 +9,6 @@ from shape import *
 from text import *
 from java.awt import Color
 import time
-from threading import Lock
-from warnings import warn
 
 
 rectX = 0
@@ -379,19 +376,20 @@ def clear():
     window.clear()
 
 
-def onDraw(draw):
+def onDraw(user_draw):
     """
     Callback function which calls the user defined draw function.
     It repeatedly loops if loop() has been called.
     """
 
-    draw()
-    redraw()
+    user_draw()
+    window.frame.contentPane.repaint()
+    window.user_draw_fn = user_draw
     while True:
         while _toLoop:
-            with window.draw_lock:
-                draw()
-            redraw()
+            # with window.draw_lock:
+            #     draw()
+            window.frame.contentPane.repaint()
             time.sleep(1.0 / _fr)
 
 
