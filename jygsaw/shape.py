@@ -127,7 +127,6 @@ class Ellipse(Shape):
 
     def rotate(self, degrees):
         pass
-        # math.radians(degrees)
 
 
 class Circle(Ellipse):

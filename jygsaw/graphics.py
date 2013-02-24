@@ -387,8 +387,6 @@ def onDraw(user_draw):
     window.user_draw_fn = user_draw
     while True:
         while _toLoop:
-            # with window.draw_lock:
-            #     draw()
             window.frame.contentPane.repaint()
             time.sleep(1.0 / _fr)
 

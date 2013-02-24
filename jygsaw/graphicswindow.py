@@ -72,7 +72,6 @@ class GraphicsWindow(ActionListener, KeyListener, MouseInputListener):
         self.lastKeyCode = None
 
         self.user_draw_fn = None
-        # self.draw_lock = Lock()
 
     def setVisible(self, isVisible):
         self.frame.pack()
@@ -262,13 +261,12 @@ class Canvas(JPanel):
         The function then runs through the entire list of objs and draws all of them
         on the screen.
         """
+        # Run the user-defined draw function if it exists
         if self.window.user_draw_fn:
             self.window.user_draw_fn()
 
         g.setRenderingHint(RenderingHints.KEY_ANTIALIASING,
                            RenderingHints.VALUE_ANTIALIAS_ON)
-
-        # with self.window.draw_lock:
         g.background = self.backgroundColor
         g.clearRect(0, 0, self.window.width, self.window.height)
         g.setColor(white)  # Set color of rectangle
@@ -281,16 +279,10 @@ class Canvas(JPanel):
 
     def blocking_redraw(self):
 
-        # from time import clock
-        # oldclock = clock()
-
         self.redraw_requested = True
         self.repaint()
         while self.redraw_requested:
             sleep(.001)
-            # pass
-
-        # print clock() - oldclock
 
     def _get_defaultColor(self):
         """Get the default color of the Canvas"""
