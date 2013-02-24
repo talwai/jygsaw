@@ -74,7 +74,8 @@ class GraphicsWindow(ActionListener, KeyListener, MouseInputListener):
         self.lastKeyChar = None
         self.lastKeyCode = None
 
-        self.draw_lock = Lock()
+        self.user_draw_fn = None
+        # self.draw_lock = Lock()
 
     def setVisible(self, isVisible):
         self.frame.pack()
@@ -117,7 +118,7 @@ class GraphicsWindow(ActionListener, KeyListener, MouseInputListener):
 
     def setFilled(self, f):
         self.frame.contentPane.filled = f
-    
+
     def setBackgroundColor(self, c):
         self.frame.contentPane.backgroundColor = c
         self.background = c
@@ -125,7 +126,7 @@ class GraphicsWindow(ActionListener, KeyListener, MouseInputListener):
     def getBackgroundColor(self):
         return self.background
 
-    def redraw(self, delay = 0.0):
+    def redraw(self, delay=0.0):
         self.frame.contentPane.blocking_redraw()
         sleep(delay)
 
@@ -223,7 +224,7 @@ class Canvas(JPanel):
         self._backgroundColor = backgroundColor
         self._strokeColor = black
         self._stroke = False  # sets whether or not strokes are being drawn for shapes
-        self._filled = True 
+        self._filled = True
 
         self.redraw_requested = True
 
@@ -235,16 +236,19 @@ class Canvas(JPanel):
         The function then runs through the entire list of objs and draws all of them
         on the screen.
         """
+        if self.window.user_draw_fn:
+            self.window.user_draw_fn()
+
         g.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON)
 
-        with self.window.draw_lock:
-            g.background = self.backgroundColor
-            g.clearRect(0, 0, self.window.w, self.window.h)
-            g.setColor(white)  # Set color of rectangle
+        # with self.window.draw_lock:
+        g.background = self.backgroundColor
+        g.clearRect(0, 0, self.window.w, self.window.h)
+        g.setColor(white)  # Set color of rectangle
 
-            # Iterates through and draws all of the objects
-            for obj in self.window.objs:
-                obj._draw(g)
+        # Iterates through and draws all of the objects
+        for obj in self.window.objs:
+            obj._draw(g)
 
         self.redraw_requested = False
 
