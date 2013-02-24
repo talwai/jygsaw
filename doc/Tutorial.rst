@@ -88,30 +88,43 @@ Let's get text on the screen using keyboard input::
 
     canvas(750, 360)
     background(darkGray)
-    loop()
-    words = ""
-    letterWidth = 20
-    y = 60
-    tH = 30
+    loop() #so that draw() loops
+    currentLineHeight = 60
+    textHeight = 30
+    words=""
+    textList=[]
 
     def draw():
-        text((25, 25), "Type onto the screen:", "Georgia", 25, color=lightGray, attribute=PLAIN)
-        text((25, y), words, "Arial", tH, color=white, attribute=PLAIN)
+        global currentLineHeight, textHeight, words
+        clear()
 
-       
+        t=text(25, 25, "Type onto the screen:", color=gray, attribute=PLAIN)
+        t._set_size(textHeight)
+        t._set_font("Georgia")
+
+        for (i,h) in textList:
+            ti=text(25, h, i, color=white, attribute=PLAIN)
+            ti._set_font("Arial")
+            ti._set_size(textHeight)
+
+        tw=text(25, currentLineHeight, words, color=white, attribute=PLAIN)
+        tw._set_font("Arial")
+        tw._set_size(textHeight)
+
     def keyPressed():
-        global words, y, tH
-        # If the key is between 'A' (65) and 'z' (122)
+        global words, textList, currentLineHeight, textHeight
         k = lastKeyChar()
         c = lastKeyCode()
-        if (c!=10 and c!=16):
-            print k
-            print c
+        if (c!=10 and c!=16): #as long as the key pressed is not a return or shift
             words += k
-        elif c==10:
-            y+=tH
+        elif c==10: #else if the key pressed is a return
+            newLine=words
             words=""
-
-
+            textList.append((newLine,currentLineHeight))
+            currentLineHeight+=textHeight #lower the current line by textHeight
+                   
     onKeyPress(keyPressed)
     onDraw(draw)
+
+    
+
