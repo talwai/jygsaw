@@ -94,6 +94,9 @@ class GraphicsWindow(ActionListener, KeyListener, MouseInputListener):
                 arg.strokeColor = self.frame.contentPane.strokeColor
                 arg.stroke = self.frame.contentPane.stroke
                 arg.filled = self.frame.contentPane.filled
+                if isinstance(arg, Text):
+                    arg.font = self.frame.contentPane.font
+                    arg.size = self.frame.contentPane.textSize
                 self.objs.append(arg)
             elif isinstance(arg, Group):
                 for obj in arg.group:
@@ -102,14 +105,19 @@ class GraphicsWindow(ActionListener, KeyListener, MouseInputListener):
                     obj.strokeColor = self.frame.contentPane.strokeColor
                     obj.stroke = self.frame.contentPane.stroke
                     obj.filled = self.frame.contentPane.filled
+                    if isinstance(arg, Text):
+                        arg.font = self.frame.contentPane.font
+                        arg.size = self.frame.contentPane.textSize
                     self.objs.append(obj)
             else:
                 print "Passed in something that's not a group or graphics object"
 
     def setDefaultColor(self, c):
+        """Sets the default color of the Canvas"""
         self.frame.contentPane.defaultColor = c
 
     def setStrokeColor(self, c):
+        """Sets the stroke color in the Canvas"""
         self.frame.contentPane.strokeColor = c
 
     def setStroke(self, b):
@@ -121,6 +129,13 @@ class GraphicsWindow(ActionListener, KeyListener, MouseInputListener):
     def setBackgroundColor(self, c):
         self.frame.contentPane.backgroundColor = c
         self.background = c
+
+    def setFont(self, f):
+        self.frame.contentPane.font = f
+
+    def setTextSize(self, s):
+        assert s >= 0 , "Font size must be greater than or equal to 0"
+        self.frame.contentPane.textSize = s
 
     def getBackgroundColor(self):
         return self.background
@@ -223,7 +238,9 @@ class Canvas(JPanel):
         self._backgroundColor = backgroundColor
         self._strokeColor = black
         self._stroke = False  # sets whether or not strokes are being drawn for shapes
-        self._filled = True 
+        self._filled = True
+        self._font = "Times New Roman"
+        self._textSize = 12
 
         self.redraw_requested = True
 
@@ -309,3 +326,19 @@ class Canvas(JPanel):
         self._filled = f
 
     filled = property(_get_filled, _set_filled, "Boolean describing whether a Shape is filled or not.")
+
+    def _get_font(self):
+        return self._font
+
+    def _set_font(self, f):
+        self._font = f
+
+    font = property(_get_font, _set_font)
+
+    def _get_textSize(self):
+        return self._textSize
+
+    def _set_textSize(self, f):
+        self._textSize = f
+
+    textSize = property(_get_textSize, _set_textSize)

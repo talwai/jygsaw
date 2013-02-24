@@ -406,15 +406,21 @@ def redraw(delay=0.0):
     window.redraw(delay)
 
 
-def text((x, y), string, font, size, color=None, attribute=PLAIN):
+def text(x, y, string, color=None, attribute=PLAIN):
     """
     Draws specified text "string" to the screen at (x, y), with specified font and size
     and optional color and attribute (PLAIN, BOLD, ITALIC)
     """
 
-    newText = Text(int(x), int(y), string, font, int(size), attribute, color)
+    newText = Text(int(x), int(y), string, color, attribute)
     window.draw(newText)
     return newText
+
+def font(f):
+    window.setFont(f)
+
+def textSize(s):
+    window.setTextSize(s)
 
 
 def color(r, g=None, b=None):
@@ -485,7 +491,10 @@ if (__name__ == '__main__') or (__name__ == 'main'):
 
         rectY = rectY + directionY
 
-        text((200, 200), 'Hello, world', 'Times New Roman', 50, black)
+        font('Times New Roman')
+        textSize(50)
+
+        text(200, 200, 'Hello, world', black)
 
         # image(200, 200, './puppy.jpg', 50, 50)
 
