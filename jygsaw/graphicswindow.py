@@ -27,19 +27,18 @@ class GraphicsWindow(ActionListener, KeyListener, MouseInputListener):
 
         assert w > 0, "GraphicsWindow width must be greater than zero"
         assert h > 0, "GraphicsWindow height must be greater than zero"
+
         self.objs = []  # List of GraphicsObjects
-        self.w = w
-        self.h = h
         self.backgroundColor = backgroundColor
 
         self.frame = JFrame(
             title, defaultCloseOperation=JFrame.EXIT_ON_CLOSE,
-            size=(self.w, self.h))
+            size=(w, h))
 
         self.frame.contentPane = Canvas(self, self.objs, self.backgroundColor)
         self.frame.contentPane.setPreferredSize(Dimension(w, h))
 
-        #print self.frame.contentPane.isDoubleBuffered()
+        # print self.frame.contentPane.isDoubleBuffered()
 
         self.frame.contentPane.setDoubleBuffered(False)
 
@@ -125,7 +124,7 @@ class GraphicsWindow(ActionListener, KeyListener, MouseInputListener):
 
     def setFilled(self, f):
         self.frame.contentPane.filled = f
-    
+
     def setBackgroundColor(self, c):
         self.frame.contentPane.backgroundColor = c
         self.background = c
@@ -134,13 +133,13 @@ class GraphicsWindow(ActionListener, KeyListener, MouseInputListener):
         self.frame.contentPane.font = f
 
     def setTextSize(self, s):
-        assert s >= 0 , "Font size must be greater than or equal to 0"
+        assert s >= 0, "Font size must be greater than or equal to 0"
         self.frame.contentPane.textSize = s
 
     def getBackgroundColor(self):
         return self.background
 
-    def redraw(self, delay = 0.0):
+    def redraw(self, delay=0.0):
         self.frame.contentPane.blocking_redraw()
         sleep(delay)
 
@@ -227,6 +226,18 @@ class GraphicsWindow(ActionListener, KeyListener, MouseInputListener):
             self.lastKeyCode = e.getKeyCode()
             self.onKeyReleased()
 
+    def _get_width(self):
+        """Get the width of the canvas"""
+        return self.frame.contentPane.width
+
+    width = property(_get_width, 'Width of canvas')
+
+    def _get_height(self):
+        """Get the height of the canvas"""
+        return self.frame.contentPane.height
+
+    height = property(_get_height, 'Height of canvas')
+
 
 class Canvas(JPanel):
     """ Canvas to draw the action on. Owns the action and key listeners. """
@@ -252,11 +263,12 @@ class Canvas(JPanel):
         The function then runs through the entire list of objs and draws all of them
         on the screen.
         """
-        g.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON)
+        g.setRenderingHint(RenderingHints.KEY_ANTIALIASING,
+                           RenderingHints.VALUE_ANTIALIAS_ON)
 
         with self.window.draw_lock:
             g.background = self.backgroundColor
-            g.clearRect(0, 0, self.window.w, self.window.h)
+            g.clearRect(0, 0, self.window.width, self.window.height)
             g.setColor(white)  # Set color of rectangle
 
             # Iterates through and draws all of the objects
@@ -267,16 +279,16 @@ class Canvas(JPanel):
 
     def blocking_redraw(self):
 
-        #from time import clock
-        #oldclock = clock()
+        # from time import clock
+        # oldclock = clock()
 
         self.redraw_requested = True
         self.repaint()
         while self.redraw_requested:
             sleep(.001)
-            #pass
+            # pass
 
-        #print clock() - oldclock
+        # print clock() - oldclock
 
     def _get_defaultColor(self):
         """Get the default color of the Canvas"""
@@ -286,7 +298,8 @@ class Canvas(JPanel):
         """Set the default color of the Canvas"""
         self._defaultColor = c
 
-    defaultColor = property(_get_defaultColor, _set_defaultColor, "Default fill color for all the objects")
+    defaultColor = property(_get_defaultColor, _set_defaultColor,
+                            "Default fill color for all the objects")
 
     def _get_backgroundColor(self):
         """Get the background color of the Canvas"""
@@ -296,7 +309,8 @@ class Canvas(JPanel):
         """Set the background color of the Canvas"""
         self._backgroundColor = c
 
-    backgroundColor = property(_get_backgroundColor, _set_backgroundColor, "Background Color for the window.")
+    backgroundColor = property(_get_backgroundColor, _set_backgroundColor,
+                               "Background Color for the window.")
 
     def _get_strokeColor(self):
         """Returns the strokeColor"""
@@ -306,7 +320,8 @@ class Canvas(JPanel):
         """Sets the strokeColor with the color passed as an argument"""
         self._strokeColor = c
 
-    strokeColor = property(_get_strokeColor, _set_strokeColor, "Stroke color of the Shape.")
+    strokeColor = property(
+        _get_strokeColor, _set_strokeColor, "Stroke color of the Shape.")
 
     def _get_stroke(self):
         """Returns whether or not stroke is True or False"""
@@ -316,7 +331,8 @@ class Canvas(JPanel):
         """Sets stroke to the boolean given"""
         self._stroke = b
 
-    stroke = property(_get_stroke, _set_stroke, "Boolean describing whether a stroke is being drawn or not.")
+    stroke = property(_get_stroke, _set_stroke,
+                      "Boolean describing whether a stroke is being drawn or not.")
 
     def _get_filled(self):
         """Returns whether or not stoke is True of False"""
@@ -325,7 +341,8 @@ class Canvas(JPanel):
     def _set_filled(self, f):
         self._filled = f
 
-    filled = property(_get_filled, _set_filled, "Boolean describing whether a Shape is filled or not.")
+    filled = property(_get_filled, _set_filled,
+                      "Boolean describing whether a Shape is filled or not.")
 
     def _get_font(self):
         return self._font

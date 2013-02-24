@@ -38,7 +38,7 @@ def width():
     Returns the width of the Canvas.
     """
 
-    return window.w
+    return window.width
 
 
 def height():
@@ -46,7 +46,7 @@ def height():
     Returns the height of the Canvas.
     """
 
-    return window.h
+    return window.height
 
 
 def point(x, y, color=None):
@@ -68,7 +68,6 @@ def line(x1, y1, x2, y2, color=None):
     new_line = Line((int(x1), int(y1)), (int(x2), int(y2)), color)
     window.draw(new_line)
     return new_line
-
 
 
 def rect(x, y, rectWidth, rectHeight, color=None):
@@ -120,7 +119,6 @@ def polygon(vertices, color=None):
     return new_polygon
 
 
-
 def regPolygon(x, y, sides, length, color=None):
     """
     Creates a regular polygon with the given number of sides at the given x, y
@@ -132,7 +130,6 @@ def regPolygon(x, y, sides, length, color=None):
         int(x), int(y), int(sides), int(length), color)
     window.draw(new_reg_polygon)
     return new_reg_polygon
-
 
 
 def arc(x, y, width, height, startAngle, endAngle,
@@ -416,8 +413,10 @@ def text(x, y, string, color=None, attribute=PLAIN):
     window.draw(newText)
     return newText
 
+
 def font(f):
     window.setFont(f)
+
 
 def textSize(s):
     window.setTextSize(s)
