@@ -1,7 +1,9 @@
 from jygsaw.graphics import *
 
+
+
 canvas(750, 360)
-background(darkGray)
+background(white)
 loop()
 y = 60
 textHeight = 30
@@ -16,7 +18,6 @@ def draw():
         text((25, h), i, "Arial", textHeight, color=white, attribute=PLAIN)
     text((25, y), words, "Arial", textHeight, color=white, attribute=PLAIN)
     
-
 
 def keyPressed():
     global words, textList, y, textHeight

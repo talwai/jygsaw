@@ -3,6 +3,7 @@ from java.awt.Graphics import fillRect, fillOval
 from java.awt.Graphics2D import *  # Hopefully, refine this later.
 from java.lang.Math import PI, cos, sin
 from java.awt import Color
+from warnings import warn
 
 
 class Shape(GraphicsObject):
@@ -41,7 +42,8 @@ class Shape(GraphicsObject):
         assert w > 0, "Shape width must be greater than zero"
         self._width = w
 
-    width = property(_get_width, _set_width, doc="Width of Shape")
+    width = property(_get_width, _set_width,
+                     doc="Integer describing the width of the Shape")
 
     def _get_height(self):
         """Return the value of height"""
@@ -52,7 +54,8 @@ class Shape(GraphicsObject):
         assert h > 0, "Shape height must be greater than zero"
         self._height = h
 
-    height = property(_get_height, _set_height, doc="Height of Shape")
+    height = property(_get_height, _set_height,
+                      doc="Integer describing the height of the Shape")
 
     def _get_filled(self):
         """Returns the boolean value of filled"""
@@ -124,7 +127,6 @@ class Ellipse(Shape):
 
     def rotate(self, degrees):
         pass
-        # math.radians(degrees)
 
 
 class Circle(Ellipse):
@@ -171,7 +173,7 @@ class Line(Shape):
     # (startX, startY) - coordinate of line's starting point
     # (endX, endY) - coordinate of line's ending point
     def __init__(self, (startX, startY), (endX, endY), color=None):
-        super(Line, self).__init__(startX, startY, 0, 0, color, True)
+        super(Line, self).__init__(startX, startY, 0, 0, color)
         self.startX = startX
         self.startY = startY
         self.endX = endX

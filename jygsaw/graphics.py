@@ -1,7 +1,6 @@
 """
 graphics.py contains the methods that the user calls directly.
 """
-from __future__ import with_statement
 from graphicsobject import *
 from graphicswindow import *
 from group import *
@@ -10,8 +9,6 @@ from shape import *
 from text import *
 from java.awt import Color
 import time
-from threading import Lock
-from warnings import warn
 
 
 rectX = 0
@@ -38,7 +35,7 @@ def width():
     Returns the width of the Canvas.
     """
 
-    return window.w
+    return window.width
 
 
 def height():
@@ -46,7 +43,7 @@ def height():
     Returns the height of the Canvas.
     """
 
-    return window.h
+    return window.height
 
 
 def point(x, y, color=None):
@@ -68,7 +65,6 @@ def line(x1, y1, x2, y2, color=None):
     new_line = Line((int(x1), int(y1)), (int(x2), int(y2)), color)
     window.draw(new_line)
     return new_line
-
 
 
 def rect(x, y, rectWidth, rectHeight, color=None):
@@ -120,7 +116,6 @@ def polygon(vertices, color=None):
     return new_polygon
 
 
-
 def regPolygon(x, y, sides, length, color=None):
     """
     Creates a regular polygon with the given number of sides at the given x, y
@@ -132,7 +127,6 @@ def regPolygon(x, y, sides, length, color=None):
         int(x), int(y), int(sides), int(length), color)
     window.draw(new_reg_polygon)
     return new_reg_polygon
-
 
 
 def arc(x, y, width, height, startAngle, endAngle,
@@ -382,19 +376,18 @@ def clear():
     window.clear()
 
 
-def onDraw(draw):
+def onDraw(user_draw):
     """
     Callback function which calls the user defined draw function.
     It repeatedly loops if loop() has been called.
     """
 
-    draw()
-    redraw()
+    user_draw()
+    window.frame.contentPane.repaint()
+    window.user_draw_fn = user_draw
     while True:
         while _toLoop:
-            with window.draw_lock:
-                draw()
-            redraw()
+            window.frame.contentPane.repaint()
             time.sleep(1.0 / _fr)
 
 
@@ -406,15 +399,23 @@ def redraw(delay=0.0):
     window.redraw(delay)
 
 
-def text((x, y), string, font, size, color=None, attribute=PLAIN):
+def text(x, y, string, color=None, attribute=PLAIN):
     """
     Draws specified text "string" to the screen at (x, y), with specified font and size
     and optional color and attribute (PLAIN, BOLD, ITALIC)
     """
 
-    newText = Text(int(x), int(y), string, font, int(size), attribute, color)
+    newText = Text(int(x), int(y), string, color, attribute)
     window.draw(newText)
     return newText
+
+
+def font(f):
+    window.setFont(f)
+
+
+def textSize(s):
+    window.setTextSize(s)
 
 
 def color(r, g=None, b=None):
@@ -485,7 +486,10 @@ if (__name__ == '__main__') or (__name__ == 'main'):
 
         rectY = rectY + directionY
 
-        text((200, 200), 'Hello, world', 'Times New Roman', 50, black)
+        font('Times New Roman')
+        textSize(50)
+
+        text(200, 200, 'Hello, world', black)
 
         # image(200, 200, './puppy.jpg', 50, 50)
 
