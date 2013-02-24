@@ -3,18 +3,23 @@ from jygsaw.graphics import *
 canvas(750, 360)
 background(darkGray)
 loop()
-words = ""
-letterWidth = 20
 y = 60
-tH = 30
+textHeight = 30
+words=""
+textList=[]
 
 def draw():
+    global y,textHeight, words
+    clear()
     text((25, 25), "Type onto the screen:", "Georgia", 25, color=lightGray, attribute=PLAIN)
-    text((25, y), words, "Arial", tH, color=white, attribute=PLAIN)
+    for (i,h) in textList:
+        text((25, h), i, "Arial", textHeight, color=white, attribute=PLAIN)
+    text((25, y), words, "Arial", textHeight, color=white, attribute=PLAIN)
+    
 
-   
+
 def keyPressed():
-    global words, y, tH
+    global words, textList, y, textHeight
     # If the key is between 'A' (65) and 'z' (122)
     k = lastKeyChar()
     c = lastKeyCode()
@@ -23,9 +28,11 @@ def keyPressed():
         print c
         words += k
     elif c==10:
-        y+=tH
+        newLine=words
         words=""
-
+        textList.append((newLine,y))
+        y+=textHeight
+               
 
 onKeyPress(keyPressed)
 onDraw(draw)
