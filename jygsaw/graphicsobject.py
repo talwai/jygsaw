@@ -1,6 +1,7 @@
 from java.awt.geom import AffineTransform
 from java.awt import Color
 
+
 class GraphicsObject(object):
     """
     Anything drawn on the canvas is a child of GraphicsObject.
@@ -57,10 +58,8 @@ class GraphicsObject(object):
         """The object is moved to the given coordinates."""
         assert isinstance(x, int), "The x value given is not an integer."
         assert isinstance(y, int), "The y value given is not an integer."
- 
-	self.x = x
-	self.y = y
-	    
+        self.x = x
+        self.y = y
 
     def move(self, deltaX, deltaY):
         """The object moves by deltaX and deltaY in the x and y direction, respectively."""
