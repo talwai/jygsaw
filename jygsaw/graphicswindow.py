@@ -5,8 +5,8 @@ GraphicsWindow on window creation. A window holds the drawing canvas.
 
 from __future__ import with_statement
 from java.awt.event import ActionListener, KeyListener, MouseListener, MouseEvent, KeyEvent, ActionEvent
-from java.awt import Color, Dimension, RenderingHints
-from java.awt.Color import black, blue, cyan, darkGray, gray, green, lightGray, magenta, orange, pink, red, white, yellow
+from java.awt import Dimension, RenderingHints
+from java.awt.Color import black, blue, Color, cyan, darkGray, gray, green, lightGray, magenta, orange, pink, red, white, yellow
 from javax.swing import JFrame, JPanel
 from javax.swing.event import MouseInputListener
 from image import *
