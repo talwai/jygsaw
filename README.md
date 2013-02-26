@@ -70,7 +70,7 @@ $ jython name_of_test.py
 ### Demos
 You can run any demo using the local copy of Jygsaw (found in `jygsaw/`) by running, for example, `jython demos/keyboard.py`.
 
-If you change directory into `demos/`, into the demos run using the system-installed version of Jygsaw, so make sure to reinstall Jygsaw in order to run the demos using the latest codebase!
+If you change directory into `demos/` and run demos, the demos run using the system-installed version of Jygsaw, so make sure to reinstall Jygsaw in order to run the demos using the latest codebase!
 
 ### Building Documentation
 First make sure you have Sphinx installed under Jython. Assuming you have already installed Jython (and possibly Python), one way to do this is using `virtualenv`:
