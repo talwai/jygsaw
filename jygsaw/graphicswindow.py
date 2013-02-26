@@ -1,3 +1,8 @@
+"""
+Exports GraphicsWindow and Canvas. A Canvas is created and attached to a
+GraphicsWindow on window creation. A window holds the drawing canvas.
+"""
+
 from __future__ import with_statement
 from java.awt.event import ActionListener, KeyListener, MouseListener, MouseEvent, KeyEvent, ActionEvent
 from java.awt import Dimension, RenderingHints
@@ -18,9 +23,10 @@ debug = 0
 class GraphicsWindow(ActionListener, KeyListener, MouseInputListener):
     """
     Creates a GraphicsWindow with a Canvas object that can be drawn on.
-    Also takes callback functions for Mouse and Key input.
-
+    Takes a title, window width, and window height. An optional background
+    color can be specified.
     """
+
     def __init__(self, title, w, h, backgroundColor=white):
 
         assert w > 0, "GraphicsWindow width must be greater than zero"
