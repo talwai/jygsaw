@@ -1,5 +1,5 @@
 from java.awt.geom import AffineTransform
-from java.awt.Color import *  
+from java.awt import Color
 
 class GraphicsObject(object):
     """
@@ -14,7 +14,7 @@ class GraphicsObject(object):
         super(GraphicsObject, self).__init__()
         assert isinstance(x, int), "The x value given is not an integer."
         assert isinstance(y, int), "The x value given is not an integer."
-        assert isinstance(c, Color), "The object pass is not a Color object."
+        assert c == None or isinstance(c, Color), "The object pass is not a Color object."
         self._x = x
         self._y = y
         self._color = c
