@@ -1,4 +1,4 @@
-from GraphicsObject import *
+from graphicsobject import *
 from java.awt import Font
 from java.awt.Font import *
 from java.awt.Graphics import setFont
@@ -6,13 +6,12 @@ from java.awt.Graphics import setFont
 
 class Text(GraphicsObject):
 
-    def __init__(self, x, y, s, font, size, attribute=PLAIN, color=None):
-        assert size > 0, "Text size must be greater than zero"
+    def __init__(self, x, y, s, color=None, attribute=PLAIN):
         super(Text, self).__init__(x, y, color)
         self._s = s
-        self._font = font  # Font, however it's defined in Java...
-        self._size = size
-        self.attribute = attribute  # bold, italic, underline
+        self._font = 'Times New Roman'  # Font, however it's defined in Java...
+        self._size = 12
+        self._attribute = attribute  # bold, italic, underline
 
     def _get_string(self):
         return self._s
@@ -26,7 +25,7 @@ class Text(GraphicsObject):
         return self._size
 
     def _set_size(self, s):
-        assert _size > 0, "Text size must be greater than zero"
+        assert s > 0, "Text size must be greater than zero"
         self._size = s
 
     size = property(_get_size, _set_size)

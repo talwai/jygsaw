@@ -1,8 +1,5 @@
 # Basic shapes demo
-import sys
-import os
-sys.path.append(os.path.pardir + "/lib")
-from jygsaw import *
+from jygsaw.graphics import *
 
 canvas(640, 360)
 background(black)

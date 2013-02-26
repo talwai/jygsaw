@@ -25,7 +25,7 @@ class GraphicsObject(object):
         """Sets the x coordinate value."""
         self._x = i
 
-    x = property(_get_x, _set_x, doc="x coordinate")
+    x = property(_get_x, _set_x, doc="x coordinate of object.")
 
     def _get_y(self):
         """Returns the y coordinate value."""
@@ -35,7 +35,7 @@ class GraphicsObject(object):
         """Sets the y coordinate value."""
         self._y = i
 
-    y = property(_get_y, _set_y, doc="y coordinate")
+    y = property(_get_y, _set_y, doc="y coordinate of object.")
 
     def _get_color(self):
         """Returns the color object"""
@@ -45,7 +45,7 @@ class GraphicsObject(object):
         """Sets the color object"""
         self._color = c
 
-    color = property(_get_color, _set_color, doc="color of object")
+    color = property(_get_color, _set_color, doc="Color of the object.")
 
     def moveTo(self, x, y):
         """ The object is moved to the given coordinates. """

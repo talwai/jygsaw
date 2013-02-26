@@ -1,7 +1,4 @@
-import sys
-import os
-sys.path.append(os.path.pardir + "/lib")
-from jygsaw import *
+from jygsaw.graphics import *
 
 
 canvas()
@@ -16,15 +13,15 @@ while True:
 
     fill(red)
     stroke(blue)
-    rect(rectX, rectY, filled=True)
+    rect(rectX, rectY, 100, 100)
     line(150, 10, 200, 10)
     fill(pink)
-    ellipse(10, 150, filled=True)
+    ellipse(10, 150, 100, 100)
 
-    polygon(vertices, filled=False)
-    regPolygon(10, 300, filled=False)
-    arc(300, 100, filled=False)
-    circle(0, 0, filled=False)
+    polygon(vertices)
+    regPolygon(10, 300, 5, 20)
+    arc(300, 100, 100, 100, 0, 170)
+    circle(0, 0, 100)
 
     background(white)
     w = width()
@@ -47,4 +44,3 @@ while True:
     text((200, 200), 'Hello, world', 'Times New Roman', 50, black)
 
     redraw(.01)
-    #sleep(.05)

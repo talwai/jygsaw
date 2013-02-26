@@ -1,8 +1,9 @@
-from GraphicsObject import *
+from graphicsobject import *
 from java.awt.Graphics import fillRect, fillOval
 from java.awt.Graphics2D import *  # Hopefully, refine this later.
 from java.lang.Math import PI, cos, sin
 from java.awt import Color
+from warnings import warn
 
 
 class Shape(GraphicsObject):
@@ -15,7 +16,7 @@ class Shape(GraphicsObject):
     class.
     """
 
-    def __init__(self, x, y, width, height, color=None, filled=True):
+    def __init__(self, x, y, width, height, color=None):
         """
         Constructor for Shape class. Coordinates and color are passed
         to the super class. Coodinates, width and height are required
@@ -28,7 +29,7 @@ class Shape(GraphicsObject):
         super(Shape, self).__init__(x, y, color)
         self._width = width
         self._height = height
-        self._filled = filled
+        self._filled = True
         self._stroke = False
         self._strokeColor = None
 
@@ -41,7 +42,8 @@ class Shape(GraphicsObject):
         assert w > 0, "Shape width must be greater than zero"
         self._width = w
 
-    width = property(_get_width, _set_width, doc="Width of Shape")
+    width = property(_get_width, _set_width,
+                     doc="Integer describing the width of the Shape")
 
     def _get_height(self):
         """Return the value of height"""
@@ -52,7 +54,8 @@ class Shape(GraphicsObject):
         assert h > 0, "Shape height must be greater than zero"
         self._height = h
 
-    height = property(_get_height, _set_height, doc="Height of Shape")
+    height = property(_get_height, _set_height,
+                      doc="Integer describing the height of the Shape")
 
     def _get_filled(self):
         """Returns the boolean value of filled"""
@@ -83,20 +86,24 @@ class Shape(GraphicsObject):
     def _draw(self, g):
         """
         Hidden draw method for all Shape objects. Each shape that inherits from
-        Shape needs to have its own _draw method or two methods: _draw_shape()
+        Shape needs to have its own _draw method or two methods: _draw_fill()
         and _draw_stroke(). If the class that inherits from Shape just has a
         _draw method that method will be used to draw the object. This is the
-        case for shapes that don't need a stroke. If a shape doesn't have a stroke
-        it will be drawn using _draw_shape(). If it does have a stroke then after
-        the filled shape is drawn, _draw_stroke() will draw an unfilled shape over
-        it creating a stroke.
+        case for shapes that don't need a stroke. If a shape has a fill,
+        it will be drawn using _draw_fill(). If it does have a stroke, then
+        the shape outline is drawn using _draw_stroke(). If stroke and filled
+        are false, then a warning is thrown.
         """
 
-        g.setColor(self.color)
-        self._draw_shape(g)
-        if self.filled and self.stroke:
+        if self.filled:
+            g.setColor(self.color)
+            self._draw_fill(g)
+        if self.stroke:
             g.setColor(self.strokeColor)
             self._draw_stroke(g)
+        if not self.filled and not self.stroke:
+            # Throw a warning!
+            warn('Shape filled and stroke are both set to false')
 
 
 class Ellipse(Shape):
@@ -104,26 +111,22 @@ class Ellipse(Shape):
     Inherits from Shape. The (x,y) coordinates represent top left hand corner
     of the bounding rectangle.
     """
-    def __init__(self, x, y, width, height, color=None, filled=True):
+    def __init__(self, x, y, width, height, color=None):
         assert width > 0, "Ellipse width must be greater than zero"
         assert height > 0, "Ellipse height must be greater than zero"
-        super(Ellipse, self).__init__(x, y, width, height, color, filled)
+        super(Ellipse, self).__init__(x, y, width, height, color)
 
     def _draw_stroke(self, g):
         g.drawOval(self.x, self.y, self.width, self.height)
 
-    def _draw_shape(self, g):
-        if self.filled:
-            g.fillOval(self.x, self.y, self.width, self.height)
-        else:
-            g.drawOval(self.x, self.y, self.width, self.height)
+    def _draw_fill(self, g):
+        g.fillOval(self.x, self.y, self.width, self.height)
 
     def scale(self):
         pass
 
     def rotate(self, degrees):
         pass
-        # math.radians(degrees)
 
 
 class Circle(Ellipse):
@@ -133,10 +136,10 @@ class Circle(Ellipse):
     """
 
     # (x,y) - center of Circle
-    def __init__(self, x, y, radius, color=None, filled=True):
+    def __init__(self, x, y, radius, color=None):
         assert radius > 0, "Circle radius must be greater than zero"
         super(Circle, self).__init__(
-            x - radius, y - radius, radius * 2, radius * 2, color, filled)
+            x - radius, y - radius, radius * 2, radius * 2, color)
         self._radius = radius
 
     def _get_radius(self):
@@ -154,16 +157,13 @@ class Circle(Ellipse):
 
 class Rectangle(Shape):
     # (x,y) - top-left vertex of Rectangle
-    def __init__(self, x, y, width, height, color=None, filled=True):
+    def __init__(self, x, y, width, height, color=None):
         assert width > 0, "Rectangle width must be greater than zero"
         assert height > 0, "Rectangle height must be greater than zero"
-        super(Rectangle, self).__init__(x, y, width, height, color, filled)
+        super(Rectangle, self).__init__(x, y, width, height, color)
 
-    def _draw_shape(self, g):
-        if self.filled:
-            g.fillRect(self.x, self.y, self.width, self.height)
-        else:
-            g.drawRect(self.x, self.y, self.width, self.height)
+    def _draw_fill(self, g):
+        g.fillRect(self.x, self.y, self.width, self.height)
 
     def _draw_stroke(self, g):
         g.drawRect(self.x, self.y, self.width, self.height)
@@ -173,7 +173,7 @@ class Line(Shape):
     # (startX, startY) - coordinate of line's starting point
     # (endX, endY) - coordinate of line's ending point
     def __init__(self, (startX, startY), (endX, endY), color=None):
-        super(Line, self).__init__(startX, startY, 0, 0, color, True)
+        super(Line, self).__init__(startX, startY, 0, 0, color)
         self.startX = startX
         self.startY = startY
         self.endX = endX
@@ -199,21 +199,17 @@ class Arc(Shape):
     # startAngle is where the arc begins; arc is extended for arcAngle degrees
     # (x,y) - upper left corner of the arc's rectangle to be filled
     # width and height are the width and height of the arc to be filled
-    def __init__(self, x, y, width, height, startAngle, arcAngle, color=None, filled=True):
+    def __init__(self, x, y, width, height, startAngle, arcAngle, color=None):
 
         assert width > 0, "Arc width must be greater than zero"
         assert height > 0, "Arc height must be greater than zero"
-        super(Arc, self).__init__(x, y, width, height, color, filled)
+        super(Arc, self).__init__(x, y, width, height, color)
         self.startAngle = startAngle
         self.arcAngle = arcAngle
 
-    def _draw_shape(self, g):
-        if self.filled:
-            g.fillArc(self.x, self.y, self.width, self.height,
-                      self.startAngle, self.arcAngle)
-        else:
-            g.drawArc(self.x, self.y, self.width, self.height,
-                      self.startAngle, self.arcAngle)
+    def _draw_fill(self, g):
+        g.fillArc(self.x, self.y, self.width, self.height,
+                  self.startAngle, self.arcAngle)
 
     def _draw_stroke(self, g):
         g.drawArc(self.x, self.y, self.width, self.height,
@@ -221,9 +217,9 @@ class Arc(Shape):
 
 
 class Polygon(Shape):
-    def __init__(self, vertices, color=None, filled=True):
+    def __init__(self, vertices, color=None):
         super(Polygon, self).__init__(
-            vertices[0][0], vertices[0][1], 0, 0, color, filled)
+            vertices[0][0], vertices[0][1], 0, 0, color)
         assert len(vertices) > 0, "Number of vertices must be greater than 0 "
         self._vertices = vertices
 
@@ -236,12 +232,9 @@ class Polygon(Shape):
 
     vertices = property(_get_vertices, _set_vertices)
 
-    def _draw_shape(self, g):
+    def _draw_fill(self, g):
         (xValues, yValues) = zip(*self.vertices)
-        if self.filled:
-            g.fillPolygon(xValues, yValues, len(self.vertices))
-        else:
-            g.drawPolygon(xValues, yValues, len(self.vertices))
+        g.fillPolygon(xValues, yValues, len(self.vertices))
 
     def _draw_stroke(self, g):
         (xValues, yValues) = zip(*self.vertices)
@@ -249,8 +242,8 @@ class Polygon(Shape):
 
 
 class RegPolygon(Shape):
-    def __init__(self, x, y, sides, length, color=None, filled=True):
-        super(RegPolygon, self).__init__(x, y, 0, 0, color, filled)
+    def __init__(self, x, y, sides, length, color=None):
+        super(RegPolygon, self).__init__(x, y, 0, 0, color)
         assert sides >= 0, "Number of sides must be greater than or equal to 0 "
         assert length > 0, "Length of sides must be greater than 0 "
 
@@ -294,12 +287,9 @@ class RegPolygon(Shape):
 
     sideLength = property(_set_sideLength, _get_sideLength)
 
-    def _draw_shape(self, g):
+    def _draw_fill(self, g):
         (xValues, yValues) = zip(*self.vertices)
-        if self.filled:
-            g.fillPolygon(xValues, yValues, self.sides)
-        else:
-            g.drawPolygon(xValues, yValues, self.sides)
+        g.fillPolygon(xValues, yValues, self.sides)
 
     def _draw_stroke(self, g):
         (xValues, yValues) = zip(*self.vertices)

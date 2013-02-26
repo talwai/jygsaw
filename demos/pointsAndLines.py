@@ -1,8 +1,5 @@
 # Basic points and lines demo
-import sys
-import os
-sys.path.append(os.path.pardir + "/lib")
-from jygsaw import *
+from jygsaw.graphics import *
 
 d = 70
 p1 = d
@@ -21,7 +18,7 @@ line(p2, p2, p3, p2)
 line(p3, p2, p3, p3)
 
 # Draw white points
-# stroke(white)
+stroke(white)
 point(p1, p1)
 point(p1, p3)
 point(p2, p4)

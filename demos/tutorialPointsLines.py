@@ -1,14 +1,10 @@
-import sys
-import os
-sys.path.append(os.path.pardir + "/lib")
-from jygsaw import *
+from jygsaw.graphics import *
 from random import random, choice
 
 canvas(900, 500)
 background(darkGray)
 
 
-#   def point(x, y, color=None):
 def draw():
     lineX = random() * 800 + 50
     lineY = random() * 300 + 125
