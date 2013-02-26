@@ -256,7 +256,28 @@ class Polygon(Shape):
     def _draw_stroke(self, g):
         (xValues, yValues) = zip(*self.vertices)
         g.drawPolygon(xValues, yValues, len(self.vertices))
+    
+    def moveTo(self, x, y):
+        """The object is moved to the given coordinates."""
+        assert isinstance(x, int), "The x value given is not an integer."
+        assert isinstance(y, int), "The y value given is not an integer."
+	
+	print "Polygon's moveTo"
 
+        deltaX = x - self.x
+        deltaY = y - self.y
+
+	new_vertices = []
+
+        for vertex in self.vertices:
+	    new_vertex=(vertex[0]+deltaX,vertex[1]+deltaY)
+	    new_vertices.append(new_vertex)
+
+	self.x = x
+	self.y = y
+
+	self.vertices = new_vertices
+	    
 
 class RegPolygon(Shape):
     """
