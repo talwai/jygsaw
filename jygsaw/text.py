@@ -6,12 +6,11 @@ from java.awt.Graphics import setFont
 
 class Text(GraphicsObject):
     """
-    Text draws a string on the window. Its arguments are x and y coordinates which 
-    represent the upper lefthand corner of where the string should begin, a String
-    that represents the words to be drawn on the window, a color and an attribute. 
+    Text draws a string on the window. Its arguments are x and y coordinates which
+    represent the upper left-hand corner of where the string should begin, a String
+    that represents the words to be drawn on the window, a color and an attribute.
     Attributes can be PLAIN, BOLD or ITALIC, by default the attribute is PLAIN.
     """
-
 
     def __init__(self, x, y, s, color=None, attribute=PLAIN):
         super(Text, self).__init__(x, y, color)
