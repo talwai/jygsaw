@@ -13,10 +13,10 @@ from java.awt import Color
 import time
 
 
-rectX = 0 # Just used for testing - delete or move eventually
-rectY = 0 # Just used for testing - delete or move eventually
-directionX = 1 # Just used for testing - delete or move eventually
-directionY = 1 # Just used for testing - delete or move eventually
+rectX = 0  # Just used for testing - delete or move eventually
+rectY = 0  # Just used for testing - delete or move eventually
+directionX = 1  # Just used for testing - delete or move eventually
+directionY = 1  # Just used for testing - delete or move eventually
 _toLoop = False
 _fr = 60.0  # Frame Rate
 
@@ -216,7 +216,7 @@ def noFill():
 def background(r=None, g=None, b=None):
     """
     Sets the background color of the window.
-    
+
     See color() for how the color values are handled.
 
     Keyword Arguments:
@@ -323,6 +323,7 @@ def onMouseMove(mouseMoved):
     """
     window.onMouseMoved = mouseMoved
 
+
 def onMouseEnter(mouseEntered):
     """
     Sets the window's onMouseEntered variable to be the user
@@ -330,6 +331,7 @@ def onMouseEnter(mouseEntered):
     window's mouse listener when the event occurs.
     """
     window.onMouseEntered = mouseEntered
+
 
 def onMouseExit(mouseExited):
     """
@@ -427,7 +429,7 @@ def stroke(r=None, g=None, b=None):
 
     Keyword Arguments:
     r -- R value of the RGB stroke color. Defaults to None.
-    g -- G value of the RGB stroke color. Defaults to None. 
+    g -- G value of the RGB stroke color. Defaults to None.
     b -- B value of the RGB stroke color. Defaults to None.
     """
     window.setStroke(True)
