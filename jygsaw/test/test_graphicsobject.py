@@ -12,8 +12,8 @@ class TestShapeFunctions(unittest.TestCase):
         frameRate(60.0)
 
         self.arc = arc(300, 100, 123, 33, 34, 33)
-
         self.ellipse = ellipse(10, 150, 40, 40)
+        self.circle = circle(20, 20, 15)
 
         self.polygon = polygon(
             [(250, 250), (250, 370), (360, 340), (360, 250)])
@@ -50,8 +50,19 @@ class TestShapeFunctions(unittest.TestCase):
         self.assertEqual(self.arc._get_y(), -100)
 
     def test_polygon(self):
-        self.assertEqual(self.polygon._get_vertices(), [(250, 250), (250,
-                         370), (360, 340), (360, 250)])
+        self.assertEqual(self.polygon._get_vertices(),
+                         [(250, 250), (250, 370), (360, 340), (360, 250)])
+        self.polygon.moveTo(240, 240)
+        self.assertEquals(self.polygon._get_vertices(),
+                          [(240, 240), (240, 360), (350, 330), (350, 240)])
+        self.assertEqual(self.polygon._get_x(), 240)
+
+        self.polygon.move(350, 350)
+        self.assertEqual(self.polygon._get_y(), 590)
+
+    def test_circle(self):
+        self.assertEqual(self.circle._get_x(), 20)
+
 
 if (__name__ == '__main__') or (__name__ == 'main'):
     unittest.main()

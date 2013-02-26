@@ -263,7 +263,12 @@ class Polygon(Shape):
         (xValues, yValues) = zip(*self.vertices)
         g.drawPolygon(xValues, yValues, len(self.vertices))
 
+    def moveTo(self, x, y):
+        self.move(x - self.x, y - self.y)
+
     def move(self, deltaX, deltaY):
+        assert isinstance(deltaX, int), "The x value given is not an integer."
+        assert isinstance(deltaY, int), "The y value given is not an integer."
         self.vertices = [(x + deltaX, y + deltaY) for x, y in self.vertices]
 
 
