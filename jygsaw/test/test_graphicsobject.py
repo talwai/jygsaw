@@ -10,7 +10,7 @@ class TestShapeFunctions(unittest.TestCase):
         stroke()
         frameRate(60.0)
 
-	self.arc = arc(-300,-100,123,33,34,33)
+	self.arc = arc(300,100,123,33,34,33)
 
         self.ellipse = ellipse(10, 150,40, 40)
 
