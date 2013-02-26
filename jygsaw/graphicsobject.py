@@ -62,6 +62,6 @@ class GraphicsObject(object):
 
     def move(self, deltaX, deltaY):
         """The object moves by deltaX and deltaY in the x and y direction, respectively."""
-        assert isinstance(x, int), "The x value given is not an integer."
-        assert isinstance(y, int), "The y value given is not an integer."
+        assert isinstance(deltaX, int), "The x value given is not an integer."
+        assert isinstance(deltaY, int), "The y value given is not an integer."
         self.moveTo(self.x + deltaX, self.y + deltaY)
