@@ -1,9 +1,6 @@
 from jygsaw.graphics import *
-from jygsaw.graphicsobject import *
-from jygsaw.graphicswindow import *
 
 import unittest
-
 
 class TestShapeFunctions(unittest.TestCase):
 
@@ -13,14 +10,25 @@ class TestShapeFunctions(unittest.TestCase):
         stroke()
         frameRate(60.0)
 
-        self.arc = arc(300, 100)
-        self.ellipse = ellipse(10, 150)
+	self.arc = arc(300,100,123,33,34,33)
+
+        self.ellipse = ellipse(10, 150,40, 40)
 
         self.polygon = polygon(
             [(250, 250), (250, 370), (360, 340), (360, 250)])
-        self.regPolygon = regPolygon(10, 300)
+	self.regPolygon = regPolygon(10, 300,40,40)
+	
 
     def test_arc(self):
+		
+	self.assertEqual(self.arc._get_color(),color(128,128,128))
+
+
+	fill(0,255,0)
+	self.arc = arc(300,100,123,33,34,33) 
+
+	self.assertEqual(self.arc._get_color(),green)
+	    
         self.assertEqual(self.arc._get_x(), 300)
         self.assertEqual(self.arc._get_y(), 100)
 
@@ -29,20 +37,23 @@ class TestShapeFunctions(unittest.TestCase):
 
         self.arc._set_y(170)
         self.assertEqual(self.arc._get_y(), 170)
+	
+	c = color(255,255,255)
+	
+	self.arc._set_color(c)
+	self.assertEqual(self.arc._get_color(),c)
 
-        print self.arc._get_color()
-
-    def test_ellipse(self):
-        self.assertEqual(self.ellipse._get_x(), 10)
-        self.assertEqual(self.ellipse._get_y(), 150)
+	self.arc.moveTo(1500,1500)
+	self.assertEqual(self.arc._get_x(),1500)
+	self.assertEqual(self.arc._get_y(),1500)
+	
+	self.arc.move(-1600,-1600)
+	self.assertEqual(self.arc._get_x(),-100)
+	self.assertEqual(self.arc._get_y(),-100)
 
     def test_polygon(self):
-        self.assertEqual(self.polygon.vertices, [(250, 250), (250,
+        self.assertEqual(self.polygon._get_vertices(), [(250, 250), (250,
                          370), (360, 340), (360, 250)])
-
-    def test_regPolygon(self):
-        self.assertEqual(self.regPolygon._get_x(), 10)
-        self.assertEqual(self.regPolygon._get_y(), 300)
 
 if (__name__ == '__main__') or (__name__ == 'main'):
     unittest.main()
