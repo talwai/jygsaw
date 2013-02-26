@@ -1,3 +1,10 @@
+"""
+Provides methods and attributes for a text object which
+will be drawn on a GraphicsWindow.
+
+Exports Text.
+"""
+
 from graphicsobject import *
 from java.awt import Font
 from java.awt.Font import *
@@ -25,7 +32,8 @@ class Text(GraphicsObject):
     def _set_string(self, s):
         self._s = s
 
-    s = property(_get_string, _set_string, "String that is to be drawn on the window.")
+    s = property(
+        _get_string, _set_string, "String that is to be drawn on the window.")
 
     def _get_size(self):
         return self._size
@@ -42,7 +50,8 @@ class Text(GraphicsObject):
     def _set_attribute(self, a):
         self._attribute = a
 
-    attribute = property(_get_attribute, _set_attribute, "Attribute of the text (PLAIN, BOLD, ITALIC)")
+    attribute = property(_get_attribute, _set_attribute,
+                         "Attribute of the text (PLAIN, BOLD, ITALIC)")
 
     def _get_font(self):
         return self._font
@@ -50,7 +59,8 @@ class Text(GraphicsObject):
     def _set_font(self, f):
         self._font = f
 
-    font = property(_get_font, _set_font, "Font that strings are being dawn in, ex \'TIMES NEW ROMAN\'")
+    font = property(_get_font, _set_font,
+                    "Font that strings are being drawn in, ex. \'TIMES NEW ROMAN\'")
 
     def _draw(self, g):
         g.setColor(self.color)

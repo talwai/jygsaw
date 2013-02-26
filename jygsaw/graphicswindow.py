@@ -42,10 +42,6 @@ class GraphicsWindow(ActionListener, KeyListener, MouseInputListener):
         self.frame.contentPane = Canvas(self, self.objs, self.backgroundColor)
         self.frame.contentPane.setPreferredSize(Dimension(w, h))
 
-        # print self.frame.contentPane.isDoubleBuffered()
-
-        self.frame.contentPane.setDoubleBuffered(False)
-
         self.frame.addMouseListener(self)
         self.frame.addMouseMotionListener(self)
         self.frame.addKeyListener(self)
@@ -82,9 +78,7 @@ class GraphicsWindow(ActionListener, KeyListener, MouseInputListener):
         self.user_draw_fn = None
 
     def setVisible(self, isVisible):
-        """
-        Sets the window to visible.
-        """
+        """Sets the window to visible."""
         self.frame.pack()
         self.frame.visible = isVisible
 
@@ -129,11 +123,11 @@ class GraphicsWindow(ActionListener, KeyListener, MouseInputListener):
         self.frame.contentPane.strokeColor = c
 
     def setStroke(self, b):
-        """Turns on or off stroke in the Canvas."""
+        """Turns stroke on or off in the Canvas."""
         self.frame.contentPane.stroke = b
 
     def setFilled(self, f):
-        """Turns on or off fill in the Canvas."""
+        """Turns fill on or off in the Canvas."""
         self.frame.contentPane.filled = f
 
     def setBackgroundColor(self, c):
@@ -396,7 +390,7 @@ class Canvas(JPanel):
                       "Boolean describing whether a stroke is being drawn or not.")
 
     def _get_filled(self):
-        """Returns whether or not stoke is True of False"""
+        """Returns whether or not stroke is True of False"""
         return self._filled
 
     def _set_filled(self, f):

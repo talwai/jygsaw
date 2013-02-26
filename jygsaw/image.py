@@ -1,3 +1,10 @@
+"""
+Provides methods and attributes for an Image objectto be
+drawn on a GraphicsWindow.
+
+Exports Image.
+"""
+
 from __future__ import with_statement
 from graphicsobject import *
 from javax.imageio import *
@@ -9,10 +16,10 @@ import urllib2
 class Image(GraphicsObject):
 
     """
-    Displays an image on the window at the given x and y values. The x and y 
-    coordinates represent the upper left hand corner of where the image should 
-    be drawn on the window. The user can specify a path that is either to an 
-    image in their machine or an html link. The class itself differentiates 
+    Displays an image on the window at the given x and y values. The x and y
+    coordinates represent the upper left hand corner of where the image should
+    be drawn on the window. The user can specify a path that is either to an
+    image in their machine or an html link. The class itself differentiates
     between the two. The user can specify the width and height of the image.
     If none is provided, the width and height of the actual image is used.
     """
@@ -29,11 +36,11 @@ class Image(GraphicsObject):
         self._height = height
 
     def check_valid_url(self, path):
-        '''
+        """
         This function checks to see if the path given is a url or a file path.
         Returns True if it is a url and False if it is a file path. Throws an
         exception if it is neither or if the paths are incorrect.
-        '''
+        """
 
         request = urllib2.Request(path)
         request.get_method = lambda: 'HEAD'
@@ -55,8 +62,8 @@ class Image(GraphicsObject):
         self.url = self.check_valid_url(p)
         self._path = p
 
-    path = property(_get_path, _set_path, 
-        "A String that describes where the image is located. Can either be a url or a file path.")
+    path = property(_get_path, _set_path,
+                    "A String that describes where the image is located. Can either be a url or a file path.")
 
     def _get_width(self):
         return self._width
@@ -74,15 +81,16 @@ class Image(GraphicsObject):
         assert h > 0, "Image height must be greater than zero"
         self._height = h
 
-    height = property(_get_height, _set_height, "Height of the image in pixels.")
+    height = property(
+        _get_height, _set_height, "Height of the image in pixels.")
 
     def _draw(self, g):
-        '''
+        """
         Depending on what type of path is given this function will call
-        the appropriate methods to create and ImageIO object. If the user did 
-        not set the width and height the size of the image will be used as a 
+        the appropriate methods to create an ImageIO object. If the user did
+        not set the width and height, the size of the image will be used as a
         default.
-        '''
+        """
 
         img = None
         if self.url:
