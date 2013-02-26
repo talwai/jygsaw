@@ -109,7 +109,6 @@ class TestArc(BaseShapeClassTests, unittest.TestCase):
 
 
 class TestBackground(unittest.TestCase):
-
     # this fails. why?
     def test_background(self):
         background(blue)

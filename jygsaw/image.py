@@ -52,7 +52,7 @@ class Image(GraphicsObject):
         return self._path
 
     def _set_path(self, p):
-        self.url = self.check_valid_url(path)
+        self.url = self.check_valid_url(p)
         self._path = p
 
     path = property(_get_path, _set_path, 
