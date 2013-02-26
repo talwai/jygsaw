@@ -140,7 +140,9 @@ class Circle(Ellipse):
         super(Circle, self).__init__(
             x - radius, y - radius, radius * 2, radius * 2, color)
         self._radius = radius
-
+	self._x = x
+	self._y = y
+    	
     def _get_radius(self):
         return self._radius
 
