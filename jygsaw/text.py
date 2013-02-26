@@ -5,6 +5,13 @@ from java.awt.Graphics import setFont
 
 
 class Text(GraphicsObject):
+    """
+    Text draws a string on the window. Its arguments are x and y coordinates which 
+    represent the upper lefthand corner of where the string should begin, a String
+    that represents the words to be drawn on the window, a color and an attribute. 
+    Attributes can be PLAIN, BOLD or ITALIC, by default the attribute is PLAIN.
+    """
+
 
     def __init__(self, x, y, s, color=None, attribute=PLAIN):
         super(Text, self).__init__(x, y, color)
@@ -19,16 +26,16 @@ class Text(GraphicsObject):
     def _set_string(self, s):
         self._s = s
 
-    s = property(_get_string, _set_string)
+    s = property(_get_string, _set_string, "String that is to be drawn on the window.")
 
     def _get_size(self):
         return self._size
 
     def _set_size(self, s):
-        assert s > 0, "Text size must be greater than zero"
+        assert s > 0, "Text size must be greater than zero."
         self._size = s
 
-    size = property(_get_size, _set_size)
+    size = property(_get_size, _set_size, "Size of the text.")
 
     def _get_attribute(self):
         return self._attribute
@@ -36,7 +43,7 @@ class Text(GraphicsObject):
     def _set_attribute(self, a):
         self._attribute = a
 
-    attribute = property(_get_attribute, _set_attribute)
+    attribute = property(_get_attribute, _set_attribute, "Attribute of the text (PLAIN, BOLD, ITALIC)")
 
     def _get_font(self):
         return self._font
@@ -44,7 +51,7 @@ class Text(GraphicsObject):
     def _set_font(self, f):
         self._font = f
 
-    font = property(_get_font, _set_font)
+    font = property(_get_font, _set_font, "Font that strings are being dawn in, ex \'TIMES NEW ROMAN\'")
 
     def _draw(self, g):
         g.setColor(self.color)

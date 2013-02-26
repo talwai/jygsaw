@@ -74,16 +74,19 @@ class GraphicsWindow(ActionListener, KeyListener, MouseInputListener):
         self.user_draw_fn = None
 
     def setVisible(self, isVisible):
+        """
+        Sets the window to visible.
+        """
         self.frame.pack()
         self.frame.visible = isVisible
 
-    """
-    Takes a variable number of GraphicsObjects, or Groups of GraphicsObjects,
-    and draws them on the window. If a shape is drawn without specifiying
-    a color the default color is used. The default stroke option (True or False)
-    and stokeColor is saved in each object.
-    """
     def draw(self, *params):
+        """
+        Takes a variable number of GraphicsObjects, or Groups of
+        GraphicsObjects, and draws them on the window. If a shape is drawn
+        without specifiying a color the default color is used. The default
+        stroke option (True or False) and stokeColor is saved in each object.
+        """
         for arg in params:
             if isinstance(arg, GraphicsObject):
                 if arg.color == None:
@@ -110,55 +113,70 @@ class GraphicsWindow(ActionListener, KeyListener, MouseInputListener):
                 print "Passed in something that's not a group or graphics object"
 
     def setDefaultColor(self, c):
-        """Sets the default color of the Canvas"""
+        """Sets the default color of the Canvas."""
         self.frame.contentPane.defaultColor = c
 
     def setStrokeColor(self, c):
-        """Sets the stroke color in the Canvas"""
+        """Sets the stroke color in the Canvas."""
         self.frame.contentPane.strokeColor = c
 
     def setStroke(self, b):
+        """Turns on or off stroke in the Canvas."""
         self.frame.contentPane.stroke = b
 
     def setFilled(self, f):
+        """Turns on or off fill in the Canvas."""
         self.frame.contentPane.filled = f
 
     def setBackgroundColor(self, c):
+        """Sets the background color of the Canvas."""
         self.frame.contentPane.backgroundColor = c
         self.background = c
 
     def setFont(self, f):
+        """Sets the font of the Canvas."""
         self.frame.contentPane.font = f
 
     def setTextSize(self, s):
+        """Sets the text size of the Canvas."""
         assert s >= 0, "Font size must be greater than or equal to 0"
         self.frame.contentPane.textSize = s
 
     def getBackgroundColor(self):
+        """Returns the background color of the Canvas."""
         return self.background
 
     def redraw(self, delay=0.0):
+        """
+        Redraws the Canvas; only returns when done. An optional float
+        can also be used to sleep after redrawing.
+        """        
         self.frame.contentPane.blocking_redraw()
         sleep(delay)
 
-    """
-    In order to clear the screen, all of the objects are removed
-    from the objects list and then the screen is redrawn.
-    """
     def clear(self):
+        """Clears the screen by removing all shapes from the window."""
         self.objs = []
         self.frame.contentPane.objs = self.objs
 
-    """ These methods implemented Swing's MouseInputListener interface. """
-
     def mouseEntered(self, e):
+        """
+        Sets the mouse X and Y coordinates when the mouse enters the window.
+        Calls a user mouse entered function, if any.
+        """
         self.mouseEventType = e.getID()
         self.mouseX = e.getX()
         self.mouseY = e.getY() - 25
+        if self.onMouseEntered:
+            self.onMouseEntered()
         if debug:
             print '(%d, %d)' % (self.mouseX, self.mouseY)
 
     def mouseClicked(self, e):
+        """
+        Sets the mouse X and Y coordinates when the mouse is clicked. Calls
+        a user mouse clicked function, if any.
+        """
         self.mouseEventType = e.getID()
         self.mouseX = e.getX()
         self.mouseY = e.getY() - 25
@@ -166,9 +184,21 @@ class GraphicsWindow(ActionListener, KeyListener, MouseInputListener):
             self.onMouseClicked()
 
     def mouseExited(self, e):
+        """
+        Sets the mouse X and Y coordinates when the mouse exits the screen.
+        Calls a user mouse exited function, if any.
+        """
         self.mouseEventType = e.getID()
+        self.mouseX = e.getX()
+        self.mouseY = e.getY() - 25
+        if self.onMouseExited:
+            self.onMouseExited()
 
     def mousePressed(self, e):
+        """
+        Sets the mouse X and Y coordiantes when the mouse is pressed.
+        Calls a user mouse pressed function, if any.
+        """
         self.mouseEventType = e.getID()
         self.mouseX = e.getX()
         self.mouseY = e.getY() - 25
@@ -176,11 +206,19 @@ class GraphicsWindow(ActionListener, KeyListener, MouseInputListener):
             self.onMousePressed()
 
     def mouseReleased(self, e):
+        """
+        Sets the mouse X and Y coordinates when the mouse is released.
+        Calls a user mouse released function, if any.
+        """
         self.mouseEventType = e.getID()
         if self.onMouseReleased:
             self.onMouseReleased()
 
     def mouseMoved(self, e):
+        """
+        Sets the mouse X and Y coordinates when the mouse is moved.
+        Calls a user mouse moved function, if any.
+        """
         self.mouseEventType = e.getID()
         self.mouseX = e.getX()
         self.mouseY = e.getY() - 25
@@ -190,16 +228,21 @@ class GraphicsWindow(ActionListener, KeyListener, MouseInputListener):
             print '(%d, %d)' % (self.mouseX, self.mouseY)
 
     def mouseDragged(self, e):
+        """
+        Sets the mouse X and Y coordinates when the mouse is dragged.
+        Calls a user mouse dragged function, if any.
+        """
         self.mouseEventType = e.getID()
         self.mouseX = e.getX()
         self.mouseY = e.getY() - 25
         if self.onMouseDragged:
             self.onMouseDragged()
 
-    """
-    These methods implement Swing's KeyListener inteface.
-    """
     def keyTyped(self, e):
+        """
+        Sets the last key character and code when a key is typed. Calls a
+        user key typed function, if any.
+        """
         self.keyEventType = e.getID()
         if debug:
             print e.getKeyChar()
@@ -209,19 +252,29 @@ class GraphicsWindow(ActionListener, KeyListener, MouseInputListener):
             self.onKeyTyped()
 
     def keyPressed(self, e):
+        """
+        Sets the last key character and code when a key is pressed. Calls a
+        user key pressed function, if any.
+        """
         self.keyEventType = e.getID()
+        self.lastKeyChar = e.getKeyChar()
+        self.lastKeyCode = e.getKeyCode()
+
         if debug:
             print e.getKeyChar()
         if self.onKeyPressed:
-            self.lastKeyChar = e.getKeyChar()
-            self.lastKeyCode = e.getKeyCode()
             self.onKeyPressed()
 
     def keyReleased(self, e):
+        """
+        Sets the last key character and code when a key is released. Calls a
+        user key released function, if any.
+        """
         self.keyEventType = e.getID()
+        self.lastKeyChar = e.getKeyChar()
+        self.lastKeyCode = e.getKeyCode()
+
         if self.onKeyReleased:
-            self.lastKeyChar = e.getKeyChar()
-            self.lastKeyCode = e.getKeyCode()
             self.onKeyReleased()
 
     def _get_width(self):
@@ -238,7 +291,10 @@ class GraphicsWindow(ActionListener, KeyListener, MouseInputListener):
 
 
 class Canvas(JPanel):
-    """ Canvas to draw the action on. Owns the action and key listeners. """
+    """
+    Canvas where objects get drawn. The Canvas is automatically created
+    and attached to a window upon window creation.
+    """
 
     def __init__(self, window, objects, backgroundColor):
         self.objs = objects
@@ -256,10 +312,10 @@ class Canvas(JPanel):
     def paintComponent(self, g):
         """
         This fuction is responsible for drawing on the canvas. It is passed a
-        java graphics object that is needed in order to draw all of the GraphicsObjects.
-        Clears the window by drawing a clear rectangle over the entire window.
-        The function then runs through the entire list of objs and draws all of them
-        on the screen.
+        java Graphics object that is needed in order to draw all of the
+        GraphicsObjects. Clears the window by drawing a clear rectangle over
+        the entire window. The function then runs through the entire list of
+        objs and draws them on the Canvas.
         """
         # Run the user-defined draw function if it exists
         if self.window.user_draw_fn:
@@ -278,7 +334,10 @@ class Canvas(JPanel):
         self.redraw_requested = False
 
     def blocking_redraw(self):
-
+        """
+        Sends a redraw command to the Canvas. Only returns when the redraw
+        has been completed.
+        """
         self.redraw_requested = True
         self.repaint()
         while self.redraw_requested:
