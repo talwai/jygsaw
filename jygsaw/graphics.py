@@ -194,14 +194,6 @@ def fill(r=None, g=None, b=None):
     Sets the color to fill shapes with.
 
     See method color() for how the color values are handled.
-
-    Keyword Arguments:
-    r -- R value of the RGB fill color which will be set.
-         Defaults to None.
-    g -- G value of the RGB fill color which will be set.
-         Defaults to None.
-    b -- B value of the RGB fill color which will be set.
-         Defaults to None.
     """
     window.setFilled(True)
     if r != None:
@@ -218,14 +210,6 @@ def background(r=None, g=None, b=None):
     Sets the background color of the window.
 
     See color() for how the color values are handled.
-
-    Keyword Arguments:
-    r -- R value of the RGB background color which will be set.
-         Defaults to None.
-    g -- G value of the RGB background color which will be set.
-         Defaults to None.
-    b -- B value of the RGB background color which will be set.
-         Defaults to None.
     """
     window.setBackgroundColor(color(r, g, b))
 
@@ -482,7 +466,7 @@ def text(x, y, string, color=None, attribute=PLAIN):
     Keyword Arguments:
     color -- Color of the text. Defaults to fill color.
     attribute -- Specifies if text is PLAIN, BOLD, or ITALIC.
-                 Defaults to PLAIN.
+    Defaults to PLAIN.
     """
     newText = Text(int(x), int(y), string, color, attribute)
     window.draw(newText)

@@ -65,7 +65,7 @@ class Shape(GraphicsObject):
         """Sets the value of filled"""
         self._filled = f
 
-    filled = property(_get_filled, _set_filled, 
+    filled = property(_get_filled, _set_filled,
         "Boolean describing whether the shaped is filled or not.")
 
     def _get_stroke(self):
@@ -74,7 +74,7 @@ class Shape(GraphicsObject):
     def _set_stroke(self, s):
         self._stroke = s
 
-    stroke = property(_get_stroke, _set_stroke, 
+    stroke = property(_get_stroke, _set_stroke,
         "Boolean describing whether the shape has a stroke or not.")
 
     def _get_strokeColor(self):
@@ -83,7 +83,7 @@ class Shape(GraphicsObject):
     def _set_strokeColor(self, c):
         self._strokeColor = c
 
-    strokeColor = property(_get_strokeColor, _set_strokeColor, 
+    strokeColor = property(_get_strokeColor, _set_strokeColor,
         "Color of the stroke.")
 
     def _draw(self, g):
@@ -112,7 +112,8 @@ class Shape(GraphicsObject):
 class Ellipse(Shape):
     """
     Inherits from Shape. The (x,y) coordinates represent top left hand corner
-    of the bounding rectangle.
+    of the bounding rectangle, and width and height define the bounding
+    rectangle's width and height, respectively.
     """
     def __init__(self, x, y, width, height, color=None):
         assert width > 0, "Ellipse width must be greater than zero"
@@ -126,20 +127,26 @@ class Ellipse(Shape):
         g.fillOval(self.x, self.y, self.width, self.height)
 
 
-class Circle(Ellipse):
+class Circle(Shape):
     """
-    Circle inherits Ellipse including its _draw_fill and _draw_stroke 
-    methods. The (x, y) coordinates of a Circle represent its center, 
-    instead of the upper left hand corner of the bounding box. Unlike Ellipse, 
-    the radius of the circle is used to draw it.
+    Circle inherits from Shape. The (x, y) coordinates of a Circle
+    represent its center, instead of the upper left corner of
+    the bounding box, and it takes a radius as well.
     """
 
     # (x,y) - center of Circle
     def __init__(self, x, y, radius, color=None):
         assert radius > 0, "Circle radius must be greater than zero"
-        super(Circle, self).__init__(
-            x - radius, y - radius, radius * 2, radius * 2, color)
+        super(Circle, self).__init__(x, y, radius * 2, radius * 2, color)
         self._radius = radius
+
+    def _draw_stroke(self, g):
+        g.drawOval(self.x - self.radius, self.y - self.radius,
+                   self.radius * 2, self.radius * 2)
+
+    def _draw_fill(self, g):
+        g.fillOval(self.x - self.radius, self.y - self.radius,
+                   self.radius * 2, self.radius * 2)
 
     def _get_radius(self):
         return self._radius
@@ -169,7 +176,7 @@ class Line(Shape):
 
     """
     Inherits from Shape. Its arguments are the start (x, y), the
-    end (x, y) and a color. A line is drawn on the screen from the 
+    end (x, y) and a color. A line is drawn on the screen from the
     start point to the end point.
     """
 
@@ -189,7 +196,7 @@ class Point(Line):
 
     """
     Inherits from Line. Its arguments are an (x, y) coordinate and
-    color. The draw method from line is used; a line is drawn that 
+    color. The draw method from line is used; a line is drawn that
     starts and ends at the same point.
     """
     # (x, y) - coordinate of point
@@ -227,12 +234,11 @@ class Arc(Shape):
 
 
 class Polygon(Shape):
-    
+
     """
-    Inherits from Shape. Given a list of vertices, the points are connected 
+    Inherits from Shape. Given a list of vertices, the points are connected
     in order to create a polygon.
     """
-
 
     def __init__(self, vertices, color=None):
         super(Polygon, self).__init__(
@@ -257,14 +263,17 @@ class Polygon(Shape):
         (xValues, yValues) = zip(*self.vertices)
         g.drawPolygon(xValues, yValues, len(self.vertices))
 
+    def move(self, deltaX, deltaY):
+        self.vertices = [(x + deltaX, y + deltaY) for x, y in self.vertices]
+
 
 class RegPolygon(Shape):
     """
-    Inherits from Shape. Given an (x, y) coordinate, number of sides, length of 
-    the sides and a color a regular polygon is drawn on the window. The class 
-    generates a list of vertices, where the first vertex is the given (x, y) 
-    coordinate and the rest are calculated using the number of sides and the length 
-    of each of the sides. 
+    Inherits from Shape. Given an (x, y) coordinate, number of sides, length of
+    the sides and a color a regular polygon is drawn on the window. The class
+    generates a list of vertices, where the first vertex is the given (x, y)
+    coordinate and the rest are calculated using the number of sides and the length
+    of each of the sides.
     """
 
     def __init__(self, x, y, sides, length, color=None):
@@ -319,3 +328,6 @@ class RegPolygon(Shape):
     def _draw_stroke(self, g):
         (xValues, yValues) = zip(*self.vertices)
         g.drawPolygon(xValues, yValues, self.sides)
+
+    def move(self, deltaX, deltaY):
+        self.vertices = [(x + deltaX, y + deltaY) for x, y in self.vertices]
