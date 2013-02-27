@@ -39,6 +39,7 @@ class GraphicsWindow(ActionListener, KeyListener, MouseInputListener):
             title, defaultCloseOperation=JFrame.EXIT_ON_CLOSE,
             size=(w, h))
 
+        self.frame.setLocationRelativeTo(None)
         self.frame.contentPane = Canvas(self, self.objs, self.backgroundColor)
         self.frame.contentPane.setPreferredSize(Dimension(w, h))
 
