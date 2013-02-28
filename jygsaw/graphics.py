@@ -500,7 +500,7 @@ def textSize(s):
     window.setTextSize(s)
 
 
-def color(r, g=None, b=None):
+def color(r, g=None, b=None, a=255):
     """
     Returns a color based on the values passed to the function.
 
@@ -521,13 +521,15 @@ def color(r, g=None, b=None):
          Defaults to None.
     b -- B value of RGB color which will be created. g must also be given.
          Defaults to None.
+    a -- Alpha value of the RBG color which will be created. a does not have
+         to be given, it will default to 255. 
     """
     if g == None or b == None:
         assert r != None and g == None and b == None, \
-            "color takes exactly 1 or 3 parameters"
+            "color takes exactly 1 or 3 or 4 parameters"
         if isinstance(r, int):
             # Will create color (r, r, r)
-            return Color(r, r, r)
+            return Color(r, r, r, a)
         if isinstance(r, Color):
             return r
         else:
@@ -535,10 +537,10 @@ def color(r, g=None, b=None):
             pass
     else:
         assert r != None and g != None and b != None, \
-            "color takes exactly 1 or 3 parameters"
+            "color takes exactly 1 or 3 or 4 parameters"
         assert isinstance(r, int) and isinstance(
             g, int) and isinstance(b, int), "color takes 3 integers"
-        return Color(r, g, b)
+        return Color(r, g, b, a)
 
 if (__name__ == '__main__') or (__name__ == 'main'):
     canvas()
