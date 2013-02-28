@@ -379,6 +379,14 @@ def lastKeyCode():
     """
     return window.lastKeyCode
 
+
+def isKeyPressed(key):
+    return window.isKeyPressed and key in window.charsPressed
+
+
+def isCodePressed(code):
+    return window.isKeyPressed and code in window.codesPressed
+
 #---------------------------------------------------------------
 
 
