@@ -206,7 +206,7 @@ def image(x, y, imagePath, width=None, height=None):
     return img
 
 
-def fill(r=None, g=None, b=None):
+def fill(r=None, g=None, b=None, a=255):
     """
     Sets the color to fill shapes with.
 
@@ -214,7 +214,7 @@ def fill(r=None, g=None, b=None):
     """
     window.setFilled(True)
     if r != None:
-        window.setDefaultColor(color(r, g, b))
+        window.setDefaultColor(color(r, g, b, a))
 
 
 def noFill():
@@ -222,13 +222,13 @@ def noFill():
     window.setFilled(False)
 
 
-def background(r=None, g=None, b=None):
+def background(r=None, g=None, b=None, a=255):
     """
     Sets the background color of the window.
 
     See color() for how the color values are handled.
     """
-    window.setBackgroundColor(color(r, g, b))
+    window.setBackgroundColor(color(r, g, b, a))
 
 #---------------------------------------------------------------
 #-----------Mouse Methods-------------------------------------
@@ -421,7 +421,7 @@ def frameRate(rate):
     _fr = float(rate)
 
 
-def stroke(r=None, g=None, b=None):
+def stroke(r=None, g=None, b=None, a=255):
     """
     Sets stroke to true. If a color is given then set the stroke
     color to that color.
@@ -435,7 +435,7 @@ def stroke(r=None, g=None, b=None):
     """
     window.setStroke(True)
     if r != None:
-        window.setStrokeColor(color(r, g, b))
+        window.setStrokeColor(color(r, g, b, a))
 
 
 def noStroke():
