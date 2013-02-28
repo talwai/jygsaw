@@ -123,6 +123,23 @@ def ellipse(x, y, width, height, color=None):
     return new_ellipse
 
 
+def triangle(x1, y1, x2, y2, x3, y3, color=None):
+    """
+    Creates, draws on the canvas and returns a polygon whose points
+    create a triangle. The function takes in six variables describing
+    the coordinates of the triangle to be drawn. Color can be optionally
+    set.
+
+    Keyword Arguments:
+    color -- Color of the polygon. Defaults to fill color.
+
+    """
+    vertices = [(x1, y1), (x2, y2), (x3, y2)]
+
+    new_polygon = Polygon(vertices, color)
+    window.draw(new_polygon)
+    return new_polygon
+
 def polygon(vertices, color=None):
     """
     Creates, draws on the canvas and returns a polygon whose points are
