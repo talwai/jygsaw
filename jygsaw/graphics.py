@@ -432,6 +432,7 @@ def stroke(r=None, g=None, b=None, a=255):
     r -- R value of the RGB stroke color. Defaults to None.
     g -- G value of the RGB stroke color. Defaults to None.
     b -- B value of the RGB stroke color. Defaults to None.
+    a -- Alpha value of the RGB stroke color. Default to 255.
     """
     window.setStroke(True)
     if r != None:
