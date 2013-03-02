@@ -27,8 +27,8 @@ class Shape(GraphicsObject):
         """
 
         super(Shape, self).__init__(x, y, color)
-        assert isinstance(width, int) and width > 0, "The width given is not an integer or it is not greater than 0."
-        assert isinstance(height, int) and height > 0, "The height given is not an integer or it is not greater than 0."
+        assert isinstance(width, int) and width >= 0, "The width given is not an integer or it is not greater than or equal to 0."
+        assert isinstance(height, int) and height >= 0, "The height given is not an integer or it is not greater than or equal to 0."
         self._width = width
         self._height = height
         self._filled = True
