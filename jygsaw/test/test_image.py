@@ -29,8 +29,6 @@ class TestImage(unittest2.TestCase):
         with self.assertRaises(Exception):
             self.i.check_valid_url(self.invalid_url)
 
-
-
     def test_path_attribute(self):
         self.assertEqual(self.i.path, self.valid_path, msg="Attribute path is set incorrectly")
 
