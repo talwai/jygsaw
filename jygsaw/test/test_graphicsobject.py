@@ -20,34 +20,34 @@ class TestShapeFunctions(unittest.TestCase):
         self.regPolygon = regPolygon(10, 300, 40, 40)
 
     def test_arc(self):
-        self.assertEqual(self.arc._get_color(), color(128, 128, 128))
+        self.assertEqual(self.arc.color, color(128, 128, 128))
 
         fill(0, 255, 0)
         self.arc = arc(300, 100, 123, 33, 34, 33)
 
-        self.assertEqual(self.arc._get_color(), green)
+        self.assertEqual(self.arc.color, green)
 
-        self.assertEqual(self.arc._get_x(), 300)
-        self.assertEqual(self.arc._get_y(), 100)
+        self.assertEqual(self.arc.x, 300)
+        self.assertEqual(self.arc.y, 100)
 
         self.arc._set_x(130)
-        self.assertEqual(self.arc._get_x(), 130)
+        self.assertEqual(self.arc.x, 130)
 
         self.arc._set_y(170)
-        self.assertEqual(self.arc._get_y(), 170)
+        self.assertEqual(self.arc.y, 170)
 
         c = color(255, 255, 255)
 
         self.arc._set_color(c)
-        self.assertEqual(self.arc._get_color(), c)
+        self.assertEqual(self.arc.color, c)
 
         self.arc.moveTo(1500, 1500)
-        self.assertEqual(self.arc._get_x(), 1500)
-        self.assertEqual(self.arc._get_y(), 1500)
+        self.assertEqual(self.arc.x, 1500)
+        self.assertEqual(self.arc.y, 1500)
 
         self.arc.move(-1600, -1600)
-        self.assertEqual(self.arc._get_x(), -100)
-        self.assertEqual(self.arc._get_y(), -100)
+        self.assertEqual(self.arc.x, -100)
+        self.assertEqual(self.arc.y, -100)
 
     def test_polygon(self):
         self.assertEqual(self.polygon._get_vertices(),
@@ -55,14 +55,14 @@ class TestShapeFunctions(unittest.TestCase):
         self.polygon.moveTo(240, 240)
         self.assertEquals(self.polygon._get_vertices(),
                           [(240, 240), (240, 360), (350, 330), (350, 240)])
-        self.assertEqual(self.polygon._get_x(), 240)
+        self.assertEqual(self.polygon.x, 240)
 
         self.polygon.move(350, 350)
-        self.assertEqual(self.polygon._get_y(), 590)
+        self.assertEqual(self.polygon.y, 590)
 
     def test_circle(self):
-        self.assertEqual(self.circle._get_x(), 20)
-
+        self.assertEqual(self.circle.x, 20)
+        self.assertEqual(self.circle.y, 20)
 
 if (__name__ == '__main__') or (__name__ == 'main'):
     unittest.main()
