@@ -26,13 +26,15 @@ class Image(GraphicsObject):
 
     def __init__(self, x, y, path, width=None, height=None):
         super(Image, self).__init__(x, y)
-        assert isinstance(width, int) and width> 0, "Image width must be greater than zero"
-        assert isinstance(height, int) and height > 0, "Image width must be greater than zero"
+        assert (isinstance(width, int) and width > 0) or width == None, "Image width must be greater than zero"
+        assert (isinstance(height, int) and height > 0) or width == None, "Image width must be greater than zero"
+        assert isinstance(x, int), "Coordinates must be an int."
+        assert isinstance(y, int), "Coordinates must be an int."
+
 
         # Stores a boolean describing whether or not the path given is a
         # url or file path. Throws an exception if it isn't either
         self.url = self.check_valid_url(path)
-
         self._path = path  # path can be either a url or a file path
         self._width = width
         self._height = height
