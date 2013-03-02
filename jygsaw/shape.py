@@ -27,6 +27,8 @@ class Shape(GraphicsObject):
         """
 
         super(Shape, self).__init__(x, y, color)
+        assert isinstance(width, int) and width > 0, "The width given is not an integer or it is not greater than 0."
+        assert isinstance(height, int) and height > 0, "The height given is not an integer or it is not greater than 0."
         self._width = width
         self._height = height
         self._filled = True
@@ -39,7 +41,7 @@ class Shape(GraphicsObject):
 
     def _set_width(self, w):
         """Sets the value of width as long as the value is greater than zero."""
-        assert w > 0, "Shape width must be greater than zero"
+        assert isinstance(w, int) and w > 0, "Shape width must be greater than zero and an integer."
         self._width = w
 
     width = property(_get_width, _set_width,
@@ -51,7 +53,7 @@ class Shape(GraphicsObject):
 
     def _set_height(self, h):
         """Sets the value of height as long as the value is greater than zero"""
-        assert h > 0, "Shape height must be greater than zero"
+        assert isinstance(h, int) and h > 0, "Shape height must be greater than zero and an integer."
         self._height = h
 
     height = property(_get_height, _set_height,
@@ -63,6 +65,7 @@ class Shape(GraphicsObject):
 
     def _set_filled(self, f):
         """Sets the value of filled"""
+        assert isinstance(f, bool), "Filled must be set to a Boolean"
         self._filled = f
 
     filled = property(_get_filled, _set_filled,
@@ -72,6 +75,7 @@ class Shape(GraphicsObject):
         return self._stroke
 
     def _set_stroke(self, s):
+        assert isinstance(s, bool), "Stroke must be set to a Boolean"
         self._stroke = s
 
     stroke = property(_get_stroke, _set_stroke,
@@ -81,6 +85,7 @@ class Shape(GraphicsObject):
         return self._strokeColor
 
     def _set_strokeColor(self, c):
+        assert c == None or isinstance(c, Color), "The object passed is not a Color object."
         self._strokeColor = c
 
     strokeColor = property(_get_strokeColor, _set_strokeColor,
@@ -116,8 +121,6 @@ class Ellipse(Shape):
     rectangle's width and height, respectively.
     """
     def __init__(self, x, y, width, height, color=None):
-        assert width > 0, "Ellipse width must be greater than zero"
-        assert height > 0, "Ellipse height must be greater than zero"
         super(Ellipse, self).__init__(x, y, width, height, color)
 
     def _draw_stroke(self, g):
@@ -152,7 +155,7 @@ class Circle(Shape):
         return self._radius
 
     def _set_radius(self, r):
-        assert r > 0, "Circle radius must be greater than zero"
+        assert isinstance(r, int) and r > 0, "Circle radius must be greater than zero and an integer."
         self._radius = r
 
     radius = property(_get_radius, _set_radius, "Radius of the Circle.")
@@ -161,8 +164,6 @@ class Circle(Shape):
 class Rectangle(Shape):
     # (x,y) - top-left vertex of Rectangle
     def __init__(self, x, y, width, height, color=None):
-        assert width > 0, "Rectangle width must be greater than zero"
-        assert height > 0, "Rectangle height must be greater than zero"
         super(Rectangle, self).__init__(x, y, width, height, color)
 
     def _draw_fill(self, g):
@@ -217,9 +218,6 @@ class Arc(Shape):
     """
 
     def __init__(self, x, y, width, height, startAngle, arcAngle, color=None):
-
-        assert width > 0, "Arc width must be greater than zero"
-        assert height > 0, "Arc height must be greater than zero"
         super(Arc, self).__init__(x, y, width, height, color)
         self.startAngle = startAngle
         self.arcAngle = arcAngle
