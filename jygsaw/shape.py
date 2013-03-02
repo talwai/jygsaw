@@ -285,7 +285,7 @@ class RegPolygon(Shape):
 
     def __init__(self, x, y, sides, length, color=None):
         super(RegPolygon, self).__init__(x, y, 0, 0, color)
-        assert sides >= 0, "Number of sides must be greater than or equal to 0 "
+        assert sides >= 3, "Number of sides must be greater than or equal to 3"
         assert length > 0, "Length of sides must be greater than 0 "
 
         self._vertices = []
@@ -302,7 +302,7 @@ class RegPolygon(Shape):
         return self._vertices
 
     def _set_vertices(self, v):
-        assert v > 0, "Number of vertices must be greater that 0"
+        assert v > 0, "Number of vertices must be greater than 0"
         self._vertices = v
 
     vertices = property(_get_vertices, _set_vertices, "List of vertices, where the vertices are tuples of two integers.")
@@ -311,7 +311,7 @@ class RegPolygon(Shape):
         return self._sides
 
     def _set_sides(self, s):
-        assert s >= 0, "Number of sides must be greater than or equal to 0 "
+        assert s >= 3, "Number of sides must be greater than or equal to 3"
         self._sides = s
         self.sideAngle = (2 * PI) / self._sides
 
@@ -323,7 +323,7 @@ class RegPolygon(Shape):
     def _get_sideLength(self, l):
         assert l > 0, "Length of sides must be greater than 0"
         self._sideLength = l
-        self.radius = self._sideLength * sin(.5 * (PI - self._sideAngle)) / \
+        self.radius = self._sideLength * sin(.5 * (PI - self.sideAngle)) / \
             sin(self.sideAngle)
 
     sideLength = property(_set_sideLength, _get_sideLength, "Length of each side.")

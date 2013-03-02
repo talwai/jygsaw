@@ -45,11 +45,14 @@ class TestShapeFunctions(unittest.TestCase):
 
     def test_regpolygon(self):
         self.assertEqual(self.regPolygon.sides,40)
-        self.regPolygon._set_sides(30)
+        self.regPolygon.sides = 30
 
         self.assertEqual(self.regPolygon.sides,30)
 
         self.assertEqual(self.regPolygon.sideLength,40)
+
+        self.regPolygon.sideLength = 20
+        self.assertEqual(self.regPolygon.sideLength,20)
 
 if (__name__ == '__main__') or (__name__ == 'main'):
     unittest.main()
