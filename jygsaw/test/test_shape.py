@@ -49,6 +49,7 @@ class TestShapeFunctions(unittest.TestCase):
 
         self.assertEqual(self.regPolygon.sides,30)
 
+        self.assertEqual(self.regPolygon.sideLength,40)
 
         self.regPolygon.sideLength = 20
         self.assertEqual(self.regPolygon.sideLength,20)
