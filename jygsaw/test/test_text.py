@@ -66,7 +66,7 @@ class TestTextClass(unittest2.TestCase):
         with self.assertRaises(Exception):
             self.text.font = 432
 
-        with self.assertRasises(Exception):
+        with self.assertRaises(Exception):
             self.text.font = 'INVALID TEXT FONT'
 
 if __name__ == '__main__':
