@@ -108,12 +108,13 @@ class TestArc(BaseShapeClassTests, unittest.TestCase):
         return arc(20, 20, 30, 30, 0, 90)
 
 
+
+###### This does not inherit from tthe BaseShapeClass class!!!
 class TestBackground(unittest.TestCase):
     # this fails. why?
     def test_background(self):
         background(blue)
         self.c = canvas()
-        loop()
         self.assertEqual(self.c.frame.contentPane.backgroundColor, blue)
 
 if __name__ == '__main__':
