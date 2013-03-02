@@ -313,7 +313,7 @@ class RegPolygon(Shape):
         return self._sides
 
     def _set_sides(self, s):
-        assert sides >= 0, "Number of sides must be greater than or equal to 0 "
+        assert s >= 0, "Number of sides must be greater than or equal to 0 "
         self._sides = s
         self.sideAngle = (2 * PI) / self._sides
 
