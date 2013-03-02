@@ -325,7 +325,7 @@ class RegPolygon(Shape):
     def _get_sideLength(self, l):
         assert l > 0, "Length of sides must be greater than 0"
         self._sideLength = l
-        self.radius = self._sideLength * sin(.5 * (PI - self._sideAngle)) / \
+        self.radius = self._sideLength * sin(.5 * (PI - self.sideAngle)) / \
             sin(self.sideAngle)
 
     sideLength = property(_set_sideLength, _get_sideLength, "Length of each side.")
