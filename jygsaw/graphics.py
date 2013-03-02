@@ -206,7 +206,7 @@ def image(x, y, imagePath, width=None, height=None):
     return img
 
 
-def fill(r=None, g=None, b=None):
+def fill(r=None, g=None, b=None, a=255):
     """
     Sets the color to fill shapes with.
 
@@ -214,7 +214,7 @@ def fill(r=None, g=None, b=None):
     """
     window.setFilled(True)
     if r != None:
-        window.setDefaultColor(color(r, g, b))
+        window.setDefaultColor(color(r, g, b, a))
 
 
 def noFill():
@@ -222,13 +222,13 @@ def noFill():
     window.setFilled(False)
 
 
-def background(r=None, g=None, b=None):
+def background(r=None, g=None, b=None, a=255):
     """
     Sets the background color of the window.
 
     See color() for how the color values are handled.
     """
-    window.setBackgroundColor(color(r, g, b))
+    window.setBackgroundColor(color(r, g, b, a))
 
 #---------------------------------------------------------------
 #-----------Mouse Methods-------------------------------------
@@ -421,7 +421,7 @@ def frameRate(rate):
     _fr = float(rate)
 
 
-def stroke(r=None, g=None, b=None):
+def stroke(r=None, g=None, b=None, a=255):
     """
     Sets stroke to true. If a color is given then set the stroke
     color to that color.
@@ -432,10 +432,11 @@ def stroke(r=None, g=None, b=None):
     r -- R value of the RGB stroke color. Defaults to None.
     g -- G value of the RGB stroke color. Defaults to None.
     b -- B value of the RGB stroke color. Defaults to None.
+    a -- Alpha value of the RGB stroke color. Default to 255.
     """
     window.setStroke(True)
     if r != None:
-        window.setStrokeColor(color(r, g, b))
+        window.setStrokeColor(color(r, g, b, a))
 
 
 def noStroke():
@@ -500,7 +501,7 @@ def textSize(s):
     window.setTextSize(s)
 
 
-def color(r, g=None, b=None):
+def color(r, g=None, b=None, a=255):
     """
     Returns a color based on the values passed to the function.
 
@@ -521,13 +522,15 @@ def color(r, g=None, b=None):
          Defaults to None.
     b -- B value of RGB color which will be created. g must also be given.
          Defaults to None.
+    a -- Alpha value of the RBG color which will be created. a does not have
+         to be given, it will default to 255. 
     """
     if g == None or b == None:
         assert r != None and g == None and b == None, \
-            "color takes exactly 1 or 3 parameters"
+            "color takes exactly 1 or 3 or 4 parameters"
         if isinstance(r, int):
             # Will create color (r, r, r)
-            return Color(r, r, r)
+            return Color(r, r, r, a)
         if isinstance(r, Color):
             return r
         else:
@@ -535,10 +538,10 @@ def color(r, g=None, b=None):
             pass
     else:
         assert r != None and g != None and b != None, \
-            "color takes exactly 1 or 3 parameters"
+            "color takes exactly 1 or 3 or 4 parameters"
         assert isinstance(r, int) and isinstance(
             g, int) and isinstance(b, int), "color takes 3 integers"
-        return Color(r, g, b)
+        return Color(r, g, b, a)
 
 if (__name__ == '__main__') or (__name__ == 'main'):
     canvas()
