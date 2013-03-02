@@ -19,6 +19,5 @@ stroke(255)        # Set line drawing color to white
 noLoop()
 y = int(height() * 0.5)
 
-
-onDraw(draw)
 onMousePress(draw)
+onDraw(draw)

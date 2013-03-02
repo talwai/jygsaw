@@ -83,6 +83,7 @@ class GraphicsWindow(ActionListener, KeyListener, MouseInputListener):
 
     def setVisible(self, isVisible):
         """Sets the window to visible."""
+        assert isinstance(isVisible, bool), "Variable is not a boolean."
         self.frame.pack()
         self.frame.visible = isVisible
 
@@ -120,32 +121,38 @@ class GraphicsWindow(ActionListener, KeyListener, MouseInputListener):
 
     def setDefaultColor(self, c):
         """Sets the default color of the Canvas."""
+        assert isinstance(c, Color), "The object passed is not a Color object."
         self.frame.contentPane.defaultColor = c
 
     def setStrokeColor(self, c):
         """Sets the stroke color in the Canvas."""
+        assert isinstance(c, Color), "The object passed is not a Color object."
         self.frame.contentPane.strokeColor = c
 
     def setStroke(self, b):
         """Turns stroke on or off in the Canvas."""
+        assert isinstance(b, bool), "Variable given is not a boolean."
         self.frame.contentPane.stroke = b
 
     def setFilled(self, f):
         """Turns fill on or off in the Canvas."""
+        assert isinstance(f, bool), "Variable given is not a boolean."
         self.frame.contentPane.filled = f
 
     def setBackgroundColor(self, c):
         """Sets the background color of the Canvas."""
+        assert isinstance(c, Color), "The object passed is not a Color object."
         self.frame.contentPane.backgroundColor = c
         self.background = c
 
     def setFont(self, f):
         """Sets the font of the Canvas."""
+
         self.frame.contentPane.font = f
 
     def setTextSize(self, s):
         """Sets the text size of the Canvas."""
-        assert s >= 0, "Font size must be greater than or equal to 0"
+        assert s >= 0 and isinstance(s, int), "Font size must be greater than or equal to 0"
         self.frame.contentPane.textSize = s
 
     def getBackgroundColor(self):
@@ -364,6 +371,7 @@ class Canvas(JPanel):
 
     def _set_defaultColor(self, c):
         """Set the default color of the Canvas"""
+        assert isinstance(c, Color), "The object passed is not a Color object."
         self._defaultColor = c
 
     defaultColor = property(_get_defaultColor, _set_defaultColor,
@@ -375,6 +383,7 @@ class Canvas(JPanel):
 
     def _set_backgroundColor(self, c):
         """Set the background color of the Canvas"""
+        assert isinstance(c, Color), "The object passed is not a Color object."
         self._backgroundColor = c
 
     backgroundColor = property(_get_backgroundColor, _set_backgroundColor,
@@ -385,7 +394,8 @@ class Canvas(JPanel):
         return self._strokeColor
 
     def _set_strokeColor(self, c):
-        """Sets the strokeColor with the color passed as an argument"""
+        """Sets the strokeColor with the color passed as an argument."""
+        assert isinstance(c, Color), "The object passed is not a Color object."
         self._strokeColor = c
 
     strokeColor = property(
@@ -396,7 +406,8 @@ class Canvas(JPanel):
         return self._stroke
 
     def _set_stroke(self, b):
-        """Sets stroke to the boolean given"""
+        """Sets stroke to the boolean given."""
+        assert isinstance(b, bool), "The variable given is not a boolean."
         self._stroke = b
 
     stroke = property(_get_stroke, _set_stroke,
@@ -407,6 +418,7 @@ class Canvas(JPanel):
         return self._filled
 
     def _set_filled(self, f):
+        assert isinstance(f, bool), "The variable given is not a boolean"
         self._filled = f
 
     filled = property(_get_filled, _set_filled,
@@ -424,6 +436,7 @@ class Canvas(JPanel):
         return self._textSize
 
     def _set_textSize(self, f):
+        assert f > 0 or isinstance(f, bool), "Text size must be an integer greater than 0."
         self._textSize = f
 
     textSize = property(_get_textSize, _set_textSize)
