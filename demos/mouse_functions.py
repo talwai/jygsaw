@@ -43,6 +43,7 @@ def mousePressed():
     if overBox:
         locked = True
         fill(255, 255, 255)
+        print "should fill"
     else:
         locked = False
 

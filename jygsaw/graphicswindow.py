@@ -11,6 +11,7 @@ from javax.swing import JFrame, JPanel
 from javax.swing.event import MouseInputListener
 from image import *
 from group import *
+from sets import Set
 from shape import *
 from text import *
 from time import sleep
@@ -75,8 +76,10 @@ class GraphicsWindow(ActionListener, KeyListener, MouseInputListener):
         # Key values
         self.lastKeyChar = None
         self.lastKeyCode = None
+        self.charsPressed = Set()
+        self.codesPressed = Set()
 
-        self.user_draw_fn = None
+        self.userDrawFn = None
 
     def setVisible(self, isVisible):
         """Sets the window to visible."""
@@ -269,6 +272,8 @@ class GraphicsWindow(ActionListener, KeyListener, MouseInputListener):
         self.keyEventType = e.getID()
         self.lastKeyChar = e.getKeyChar()
         self.lastKeyCode = e.getKeyCode()
+        self.charsPressed.add(self.lastKeyChar)
+        self.codesPressed.add(self.lastKeyCode)
 
         if debug:
             print e.getKeyChar()
@@ -283,9 +288,16 @@ class GraphicsWindow(ActionListener, KeyListener, MouseInputListener):
         self.keyEventType = e.getID()
         self.lastKeyChar = e.getKeyChar()
         self.lastKeyCode = e.getKeyCode()
+        self.charsPressed.remove(self.lastKeyChar)
+        self.codesPressed.remove(self.lastKeyCode)
 
         if self.onKeyReleased:
             self.onKeyReleased()
+
+    def _is_key_pressed(self):
+        return bool(self.charsPressed)
+
+    isKeyPressed = property(_is_key_pressed, 'Width of canvas')
 
     def _get_width(self):
         """Get the width of the canvas"""
@@ -328,8 +340,8 @@ class Canvas(JPanel):
         objs and draws them on the Canvas.
         """
         # Run the user-defined draw function if it exists
-        if self.window.user_draw_fn:
-            self.window.user_draw_fn()
+        if self.window.userDrawFn:
+            self.window.userDrawFn()
 
         g.setRenderingHint(RenderingHints.KEY_ANTIALIASING,
                            RenderingHints.VALUE_ANTIALIAS_ON)

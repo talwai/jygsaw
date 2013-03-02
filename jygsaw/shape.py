@@ -263,12 +263,16 @@ class Polygon(Shape):
 
     def moveTo(self, x, y):
         self.move(x - self.x, y - self.y)
+        self.x = x
+        self.y = y
 
     def move(self, deltaX, deltaY):
         assert isinstance(deltaX, int), "The x value given is not an integer."
         assert isinstance(deltaY, int), "The y value given is not an integer."
         self.vertices = [(x + deltaX, y + deltaY) for x, y in self.vertices]
 
+        self.x = self.x + deltaX
+        self.y = self.y + deltaY
 
 class RegPolygon(Shape):
     """
@@ -307,7 +311,7 @@ class RegPolygon(Shape):
         return self._sides
 
     def _set_sides(self, s):
-        assert sides >= 0, "Number of sides must be greater than or equal to 0 "
+        assert s >= 0, "Number of sides must be greater than or equal to 0 "
         self._sides = s
         self.sideAngle = (2 * PI) / self._sides
 

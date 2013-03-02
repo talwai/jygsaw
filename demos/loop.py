@@ -29,7 +29,6 @@ def draw():
 
 
 def mousePressed():
-    print 'mousePressed'
     loop()
 
 onMousePress(mousePressed)
