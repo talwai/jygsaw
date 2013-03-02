@@ -25,8 +25,8 @@ class TestShapeFunctions(unittest.TestCase):
         fill(0, 255, 0)
         self.arc = arc(300, 100, 123, 33, 34, 33)
 
-        self.assertEqual(self.arc._get_filled, True)
-        self.assertEqual(self.arc._filled, green)
+        self.assertEqual(self.arc._get_filled(), True)
+        self.assertEqual(self.arc._color, green)
 
         self.assertEqual(self.arc._get_color(), green)
 
@@ -42,6 +42,16 @@ class TestShapeFunctions(unittest.TestCase):
     def test_polygon(self):
         self.assertEqual(self.polygon._get_vertices(), [(250, 250), (250,
                          370), (360, 340), (360, 250)])
+
+    def test_regpolygon(self):
+        self.assertEqual(self.regPolygon.sides,40)
+        self.regPolygon.sides = 30
+
+        self.assertEqual(self.regPolygon.sides,30)
+
+
+        self.regPolygon.sideLength = 20
+        self.assertEqual(self.regPolygon.sideLength,20)
 
 if (__name__ == '__main__') or (__name__ == 'main'):
     unittest.main()

@@ -77,7 +77,6 @@ class GraphicsWindow(ActionListener, KeyListener, MouseInputListener):
         self.lastKeyCode = None
         self.charsPressed = Set()
         self.codesPressed = Set()
-        self.isKeyPressed = False
 
         self.userDrawFn = None
 
@@ -267,7 +266,6 @@ class GraphicsWindow(ActionListener, KeyListener, MouseInputListener):
         self.lastKeyCode = e.getKeyCode()
         self.charsPressed.add(self.lastKeyChar)
         self.codesPressed.add(self.lastKeyCode)
-        self.isKeyPressed = True
 
         if debug:
             print e.getKeyChar()
@@ -284,10 +282,14 @@ class GraphicsWindow(ActionListener, KeyListener, MouseInputListener):
         self.lastKeyCode = e.getKeyCode()
         self.charsPressed.remove(self.lastKeyChar)
         self.codesPressed.remove(self.lastKeyCode)
-        self.isKeyPressed = False
 
         if self.onKeyReleased:
             self.onKeyReleased()
+
+    def _is_key_pressed(self):
+        return bool(self.charsPressed)
+
+    isKeyPressed = property(_is_key_pressed, 'Width of canvas')
 
     def _get_width(self):
         """Get the width of the canvas"""
