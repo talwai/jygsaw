@@ -76,7 +76,7 @@ def line(x1, y1, x2, y2, color=None):
 
     * *color* -- Color of the line. Defaults to fill color.
     """
-    new_line = Line((int(x1), int(y1)), (int(x2), int(y2)), color)
+    new_line = Line(int(x1), int(y1), int(x2), int(y2), color)
     window.draw(new_line)
     return new_line
 
