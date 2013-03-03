@@ -27,8 +27,8 @@ class Shape(GraphicsObject):
         """
 
         super(Shape, self).__init__(x, y, color)
-        assert isinstance(width, int) and width > 0, "The width given is not an integer or it is not greater than 0."
-        assert isinstance(height, int) and height > 0, "The height given is not an integer or it is not greater than 0."
+        assert isinstance(width, int) and width >= 0, "The width given is not an integer or it is not greater than or equal to 0."
+        assert isinstance(height, int) and height >= 0, "The height given is not an integer or it is not greater than or equal to0."
         self._width = width
         self._height = height
         self._filled = True
@@ -123,11 +123,12 @@ class Ellipse(Shape):
     def __init__(self, x, y, width, height, color=None):
         super(Ellipse, self).__init__(x, y, width, height, color)
 
-    def _draw_stroke(self, g):
-        g.drawOval(self.x, self.y, self.width, self.height)
+    def _draw_stroke(self, g2):
+        
+        g2.drawOval(self.x, self.y, self.width, self.height)
 
     def _draw_fill(self, g):
-        g.fillOval(self.x, self.y, self.width, self.height)
+        g2.fillOval(self.x, self.y, self.width, self.height)
 
 
 class Circle(Shape):
