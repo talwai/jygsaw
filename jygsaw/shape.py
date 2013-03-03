@@ -41,7 +41,7 @@ class Shape(GraphicsObject):
 
     def _set_width(self, w):
         """Sets the value of width as long as the value is greater than zero."""
-        assert isinstance(w, int) and w > 0, "Shape width must be greater than zero and an integer."
+        assert isinstance(w, int) and w >= 0, "Shape width must be greater than or equal to zero and an integer."
         self._width = w
 
     width = property(_get_width, _set_width,
