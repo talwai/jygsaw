@@ -4,7 +4,7 @@ setup(
     name='Jygsaw',
     version='0.1.0',
     author='Balkcom\'s Army',
-    author_email='balkcoms-army@googlegroups.com',
+    author_email='jygsaw@cs.dartmouth.edu',
     packages=['jygsaw', 'jygsaw.test'],
     scripts=[],
     url='https://bitbucket.org/haplesshero13/cs98library/',

@@ -92,6 +92,7 @@ class Shape(GraphicsObject):
         "Color of the stroke.")
 
     def _draw(self, g):
+        
         """
         Hidden draw method for all Shape objects. Each shape that inherits from
         Shape needs to have its own _draw method or two methods: _draw_fill()
@@ -115,8 +116,9 @@ class Shape(GraphicsObject):
 
 
 class Ellipse(Shape):
+    
     """
-    Inherits from Shape. The (x,y) coordinates represent top left hand corner
+    Inherits from Shape. The x, y coordinates represent top left hand corner
     of the bounding rectangle, and width and height define the bounding
     rectangle's width and height, respectively.
     """
@@ -131,8 +133,9 @@ class Ellipse(Shape):
 
 
 class Circle(Shape):
+    
     """
-    Circle inherits from Shape. The (x, y) coordinates of a Circle
+    Circle inherits from Shape. The x, y coordinates of a Circle
     represent its center, instead of the upper left corner of
     the bounding box, and it takes a radius as well.
     """
@@ -162,7 +165,12 @@ class Circle(Shape):
 
 
 class Rectangle(Shape):
-    # (x,y) - top-left vertex of Rectangle
+
+    """
+    Inherits from Shape. Its arguments are x, y, coordinates, width,
+    height and optionally color. A rectangle is drawn on the screen with
+    its top-left corner at the x, y coordinate.
+    """
     def __init__(self, x, y, width, height, color=None):
         super(Rectangle, self).__init__(x, y, width, height, color)
 
@@ -176,12 +184,12 @@ class Rectangle(Shape):
 class Line(Shape):
 
     """
-    Inherits from Shape. Its arguments are the start (x, y), the
-    end (x, y) and a color. A line is drawn on the screen from the
+    Inherits from Shape. Its arguments are the start x, y, the
+    end x, y and a color. A line is drawn on the screen from the
     start point to the end point.
     """
 
-    def __init__(self, (startX, startY), (endX, endY), color=None):
+    def __init__(self, startX, startY, endX, endY, color=None):
         super(Line, self).__init__(startX, startY, 0, 0, color)
         self.startX = startX
         self.startY = startY
@@ -194,9 +202,9 @@ class Line(Shape):
 
 
 class Point(Line):
-
+    
     """
-    Inherits from Line. Its arguments are an (x, y) coordinate and
+    Inherits from Line. Its arguments are x, y coordinates and
     color. The draw method from line is used; a line is drawn that
     starts and ends at the same point.
     """
@@ -209,11 +217,12 @@ class Point(Line):
 
 
 class Arc(Shape):
+    
     """
     Based in polar coordinate convention, with 0 degrees pointing 3 o'clock
     positive degree values are in the counter-clockwise direction; negative in clockwise
     startAngle is where the arc begins; arc is extended for arcAngle degrees
-    (x,y) - upper left corner of the arc's rectangle to be filled
+    x, y - upper left corner of the arc's rectangle to be filled
     width and height are the width and height of the arc to be filled
     """
 
@@ -276,9 +285,9 @@ class Polygon(Shape):
 
 class RegPolygon(Shape):
     """
-    Inherits from Shape. Given an (x, y) coordinate, number of sides, length of
+    Inherits from Shape. Given an x, y coordinate, number of sides, length of
     the sides and a color a regular polygon is drawn on the window. The class
-    generates a list of vertices, where the first vertex is the given (x, y)
+    generates a list of vertices, where the first vertex is the given x, y
     coordinate and the rest are calculated using the number of sides and the length
     of each of the sides.
     """

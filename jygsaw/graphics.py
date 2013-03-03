@@ -23,13 +23,14 @@ _fr = 60.0  # Frame Rate
 
 def canvas(width=400, height=400, window_title='Jygsaw Canvas', background=white):
     """
-    Creates and returns a new Jygsaw Window and Canvas.
+    Creates and returns a new Jygsaw :py:class:`~jygsaw.graphicswindow.GraphicsWindow` and
+    :py:class:`~jygsaw.graphicswindow.Canvas`.
 
-    Keyword arguments:
-    width -- Width of the canvas in the window. Defaults to 400.
-    height -- Height of the canvas in the window. Defaults to 400.
-    window_title -- Title of the window. Defaults to 'Jygsaw Canvas'.
-    background -- Color of the canvas's background. Defaults to white.
+    | Keyword arguments:
+    * width -- Width of the canvas in the window. Defaults to 400.
+    * height -- Height of the canvas in the window. Defaults to 400.
+    * window_title -- Title of the window. Defaults to 'Jygsaw Canvas'.
+    * background -- Color of the canvas's background. Defaults to white.
     """
     global window
     window = GraphicsWindow(window_title, int(width), int(height), background)
@@ -53,11 +54,11 @@ def height():
 
 def point(x, y, color=None):
     """
-    Creates, draws on the canvas and returns a :py:class:`Point`
+    Creates, draws on the canvas and returns a :py:class:`~jygsaw.shape.Point`
     at (x,y). You can optionally set the color.
 
-    Keyword Arguments:
-    color -- Color of the point. Defaults to fill color.
+    | Keyword Arguments:
+    * color -- Color of the point. Defaults to fill color.
     """
     new_point = Point(int(x), int(y), color)
     window.draw(new_point)
@@ -66,12 +67,11 @@ def point(x, y, color=None):
 
 def line(x1, y1, x2, y2, color=None):
     """
-    Creates, draws on the canvas and returns a line between
-    coordinates (x1, y1), and (x2 and y2). You can optionally
-    set the color.
+    Creates, draws on the canvas and returns a :py:class:`~jygsaw.shape.Line`
+    between coordinates x1, y1, and x2, y2. You can optionally set the color.
 
-    Keyword Arguments:
-    color -- Color of the line. Defaults to fill color.
+    | Keyword Arguments:
+    * color -- Color of the line. Defaults to fill color.
     """
     new_line = Line((int(x1), int(y1)), (int(x2), int(y2)), color)
     window.draw(new_line)
@@ -80,12 +80,11 @@ def line(x1, y1, x2, y2, color=None):
 
 def rect(x, y, rectWidth, rectHeight, color=None):
     """
-    Creates, draws on the canvas and returns a rectangle with the upper
-    left corner at the given x, y coordinates. You can optionally set
-    the color.
-
-    Keyword Arguments:
-    color -- Color of the rectangle. Defaults to fill color.
+    Creates, draws on the canvas and returns a :py:class:`~jygsaw.shape.Rect`
+    with the upper left corner at the given x, y coordinates. You can optionally set the color.
+    |
+    | Keyword Arguments:
+    * color -- Color of the rectangle. Defaults to fill color.
     """
     new_rect = Rectangle(
         int(x), int(y), int(rectWidth), int(rectHeight), color)
@@ -96,11 +95,12 @@ def rect(x, y, rectWidth, rectHeight, color=None):
 def circle(x, y, radius, color=None):
 
     """
-    Creates, draws on the canvas and returns a circle centered at the given x, y
-    coordinates with the given radius. The color can be optionally set.
-
-    Keyword Arguments:
-    color -- Color of the circle. Defaults to fill color.
+    Creates, draws on the canvas and returns a :py:class:`~jygsaw.shape.Circle`
+    centered at the given x, y coordinates with the given radius.
+    The color can be optionally set.
+    |
+    | Keyword Arguments:
+    * color -- Color of the circle. Defaults to fill color.
     """
     new_circle = Circle(int(x), int(y), int(radius), color)
     window.draw(new_circle)
@@ -110,12 +110,12 @@ def circle(x, y, radius, color=None):
 def ellipse(x, y, width, height, color=None):
 
     """
-    Creates, draws on the canvas and returns an ellipse centered at the
-    given x, y coordinates, with the given width and height.
+    Creates, draws on the canvas and returns an :py:class:`~jygsaw.shape.Ellipse`
+    centered at the given x, y coordinates, with the given width and height.
     Color can be optionally set.
-
-    Keyword Arguments:
-    color -- Color of the ellipse. Defaults to fill color.
+    |
+    | Keyword Arguments:
+    * color -- Color of the ellipse. Defaults to fill color.
     """
     new_ellipse = Ellipse(
         int(x), int(y), int(width), int(height), color)
@@ -125,13 +125,13 @@ def ellipse(x, y, width, height, color=None):
 
 def triangle(x1, y1, x2, y2, x3, y3, color=None):
     """
-    Creates, draws on the canvas and returns a polygon whose points
-    create a triangle. The function takes in six variables describing
+    Creates, draws on the canvas and returns a :py:class:`~jygsaw.shape.Polygon`
+    whose points create a triangle. The function takes in six variables describing
     the coordinates of the triangle to be drawn. Color can be optionally
     set.
-
-    Keyword Arguments:
-    color -- Color of the polygon. Defaults to fill color.
+    |
+    | Keyword Arguments:
+    * color -- Color of the polygon. Defaults to fill color.
 
     """
     vertices = [(x1, y1), (x2, y2), (x3, y2)]
@@ -142,11 +142,12 @@ def triangle(x1, y1, x2, y2, x3, y3, color=None):
 
 def polygon(vertices, color=None):
     """
-    Creates, draws on the canvas and returns a polygon whose points are
-    given in a list as the first argument. Color can be optionally set.
-
-    Keyword Arguments:
-    color -- Color of the polygon. Defaults to fill color.
+    Creates, draws on the canvas and returns a :py:class:`~jygsaw.shape.Polygon`
+    whose points are given in a list as the first argument.
+    Color can be optionally set.
+    |
+    | Keyword Arguments:
+    * color -- Color of the polygon. Defaults to fill color.
     """
     new_polygon = Polygon(vertices, color)
     window.draw(new_polygon)
@@ -155,12 +156,12 @@ def polygon(vertices, color=None):
 
 def regPolygon(x, y, sides, length, color=None):
     """
-    Creates, draws on the canvas and returns a regular polygon with the given
-    number of sides at the given x, y coordinates. Each side's length is
-    determined by the given length. The color can be optionally set.
-
-    Keyword Arguments:
-    color -- Color of the regular polygon. Defaults to fill color.
+    Creates, draws on the canvas and returns a :py:class:`~jygsaw.shape.Polygon`
+    with the given number of sides at the given x, y coordinates. Each side's
+    length is determined by the given length. The color can be optionally set.
+    |
+    | Keyword Arguments:
+    * color -- Color of the regular polygon. Defaults to fill color.
     """
     new_reg_polygon = RegPolygon(
         int(x), int(y), int(sides), int(length), color)
@@ -171,16 +172,16 @@ def regPolygon(x, y, sides, length, color=None):
 def arc(x, y, width, height, startAngle, endAngle,
         color=None):
     """
-    Creates, draws on the canvas, and returns an arc centered at the
-    given x, y coordinates. The width, height, start angle, end angle,
-    set the arc's respective attributes.
-
-    The start and end angle degrees refer to a circle where 0 is on the
+    Creates, draws on the canvas, and returns an :py:class:`~jygsaw.shape.Arc`
+    centered at the given x, y coordinates. The width, height, start angle,
+    end angle, set the arc's respective attributes.
+    |
+    |The start and end angle degrees refer to a circle where 0 is on the
     left side of the screen, 90 is at the top, 180 is on the right and 270
     is at the bottom.
-
-    Keyword Arguments:
-    color -- Color of the arc. Defaults to fill color.
+    |
+    | Keyword Arguments:
+    * color -- Color of the arc. Defaults to fill color.
     """
     new_arc = Arc(
         int(x), int(y), int(width), int(height), startAngle, (endAngle - startAngle), color)
@@ -190,15 +191,17 @@ def arc(x, y, width, height, startAngle, endAngle,
 
 def image(x, y, imagePath, width=None, height=None):
     """
-    Draws an image with upper left corner at the given x, y
-    coordinates. The image should be located on your computer or online
+    Creates, draws on the canvas, and returns an :py:class:`~jygsaw.image.Image`
+    with upper left corner at the given x, y coordinates.
+    |
+    | The image should be located on your computer or online
     at the location specified by imagePath. The width and height of the
     image can be optionally set, otherwise the image's original width and height
     will be used.
-
-    Keyword Arguments:
-    width -- Width of the image. Defaults to image's original width.
-    height -- Height of the image. Defaults to image's original height.
+    |
+    | Keyword Arguments:
+    * width -- Width of the image. Defaults to image's original width.
+    * height -- Height of the image. Defaults to image's original height.
     """
     global window
     img = Image(int(x), int(y), imagePath, width, height)
@@ -209,8 +212,8 @@ def image(x, y, imagePath, width=None, height=None):
 def fill(r=None, g=None, b=None, a=255):
     """
     Sets the color to fill shapes with.
-
-    See method color() for how the color values are handled.
+    |
+    | See :py:method:`~jygsaw.graphics.color` for how the color values are handled.
     """
     window.setFilled(True)
     if r != None:
@@ -226,7 +229,7 @@ def background(r=None, g=None, b=None, a=255):
     """
     Sets the background color of the window.
 
-    See color() for how the color values are handled.
+    See :py:method:`~jygsaw.graphics.color` for how the color values are handled.
     """
     window.setBackgroundColor(color(r, g, b, a))
 
@@ -391,7 +394,7 @@ def lastKeyChar():
 def lastKeyCode():
     """
     Returns the last key code that was pressed. Codes are of the form
-    VK_[CODE], from the swing library. All the codes can be found at
+    VK_[CODE], from the key event library. All the codes can be found at
     http://docs.oracle.com/javase/1.4.2/docs/api/java/awt/event/KeyEvent.html.
     """
     return window.lastKeyCode
@@ -414,7 +417,8 @@ def noLoop():
     """
     Tells the draw function not to loop when it is called,
     or to stop looping if it has already started.
-    This is the default.
+    |
+    | This is the default.
     """
     global _toLoop
     _toLoop = False
@@ -430,14 +434,14 @@ def stroke(r=None, g=None, b=None, a=255):
     """
     Sets stroke to true. If a color is given then set the stroke
     color to that color.
-
-    See color() for how color values are handled.
-
-    Keyword Arguments:
-    r -- R value of the RGB stroke color. Defaults to None.
-    g -- G value of the RGB stroke color. Defaults to None.
-    b -- B value of the RGB stroke color. Defaults to None.
-    a -- Alpha value of the RGB stroke color. Default to 255.
+    |
+    | See :py:method:`~jygsaw.graphics.color` for how color values are handled.
+    |
+    | Keyword Arguments:
+    * r -- R value of the RGB stroke color. Defaults to None.
+    * g -- G value of the RGB stroke color. Defaults to None.
+    * b -- B value of the RGB stroke color. Defaults to None.
+    * a -- Alpha value of the RGB stroke color. Default to 255.
     """
     window.setStroke(True)
     if r != None:
@@ -457,7 +461,7 @@ def clear():
 def onDraw(user_draw):
     """
     Callback function which calls the user defined draw function.
-    It repeatedly loops if loop() has been called.
+    It repeatedly loops if :py:meth:`~jygsaw.graphics.loop` has been called.
     """
     user_draw()
     window.frame.contentPane.repaint()
@@ -470,26 +474,26 @@ def onDraw(user_draw):
 
 def redraw(delay=0.0):
     """
-    Redraws all of the objects on the window.
-
-    A delay betwen redrawing can be optionally set.
-
-    Keyword Arguments:
-    delay -- Delay before the window calls repaint. Defaults to 0.0.
+    | Redraws all of the objects on the window.
+    |
+    | A delay betwen redrawing can be optionally set.
+    |
+    | Keyword Arguments:
+    * delay -- Delay before the window calls repaint. Defaults to 0.0.
     """
     window.redraw(delay)
 
 
 def text(x, y, string, color=None, attribute=PLAIN):
     """
-    Draws specified text "string" to the screen at (x, y), with
+    | Draws specified text "string" to the screen at (x, y), with
     specified font and size and optional color and attribute
     (PLAIN, BOLD, ITALIC)
-
-    Keyword Arguments:
-    color -- Color of the text. Defaults to fill color.
-    attribute -- Specifies if text is PLAIN, BOLD, or ITALIC.
-    Defaults to PLAIN.
+    |
+    | Keyword Arguments:
+    * color -- Color of the text. Defaults to fill color.
+    * attribute -- Specifies if text is PLAIN, BOLD, or ITALIC.
+      Defaults to PLAIN.
     """
     newText = Text(int(x), int(y), string, color, attribute)
     window.draw(newText)
@@ -508,27 +512,28 @@ def textSize(s):
 
 def color(r, g=None, b=None, a=255):
     """
-    Returns a color based on the values passed to the function.
-
-    If 'r' is the only value passed and it's the name of a color,
+    | Returns a color based on the values passed to the function.
+    |
+    | If 'r' is the only value passed and it's the name of a color,
     then that color will be created and returned.
-
-    If 'r' is the only value passed and it's an integer, a color
+    |
+    | If 'r' is the only value passed and it's an integer, a color
     will be created and returned where all three values of the
     color's r, g, b are the same as 'r'.
-
-    If 'r', 'g', and 'b' all have values then a color will be
+    |
+    | If 'r', 'g', and 'b' all have values then a color will be
     created and returned with the corresponding r, g, b values.
 
-    Otherwise an assert is thrown.
-
-    Keyword Arguments:
-    g -- G value of RGB color which will be created. b must also be given.
-         Defaults to None.
-    b -- B value of RGB color which will be created. g must also be given.
-         Defaults to None.
-    a -- Alpha value of the RBG color which will be created. a does not have
-         to be given, it will default to 255.
+    |
+    | Otherwise an assert is thrown.
+    |
+    | Keyword Arguments:
+    * g -- G value of RGB color which will be created. b must also be given.
+      Defaults to None.
+    * b -- B value of RGB color which will be created. g must also be given.
+      Defaults to None.
+    * a -- Alpha value of the RBG color which will be created. a does not have
+      to be given, it will default to 255. 
     """
     if g == None or b == None:
         assert r != None and g == None and b == None, \
