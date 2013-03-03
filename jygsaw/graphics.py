@@ -396,8 +396,13 @@ def lastKeyCode():
     """
     return window.lastKeyCode
 
-#---------------------------------------------------------------
+def isKeyPressed(char):
+    return char in window.charsPressed
 
+def isCodePressed(code):
+    return code in window.codesPressed
+
+#---------------------------------------------------------
 
 def loop():
     """Tells the draw function to loop when it is called."""
@@ -523,7 +528,7 @@ def color(r, g=None, b=None, a=255):
     b -- B value of RGB color which will be created. g must also be given.
          Defaults to None.
     a -- Alpha value of the RBG color which will be created. a does not have
-         to be given, it will default to 255. 
+         to be given, it will default to 255.
     """
     if g == None or b == None:
         assert r != None and g == None and b == None, \
