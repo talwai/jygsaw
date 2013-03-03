@@ -15,7 +15,7 @@ colors = []
 
 canvas(640, 360)
 noStroke()
-background(0.5)
+background(100)
 loop()
 
 # Set a color for each key
