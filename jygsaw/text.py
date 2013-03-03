@@ -24,12 +24,13 @@ class Text(GraphicsObject):
         self._s = s
         self._font = 'Times New Roman'  # Font, however it's defined in Java...
         self._size = 12
-        self._attribute = attribute  # bold, italic, underline
+        self._attribute = attribute  # PLAIN, BOLD, ITALIC
 
     def _get_string(self):
         return self._s
 
     def _set_string(self, s):
+        assert isinstance(s, str), "The varible passed is not a string."
         self._s = s
 
     s = property(
@@ -39,7 +40,7 @@ class Text(GraphicsObject):
         return self._size
 
     def _set_size(self, s):
-        assert s > 0, "Text size must be greater than zero."
+        assert isinstance(s, int) and s > 0, "Text size must be greater than zero."
         self._size = s
 
     size = property(_get_size, _set_size, "Size of the text.")
@@ -57,6 +58,7 @@ class Text(GraphicsObject):
         return self._font
 
     def _set_font(self, f):
+        assert isinstance(f, str), "The varible passed is not a string."
         self._font = f
 
     font = property(_get_font, _set_font,

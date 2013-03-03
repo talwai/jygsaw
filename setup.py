@@ -2,7 +2,7 @@ from distutils.core import setup
 
 setup(
     name='Jygsaw',
-    version='0.0.1',
+    version='0.1.0',
     author='Balkcom\'s Army',
     author_email='balkcoms-army@googlegroups.com',
     packages=['jygsaw', 'jygsaw.test'],

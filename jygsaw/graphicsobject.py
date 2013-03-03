@@ -49,7 +49,7 @@ class GraphicsObject(object):
 
     def _set_color(self, c):
         """Sets the color of the GraphicsObject."""
-        assert c == None or isinstance(c, Color), "The object pass is not a Color object."
+        assert c == None or isinstance(c, Color), "The object passed is not a Color object."
         self._color = c
 
     color = property(_get_color, _set_color, doc="Color of the object.")
