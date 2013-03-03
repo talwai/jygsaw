@@ -41,6 +41,6 @@ while True:
 
     rectY = rectY + directionY
 
-    text((200, 200), 'Hello, world', 'Times New Roman', 50, black)
+    text(200, 200, 'Hello, world')
 
     redraw(.01)

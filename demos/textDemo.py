@@ -17,6 +17,7 @@ def draw():
     font("Georgia")
     t = text(25, 25, "Type onto the screen:", color=gray)
     font("Arial")
+
     for (i, h) in textList:
         ti = text(25, h, i, color=white)
 
