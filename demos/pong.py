@@ -2,6 +2,7 @@
 # Solution to CS 1 Lab Assignment #1.
 # Written by Peter Johnson, updated for cs1lib by Devin Balkcom.
 # Major changes by THC.
+# Ported to Jygsaw by Avery Yen.
 # Plays a game of pong.  A ball bounces around, and paddles move
 # up and down to meet the ball.  Whenever the ball hits the left or
 # right wall, the game is over.  Whenever the ball hits the top or
