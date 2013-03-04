@@ -92,7 +92,7 @@ class Shape(GraphicsObject):
         "Color of the stroke.")
 
     def _draw(self, g):
-        
+
         """
         Hidden draw method for all Shape objects. Each shape that inherits from
         Shape needs to have its own _draw method or two methods: _draw_fill()
@@ -116,7 +116,7 @@ class Shape(GraphicsObject):
 
 
 class Ellipse(Shape):
-    
+
     """
     Inherits from Shape. The x, y coordinates represent top left hand corner
     of the bounding rectangle, and width and height define the bounding
@@ -133,7 +133,7 @@ class Ellipse(Shape):
 
 
 class Circle(Shape):
-    
+
     """
     Circle inherits from Shape. The x, y coordinates of a Circle
     represent its center, instead of the upper left corner of
@@ -202,7 +202,7 @@ class Line(Shape):
 
 
 class Point(Line):
-    
+
     """
     Inherits from Line. Its arguments are x, y coordinates and
     color. The draw method from line is used; a line is drawn that
@@ -211,13 +211,13 @@ class Point(Line):
     # (x, y) - coordinate of point
     # draws a line with the same start and end point
     def __init__(self, x, y, color=None):
-        super(Point, self).__init__((x, y), (x, y), color)
+        super(Point, self).__init__(x, y, x, y, color)
         self.x = x
         self.y = y
 
 
 class Arc(Shape):
-    
+
     """
     Based in polar coordinate convention, with 0 degrees pointing 3 o'clock
     positive degree values are in the counter-clockwise direction; negative in clockwise
