@@ -13,9 +13,9 @@ class TestGroup(unittest.TestCase):
         self.polygon = polygon([(25, 25), (250, 370), (360, 340), (360, 250)])
         self.regPolygon = regPolygon(10, 300, 5, 20)
         self.circle = circle(350, 150, 50, color=red)
-        self.triangle = triangle(10,10,5,5,6,1)
-        self.triangle_b = triangle(10,10,5,5,6,1)
-        self.group = Group(self.polygon, self.regPolygon,self.triangle)
+        self.triangle = triangle(10, 10, 5, 5, 6, 1)
+        self.triangle_b = triangle(10, 10, 5, 5, 6, 1)
+        self.group = Group(self.polygon, self.regPolygon, self.triangle)
 
     def test_len(self):
         self.assertEqual(len(self.group), 3,
@@ -31,9 +31,6 @@ class TestGroup(unittest.TestCase):
         self.group.remove(self.polygon)
         self.assertEqual(len(self.group), 2,
                          msg="remove should remove an object from the group.")
-        self.group.remove(self.triangle_b)
-        self.assertEqual(len(self.group), 1,
-                                         msg="remove should remove an object from the group.")
         self.assertRaises(ValueError, self.group.remove, self.polygon)
 
     def test_move(self):
