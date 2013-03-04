@@ -57,7 +57,7 @@ class Image(GraphicsObject):
                     pass
                 return False
             except Exception:
-                print "Error could not find image."
+                raise Exception("Could not find image")
 
     def _get_path(self):
         return self._path
