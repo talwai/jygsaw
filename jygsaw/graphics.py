@@ -487,7 +487,12 @@ def onDraw(user_draw):
     window.user_draw_fn = user_draw
     while True:
         while window.toLoop:
-            window.frame.contentPane.repaint()
+            # Run the user-defined draw function if it exists
+            #if window.user_draw_fn:
+            window.user_draw_fn()
+
+            #redraw(1.0 / _fr)
+            #window.frame.contentPane.repaint()
             time.sleep(1.0 / _fr)
 
 
