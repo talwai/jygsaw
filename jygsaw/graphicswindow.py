@@ -81,7 +81,9 @@ class GraphicsWindow(ActionListener, KeyListener, MouseInputListener):
         self.charsPressed = Set()
         self.codesPressed = Set()
 
-        self.user_draw_fn = None
+        # not needed, user_draw is called directly from onDraw
+        #self.user_draw_fn = None 
+
         self.toLoop = False
 
     def setVisible(self, isVisible):
