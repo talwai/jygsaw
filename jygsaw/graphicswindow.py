@@ -9,6 +9,8 @@ from java.awt import Color, Dimension, RenderingHints
 from java.awt.Color import black, blue, cyan, darkGray, gray, green, lightGray, magenta, orange, pink, red, white, yellow
 from javax.swing import JFrame, JPanel
 from javax.swing.event import MouseInputListener
+from javax.swing import SwingUtilities 
+
 from image import *
 from group import *
 from sets import Set
@@ -79,7 +81,9 @@ class GraphicsWindow(ActionListener, KeyListener, MouseInputListener):
         self.charsPressed = Set()
         self.codesPressed = Set()
 
-        self.user_draw_fn = None
+        # not needed, user_draw is called directly from onDraw
+        #self.user_draw_fn = None 
+
         self.toLoop = False
 
     def setVisible(self, isVisible):
@@ -167,8 +171,12 @@ class GraphicsWindow(ActionListener, KeyListener, MouseInputListener):
         """
         # Use non-blocking redraw because there is no one-to-one relation
         # between calling cavas.repaint() and execution of paintComponent()
-        self.frame.contentPane.repaint()
-        # self.frame.contentPane.blocking_redraw()
+        #
+
+        if SwingUtilities.isEventDispatchThread():
+            self.frame.contentPane.repaint()   
+        else:
+            self.frame.contentPane.blocking_redraw()
         sleep(delay)
 
     def clear(self):
@@ -333,7 +341,7 @@ class Canvas(JPanel):
         self._font = "Times New Roman"
         self._textSize = 12
 
-        # self.redraw_requested = True
+        self.redraw_requested = True
 
     def paintComponent(self, g):
         """
@@ -343,9 +351,11 @@ class Canvas(JPanel):
         the entire window. The function then runs through the entire list of
         objs and draws them on the Canvas.
         """
-        # Run the user-defined draw function if it exists
-        if self.window.user_draw_fn and self.window.toLoop:
-            self.window.user_draw_fn()
+
+        #print "paint component started"
+        self.redraw_requested = False
+        #print "redraw requested false"
+
 
         g.setRenderingHint(RenderingHints.KEY_ANTIALIASING,
                            RenderingHints.VALUE_ANTIALIAS_ON)
@@ -357,16 +367,21 @@ class Canvas(JPanel):
         for obj in self.window.objs:
             obj._draw(g)
 
-        # self.redraw_requested = False
+        #print "paint component finished"
 
+ 
     def blocking_redraw(self):
         """
         Sends a redraw command to the Canvas. Only returns when the redraw
         has been completed.
         """
+
+        #print "blocking redraw called.  redraw requested true"
         self.redraw_requested = True
-        self.repaint()
+      
         while self.redraw_requested:
+            self.repaint()
+            #print "blocking"
             sleep(.001)
 
     def _get_defaultColor(self):
