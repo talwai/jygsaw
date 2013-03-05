@@ -126,7 +126,7 @@ Let's get text on the screen using keyboard input::
     onDraw(draw)
 
 ^^^^^^
-IMAGES
+Images
 ^^^^^^
 Here's how to use images in Jygsaw::
 
