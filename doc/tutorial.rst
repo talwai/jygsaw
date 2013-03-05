@@ -53,9 +53,6 @@ You should now have code like this::
 
     onDraw(draw)
 
-That outputs something like this:
-    #Can we output the code on the page
-
 Awesome!
 
 ^^^^^^^^^^^^^^
