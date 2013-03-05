@@ -56,7 +56,7 @@ You should now have code like this::
 That outputs something like this:
     #Can we output the code on the page
 
-Awesome! 
+Awesome!
 
 ^^^^^^^^^^^^^^
 Points & Lines
@@ -72,8 +72,8 @@ Now let's draw some points and lines::
     def draw():
         #width() returns the width of the canvas
         #height() returns the height of the canvas
-        lineX = random()*(width()-100) +50 
-        lineY = random()*(height()-200) +100 
+        lineX = random()*(width()-100) +50
+        lineY = random()*(height()-200) +100
         lineColor = choice([lightGray,white,orange, gray])
         line(width()/2,height(),lineX,lineY,color=lineColor)
         point(lineX, lineY -100, color=lineColor)
@@ -124,19 +124,19 @@ Let's get text on the screen using keyboard input::
 
     onKeyPress(keyPressed)
     onDraw(draw)
-    
+
 ^^^^^^
-IMAGES
+Images
 ^^^^^^
-from jygsaw.graphics import *
+Here's how to use images in Jygsaw::
 
-canvas(900, 600)
-background(green)
-offset=25
+    from jygsaw.graphics import *
 
-def draw():
-    image(0,0,"http://s3-ec.buzzfed.com/static/enhanced/terminal05/2012/2/1/16/enhanced-buzz-3821-1328131216-142.jpg", width(), height())
+    canvas(900, 600)
+    background(green)
+    offset=25
 
-onDraw(draw)
+    def draw():
+        image(0,0,"http://s3-ec.buzzfed.com/static/enhanced/terminal05/2012/2/1/16/enhanced-buzz-3821-1328131216-142.jpg", width(), height())
 
-
+    onDraw(draw)

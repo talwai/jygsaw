@@ -79,7 +79,8 @@ class GraphicsWindow(ActionListener, KeyListener, MouseInputListener):
         self.charsPressed = Set()
         self.codesPressed = Set()
 
-        self.userDrawFn = None
+        self.user_draw_fn = None
+        self.toLoop = False
 
     def setVisible(self, isVisible):
         """Sets the window to visible."""
@@ -164,7 +165,10 @@ class GraphicsWindow(ActionListener, KeyListener, MouseInputListener):
         Redraws the Canvas; only returns when done. An optional float
         can also be used to sleep after redrawing.
         """
-        self.frame.contentPane.blocking_redraw()
+        # Use non-blocking redraw because there is no one-to-one relation
+        # between calling cavas.repaint() and execution of paintComponent()
+        self.frame.contentPane.repaint()
+        # self.frame.contentPane.blocking_redraw()
         sleep(delay)
 
     def clear(self):
@@ -329,7 +333,7 @@ class Canvas(JPanel):
         self._font = "Times New Roman"
         self._textSize = 12
 
-        self.redraw_requested = True
+        # self.redraw_requested = True
 
     def paintComponent(self, g):
         """
@@ -340,8 +344,8 @@ class Canvas(JPanel):
         objs and draws them on the Canvas.
         """
         # Run the user-defined draw function if it exists
-        if self.window.userDrawFn:
-            self.window.userDrawFn()
+        if self.window.user_draw_fn and self.window.toLoop:
+            self.window.user_draw_fn()
 
         g.setRenderingHint(RenderingHints.KEY_ANTIALIASING,
                            RenderingHints.VALUE_ANTIALIAS_ON)
@@ -353,7 +357,7 @@ class Canvas(JPanel):
         for obj in self.window.objs:
             obj._draw(g)
 
-        self.redraw_requested = False
+        # self.redraw_requested = False
 
     def blocking_redraw(self):
         """

@@ -4,12 +4,13 @@ from __future__ import with_statement
 from jygsaw.graphics import *
 
 import unittest2
+import os
 
 
 class TestImage(unittest2.TestCase):
     def setUp(self):
-        self.invalid_path = "./invalid_test_puppy.jpg"
-        self.valid_path = "./puppy_for_test_image.jpg"
+        self.invalid_path = "invalid_test_puppy.jpg"
+        self.valid_path = os.path.abspath(os.path.dirname(__file__) + "/puppy_for_test_image.jpg")
         self.invalid_url = "http://invalidurl.zzzzzzz/comics/steroids.png"
         self.valid_url = "http://imgs.xkcd.com/comics/steroids.png"
 
@@ -32,8 +33,9 @@ class TestImage(unittest2.TestCase):
     def test_path_attribute(self):
         self.assertEqual(self.i.path, self.valid_path, msg="Attribute path is set incorrectly")
 
-        self.i.path = self.invalid_path
-        self.assertEqual(self.i.path, self.invalid_path, msg="Was not able to set path instance variable");
+        # Cannot assign image path to an invalid path
+        with self.assertRaises(Exception):
+            self.i.path = self.invalid_path
 
     def test_width_attribute(self):
         self.assertEqual(self.i.width, None, "Attribute width should be none")
@@ -44,7 +46,7 @@ class TestImage(unittest2.TestCase):
         # check invalid inputs throw error
         with self.assertRaises(Exception):
             self.i.width = -100
-        
+
         # check passing in non-int throws exception
         with self.assertRaises(Exception):
             sef.i.witdth = "ads"
@@ -62,8 +64,6 @@ class TestImage(unittest2.TestCase):
         # check passing in non-int throws exception
         with self.assertRaises(Exception):
             self.i.height = "ads"
-
-
 
 
 if __name__ == '__main__':

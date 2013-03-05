@@ -11,6 +11,7 @@ from java.awt.Font import *
 from java.awt.Graphics import setFont
 
 
+
 class Text(GraphicsObject):
     """
     Text draws a string on the window. Its arguments are x and y coordinates which
@@ -18,9 +19,11 @@ class Text(GraphicsObject):
     that represents the words to be drawn on the window, a color and an attribute.
     Attributes can be PLAIN, BOLD or ITALIC, by default the attribute is PLAIN.
     """
+    attributes = [PLAIN, BOLD, ITALIC]
 
     def __init__(self, x, y, s, color=None, attribute=PLAIN):
         super(Text, self).__init__(x, y, color)
+        assert attribute in self.attributes, "Attribute must be PLAIN, BOLD or ITALIC"
         self._s = s
         self._font = 'Times New Roman'  # Font, however it's defined in Java...
         self._size = 12
@@ -49,6 +52,7 @@ class Text(GraphicsObject):
         return self._attribute
 
     def _set_attribute(self, a):
+        assert a in self.attributes, "Attribute must be PLAIN, BOLD or ITALIC"
         self._attribute = a
 
     attribute = property(_get_attribute, _set_attribute,

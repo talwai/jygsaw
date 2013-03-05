@@ -28,7 +28,7 @@ class Shape(GraphicsObject):
 
         super(Shape, self).__init__(x, y, color)
         assert isinstance(width, int) and width >= 0, "The width given is not an integer or it is not greater than or equal to 0."
-        assert isinstance(height, int) and height >= 0, "The height given is not an integer or it is not greater than or equal to0."
+        assert isinstance(height, int) and height >= 0, "The height given is not an integer or it is not greater than or equal to 0."
         self._width = width
         self._height = height
         self._filled = True
@@ -41,7 +41,7 @@ class Shape(GraphicsObject):
 
     def _set_width(self, w):
         """Sets the value of width as long as the value is greater than zero."""
-        assert isinstance(w, int) and w > 0, "Shape width must be greater than zero and an integer."
+        assert isinstance(w, int) and w >= 0, "Shape width must be greater than or equal to zero and an integer."
         self._width = w
 
     width = property(_get_width, _set_width,
@@ -92,7 +92,7 @@ class Shape(GraphicsObject):
         "Color of the stroke.")
 
     def _draw(self, g):
-        
+
         """
         Hidden draw method for all Shape objects. Each shape that inherits from
         Shape needs to have its own _draw method or two methods: _draw_fill()
@@ -116,25 +116,26 @@ class Shape(GraphicsObject):
 
 
 class Ellipse(Shape):
-    
+
     """
     Inherits from Shape. The x, y coordinates represent top left hand corner
     of the bounding rectangle, and width and height define the bounding
     rectangle's width and height, respectively.
     """
+
     def __init__(self, x, y, width, height, color=None):
         super(Ellipse, self).__init__(x, y, width, height, color)
 
-    def _draw_stroke(self, g2):
-        
-        g2.drawOval(self.x, self.y, self.width, self.height)
+    def _draw_stroke(self, g):
+
+        g.drawOval(self.x, self.y, self.width, self.height)
 
     def _draw_fill(self, g):
-        g2.fillOval(self.x, self.y, self.width, self.height)
+        g.fillOval(self.x, self.y, self.width, self.height)
 
 
 class Circle(Shape):
-    
+
     """
     Circle inherits from Shape. The x, y coordinates of a Circle
     represent its center, instead of the upper left corner of
@@ -172,6 +173,7 @@ class Rectangle(Shape):
     height and optionally color. A rectangle is drawn on the screen with
     its top-left corner at the x, y coordinate.
     """
+
     def __init__(self, x, y, width, height, color=None):
         super(Rectangle, self).__init__(x, y, width, height, color)
 
@@ -203,22 +205,23 @@ class Line(Shape):
 
 
 class Point(Line):
-    
+
     """
     Inherits from Line. Its arguments are x, y coordinates and
     color. The draw method from line is used; a line is drawn that
     starts and ends at the same point.
     """
+
     # (x, y) - coordinate of point
     # draws a line with the same start and end point
     def __init__(self, x, y, color=None):
-        super(Point, self).__init__((x, y), (x, y), color)
+        super(Point, self).__init__(x, y, x, y, color)
         self.x = x
         self.y = y
 
 
 class Arc(Shape):
-    
+
     """
     Based in polar coordinate convention, with 0 degrees pointing 3 o'clock
     positive degree values are in the counter-clockwise direction; negative in clockwise
@@ -284,7 +287,9 @@ class Polygon(Shape):
         self.x = self.x + deltaX
         self.y = self.y + deltaY
 
+
 class RegPolygon(Shape):
+
     """
     Inherits from Shape. Given an x, y coordinate, number of sides, length of
     the sides and a color a regular polygon is drawn on the window. The class
