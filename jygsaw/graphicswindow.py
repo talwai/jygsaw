@@ -84,8 +84,6 @@ class GraphicsWindow(ActionListener, KeyListener, MouseInputListener):
         # not needed, user_draw is called directly from onDraw
         #self.user_draw_fn = None 
 
-        self.toLoop = False
-
     def setVisible(self, isVisible):
         """Sets the window to visible."""
         assert isinstance(isVisible, bool), "Variable is not a boolean."

@@ -18,7 +18,7 @@ rectY = 0  # Just used for testing - delete or move eventually
 directionX = 1  # Just used for testing - delete or move eventually
 directionY = 1  # Just used for testing - delete or move eventually
 _fr = 60.0  # Frame Rate
-
+_toLoop = False
 
 def canvas(width=400, height=400, window_title='Jygsaw Canvas', background=white):
     """
@@ -429,7 +429,7 @@ def isCodePressed(code):
 
 def loop():
     """Tells the draw function to loop when it is called."""
-    window.toLoop = True
+    _toLoop = True
 
 
 def noLoop():
@@ -439,7 +439,7 @@ def noLoop():
 
     This is the default.
     """
-    window.toLoop = False
+    _toLoop = False
 
 
 def frameRate(rate):
@@ -486,7 +486,7 @@ def onDraw(user_draw):
     window.frame.contentPane.repaint()
     #window.user_draw_fn = user_draw
     while True:
-        while window.toLoop:
+        while _toLoop:
             # Run the user-defined draw function if it exists
             #if window.user_draw_fn:
             user_draw()
