@@ -3,10 +3,10 @@ from jygsaw.graphics import *
 canvas(640, 360)
 fill(126)  # line color is set by stroke?
 background(102)
-loop()
 
 
 def draw():
+    clear()
     if (mousePressed()):
         fill(white)
     else:
@@ -16,3 +16,4 @@ def draw():
     line(mouseX(), mouseY() - 66, mouseX(), mouseY() + 66)
 
 onDraw(draw)
+jygsawMain(30)

@@ -478,34 +478,33 @@ def clear():
 
 
 def onDraw(user_draw):
-    """
-    Callback function which calls the user defined draw function.
-    It repeatedly loops if :py:meth:`~jygsaw.graphics.loop` has been called.
-    """
-    user_draw()
-    window.frame.contentPane.repaint()
-    #window.user_draw_fn = user_draw
-    while True:
-        while _toLoop:
-            # Run the user-defined draw function if it exists
-            #if window.user_draw_fn:
-            user_draw()
-
-            #redraw(1.0 / _fr)
-            #window.frame.contentPane.repaint()
-            time.sleep(1.0 / _fr)
+    """Callback function which calls the user defined draw function."""
+    window.onDraw = user_draw
 
 
-def redraw(delay=0.0):
+def jygsawMain(frameRate=0):
+    """Repeatedly runs user-defined draw function."""
+    window.mainRunning = True
+    if frameRate > 0:
+        while True:
+            "JygsawMain"
+            sleep(1.0 / frameRate)
+            window.frame.contentPane.repaint()
+    else:
+        window.frame.contentPane.repaint()
+
+
+def refresh(delay=0.0):
     """
     Redraws all of the objects on the window.
 
-    A delay betwen redrawing can be optionally set.
+    A delay between redrawing can be optionally set.
 
     Keyword Arguments:
 
     * *delay* -- Delay before the window calls repaint. Defaults to 0.0.
     """
+    assert(not window.mainRunning)
     window.redraw(delay)
 
 

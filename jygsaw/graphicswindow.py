@@ -9,7 +9,7 @@ from java.awt import Color, Dimension, RenderingHints
 from java.awt.Color import black, blue, cyan, darkGray, gray, green, lightGray, magenta, orange, pink, red, white, yellow
 from javax.swing import JFrame, JPanel
 from javax.swing.event import MouseInputListener
-from javax.swing import SwingUtilities 
+from javax.swing import SwingUtilities
 
 from image import *
 from group import *
@@ -17,6 +17,7 @@ from sets import Set
 from shape import *
 from text import *
 from time import sleep
+from Queue import Queue
 
 # the -O switch can't be used with jython, which is used to turn off __debug__
 # so we use debug instead
@@ -81,8 +82,13 @@ class GraphicsWindow(ActionListener, KeyListener, MouseInputListener):
         self.charsPressed = Set()
         self.codesPressed = Set()
 
+        # Event queue
+        self.eventQueue = Queue()
+
+        self.mainRunning = False
+
         # not needed, user_draw is called directly from onDraw
-        #self.user_draw_fn = None 
+        self.onDraw = None
 
     def setVisible(self, isVisible):
         """Sets the window to visible."""
@@ -172,7 +178,7 @@ class GraphicsWindow(ActionListener, KeyListener, MouseInputListener):
         #
 
         if SwingUtilities.isEventDispatchThread():
-            self.frame.contentPane.repaint()   
+            self.frame.contentPane.repaint()
         else:
             self.frame.contentPane.blocking_redraw()
         sleep(delay)
@@ -343,31 +349,27 @@ class Canvas(JPanel):
 
     def paintComponent(self, g):
         """
-        This fuction is responsible for drawing on the canvas. It is passed a
-        java Graphics object that is needed in order to draw all of the
+        This function is responsible for drawing on the canvas. It is passed a
+        Java Graphics object that is needed in order to draw all of the
         GraphicsObjects. Clears the window by drawing a clear rectangle over
         the entire window. The function then runs through the entire list of
-        objs and draws them on the Canvas.
+        objects and draws them on the Canvas.
         """
 
-        #print "paint component started"
-        self.redraw_requested = False
-        #print "redraw requested false"
-
+        if self.window.mainRunning and self.window.onDraw:
+            self.window.onDraw()
 
         g.setRenderingHint(RenderingHints.KEY_ANTIALIASING,
                            RenderingHints.VALUE_ANTIALIAS_ON)
         g.background = self.backgroundColor
         g.clearRect(0, 0, self.window.width, self.window.height)
-        g.setColor(white)  # Set color of rectangle
 
         # Iterates through and draws all of the objects
         for obj in self.window.objs:
             obj._draw(g)
 
-        #print "paint component finished"
+        self.redraw_requested = False
 
- 
     def blocking_redraw(self):
         """
         Sends a redraw command to the Canvas. Only returns when the redraw
@@ -376,7 +378,7 @@ class Canvas(JPanel):
 
         #print "blocking redraw called.  redraw requested true"
         self.redraw_requested = True
-      
+
         while self.redraw_requested:
             self.repaint()
             #print "blocking"
