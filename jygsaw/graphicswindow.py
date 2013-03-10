@@ -196,7 +196,7 @@ class GraphicsWindow(ActionListener, KeyListener, MouseInputListener):
         self.objs = []
         self.frame.contentPane.objs = self.objs
 
-    def clearHalf(self):
+    def clearHalfIfFull(self):
         """Clears the window of half of its shapes if the shape list has more shapes
         than the window's limit."""
 
