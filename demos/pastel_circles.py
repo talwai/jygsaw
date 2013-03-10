@@ -5,6 +5,7 @@ from random import randint
 
 canvas()
 background(black)
+count = 0
 
 while True:
 
@@ -23,5 +24,9 @@ while True:
 
 	fill(r, g, b)
 	circle(x, y, 50)
-
+	count = count + 2
+	if count > 200:
+		clearHalf()
+		count = count / 2
+	
 	redraw(.02)

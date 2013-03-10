@@ -476,6 +476,14 @@ def clear():
     """Clears the window of all objects and redraws screen."""
     window.clear()
 
+def clearHalf():
+    """
+    Clears the first half of the window's objects and redraws the screen.
+    
+    Useful for removing objects that are no longer visible on screen due to
+    having a large amount of objects drawn.
+    """
+    window.clearHalf()
 
 def onDraw(user_draw):
     """

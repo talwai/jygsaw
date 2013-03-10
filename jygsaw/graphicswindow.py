@@ -9,7 +9,8 @@ from java.awt import Color, Dimension, RenderingHints
 from java.awt.Color import black, blue, cyan, darkGray, gray, green, lightGray, magenta, orange, pink, red, white, yellow
 from javax.swing import JFrame, JPanel
 from javax.swing.event import MouseInputListener
-from javax.swing import SwingUtilities 
+from javax.swing import SwingUtilities
+from warnings import warn
 
 from image import *
 from group import *
@@ -34,6 +35,8 @@ class GraphicsWindow(ActionListener, KeyListener, MouseInputListener):
 
         assert w > 0, "GraphicsWindow width must be greater than zero"
         assert h > 0, "GraphicsWindow height must be greater than zero"
+
+        self._SHAPELIST_MAX_LENGTH = 200
 
         self.objs = []  # List of GraphicsObjects
         self.backgroundColor = backgroundColor
@@ -108,6 +111,12 @@ class GraphicsWindow(ActionListener, KeyListener, MouseInputListener):
                     arg.font = self.frame.contentPane.font
                     arg.size = self.frame.contentPane.textSize
                 self.objs.append(arg)
+                
+                if len(self.objs) > self._SHAPELIST_MAX_LENGTH:
+                    warn("You have more than " + str(self._SHAPELIST_MAX_LENGTH) +
+                         " to be drawn. You may want to add a clearHalf() call to your"+
+                         " code to avoid slowing your system.")
+                    
             elif isinstance(arg, Group):
                 for obj in arg.group:
                     if obj.color == None:
@@ -119,6 +128,11 @@ class GraphicsWindow(ActionListener, KeyListener, MouseInputListener):
                         arg.font = self.frame.contentPane.font
                         arg.size = self.frame.contentPane.textSize
                     self.objs.append(obj)
+                    
+                    if len(self.objs) > self._SHAPELIST_MAX_LENGTH:
+                        warn("You have more than " + str(self._SHAPELIST_MAX_LENGTH) +
+                         " to be drawn. You may want to add a clearHalf() call to your"+
+                         " code to avoid slowing your system.")
             else:
                 print "Passed in something that's not a group or graphics object"
 
@@ -181,6 +195,14 @@ class GraphicsWindow(ActionListener, KeyListener, MouseInputListener):
         """Clears the screen by removing all shapes from the window."""
         self.objs = []
         self.frame.contentPane.objs = self.objs
+
+    def clearHalf(self):
+        """Clears the window of half of its shapes if the shape list has more shapes
+        than the window's limit."""
+
+        if len(self.objs) > self._SHAPELIST_MAX_LENGTH:
+            self.objs = self.objs[len(self.objs)/2:]
+            self.frame.contentPane.objs = self.objs
 
     def mouseEntered(self, e):
         """
@@ -350,10 +372,9 @@ class Canvas(JPanel):
         objs and draws them on the Canvas.
         """
 
-        #print "paint component started"
+
         self.redraw_requested = False
         #print "redraw requested false"
-
 
         g.setRenderingHint(RenderingHints.KEY_ANTIALIASING,
                            RenderingHints.VALUE_ANTIALIAS_ON)
@@ -364,7 +385,6 @@ class Canvas(JPanel):
         # Iterates through and draws all of the objects
         for obj in self.window.objs:
             obj._draw(g)
-
         #print "paint component finished"
 
  
