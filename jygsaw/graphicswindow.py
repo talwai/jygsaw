@@ -200,7 +200,7 @@ class GraphicsWindow(ActionListener, KeyListener, MouseInputListener):
         """Clears the window of half of its shapes if the shape list has more shapes
         than the window's limit."""
 
-        if len(self.objs) > self._SHAPELIST_MAX_LENGTH:
+        if len(self.objs) >= self._SHAPELIST_MAX_LENGTH:
             self.objs = self.objs[len(self.objs)/2:]
             self.frame.contentPane.objs = self.objs
 
