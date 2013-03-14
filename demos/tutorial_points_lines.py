@@ -3,7 +3,7 @@ from random import random, choice
 
 canvas(900, 500)
 background(darkGray)
-
+loop()
 
 def draw():
     lineX = random() * 800 + 50
@@ -11,6 +11,6 @@ def draw():
     lineColor = choice([lightGray, white, orange, gray])
     line(width() / 2, height(), lineX, lineY, color=lineColor)
     point(lineX, lineY - 100, color=lineColor)
-    loop()
+    redraw()
 
 onDraw(draw)

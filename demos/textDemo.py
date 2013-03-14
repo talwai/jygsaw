@@ -22,7 +22,8 @@ def draw():
         ti = text(25, h, i, color=white)
 
     tw = text(25, currentLineHeight, words, color=white)
-
+    
+    redraw()
 
 def keyPressed():
     global words, textList, currentLineHeight, textHeight

@@ -4,6 +4,7 @@ from jygsaw.graphics import *
 def draw():
     drawCircle(width() / 2, 280, 6)
 
+    redraw()
 # Recursively draw smaller circles
 
 

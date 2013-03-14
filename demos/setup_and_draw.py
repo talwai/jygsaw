@@ -14,7 +14,7 @@ def draw():
     if (y < 0):
         y = height()
     line(0, y, width(), y)
-
+    redraw()
 canvas(640, 360)        # Size must be the first statement
 stroke(255)        # Set line drawing color to white
 frameRate(30)
