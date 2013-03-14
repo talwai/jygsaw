@@ -27,6 +27,8 @@ def draw():
     if (y < 0):
         y = height()
 
+    redraw()
+
 
 def mousePressed():
     loop()

@@ -35,6 +35,7 @@ def draw():
 
     # Draw the box
     rect(bx, by, boxSize, boxSize)
+    redraw()
 
 
 def mousePressed():
@@ -43,7 +44,6 @@ def mousePressed():
     if overBox:
         locked = True
         fill(255, 255, 255)
-        print "should fill"
     else:
         locked = False
 

@@ -8,5 +8,6 @@ loop()
 def draw():
     clear()
     circle(mouseX(), mouseY(), 5, color=red)
+    redraw()
 
 onDraw(draw)

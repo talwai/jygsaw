@@ -17,5 +17,6 @@ def draw():
     if y < 0:
         y = height()
     line(0, y, width(), y)
+    redraw()
 
 onDraw(draw)
