@@ -184,7 +184,6 @@ class GraphicsWindow(ActionListener, KeyListener, MouseInputListener):
         # Use non-blocking redraw because there is no one-to-one relation
         # between calling cavas.repaint() and execution of paintComponent()
         #
-
         if SwingUtilities.isEventDispatchThread():
             self.frame.contentPane.repaint()   
         else:
@@ -320,6 +319,8 @@ class GraphicsWindow(ActionListener, KeyListener, MouseInputListener):
         self.keyEventType = e.getID()
         self.lastKeyChar = e.getKeyChar()
         self.lastKeyCode = e.getKeyCode()
+        print "lastKeyChar: ", self.lastKeyChar
+        print "lastKeyCode: ", self.lastKeyCode
         self.charsPressed.remove(self.lastKeyChar)
         self.codesPressed.remove(self.lastKeyCode)
 

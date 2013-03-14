@@ -429,6 +429,7 @@ def isCodePressed(code):
 
 def loop():
     """Tells the draw function to loop when it is called."""
+    global _toLoop
     _toLoop = True
 
 
@@ -439,6 +440,7 @@ def noLoop():
 
     This is the default.
     """
+    global _toLoop
     _toLoop = False
 
 
@@ -494,6 +496,7 @@ def onDraw(user_draw):
     user_draw()
     window.frame.contentPane.repaint()
     #window.user_draw_fn = user_draw
+    
     while True:
         while _toLoop:
             # Run the user-defined draw function if it exists

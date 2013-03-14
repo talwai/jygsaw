@@ -12,7 +12,7 @@ def draw():
     # Keep draw to continue looping while waiting for keys.
     # I don't know why this is necessary, but doesn't work without it.
     # Processing also has it in - JL
-    pass
+    redraw()
 
 
 def keyPressed():
@@ -21,7 +21,7 @@ def keyPressed():
         keyIndex = lastKeyCode() - ord('A')
     elif lastKeyCode() >= ord('a') and lastKeyCode() <= ord('z'):
         keyIndex = lastKeyCode() - ord('a')
-
+        
     if keyIndex == -1:
         # If it's not a letter key, clear the screen
         clear()

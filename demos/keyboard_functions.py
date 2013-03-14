@@ -35,7 +35,7 @@ def draw():
             y_pos = y + minHeight
             rect(x, y_pos, letterWidth, letterHeight)
         newletter = False
-
+    redraw()
 
 def keyPressed():
     # If the key is between 'A' (65) and 'z' (122)
@@ -54,6 +54,10 @@ def keyPressed():
         fill(0)
         letterHeight = 10
 
+
+    print lastKeyCode()
+    print lastKeyChar()
+    
     global newletter
     newletter = True
 
