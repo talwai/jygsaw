@@ -9,6 +9,7 @@ from java.awt import Color, Dimension, RenderingHints
 from java.awt.Color import black, blue, cyan, darkGray, gray, green, lightGray, magenta, orange, pink, red, white, yellow
 from javax.swing import JFrame, JPanel
 from javax.swing.event import MouseInputListener
+from java.awt import Graphics2D
 from image import *
 from group import *
 from sets import Set
@@ -96,12 +97,13 @@ class GraphicsWindow(ActionListener, KeyListener, MouseInputListener):
         stroke option (True or False) and stokeColor is saved in each object.
         """
         for arg in params:
-            if isinstance(arg, GraphicsObject):
+            if isinstance(arg, GraphicsObject) or isinstance(arg, Shape):
                 if arg.color == None:
                     arg.color = self.frame.contentPane.defaultColor
                 arg.strokeColor = self.frame.contentPane.strokeColor
                 arg.stroke = self.frame.contentPane.stroke
                 arg.filled = self.frame.contentPane.filled
+                arg.strokeWidth = self.frame.contentPane.strokeWidth
                 if isinstance(arg, Text):
                     arg.font = self.frame.contentPane.font
                     arg.size = self.frame.contentPane.textSize
@@ -113,6 +115,7 @@ class GraphicsWindow(ActionListener, KeyListener, MouseInputListener):
                     obj.strokeColor = self.frame.contentPane.strokeColor
                     obj.stroke = self.frame.contentPane.stroke
                     obj.filled = self.frame.contentPane.filled
+                    arg.strokeWidth = self.frame.contentPane.strokeWidth
                     if isinstance(arg, Text):
                         arg.font = self.frame.contentPane.font
                         arg.size = self.frame.contentPane.textSize
@@ -134,6 +137,10 @@ class GraphicsWindow(ActionListener, KeyListener, MouseInputListener):
         """Turns stroke on or off in the Canvas."""
         assert isinstance(b, bool), "Variable given is not a boolean."
         self.frame.contentPane.stroke = b
+
+    def setStrokeWidth(self, w):
+        assert isinstance(w, int), "Variable given is not an integer."
+        self.frame.contentPane.strokeWidth = w
 
     def setFilled(self, f):
         """Turns fill on or off in the Canvas."""
@@ -332,6 +339,7 @@ class Canvas(JPanel):
         self._filled = True
         self._font = "Times New Roman"
         self._textSize = 12
+        self._strokeWidth = 1
 
         # self.redraw_requested = True
 
@@ -416,6 +424,19 @@ class Canvas(JPanel):
 
     stroke = property(_get_stroke, _set_stroke,
                       "Boolean describing whether a stroke is being drawn or not.")
+
+    def _get_strokeWidth(self):
+        """Returns whether or not stroke is True or False"""
+        return self._strokeWidth
+
+    def _set_strokeWidth(self, b):
+        """Sets stroke to the boolean given."""
+        assert isinstance(b, int), "The variable given is not an integer."
+        self._strokeWidth = b
+
+    strokeWidth = property(_get_strokeWidth, _set_strokeWidth,
+                      "Boolean describing whether a stroke is being drawn or not.")
+
 
     def _get_filled(self):
         """Returns whether or not stroke is True of False"""

@@ -5,9 +5,9 @@ both new and old programmers alike.
 """
 from graphicsobject import *
 from graphicswindow import *
+from shape import *
 from group import *
 from image import *
-from shape import *
 from text import *
 from java.awt import Color
 import time
@@ -466,6 +466,8 @@ def stroke(r=None, g=None, b=None, a=255):
     if r != None:
         window.setStrokeColor(color(r, g, b, a))
 
+def strokeWidth(w):
+    window.setStrokeWidth(w)
 
 def noStroke():
     """Sets stroke to false."""
@@ -572,7 +574,7 @@ def color(r, g=None, b=None, a=255):
         return Color(r, g, b, a)
 
 if (__name__ == '__main__') or (__name__ == 'main'):
-    canvas()
+    canvas(750, 450)
     loop()
     stroke()
     frameRate(160.0)
@@ -580,7 +582,7 @@ if (__name__ == '__main__') or (__name__ == 'main'):
     rectX = 150
     rectY = 30
 
-    image(200, 200, './puppy.jpg', 50, 50)
+    #image(200, 200, './puppy.jpg', 50, 50)
 
     def draw():
         global rectX
@@ -589,20 +591,48 @@ if (__name__ == '__main__') or (__name__ == 'main'):
         global directionY
 
         clear()
-        vertices = [(250, 250), (250, 370), (360, 340), (360, 250)]
-
+        
         fill(red)
-        stroke(blue)
-        rect(rectX, rectY, 200, 150)
-        line(150, 10, 200, 10)
-        fill(pink)
-        ellipse(10, 150, 200, 100)
+        rect(rectX, rectY, 100, 100)
 
-        fill(green)
+        font('Times New Roman')
+        textSize(15)
+        
+        fill(red)
+        strokeWidth(4)
+        stroke(blue)
+        rect(10, 10, 200, 150)
+        text(10, 200, 'Red rectangle with blue stroke.', black)
+
+        stroke(orange)
+        strokeWidth(4)
+        line(250, 25, 350, 150)
+        text(250, 200, 'Thick orange line.', black)
+
+        fill(pink)
+        stroke(green)
+        strokeWidth(1)
+        ellipse(10, 225, 200, 100)
+        text(10, 350, 'Pink ellipse with green stroke.', black)
+
+        noFill()
+        vertices = [(250, 250), (250, 370), (360, 340), (360, 250)]
         polygon(vertices)
-        regPolygon(10, 300, 3, 25)
-        arc(300, 100, 100, 100, 0, 170)
-        circle(0, 0, 30)
+        text(200, 400, 'Polygon with green stroke and no fill.', black)
+
+        fill(yellow)
+        stroke(orange)
+        regPolygon(575, 300, 5, 50)
+        text(450, 375, 'Yellow regular polygon with orange stroke.', black)
+
+        stroke(blue)
+        arc(450, 100, 100, 100, 0, 170, cyan)
+        text(425, 200, 'Cyan arc with blue stroke.', black)
+
+        fill(blue)
+        noStroke()
+        circle(675, 125, 30)
+        text(645, 200, 'Blue circle.', black)
 
         background(white)
         w = width()
@@ -622,10 +652,6 @@ if (__name__ == '__main__') or (__name__ == 'main'):
 
         rectY = rectY + directionY
 
-        font('Times New Roman')
-        textSize(50)
-
-        text(200, 200, 'Hello, world', black)
 
     def mousePressed():
         print 'Mouse was pressed.'
