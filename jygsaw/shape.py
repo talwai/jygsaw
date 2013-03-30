@@ -124,10 +124,10 @@ class Ellipse(Ellipse2D.Float, Shape):
         super(Ellipse, self).__init__(x, y, width, height, color=color)
 
 
-class Circle(Ellipse.Float, Shape):
+class Circle(Ellipse2D.Float, Shape):
 
     """
-    Circle inherits from Shape. The x, y coordinates of a Circle
+    Circle inherits from Ellipse2D and Shape. The x, y coordinates of a Circle
     represent its center, instead of the upper left corner of
     the bounding box, and it takes a radius as well.
     """
@@ -141,28 +141,8 @@ class Circle(Ellipse.Float, Shape):
 
     def __init__(self, x, y, radius, color=None):
         assert radius > 0, "Circle radius must be greater than zero"
-        super(Circle, self).__init__(x - radius, y - radius, radius * 2, radius * 2, color=color)
+        super(Circle, self).__init__(x, y, radius * 2, radius * 2, color=color)
         self._radius = radius
-        self._x = x
-        self._y = y
-
-    def _get_x(self):
-        return self._x
-
-    def _set_x(self, newX):
-        assert isinstance(newX, int), "Coordinates must be integers."
-        self._x = newX
-
-    x = property(_get_x, _set_x)
-
-    def _get_y(self):
-        return self._y
-
-    def _set_y(self, newY):
-        assert isinstance(newY, int), "Coordinates must be integers."
-        self._y = newY
-
-    y = property(_get_y, _set_y)
 
     def _get_radius(self):
         return self._radius
@@ -173,6 +153,32 @@ class Circle(Ellipse.Float, Shape):
         self.width = r * 2
 
     radius = property(_get_radius, _set_radius, "Radius of the Circle.")
+
+
+    def _draw(self, g):
+        # Same draw function in shape except that it temporarily changes the
+        # x and y values to reflect the upper left hand corner. 
+        self.y = self.y - self.radius
+        self.x = self.x - self.radius
+
+        if self.filled:
+            g.setColor(self.color)
+            g.fill(self)
+        else:
+            g.setColor(self.color)
+            g.draw(self)
+        if self.stroke:
+            g.setPaint(self.strokeColor)
+            g.setStroke(BasicStroke(self.strokeWidth))
+            g.draw(self)
+        
+        if not self.filled and not self.stroke:
+            # Throw a warning!
+            warn('Shape filled and stroke are both set to false.')
+
+        self.y = self.y + self.radius
+        self.x = self.y + self.radius
+
 
 
 class Line(Line2D.Float, Shape):
