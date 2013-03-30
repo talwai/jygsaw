@@ -20,6 +20,7 @@ directionY = 1  # Just used for testing - delete or move eventually
 _fr = 60.0  # Frame Rate
 _toLoop = False
 
+
 def canvas(width=400, height=400, window_title='Jygsaw Canvas', background=white):
     """
     Creates and returns a new Jygsaw :py:class:`~jygsaw.graphicswindow.GraphicsWindow` and
@@ -227,7 +228,7 @@ def fill(r=None, g=None, b=None, a=255):
     See :py:meth:`~jygsaw.graphics.color` for how the color values are handled.
     """
     window.setFilled(True)
-    if r != None:
+    if r is not None:
         window.setDefaultColor(color(r, g, b, a))
 
 
@@ -463,7 +464,7 @@ def stroke(r=None, g=None, b=None, a=255):
     * *a* -- Alpha value of the RGB stroke color. Default to 255.
     """
     window.setStroke(True)
-    if r != None:
+    if r is not None:
         window.setStrokeColor(color(r, g, b, a))
 
 
@@ -506,6 +507,7 @@ def refresh(delay=0.0):
     """
     assert(not window.mainRunning)
     window.redraw(delay)
+    return window.eventQueue
 
 
 def text(x, y, string, color=None, attribute=PLAIN):
@@ -557,8 +559,8 @@ def color(r, g=None, b=None, a=255):
     * *b* -- B value of RGB color which will be created. g must also be given. Defaults to None.
     * *a* -- Alpha value of the RBG color which will be created. a does not have to be given, it will default to 255.
     """
-    if g == None or b == None:
-        assert r != None and g == None and b == None, \
+    if g is None or b is None:
+        assert r is not None and g is None and b is None, \
             "color takes exactly 1 or 3 or 4 parameters"
         if isinstance(r, int):
             # Will create color (r, r, r)
@@ -569,108 +571,23 @@ def color(r, g=None, b=None, a=255):
             # r is of an unrecognized type
             pass
     else:
-        assert r != None and g != None and b != None, \
+        assert r is not None and g is not None and b is not None, \
             "color takes exactly 1 or 3 or 4 parameters"
         assert isinstance(r, int) and isinstance(
             g, int) and isinstance(b, int), "color takes 3 integers"
         return Color(r, g, b, a)
 
 if (__name__ == '__main__') or (__name__ == 'main'):
-    canvas()
-    loop()
-    stroke()
-    frameRate(160.0)
-
-    rectX = 150
-    rectY = 30
-
-    image(200, 200, './puppy.jpg', 50, 50)
-
-    def draw():
-        global rectX
-        global rectY
-        global directionX
-        global directionY
-
+    canvas(640, 360)   # Size must be the first statement
+    stroke(255)        # Set line drawing color to white
+    x = 100
+    y = 100
+    while True:
         clear()
-        vertices = [(250, 250), (250, 370), (360, 340), (360, 250)]
-
-        fill(red)
-        stroke(blue)
-        rect(rectX, rectY, 200, 150)
-        line(150, 10, 200, 10)
-        fill(pink)
-        ellipse(10, 150, 200, 100)
-
-        fill(green)
-        polygon(vertices)
-        regPolygon(10, 300, 3, 25)
-        arc(300, 100, 100, 100, 0, 170)
-        circle(0, 0, 30)
-
-        background(white)
-        w = width()
-        h = height()
-
-        if rectX >= w:
-            directionX = -1
-        elif rectX < -10:
-            directionX = 1
-
-        rectX = rectX + directionX
-
-        if rectY >= h:
-            directionY = -1
-        elif rectY < -10:
-            directionY = 1
-
-        rectY = rectY + directionY
-
-        font('Times New Roman')
-        textSize(50)
-
-        text(200, 200, 'Hello, world', black)
-
-    def mousePressed():
-        print 'Mouse was pressed.'
-
-    def mouseDragged():
-        print 'Mouse is being dragged.'
-        print 'X = ' + str(x) + ' Y = ' + str(y)
-
-    def mouseReleased():
-        print 'Mouse released'
-
-    def mouseClicked():
-        print 'Mouse clicked'
-
-    def mouseMoved():
-        global x, y
-        x = mouseX()
-        y = mouseY()
-        print 'Mouse moved x = %d, y = %d' % (x, y)
-
-    def keyPressed():
-        char = lastKeyChar()
-        code = lastKeyCode()
-        print 'Key Pressed! Char = %s Code = %s' % (char, code)
-
-    def keyReleased():
-        char = lastKeyChar()
-        code = lastKeyCode()
-        print 'Key Released! Char = %s Code = %s' % (char, code)
-
-    def keyTyped():
-        char = lastKeyChar()
-        code = lastKeyCode()
-        print 'Key Typed! Char = %s Code = %s' % (char, code)
-
-    # onMousePress(mousePressed)
-    # onMouseRelease(mouseReleased)
-    # onMouseDrag(mouseDragged)
-    # onMouseMove(mouseMoved)
-    # onMouseClick(mouseClicked)
-    onKeyPress(keyPressed)
-    onKeyRelease(keyReleased)
-    onKeyType(keyTyped)
-    onDraw(draw)
+        circle(x, y, 50)
+        y += 1
+        events = refresh(.02)
+        while not events.empty():
+            event = events.get()
+            if event.getID() == MouseEvent.MOUSE_CLICKED:
+                print "Mouse was clicked at ", (mouseX(), mouseY())

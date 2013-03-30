@@ -105,7 +105,7 @@ class GraphicsWindow(ActionListener, KeyListener, MouseInputListener):
         """
         for arg in params:
             if isinstance(arg, GraphicsObject):
-                if arg.color == None:
+                if arg.color is None:
                     arg.color = self.frame.contentPane.defaultColor
                 arg.strokeColor = self.frame.contentPane.strokeColor
                 arg.stroke = self.frame.contentPane.stroke
@@ -116,7 +116,7 @@ class GraphicsWindow(ActionListener, KeyListener, MouseInputListener):
                 self.objs.append(arg)
             elif isinstance(arg, Group):
                 for obj in arg.group:
-                    if obj.color == None:
+                    if obj.color is None:
                         obj.color = self.frame.contentPane.defaultColor
                     obj.strokeColor = self.frame.contentPane.strokeColor
                     obj.stroke = self.frame.contentPane.stroke
@@ -196,8 +196,7 @@ class GraphicsWindow(ActionListener, KeyListener, MouseInputListener):
         self.mouseEventType = e.getID()
         self.mouseX = e.getX()
         self.mouseY = e.getY() - 25
-        if self.onMouseEntered:
-            self.onMouseEntered()
+        self.eventQueue.put(e)
         if debug:
             print '(%d, %d)' % (self.mouseX, self.mouseY)
 
@@ -209,8 +208,7 @@ class GraphicsWindow(ActionListener, KeyListener, MouseInputListener):
         self.mouseEventType = e.getID()
         self.mouseX = e.getX()
         self.mouseY = e.getY() - 25
-        if self.onMouseClicked:
-            self.onMouseClicked()
+        self.eventQueue.put(e)
 
     def mouseExited(self, e):
         """
@@ -220,8 +218,7 @@ class GraphicsWindow(ActionListener, KeyListener, MouseInputListener):
         self.mouseEventType = e.getID()
         self.mouseX = e.getX()
         self.mouseY = e.getY() - 25
-        if self.onMouseExited:
-            self.onMouseExited()
+        self.eventQueue.put(e)
 
     def mousePressed(self, e):
         """
@@ -231,8 +228,7 @@ class GraphicsWindow(ActionListener, KeyListener, MouseInputListener):
         self.mouseEventType = e.getID()
         self.mouseX = e.getX()
         self.mouseY = e.getY() - 25
-        if self.onMousePressed:
-            self.onMousePressed()
+        self.eventQueue.put(e)
 
     def mouseReleased(self, e):
         """
@@ -240,8 +236,7 @@ class GraphicsWindow(ActionListener, KeyListener, MouseInputListener):
         Calls a user mouse released function, if any.
         """
         self.mouseEventType = e.getID()
-        if self.onMouseReleased:
-            self.onMouseReleased()
+        self.eventQueue.put(e)
 
     def mouseMoved(self, e):
         """
@@ -251,8 +246,7 @@ class GraphicsWindow(ActionListener, KeyListener, MouseInputListener):
         self.mouseEventType = e.getID()
         self.mouseX = e.getX()
         self.mouseY = e.getY() - 25
-        if self.onMouseMoved:
-            self.onMouseMoved()
+        self.eventQueue.put(e)
         if debug:
             print '(%d, %d)' % (self.mouseX, self.mouseY)
 
@@ -264,8 +258,7 @@ class GraphicsWindow(ActionListener, KeyListener, MouseInputListener):
         self.mouseEventType = e.getID()
         self.mouseX = e.getX()
         self.mouseY = e.getY() - 25
-        if self.onMouseDragged:
-            self.onMouseDragged()
+        self.eventQueue.put(e)
 
     def keyTyped(self, e):
         """
@@ -275,10 +268,9 @@ class GraphicsWindow(ActionListener, KeyListener, MouseInputListener):
         self.keyEventType = e.getID()
         if debug:
             print e.getKeyChar()
-        if self.onKeyTyped:
-            self.lastKeyChar = e.getKeyChar()
-            self.lastKeyCode = e.getKeyCode()
-            self.onKeyTyped()
+        self.lastKeyChar = e.getKeyChar()
+        self.lastKeyCode = e.getKeyCode()
+        self.eventQueue.put(e)
 
     def keyPressed(self, e):
         """
@@ -293,8 +285,7 @@ class GraphicsWindow(ActionListener, KeyListener, MouseInputListener):
 
         if debug:
             print e.getKeyChar()
-        if self.onKeyPressed:
-            self.onKeyPressed()
+        self.eventQueue.put(e)
 
     def keyReleased(self, e):
         """
@@ -307,8 +298,7 @@ class GraphicsWindow(ActionListener, KeyListener, MouseInputListener):
         self.charsPressed.remove(self.lastKeyChar)
         self.codesPressed.remove(self.lastKeyCode)
 
-        if self.onKeyReleased:
-            self.onKeyReleased()
+        self.eventQueue.put(e)
 
     def _is_key_pressed(self):
         return bool(self.charsPressed)
