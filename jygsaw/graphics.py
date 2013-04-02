@@ -507,7 +507,22 @@ def refresh(delay=0.0):
     """
     assert(not window.mainRunning)
     window.redraw(delay)
-    return window.eventQueue
+    while not window.eventQueue.empty():
+        event = window.eventQueue.get()
+        if event.getID() == MouseEvent.MOUSE_PRESSED and window.onMousePressed:
+            window.onMousePressed()
+        if event.getID() == MouseEvent.MOUSE_RELEASED and window.onMouseReleased:
+            window.onMouseReleased()
+        if event.getID() == MouseEvent.MOUSE_CLICKED and window.onMouseClicked:
+            window.onMouseClicked()
+        if event.getID() == MouseEvent.MOUSE_DRAGGED and window.onMouseDragged:
+            window.onMouseDragged()
+        if event.getID() == MouseEvent.MOUSE_MOVED and window.onMouseMoved:
+            window.onMouseMoved()
+        if event.getID() == MouseEvent.MOUSE_ENTERED and window.onMouseEntered:
+            window.onMouseEntered()
+        if event.getID() == MouseEvent.MOUSE_EXITED and window.onMouseExited:
+            window.onMouseExited()
 
 
 def text(x, y, string, color=None, attribute=PLAIN):
@@ -582,12 +597,12 @@ if (__name__ == '__main__') or (__name__ == 'main'):
     stroke(255)        # Set line drawing color to white
     x = 100
     y = 100
+
+    def click():
+        print "Mouse was clicked at ", (mouseX(), mouseY())
+    onMouseClick(click)
     while True:
         clear()
         circle(x, y, 50)
         y += 1
-        events = refresh(.02)
-        while not events.empty():
-            event = events.get()
-            if event.getID() == MouseEvent.MOUSE_CLICKED:
-                print "Mouse was clicked at ", (mouseX(), mouseY())
+        refresh(.02)
