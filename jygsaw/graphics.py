@@ -10,7 +10,6 @@ from image import *
 from shape import *
 from text import *
 from java.awt import Color
-import time
 
 
 rectX = 0  # Just used for testing - delete or move eventually
@@ -18,7 +17,6 @@ rectY = 0  # Just used for testing - delete or move eventually
 directionX = 1  # Just used for testing - delete or move eventually
 directionY = 1  # Just used for testing - delete or move eventually
 _fr = 60.0  # Frame Rate
-_toLoop = False
 
 
 def canvas(width=400, height=400, window_title='Jygsaw Canvas', background=white):
@@ -426,21 +424,6 @@ def isCodePressed(code):
     return code in window.codesPressed
 
 #---------------------------------------------------------
-
-
-def loop():
-    """Tells the draw function to loop when it is called."""
-    _toLoop = True
-
-
-def noLoop():
-    """
-    Tells the draw function not to loop when it is called,
-    or to stop looping if it has already started.
-
-    This is the default.
-    """
-    _toLoop = False
 
 
 def frameRate(rate):
