@@ -29,10 +29,10 @@ class TestShapeFunctions(unittest.TestCase):
         self.assertEqual(self.arc.x, 300)
         self.assertEqual(self.arc.y, 100)
 
-        self.arc._set_x(130)
+        self.arc.x = 130
         self.assertEqual(self.arc.x, 130)
 
-        self.arc._set_y(170)
+        self.arc.y = 170
         self.assertEqual(self.arc.y, 170)
 
         c = color(255, 255, 255)
