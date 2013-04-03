@@ -24,4 +24,4 @@ while True:
 	fill(r, g, b)
 	circle(x, y, 50)
 
-	redraw(.02)
+	refresh(.02)

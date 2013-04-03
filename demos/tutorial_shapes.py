@@ -13,3 +13,4 @@ def draw():
     regPolygon(550, 85, sides=6, length=80, color=magenta)
 
 onDraw(draw)
+jygsawMain()

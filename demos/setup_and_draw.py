@@ -17,7 +17,6 @@ def draw():
 
 canvas(640, 360)        # Size must be the first statement
 stroke(255)        # Set line drawing color to white
-frameRate(30)
-loop()
 
 onDraw(draw)
+jygsawMain(0.01)

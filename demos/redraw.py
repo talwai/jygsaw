@@ -7,7 +7,7 @@ from jygsaw.graphics import *
 
 def draw():
     clear()
-    background(black)            # Set the background to black
+
    
     global y
 
@@ -15,12 +15,15 @@ def draw():
     if y < 0:
         y = height()
     line(0, y, width(), y)
-    redraw()
 
 canvas(640, 360)        # Size should be the first statement
 stroke(255)       # Se t line drawing color to white
 
 y = int(height() * 0.5)
 
+background(black)            # Set the background to black
 draw()
 onMousePress(draw)
+
+while True:
+    refresh(0.01)

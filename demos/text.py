@@ -2,7 +2,6 @@ from jygsaw.graphics import *
 
 canvas(750, 360)
 background(darkGray)
-loop()  # so that draw() loops
 currentLineHeight = 60
 textHeight = 30
 words = ""
@@ -41,3 +40,5 @@ def keyPressed():
 
 onKeyPress(keyPressed)
 onDraw(draw)
+
+jygsawMain(0.01)

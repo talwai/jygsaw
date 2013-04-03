@@ -20,6 +20,6 @@ def drawCircle(x, radius, level):
 
 canvas(640, 360)
 noStroke()
-noLoop()
 
 onDraw(draw)
+jygsawMain()
