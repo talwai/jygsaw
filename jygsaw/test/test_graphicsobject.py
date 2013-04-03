@@ -57,7 +57,7 @@ class TestShapeFunctions(unittest.TestCase):
         self.assertEqual(self.polygon.x, 240)
 
         self.polygon.move(350, 350)
-        self.assertEqual(self.polygon.y, 590)
+        self.assertEqual(self.polygon.y, 240)
 
     def test_circle(self):
         self.assertEqual(self.circle.x, 20)
