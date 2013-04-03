@@ -180,6 +180,13 @@ class Circle(Ellipse2D.Float, Shape):
         self.x = self.y + self.radius
 
 
+    def moveTo(self, x, y):
+        self.move(x - self.x, y - self.y)
+        self.x = x
+        self.y = y
+
+    def move(self, deltaX, deltaY):
+        self.translate(deltaX, deltaY)
 
 class Line(Line2D.Float, Shape):
 
@@ -191,6 +198,14 @@ class Line(Line2D.Float, Shape):
 
     def __init__(self, startX, startY, endX, endY, color=None):
         super(Line, self).__init__(startX, startY, endX, endY, color=color)
+
+    def moveTo(self, x, y):
+        self.move(x - self.x, y - self.y)
+        self.x = x
+        self.y = y
+
+    def move(self, deltaX, deltaY):
+        self.translate(deltaX, deltaY)
 
 class Point(Line):
 
@@ -206,6 +221,7 @@ class Point(Line):
         super(Point, self).__init__(x, y, x, y, color)
 
 
+
 class Arc(Arc2D.Float, Shape):
 
     """
@@ -219,6 +235,13 @@ class Arc(Arc2D.Float, Shape):
     def __init__(self, x, y, width, height, startAngle, arcAngle, color=None):
         super(Arc, self).__init__(x, y, width, height, startAngle, arcAngle, Arc2D.OPEN, color=color)
 
+    def moveTo(self, x, y):
+        self.move(x - self.x, y - self.y)
+        self.x = x
+        self.y = y
+
+    def move(self, deltaX, deltaY):
+        self.translate(deltaX, deltaY)
 
 class Polygon(JavaPolygon, Shape):
 
@@ -310,3 +333,13 @@ class RegPolygon(JavaPolygon, Shape):
             sin(self.sideAngle)
 
     sideLength = property(_set_sideLength, _get_sideLength, "Length of each side.")
+
+    def moveTo(self, x, y):
+        self.move(x - self.vertices[0][0], y - self.vertices[0][1])
+        self.x = x
+        self.y = y
+
+    def move(self, deltaX, deltaY):
+        self.vertices = [(x + deltaX, y + deltaY) for x,y in self.vertices]
+        self.translate(deltaX, deltaY)
+
