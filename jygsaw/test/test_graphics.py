@@ -32,7 +32,6 @@ class BaseShapeClassTests(object):
 
     def setUp(self):
         self.c = canvas()
-        loop()
 
     def test_fill(self):
         fill(green)
@@ -55,7 +54,7 @@ class BaseShapeClassTests(object):
     def test_stroke(self):
         stroke(red)
         self.shape = self.create_shape()
-        self.assertEqual(self.shape.stroke, self.c.frame.contentPane.stroke, 
+        self.assertEqual(self.shape.stroke, self.c.frame.contentPane.stroke,
                          msg="New shape's stroke color  doesn't match have stroke color of window")
         self.assertEqual(self.shape.stroke, True, msg="New shape doesn't have stroke turned on")
         self.assertEqual(self.shape.strokeColor, red, msg="New shape doesn't have right stroke color")

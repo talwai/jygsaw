@@ -7,7 +7,6 @@ import unittest
 class TestGroup(unittest.TestCase):
     def setUp(self):
         canvas()
-        loop()
         stroke()
         frameRate(60.0)
         self.polygon = polygon([(25, 25), (250, 370), (360, 340), (360, 250)])

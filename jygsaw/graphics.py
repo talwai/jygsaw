@@ -10,7 +10,6 @@ from group import *
 from image import *
 from text import *
 from java.awt import Color
-import time
 
 
 rectX = 0  # Just used for testing - delete or move eventually
@@ -227,7 +226,7 @@ def fill(r=None, g=None, b=None, a=255):
     See :py:meth:`~jygsaw.graphics.color` for how the color values are handled.
     """
     window.setFilled(True)
-    if r != None:
+    if r is not None:
         window.setDefaultColor(color(r, g, b, a))
 
 
@@ -427,21 +426,6 @@ def isCodePressed(code):
 #---------------------------------------------------------
 
 
-def loop():
-    """Tells the draw function to loop when it is called."""
-    window.toLoop = True
-
-
-def noLoop():
-    """
-    Tells the draw function not to loop when it is called,
-    or to stop looping if it has already started.
-
-    This is the default.
-    """
-    window.toLoop = False
-
-
 def frameRate(rate):
     """Sets the frame rate value."""
     global _fr
@@ -463,7 +447,7 @@ def stroke(r=None, g=None, b=None, a=255):
     * *a* -- Alpha value of the RGB stroke color. Default to 255.
     """
     window.setStroke(True)
-    if r != None:
+    if r is not None:
         window.setStrokeColor(color(r, g, b, a))
 
 def strokeWidth(w):
@@ -480,30 +464,50 @@ def clear():
 
 
 def onDraw(user_draw):
-    """
-    Callback function which calls the user defined draw function.
-    It repeatedly loops if :py:meth:`~jygsaw.graphics.loop` has been called.
-    """
-    user_draw()
-    window.frame.contentPane.repaint()
-    window.user_draw_fn = user_draw
-    while True:
-        while window.toLoop:
+    """Callback function which calls the user defined draw function."""
+    window.onDraw = user_draw
+
+
+def jygsawMain(delay=0.0):
+    """Repeatedly runs user-defined draw function."""
+    window.mainRunning = True
+    if delay > 0:
+        while True:
+            "JygsawMain"
+            sleep(delay)
             window.frame.contentPane.repaint()
-            time.sleep(1.0 / _fr)
+    else:
+        window.frame.contentPane.repaint()
 
 
-def redraw(delay=0.0):
+def refresh(delay=0.0):
     """
     Redraws all of the objects on the window.
 
-    A delay betwen redrawing can be optionally set.
+    A delay between redrawing can be optionally set.
 
     Keyword Arguments:
 
     * *delay* -- Delay before the window calls repaint. Defaults to 0.0.
     """
+    assert(not window.mainRunning)
     window.redraw(delay)
+    while not window.eventQueue.empty():
+        event = window.eventQueue.get()
+        if event.getID() == MouseEvent.MOUSE_PRESSED and window.onMousePressed:
+            window.onMousePressed()
+        if event.getID() == MouseEvent.MOUSE_RELEASED and window.onMouseReleased:
+            window.onMouseReleased()
+        if event.getID() == MouseEvent.MOUSE_CLICKED and window.onMouseClicked:
+            window.onMouseClicked()
+        if event.getID() == MouseEvent.MOUSE_DRAGGED and window.onMouseDragged:
+            window.onMouseDragged()
+        if event.getID() == MouseEvent.MOUSE_MOVED and window.onMouseMoved:
+            window.onMouseMoved()
+        if event.getID() == MouseEvent.MOUSE_ENTERED and window.onMouseEntered:
+            window.onMouseEntered()
+        if event.getID() == MouseEvent.MOUSE_EXITED and window.onMouseExited:
+            window.onMouseExited()
 
 
 def text(x, y, string, color=None, attribute=PLAIN):
@@ -555,8 +559,8 @@ def color(r, g=None, b=None, a=255):
     * *b* -- B value of RGB color which will be created. g must also be given. Defaults to None.
     * *a* -- Alpha value of the RBG color which will be created. a does not have to be given, it will default to 255.
     """
-    if g == None or b == None:
-        assert r != None and g == None and b == None, \
+    if g is None or b is None:
+        assert r is not None and g is None and b is None, \
             "color takes exactly 1 or 3 or 4 parameters"
         if isinstance(r, int):
             # Will create color (r, r, r)
@@ -567,132 +571,8 @@ def color(r, g=None, b=None, a=255):
             # r is of an unrecognized type
             pass
     else:
-        assert r != None and g != None and b != None, \
+        assert r is not None and g is not None and b is not None, \
             "color takes exactly 1 or 3 or 4 parameters"
         assert isinstance(r, int) and isinstance(
             g, int) and isinstance(b, int), "color takes 3 integers"
         return Color(r, g, b, a)
-
-if (__name__ == '__main__') or (__name__ == 'main'):
-    canvas(750, 450)
-    loop()
-    stroke()
-    frameRate(160.0)
-
-    rectX = 150
-    rectY = 30
-
-    #image(200, 200, './puppy.jpg', 50, 50)
-
-    def draw():
-        global rectX
-        global rectY
-        global directionX
-        global directionY
-
-        clear()
-        
-        fill(red)
-        rect(rectX, rectY, 100, 100)
-
-        font('Times New Roman')
-        textSize(15)
-        
-        fill(red)
-        strokeWidth(4)
-        stroke(blue)
-        rect(10, 10, 200, 150)
-        text(10, 200, 'Red rectangle with blue stroke.', black)
-
-        stroke(orange)
-        strokeWidth(4)
-        line(250, 25, 350, 150)
-        text(250, 200, 'Thick orange line.', black)
-
-        fill(pink)
-        stroke(green)
-        strokeWidth(1)
-        ellipse(10, 225, 200, 100)
-        text(10, 350, 'Pink ellipse with green stroke.', black)
-
-        noFill()
-        vertices = [(250, 250), (250, 370), (360, 340), (360, 250)]
-        polygon(vertices)
-        text(200, 400, 'Polygon with green stroke and no fill.', black)
-
-        fill(yellow)
-        stroke(orange)
-        regPolygon(575, 300, 5, 50)
-        text(450, 375, 'Yellow regular polygon with orange stroke.', black)
-
-        stroke(blue)
-        arc(450, 100, 100, 100, 0, 170, cyan)
-        text(425, 200, 'Cyan arc with blue stroke.', black)
-
-        fill(blue)
-        noStroke()
-        circle(675, 125, 30)
-        text(645, 200, 'Blue circle.', black)
-
-        background(white)
-        w = width()
-        h = height()
-
-        if rectX >= w:
-            directionX = -1
-        elif rectX < -10:
-            directionX = 1
-
-        rectX = rectX + directionX
-
-        if rectY >= h:
-            directionY = -1
-        elif rectY < -10:
-            directionY = 1
-
-        rectY = rectY + directionY
-
-
-    def mousePressed():
-        print 'Mouse was pressed.'
-
-    def mouseDragged():
-        print 'Mouse is being dragged.'
-        print 'X = ' + str(x) + ' Y = ' + str(y)
-
-    def mouseReleased():
-        print 'Mouse released'
-
-    def mouseClicked():
-        print 'Mouse clicked'
-
-    def mouseMoved():
-        global x, y
-        x = mouseX()
-        y = mouseY()
-        print 'Mouse moved x = %d, y = %d' % (x, y)
-
-    def keyPressed():
-        char = lastKeyChar()
-        code = lastKeyCode()
-        print 'Key Pressed! Char = %s Code = %s' % (char, code)
-
-    def keyReleased():
-        char = lastKeyChar()
-        code = lastKeyCode()
-        print 'Key Released! Char = %s Code = %s' % (char, code)
-
-    def keyTyped():
-        char = lastKeyChar()
-        code = lastKeyCode()
-        print 'Key Typed! Char = %s Code = %s' % (char, code)
-
-    # onMousePress(mousePressed)
-    # onMouseRelease(mouseReleased)
-    # onMouseDrag(mouseDragged)
-    # onMouseMove(mouseMoved)
-    # onMouseClick(mouseClicked)
-    onKeyPress(keyPressed)
-    onKeyRelease(keyReleased)
-    onKeyType(keyTyped)
-    onDraw(draw)
