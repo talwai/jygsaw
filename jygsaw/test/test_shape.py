@@ -29,14 +29,14 @@ class TestShapeFunctions(unittest.TestCase):
 
         self.assertEqual(self.arc._get_color(), green)
 
-        self.assertEqual(self.arc._get_width(), 123)
-        self.assertEqual(self.arc._get_height(), 33)
+        self.assertEqual(self.arc.width, 123)
+        self.assertEqual(self.arc.height, 33)
 
-        self.arc._set_width(130)
-        self.assertEqual(self.arc._get_width(), 130)
+        self.arc.width = 130
+        self.assertEqual(self.arc.width, 130)
 
-        self.arc._set_height(170)
-        self.assertEqual(self.arc._get_height(), 170)
+        self.arc.height = 170
+        self.assertEqual(self.arc.height, 170)
 
     def test_polygon(self):
         self.assertEqual(self.polygon._get_vertices(), [(250, 250), (250,
