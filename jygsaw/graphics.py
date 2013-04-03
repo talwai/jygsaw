@@ -466,13 +466,13 @@ def onDraw(user_draw):
     window.onDraw = user_draw
 
 
-def jygsawMain(frameRate=0):
+def jygsawMain(delay=0.0):
     """Repeatedly runs user-defined draw function."""
     window.mainRunning = True
-    if frameRate > 0:
+    if delay > 0:
         while True:
             "JygsawMain"
-            sleep(1.0 / frameRate)
+            sleep(delay)
             window.frame.contentPane.repaint()
     else:
         window.frame.contentPane.repaint()

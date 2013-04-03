@@ -196,7 +196,11 @@ class GraphicsWindow(ActionListener, KeyListener, MouseInputListener):
         self.mouseEventType = e.getID()
         self.mouseX = e.getX()
         self.mouseY = e.getY() - 25
-        self.eventQueue.put(e)
+        if self.mainRunning:
+            if self.onMouseEntered:
+                self.onMouseEntered()
+        else:
+            self.eventQueue.put(e)
         if debug:
             print '(%d, %d)' % (self.mouseX, self.mouseY)
 
@@ -208,7 +212,11 @@ class GraphicsWindow(ActionListener, KeyListener, MouseInputListener):
         self.mouseEventType = e.getID()
         self.mouseX = e.getX()
         self.mouseY = e.getY() - 25
-        self.eventQueue.put(e)
+        if self.mainRunning:
+            if self.onMouseClicked:
+                self.onMouseClicked()
+        else:
+            self.eventQueue.put(e)
 
     def mouseExited(self, e):
         """
@@ -218,7 +226,11 @@ class GraphicsWindow(ActionListener, KeyListener, MouseInputListener):
         self.mouseEventType = e.getID()
         self.mouseX = e.getX()
         self.mouseY = e.getY() - 25
-        self.eventQueue.put(e)
+        if self.mainRunning:
+            if self.onMouseExited:
+                self.onMouseExited()
+        else:
+            self.eventQueue.put(e)
 
     def mousePressed(self, e):
         """
@@ -228,7 +240,11 @@ class GraphicsWindow(ActionListener, KeyListener, MouseInputListener):
         self.mouseEventType = e.getID()
         self.mouseX = e.getX()
         self.mouseY = e.getY() - 25
-        self.eventQueue.put(e)
+        if self.mainRunning:
+            if self.onMousePressed:
+                self.onMousePressed()
+        else:
+            self.eventQueue.put(e)
 
     def mouseReleased(self, e):
         """
@@ -236,7 +252,11 @@ class GraphicsWindow(ActionListener, KeyListener, MouseInputListener):
         Calls a user mouse released function, if any.
         """
         self.mouseEventType = e.getID()
-        self.eventQueue.put(e)
+        if self.mainRunning:
+            if self.onMouseReleased:
+                self.onMouseReleased()
+        else:
+            self.eventQueue.put(e)
 
     def mouseMoved(self, e):
         """
@@ -246,7 +266,11 @@ class GraphicsWindow(ActionListener, KeyListener, MouseInputListener):
         self.mouseEventType = e.getID()
         self.mouseX = e.getX()
         self.mouseY = e.getY() - 25
-        self.eventQueue.put(e)
+        if self.mainRunning:
+            if self.onMouseMoved:
+                self.onMouseMoved()
+        else:
+            self.eventQueue.put(e)
         if debug:
             print '(%d, %d)' % (self.mouseX, self.mouseY)
 
@@ -258,7 +282,11 @@ class GraphicsWindow(ActionListener, KeyListener, MouseInputListener):
         self.mouseEventType = e.getID()
         self.mouseX = e.getX()
         self.mouseY = e.getY() - 25
-        self.eventQueue.put(e)
+        if self.mainRunning:
+            if self.onMouseDragged:
+                self.onMouseDragged()
+        else:
+            self.eventQueue.put(e)
 
     def keyTyped(self, e):
         """
@@ -270,7 +298,11 @@ class GraphicsWindow(ActionListener, KeyListener, MouseInputListener):
             print e.getKeyChar()
         self.lastKeyChar = e.getKeyChar()
         self.lastKeyCode = e.getKeyCode()
-        self.eventQueue.put(e)
+        if self.mainRunning:
+            if self.onKeyTyped:
+                self.onKeyTyped()
+        else:
+            self.eventQueue.put(e)
 
     def keyPressed(self, e):
         """
@@ -285,7 +317,11 @@ class GraphicsWindow(ActionListener, KeyListener, MouseInputListener):
 
         if debug:
             print e.getKeyChar()
-        self.eventQueue.put(e)
+        if self.mainRunning:
+            if self.onKeyPressed:
+                self.onKeyPressed()
+        else:
+            self.eventQueue.put(e)
 
     def keyReleased(self, e):
         """
@@ -297,8 +333,11 @@ class GraphicsWindow(ActionListener, KeyListener, MouseInputListener):
         self.lastKeyCode = e.getKeyCode()
         self.charsPressed.remove(self.lastKeyChar)
         self.codesPressed.remove(self.lastKeyCode)
-
-        self.eventQueue.put(e)
+        if self.mainRunning:
+            if self.onKeyReleased:
+                self.onKeyReleased()
+        else:
+            self.eventQueue.put(e)
 
     def _is_key_pressed(self):
         return bool(self.charsPressed)
