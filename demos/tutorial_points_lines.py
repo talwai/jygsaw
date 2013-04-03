@@ -3,7 +3,6 @@ from random import random, choice
 
 canvas(900, 500)
 background(darkGray)
-loop()
 
 def draw():
     lineX = random() * 800 + 50
@@ -14,3 +13,5 @@ def draw():
     point(lineX, lineY - 100)
 
 onDraw(draw)
+
+jygsawMain(0.1)

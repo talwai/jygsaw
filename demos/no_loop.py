@@ -3,7 +3,6 @@ from jygsaw.graphics import *
 canvas(640, 360)
 y = int(height() * 0.5)  # Size should be the first statement
 stroke(255)          # Set line drawing color to white
-noLoop()
 
 
 # The statements in draw() are executed until the
@@ -19,3 +18,4 @@ def draw():
     line(0, y, width(), y)
 
 onDraw(draw)
+jygsawMain()
