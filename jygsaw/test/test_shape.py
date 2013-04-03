@@ -7,7 +7,6 @@ class TestShapeFunctions(unittest.TestCase):
 
     def setUp(self):
         canvas()
-        loop()
         stroke()
         frameRate(60.0)
 
