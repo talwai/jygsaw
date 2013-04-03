@@ -37,6 +37,8 @@ class TestShapeFunctions(unittest.TestCase):
 
         c = color(255, 255, 255)
 
+        self.circle.moveTo(1500,1500)
+
         self.arc._set_color(c)
         self.assertEqual(self.arc.color, c)
 

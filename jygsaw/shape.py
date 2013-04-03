@@ -110,6 +110,13 @@ class Rectangle(Rectangle2D.Float, Shape):
     def __init__(self, x, y, width, height, color=None):
         super(Rectangle, self).__init__(x, y, width, height, color=color)
 
+    def moveTo(self, x, y):
+        self.x = x
+        self.y = y
+
+    def move(self, deltaX, deltaY):
+        self.x = self.x + deltaX
+        self.y = self.y + deltaY
 
 class Ellipse(Ellipse2D.Float, Shape):
 
@@ -123,6 +130,13 @@ class Ellipse(Ellipse2D.Float, Shape):
     def __init__(self, x, y, width, height, color=None):
         super(Ellipse, self).__init__(x, y, width, height, color=color)
 
+    def moveTo(self, x, y):
+        self.x = x
+        self.y = y
+
+    def move(self, deltaX, deltaY):
+        self.x = self.x + deltaX
+        self.y = self.y + deltaY
 
 class Circle(Ellipse2D.Float, Shape):
 
@@ -179,14 +193,13 @@ class Circle(Ellipse2D.Float, Shape):
         self.y = self.y + self.radius
         self.x = self.y + self.radius
 
-
     def moveTo(self, x, y):
-        self.move(x - self.x, y - self.y)
         self.x = x
         self.y = y
 
     def move(self, deltaX, deltaY):
-        self.translate(deltaX, deltaY)
+        self.x = self.x + deltaX
+        self.y = self.y + deltaY
 
 class Line(Line2D.Float, Shape):
 
@@ -200,12 +213,12 @@ class Line(Line2D.Float, Shape):
         super(Line, self).__init__(startX, startY, endX, endY, color=color)
 
     def moveTo(self, x, y):
-        self.move(x - self.x, y - self.y)
         self.x = x
         self.y = y
 
     def move(self, deltaX, deltaY):
-        self.translate(deltaX, deltaY)
+        self.x = self.x + deltaX
+        self.y = self.y + deltaY
 
 class Point(Line):
 
@@ -236,12 +249,12 @@ class Arc(Arc2D.Float, Shape):
         super(Arc, self).__init__(x, y, width, height, startAngle, arcAngle, Arc2D.OPEN, color=color)
 
     def moveTo(self, x, y):
-        self.move(x - self.x, y - self.y)
         self.x = x
         self.y = y
 
     def move(self, deltaX, deltaY):
-        self.translate(deltaX, deltaY)
+        self.x = self.x + deltaX
+        self.y = self.y + deltaY
 
 class Polygon(JavaPolygon, Shape):
 
