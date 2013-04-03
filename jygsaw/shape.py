@@ -8,8 +8,8 @@ from warnings import warn
 
 class Shape():
     """
-    Any shape that is drawn on the canvas inherits from Shape. Shape 
-    stores the width, height, color,, strokeColor and strokeWidth of 
+    Any shape that is drawn on the canvas inherits from Shape. Shape
+    stores the width, height, color,, strokeColor and strokeWidth of
     the object. As well a boolean stating whether or not it is filled and
     another boolean that stores whether or not the shape should be drawn
     with a stroke. This class also contains the draw method for all of the shapes.
@@ -17,9 +17,9 @@ class Shape():
 
     def __init__(self, color):
         """
-        Constructor for Shape class. This class does not take any parameters 
-        except for the color. Initially stroke is set to False, strokeColor 
-        is black and strokeWidth is set to 1. strokeColor and stroke are 
+        Constructor for Shape class. This class does not take any parameters
+        except for the color. Initially stroke is set to False, strokeColor
+        is black and strokeWidth is set to 1. strokeColor and stroke are
         later set by the draw method in graphicsWindow.
         """
 
@@ -81,7 +81,7 @@ class Shape():
 
     strokeWidth = property(_get_strokeWidth, _set_strokeWidth,
         "Width of the stroke")
-    
+
     def _draw(self, g):
         if self.filled:
             g.setColor(self.color)
@@ -93,7 +93,7 @@ class Shape():
             g.setPaint(self.strokeColor)
             g.setStroke(BasicStroke(self.strokeWidth))
             g.draw(self)
-        
+
         if not self.filled and not self.stroke:
             # Throw a warning!
             warn('Shape filled and stroke are both set to false.')
@@ -102,8 +102,8 @@ class Shape():
 class Rectangle(Rectangle2D.Float, Shape):
 
     """
-    Inherits from Rectangle2D.Float and Shape. Its arguments are 
-    x, y, width, height and optionally color. A rectangle is drawn 
+    Inherits from Rectangle2D.Float and Shape. Its arguments are
+    x, y, width, height and optionally color. A rectangle is drawn
     on the screen with its top-left corner at the x, y coordinate.
     """
 
@@ -114,9 +114,9 @@ class Rectangle(Rectangle2D.Float, Shape):
 class Ellipse(Ellipse2D.Float, Shape):
 
     """
-    Inherits from Ellipse2D.Float and Shape. The x, y coordinates 
-    represent top left hand corner of the bounding rectangle, and 
-    width and height define the bounding rectangle's width and 
+    Inherits from Ellipse2D.Float and Shape. The x, y coordinates
+    represent top left hand corner of the bounding rectangle, and
+    width and height define the bounding rectangle's width and
     height, respectively.
     """
 
@@ -132,11 +132,11 @@ class Circle(Ellipse2D.Float, Shape):
     the bounding box, and it takes a radius as well.
     """
 
-    # This NEEDS to be more carefully looked at. I tried to overwrite 
+    # This NEEDS to be more carefully looked at. I tried to overwrite
     # getters and setters for the x and y values, but they currently do not
-    # update the x and y values of the super class which means that if 
-    # the x and y values are updated the shape won't be drawn in the correct 
-    # place . Mostly because of namespace issues. I have not devised 
+    # update the x and y values of the super class which means that if
+    # the x and y values are updated the shape won't be drawn in the correct
+    # place . Mostly because of namespace issues. I have not devised
     # a solution yet. --Carla
 
     def __init__(self, x, y, radius, color=None):
@@ -157,7 +157,7 @@ class Circle(Ellipse2D.Float, Shape):
 
     def _draw(self, g):
         # Same draw function in shape except that it temporarily changes the
-        # x and y values to reflect the upper left hand corner. 
+        # x and y values to reflect the upper left hand corner.
         self.y = self.y - self.radius
         self.x = self.x - self.radius
 
@@ -171,7 +171,7 @@ class Circle(Ellipse2D.Float, Shape):
             g.setPaint(self.strokeColor)
             g.setStroke(BasicStroke(self.strokeWidth))
             g.draw(self)
-        
+
         if not self.filled and not self.stroke:
             # Throw a warning!
             warn('Shape filled and stroke are both set to false.')
@@ -223,8 +223,8 @@ class Arc(Arc2D.Float, Shape):
 class Polygon(JavaPolygon, Shape):
 
     """
-    Inherits from the Polygon class in java and Shape. Given 
-    a list of vertices, the points are connected in order to 
+    Inherits from the Polygon class in java and Shape. Given
+    a list of vertices, the points are connected in order to
     create a polygon.
     """
 
@@ -244,19 +244,22 @@ class Polygon(JavaPolygon, Shape):
     vertices = property(_get_vertices, _set_vertices, "List of vertices, where the vertices are tuples of two integers.")
 
     def moveTo(self, x, y):
-        self.translate(x - self.vertices[0][0], y - self.vertices[0][1])
+        self.move(x - self.vertices[0][0], y - self.vertices[0][1])
+        self.x = x
+        self.y = y
 
     def move(self, deltaX, deltaY):
+        self.vertices = [(x + deltaX, y + deltaY) for x,y in self.vertices]
         self.translate(deltaX, deltaY)
 
 
 class RegPolygon(JavaPolygon, Shape):
 
     """
-    Inherits from the Polygon class in java and Shape. Given an x, y 
-    coordinate, number of sides, length of the sides and a color a 
-    regular polygon is drawn on the window. The class generates a list of 
-    vertices, where the first vertex is the given x, y coordinate and the 
+    Inherits from the Polygon class in java and Shape. Given an x, y
+    coordinate, number of sides, length of the sides and a color a
+    regular polygon is drawn on the window. The class generates a list of
+    vertices, where the first vertex is the given x, y coordinate and the
     rest are calculated using the number of sides and the length
     of each of the sides.
     """
