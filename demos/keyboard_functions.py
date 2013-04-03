@@ -16,7 +16,6 @@ colors = []
 canvas(640, 360)
 noStroke()
 background(100)
-loop()
 
 # Set a color for each key
 for i in range(numChars):
@@ -25,7 +24,7 @@ for i in range(numChars):
 
 def draw():
     global newletter
-    if newletter == True:
+    if newletter is True:
         # Draw the 'letter'
         y_pos = 0
         if letterHeight == maxHeight:
@@ -73,3 +72,4 @@ def keyPressed():
 
 onKeyPress(keyPressed)
 onDraw(draw)
+jygsawMain(0.05)

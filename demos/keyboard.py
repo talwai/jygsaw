@@ -5,7 +5,6 @@ canvas(640, 360)
 noStroke()
 background(0)
 rectWidth = width() / 4
-loop()
 
 
 def draw():
@@ -33,3 +32,4 @@ def keyPressed():
 
 onKeyPress(keyPressed)
 onDraw(draw)
+jygsawMain(0.05)
