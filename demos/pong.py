@@ -206,4 +206,4 @@ while True:
     if isKeyPressed(RIGHT_PADDLE_DOWN_KEY) and right_paddle_y + PADDLE_HEIGHT < BOTTOM_WALL_TOP:
         right_paddle_y = right_paddle_y + PADDLE_MOVE_SPEED
 
-    redraw(DELAY)
+    refresh(DELAY)
