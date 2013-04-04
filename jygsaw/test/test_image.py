@@ -4,13 +4,14 @@ from __future__ import with_statement
 from jygsaw.graphics import *
 
 import unittest2
-import os
+from inspect import getfile, currentframe
+import os.path as path
 
 
 class TestImage(unittest2.TestCase):
     def setUp(self):
         self.invalid_path = "invalid_test_puppy.jpg"
-        self.valid_path = os.path.abspath(os.path.dirname(__file__) + "puppy_for_test_image.jpg")
+        self.valid_path = path.join(path.dirname(path.abspath(getfile(currentframe()))), "puppy_for_test_image.jpg")
         self.invalid_url = "http://invalidurl.zzzzzzz/comics/steroids.png"
         self.valid_url = "http://imgs.xkcd.com/comics/steroids.png"
 
