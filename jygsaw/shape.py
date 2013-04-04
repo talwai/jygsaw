@@ -35,7 +35,8 @@ class Shape():
 
     def _set_color(self, c):
         """Sets the color of the GraphicsObject."""
-        assert c == None or isinstance(c, Color), "The object passed is not a Color object."
+        assert c == None or isinstance(
+            c, Color), "The object passed is not a Color object."
         self._color = c
 
     color = property(_get_color, _set_color, doc="Color of the object.")
@@ -50,7 +51,7 @@ class Shape():
         self._filled = f
 
     filled = property(_get_filled, _set_filled,
-        "Boolean describing whether the shaped is filled or not.")
+                      "Boolean describing whether the shaped is filled or not.")
 
     def _get_stroke(self):
         return self._stroke
@@ -60,17 +61,18 @@ class Shape():
         self._stroke = s
 
     stroke = property(_get_stroke, _set_stroke,
-        "Boolean describing whether the shape has a stroke or not.")
+                      "Boolean describing whether the shape has a stroke or not.")
 
     def _get_strokeColor(self):
         return self._strokeColor
 
     def _set_strokeColor(self, c):
-        assert c == None or isinstance(c, Color), "The object passed is not a Color object."
+        assert c == None or isinstance(
+            c, Color), "The object passed is not a Color object."
         self._strokeColor = c
 
     strokeColor = property(_get_strokeColor, _set_strokeColor,
-        "Color of the stroke.")
+                           "Color of the stroke.")
 
     def _get_strokeWidth(self):
         return self._strokeWidth
@@ -80,7 +82,7 @@ class Shape():
         self._strokeWidth = w
 
     strokeWidth = property(_get_strokeWidth, _set_strokeWidth,
-        "Width of the stroke")
+                           "Width of the stroke")
 
     def _draw(self, g):
         if self.filled:
@@ -118,6 +120,7 @@ class Rectangle(Rectangle2D.Float, Shape):
         self.x = self.x + deltaX
         self.y = self.y + deltaY
 
+
 class Ellipse(Ellipse2D.Float, Shape):
 
     """
@@ -137,6 +140,7 @@ class Ellipse(Ellipse2D.Float, Shape):
     def move(self, deltaX, deltaY):
         self.x = self.x + deltaX
         self.y = self.y + deltaY
+
 
 class Circle(Ellipse2D.Float, Shape):
 
@@ -162,12 +166,12 @@ class Circle(Ellipse2D.Float, Shape):
         return self._radius
 
     def _set_radius(self, r):
-        assert isinstance(r, int) and r > 0, "Circle radius must be greater than zero and an integer."
+        assert isinstance(
+            r, int) and r > 0, "Circle radius must be greater than zero and an integer."
         self._radius = r
         self.width = r * 2
 
     radius = property(_get_radius, _set_radius, "Radius of the Circle.")
-
 
     def _draw(self, g):
         # Same draw function in shape except that it temporarily changes the
@@ -201,6 +205,7 @@ class Circle(Ellipse2D.Float, Shape):
         self.x = self.x + deltaX
         self.y = self.y + deltaY
 
+
 class Line(Line2D.Float, Shape):
 
     """
@@ -220,6 +225,7 @@ class Line(Line2D.Float, Shape):
         self.x = self.x + deltaX
         self.y = self.y + deltaY
 
+
 class Point(Line):
 
     """
@@ -234,7 +240,6 @@ class Point(Line):
         super(Point, self).__init__(x, y, x, y, color)
 
 
-
 class Arc(Arc2D.Float, Shape):
 
     """
@@ -246,7 +251,8 @@ class Arc(Arc2D.Float, Shape):
     """
 
     def __init__(self, x, y, width, height, startAngle, arcAngle, color=None):
-        super(Arc, self).__init__(x, y, width, height, startAngle, arcAngle, Arc2D.OPEN, color=color)
+        super(Arc, self).__init__(x, y, width, height, startAngle,
+                                  arcAngle, Arc2D.OPEN, color=color)
 
     def moveTo(self, x, y):
         self.x = x
@@ -255,6 +261,7 @@ class Arc(Arc2D.Float, Shape):
     def move(self, deltaX, deltaY):
         self.x = self.x + deltaX
         self.y = self.y + deltaY
+
 
 class Polygon(JavaPolygon, Shape):
 
@@ -267,7 +274,8 @@ class Polygon(JavaPolygon, Shape):
     def __init__(self, vertices, color=None):
         assert len(vertices) > 0, "Number of vertices must be greater than 0 "
         (xValues, yValues) = zip(*vertices)
-        super(Polygon, self).__init__(xValues, yValues, len(vertices), color=color)
+        super(Polygon, self).__init__(xValues, yValues, len(
+            vertices), color=color)
         self._vertices = vertices
 
     def _get_vertices(self):
@@ -277,7 +285,8 @@ class Polygon(JavaPolygon, Shape):
         assert v >= 1, "Number of sides must be greater than or equal to 0 "
         self._vertices = v
 
-    vertices = property(_get_vertices, _set_vertices, "List of vertices, where the vertices are tuples of two integers.")
+    vertices = property(_get_vertices, _set_vertices,
+                        "List of vertices, where the vertices are tuples of two integers.")
 
     def moveTo(self, x, y):
         self.move(x - self.vertices[0][0], y - self.vertices[0][1])
@@ -285,7 +294,7 @@ class Polygon(JavaPolygon, Shape):
         self.y = y
 
     def move(self, deltaX, deltaY):
-        self.vertices = [(x + deltaX, y + deltaY) for x,y in self.vertices]
+        self.vertices = [(x + deltaX, y + deltaY) for x, y in self.vertices]
         self.translate(deltaX, deltaY)
 
 
@@ -315,7 +324,8 @@ class RegPolygon(JavaPolygon, Shape):
                 self.sideAngle * i))), int(round(y + self.radius * sin(self.sideAngle * i)))))
 
         (xValues, yValues) = zip(*self.vertices)
-        super(RegPolygon, self).__init__(xValues, yValues, len(self.vertices), color=color)
+        super(RegPolygon, self).__init__(
+            xValues, yValues, len(self.vertices), color=color)
 
     def _get_vertices(self):
         return self._vertices
@@ -324,7 +334,8 @@ class RegPolygon(JavaPolygon, Shape):
         assert v > 0, "Number of vertices must be greater than 0"
         self._vertices = v
 
-    vertices = property(_get_vertices, _set_vertices, "List of vertices, where the vertices are tuples of two integers.")
+    vertices = property(_get_vertices, _set_vertices,
+                        "List of vertices, where the vertices are tuples of two integers.")
 
     def _get_sides(self):
         return self._sides
@@ -334,7 +345,8 @@ class RegPolygon(JavaPolygon, Shape):
         self._sides = s
         self.sideAngle = (2 * PI) / self._sides
 
-    sides = property(_get_sides, _set_sides, "An integer setting the number of sides. ")
+    sides = property(
+        _get_sides, _set_sides, "An integer setting the number of sides. ")
 
     def _set_sideLength(self):
         return self._sideLength
@@ -345,7 +357,8 @@ class RegPolygon(JavaPolygon, Shape):
         self.radius = self._sideLength * sin(.5 * (PI - self.sideAngle)) / \
             sin(self.sideAngle)
 
-    sideLength = property(_set_sideLength, _get_sideLength, "Length of each side.")
+    sideLength = property(
+        _set_sideLength, _get_sideLength, "Length of each side.")
 
     def moveTo(self, x, y):
         self.move(x - self.vertices[0][0], y - self.vertices[0][1])
@@ -353,6 +366,5 @@ class RegPolygon(JavaPolygon, Shape):
         self.y = y
 
     def move(self, deltaX, deltaY):
-        self.vertices = [(x + deltaX, y + deltaY) for x,y in self.vertices]
+        self.vertices = [(x + deltaX, y + deltaY) for x, y in self.vertices]
         self.translate(deltaX, deltaY)
-

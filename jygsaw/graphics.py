@@ -450,8 +450,10 @@ def stroke(r=None, g=None, b=None, a=255):
     if r is not None:
         window.setStrokeColor(color(r, g, b, a))
 
+
 def strokeWidth(w):
     window.setStrokeWidth(w)
+
 
 def noStroke():
     """Sets stroke to false."""

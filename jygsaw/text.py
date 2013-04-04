@@ -11,7 +11,6 @@ from java.awt.Font import *
 from java.awt.Graphics import setFont
 
 
-
 class Text(GraphicsObject):
     """
     Text draws a string on the window. Its arguments are x and y coordinates which
@@ -43,7 +42,8 @@ class Text(GraphicsObject):
         return self._size
 
     def _set_size(self, s):
-        assert isinstance(s, int) and s > 0, "Text size must be greater than zero."
+        assert isinstance(
+            s, int) and s > 0, "Text size must be greater than zero."
         self._size = s
 
     size = property(_get_size, _set_size, "Size of the text.")

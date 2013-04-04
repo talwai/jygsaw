@@ -4,6 +4,7 @@ from random import random, choice
 canvas(900, 500)
 background(darkGray)
 
+
 def draw():
     lineX = random() * 800 + 50
     lineY = random() * 300 + 125

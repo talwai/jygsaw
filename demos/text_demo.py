@@ -12,8 +12,3 @@ textSize(16)
 font('Courier')
 fill(blue)
 text(120, 150, 'World, hello!')
-
-
-
-
-
