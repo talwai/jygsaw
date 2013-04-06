@@ -21,7 +21,7 @@ from Queue import Queue
 
 # the -O switch can't be used with jython, which is used to turn off __debug__
 # so we use debug instead
-debug = 0
+debug = False
 
 
 class GraphicsWindow(ActionListener, KeyListener, MouseInputListener):
@@ -79,15 +79,20 @@ class GraphicsWindow(ActionListener, KeyListener, MouseInputListener):
         # Key values
         self.lastKeyChar = None
         self.lastKeyCode = None
-        self.charsPressed = Set()
-        self.codesPressed = Set()
+
+        self.lastKeyText = None
+
+        #self.charsPressed = Set()
+        #self.codesPressed = Set()
+
+        self.keyTextPressed = Set()
 
         # Event queue
         self.eventQueue = Queue()
 
         self.mainRunning = False
 
-        # not needed, user_draw is called directly from onDraw
+        # not needed, user_draw is /called directly from onDraw
         self.onDraw = None
 
     def setVisible(self, isVisible):
@@ -301,10 +306,15 @@ class GraphicsWindow(ActionListener, KeyListener, MouseInputListener):
         user key typed function, if any.
         """
         self.keyEventType = e.getID()
-        if debug:
-            print e.getKeyChar()
+
         self.lastKeyChar = e.getKeyChar()
         self.lastKeyCode = e.getKeyCode()
+
+        self.lastKeyText = e.getKeyText(e.getKeyCode())
+
+        if debug:
+            print e.getKeyCode()
+
         if self.mainRunning:
             if self.onKeyTyped:
                 self.onKeyTyped()
@@ -319,11 +329,18 @@ class GraphicsWindow(ActionListener, KeyListener, MouseInputListener):
         self.keyEventType = e.getID()
         self.lastKeyChar = e.getKeyChar()
         self.lastKeyCode = e.getKeyCode()
-        self.charsPressed.add(self.lastKeyChar)
-        self.codesPressed.add(self.lastKeyCode)
+
+        self.lastKeyText = e.getKeyText(e.getKeyCode())
+
+#self.charsPressed.add(self.lastKeyChar)
+        #self.codesPressed.add(self.lastKeyCode)
+
+        self.keyTextPressed.add(self.lastKeyText)
 
         if debug:
-            print e.getKeyChar()
+            print "Printing keyPressed", e.getKeyText(e.getKeyCode())
+            print e.getKeyCode()
+
         if self.mainRunning:
             if self.onKeyPressed:
                 self.onKeyPressed()
@@ -338,8 +355,18 @@ class GraphicsWindow(ActionListener, KeyListener, MouseInputListener):
         self.keyEventType = e.getID()
         self.lastKeyChar = e.getKeyChar()
         self.lastKeyCode = e.getKeyCode()
-        self.charsPressed.remove(self.lastKeyChar)
-        self.codesPressed.remove(self.lastKeyCode)
+
+        self.lastKeyText = e.getKeyText(e.getKeyCode())
+
+        #self.charsPressed.remove(self.lastKeyChar)
+        #self.codesPressed.remove(self.lastKeyCode)
+
+        self.keyTextPressed.remove(self.lastKeyText)
+
+        if debug:
+            print "Printing keyReleased", e.getKeyText(e.getKeyCode())
+            print e.getKeyChar()
+
         if self.mainRunning:
             if self.onKeyReleased:
                 self.onKeyReleased()
