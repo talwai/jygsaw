@@ -23,7 +23,6 @@ from Queue import Queue
 # so we use debug instead
 debug = False
 
-
 class GraphicsWindow(ActionListener, KeyListener, MouseInputListener):
     """
     Creates a GraphicsWindow with a Canvas object that can be drawn on.
@@ -82,10 +81,7 @@ class GraphicsWindow(ActionListener, KeyListener, MouseInputListener):
 
         self.lastKeyText = None
 
-        #self.charsPressed = Set()
-        #self.codesPressed = Set()
-
-        self.keyTextPressed = Set()
+        self.charsPressed = Set()
 
         # Event queue
         self.eventQueue = Queue()
@@ -307,11 +303,6 @@ class GraphicsWindow(ActionListener, KeyListener, MouseInputListener):
         """
         self.keyEventType = e.getID()
 
-        self.lastKeyChar = e.getKeyChar()
-        self.lastKeyCode = e.getKeyCode()
-
-        self.lastKeyText = e.getKeyText(e.getKeyCode())
-
         if debug:
             print e.getKeyCode()
 
@@ -327,6 +318,7 @@ class GraphicsWindow(ActionListener, KeyListener, MouseInputListener):
         user key pressed function, if any.
         """
         self.keyEventType = e.getID()
+
         self.lastKeyChar = e.getKeyChar()
         self.lastKeyCode = e.getKeyCode()
 
@@ -335,7 +327,7 @@ class GraphicsWindow(ActionListener, KeyListener, MouseInputListener):
 #self.charsPressed.add(self.lastKeyChar)
         #self.codesPressed.add(self.lastKeyCode)
 
-        self.keyTextPressed.add(self.lastKeyText)
+        self.charsPressed.add(self.lastKeyText)
 
         if debug:
             print "Printing keyPressed", e.getKeyText(e.getKeyCode())
@@ -353,15 +345,16 @@ class GraphicsWindow(ActionListener, KeyListener, MouseInputListener):
         user key released function, if any.
         """
         self.keyEventType = e.getID()
-        self.lastKeyChar = e.getKeyChar()
-        self.lastKeyCode = e.getKeyCode()
+
+        #self.lastKeyChar = e.getKeyChar()
+        #self.lastKeyCode = e.getKeyCode()
 
         self.lastKeyText = e.getKeyText(e.getKeyCode())
 
         #self.charsPressed.remove(self.lastKeyChar)
         #self.codesPressed.remove(self.lastKeyCode)
 
-        self.keyTextPressed.remove(self.lastKeyText)
+        self.charsPressed.remove(self.lastKeyText)
 
         if debug:
             print "Printing keyReleased", e.getKeyText(e.getKeyCode())

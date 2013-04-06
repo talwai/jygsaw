@@ -413,8 +413,9 @@ def lastKeyCode():
 def isKeyPressed(char):
     """
     Returns whether *char* is being pressed.
+    isKeyPressed() is case-INSENSITIVE
     """
-    return char in window.charsPressed
+    return char.lower() in window.charsPressed or char.upper() in window.charsPressed
 
 
 def isCodePressed(code):
