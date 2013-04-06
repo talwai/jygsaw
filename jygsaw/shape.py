@@ -174,18 +174,18 @@ class Circle(Ellipse2D.Float, Shape):
     radius = property(_get_radius, _set_radius, "Radius of the Circle.")
 
     def _get_x(self):
-        return self.x + self.radius
+        return self.getX() + self.radius
 
     def _set_x(self, x):
-        self.x = x - self.radius
+        self.setFrame(x - self.radius, self.getY(), self.width, self.height)
 
     x = property(_get_x, _set_x, "X coordinate of the Circle.")
 
     def _get_y(self):
-        return self.y + self.radius
+        return self.getY() + self.radius
 
     def _set_y(self, y):
-        self.y = y - self.radius
+        self.setFrame(self.getX(), y - self.radius, self.width, self.height)
 
     y = property(_get_y, _set_y, "Y coordinate of the Circle.")
 
