@@ -9,7 +9,8 @@ class Group():
     def __init__(self, *objects):
         self.group = []
         for o in objects:
-            assert (isinstance(o, Shape) or isinstance(o, GraphicsObject)), "%s is not Shape" % o
+            assert (isinstance(o, Shape) or isinstance(o,
+                    GraphicsObject)), "%s is not Shape" % o
             self.group.append(o)
 
     def __len__(self):
@@ -23,7 +24,8 @@ class Group():
     def append(self, *objects):
         """Appends all specified objects from the Group."""
         for o in objects:
-            assert (isinstance(o, Shape) or isinstance(o, GraphicsObject)), "%s is not Shape" % o
+            assert (isinstance(o, Shape) or isinstance(o,
+                    GraphicsObject)), "%s is not Shape" % o
             self.group.append(o)
 
     def move(self, deltaX, deltaY):

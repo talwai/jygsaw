@@ -5,10 +5,10 @@ from jygsaw.graphics import *
 # sequence and after the last line is read, the first
 # line is executed again.
 
+
 def draw():
     clear()
 
-   
     global y
 
     y = y - 4

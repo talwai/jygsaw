@@ -22,7 +22,8 @@ INITIAL_Y = 25.0
 INITIAL_V_X = 4.0
 INITIAL_V_Y = 0.0   # velocity is now measured in meters/second
 
-EARTH_GRAVITY_ACCELERATION = -9.8   # Earth acceleration due to gravity, m/sec^2
+EARTH_GRAVITY_ACCELERATION = - \
+    9.8   # Earth acceleration due to gravity, m/sec^2
 
 BALL_RADIUS = 10  # radius of the ball in pixels, not used in velocity computations
 
@@ -39,10 +40,11 @@ def draw_ball(x, y):
 
 
 def draw_floor():
-    #strokeWidth(2)
+    # strokeWidth(2)
     stroke(black)  # black floor
 
-    line(0, WINDOW_HEIGHT - FLOOR_Y * PIXELS_PER_METER, WINDOW_WIDTH, WINDOW_HEIGHT - FLOOR_Y * PIXELS_PER_METER)
+    line(0, WINDOW_HEIGHT - FLOOR_Y * PIXELS_PER_METER, WINDOW_WIDTH,
+         WINDOW_HEIGHT - FLOOR_Y * PIXELS_PER_METER)
 
 
 # Computation of position uses meters, not pixels.

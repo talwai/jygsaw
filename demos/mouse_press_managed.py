@@ -1,17 +1,16 @@
 from jygsaw.graphics import *
 
 canvas(640, 360)
-fill(126)  # line color is set by stroke?
 background(102)
 LINELENGTH = 66
 
 
 def pressed():
-    fill(white)
+    stroke(white)
 
 
 def released():
-    fill(black)
+    stroke(black)
 
 
 def draw():
@@ -25,5 +24,5 @@ onMousePress(pressed)
 onMouseRelease(released)
 onDraw(draw)
 
-fill(black)
+stroke(black)
 jygsawMain(1.0 / 30)

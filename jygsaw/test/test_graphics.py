@@ -36,7 +36,8 @@ class BaseShapeClassTests(object):
     def test_fill(self):
         fill(green)
         self.shape = self.create_shape()
-        self.assertEqual(self.c.frame.contentPane.defaultColor, green, msg="Changed fill color not reflected in Window")
+        self.assertEqual(self.c.frame.contentPane.defaultColor, green,
+                         msg="Changed fill color not reflected in Window")
         self.assertEqual(
             self.shape.color, self.c.frame.contentPane.defaultColor, msg="Changed fill color not reflected in shape")
 
@@ -48,16 +49,20 @@ class BaseShapeClassTests(object):
         noFill()
         stroke()
         self.shape = self.create_shape()
-        self.assertEqual(self.shape.filled, False, msg="Shape's fill bool not correct")
-        self.assertEqual(self.c.frame.contentPane.filled, False, msg="Windows fill bool not set correctly")
+        self.assertEqual(
+            self.shape.filled, False, msg="Shape's fill bool not correct")
+        self.assertEqual(self.c.frame.contentPane.filled, False,
+                         msg="Windows fill bool not set correctly")
 
     def test_stroke(self):
         stroke(red)
         self.shape = self.create_shape()
         self.assertEqual(self.shape.stroke, self.c.frame.contentPane.stroke,
                          msg="New shape's stroke color  doesn't match have stroke color of window")
-        self.assertEqual(self.shape.stroke, True, msg="New shape doesn't have stroke turned on")
-        self.assertEqual(self.shape.strokeColor, red, msg="New shape doesn't have right stroke color")
+        self.assertEqual(self.shape.stroke, True,
+                         msg="New shape doesn't have stroke turned on")
+        self.assertEqual(self.shape.strokeColor, red,
+                         msg="New shape doesn't have right stroke color")
 
         # pass in non valid inputs
         with self.assertRaises(Exception):
@@ -67,8 +72,10 @@ class BaseShapeClassTests(object):
         fill()
         noStroke()
         self.shape = self.create_shape()
-        self.assertFalse(self.shape.stroke, msg="new shape doesn't have stroke turned off")
-        self.assertFalse(self.shape.stroke, msg="Window doesn't have stroke turned off")
+        self.assertFalse(
+            self.shape.stroke, msg="new shape doesn't have stroke turned off")
+        self.assertFalse(
+            self.shape.stroke, msg="Window doesn't have stroke turned off")
 
 #     def test_noStrokeAndnoFill_RaiseWarning(self):
 #          noStroke()
@@ -114,7 +121,6 @@ class TestRegPolygon(BaseShapeClassTests, unittest2.TestCase):
 class TestArc(BaseShapeClassTests, unittest2.TestCase):
     def create_shape(self):
         return arc(20, 20, 30, 30, 0, 90)
-
 
 
 ###### This does not inherit from tthe BaseShapeClass class!!!

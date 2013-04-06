@@ -167,7 +167,8 @@ class GraphicsWindow(ActionListener, KeyListener, MouseInputListener):
 
     def setTextSize(self, s):
         """Sets the text size of the Canvas."""
-        assert s >= 0 and isinstance(s, int), "Font size must be greater than or equal to 0"
+        assert s >= 0 and isinstance(
+            s, int), "Font size must be greater than or equal to 0"
         self.frame.contentPane.textSize = s
 
     def getBackgroundColor(self):
@@ -412,12 +413,12 @@ class Canvas(JPanel):
         has been completed.
         """
 
-        #print "blocking redraw called.  redraw requested true"
+        # print "blocking redraw called.  redraw requested true"
         self.redraw_requested = True
 
         while self.redraw_requested:
             self.repaint()
-            #print "blocking"
+            # print "blocking"
             sleep(.001)
 
     def _get_defaultColor(self):
@@ -503,7 +504,8 @@ class Canvas(JPanel):
         return self._textSize
 
     def _set_textSize(self, f):
-        assert f > 0 or isinstance(f, bool), "Text size must be an integer greater than 0."
+        assert f > 0 or isinstance(
+            f, bool), "Text size must be an integer greater than 0."
         self._textSize = f
 
     textSize = property(_get_textSize, _set_textSize)
