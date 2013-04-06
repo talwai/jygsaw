@@ -317,6 +317,8 @@ class GraphicsWindow(ActionListener, KeyListener, MouseInputListener):
         Sets the last key character and code when a key is pressed. Calls a
         user key pressed function, if any.
         """
+        if debug:
+            print e
         self.keyEventType = e.getID()
 
         self.lastKeyChar = e.getKeyChar()
@@ -344,15 +346,11 @@ class GraphicsWindow(ActionListener, KeyListener, MouseInputListener):
         Sets the last key character and code when a key is released. Calls a
         user key released function, if any.
         """
+        if debug:
+            print e
         self.keyEventType = e.getID()
 
-        #self.lastKeyChar = e.getKeyChar()
-        #self.lastKeyCode = e.getKeyCode()
-
         self.lastKeyText = e.getKeyText(e.getKeyCode())
-
-        #self.charsPressed.remove(self.lastKeyChar)
-        #self.codesPressed.remove(self.lastKeyCode)
 
         self.charsPressed.remove(self.lastKeyText)
 

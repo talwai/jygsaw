@@ -65,5 +65,11 @@ class TestShapeFunctions(unittest.TestCase):
         self.assertEqual(self.circle.x, 20)
         self.assertEqual(self.circle.y, 20)
 
+        self.circle.x = 40
+        self.circle.y = 40
+
+        self.assertEqual(self.circle.x, 40)
+        self.assertEqual(self.circle.y, 40)
+
 if (__name__ == '__main__') or (__name__ == 'main'):
     unittest.main()
