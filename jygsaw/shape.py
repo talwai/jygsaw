@@ -141,7 +141,7 @@ class Circle(Ellipse2D.Float, Shape):
 
     def __init__(self, x, y, radius, color=None):
         assert radius > 0, "Circle radius must be greater than zero"
-        super(Circle, self).__init__(x, y, radius * 2, radius * 2, color=color)
+        super(Circle, self).__init__(x - radius, y - radius, radius * 2, radius * 2, color=color)
         self._radius = radius
 
     def _get_radius(self):
@@ -154,31 +154,21 @@ class Circle(Ellipse2D.Float, Shape):
 
     radius = property(_get_radius, _set_radius, "Radius of the Circle.")
 
+    def _get_x(self):
+        return self.x + self.radius
 
-    def _draw(self, g):
-        # Same draw function in shape except that it temporarily changes the
-        # x and y values to reflect the upper left hand corner.
-        self.y = self.y - self.radius
-        self.x = self.x - self.radius
+    def _set_x(self, x):
+        self.x = x - self.radius
 
-        if self.filled:
-            g.setColor(self.color)
-            g.fill(self)
-        else:
-            g.setColor(self.color)
-            g.draw(self)
-        if self.stroke:
-            g.setPaint(self.strokeColor)
-            g.setStroke(BasicStroke(self.strokeWidth))
-            g.draw(self)
+    x = property(_get_x, _set_x, "X coordinate of the Circle.")
 
-        if not self.filled and not self.stroke:
-            # Throw a warning!
-            warn('Shape filled and stroke are both set to false.')
+    def _get_y(self):
+        return self.y + self.radius
 
-        self.y = self.y + self.radius
-        self.x = self.y + self.radius
+    def _set_y(self, y):
+        self.y = y - self.radius
 
+    y = property(_get_y, _set_y, "Y coordinate of the Circle.")
 
     def moveTo(self, x, y):
         self.move(x - self.x, y - self.y)
