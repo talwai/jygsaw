@@ -21,7 +21,7 @@ from Queue import Queue
 
 # the -O switch can't be used with jython, which is used to turn off __debug__
 # so we use debug instead
-debug = 0
+debug = False
 
 
 class GraphicsWindow(ActionListener, KeyListener, MouseInputListener):
@@ -301,8 +301,6 @@ class GraphicsWindow(ActionListener, KeyListener, MouseInputListener):
         user key typed function, if any.
         """
         self.keyEventType = e.getID()
-        if debug:
-            print e.getKeyChar()
         self.lastKeyChar = e.getKeyChar()
         self.lastKeyCode = e.getKeyCode()
         if self.mainRunning:
@@ -316,14 +314,13 @@ class GraphicsWindow(ActionListener, KeyListener, MouseInputListener):
         Sets the last key character and code when a key is pressed. Calls a
         user key pressed function, if any.
         """
+        if debug:
+            print e
         self.keyEventType = e.getID()
         self.lastKeyChar = e.getKeyChar()
         self.lastKeyCode = e.getKeyCode()
         self.charsPressed.add(self.lastKeyChar)
         self.codesPressed.add(self.lastKeyCode)
-
-        if debug:
-            print e.getKeyChar()
         if self.mainRunning:
             if self.onKeyPressed:
                 self.onKeyPressed()
@@ -335,11 +332,14 @@ class GraphicsWindow(ActionListener, KeyListener, MouseInputListener):
         Sets the last key character and code when a key is released. Calls a
         user key released function, if any.
         """
+        if debug:
+            print e
         self.keyEventType = e.getID()
         self.lastKeyChar = e.getKeyChar()
         self.lastKeyCode = e.getKeyCode()
         self.charsPressed.remove(self.lastKeyChar)
         self.codesPressed.remove(self.lastKeyCode)
+
         if self.mainRunning:
             if self.onKeyReleased:
                 self.onKeyReleased()

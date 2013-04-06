@@ -35,7 +35,7 @@ class Shape():
 
     def _set_color(self, c):
         """Sets the color of the GraphicsObject."""
-        assert c == None or isinstance(
+        assert c is None or isinstance(
             c, Color), "The object passed is not a Color object."
         self._color = c
 
@@ -67,7 +67,7 @@ class Shape():
         return self._strokeColor
 
     def _set_strokeColor(self, c):
-        assert c == None or isinstance(
+        assert c is None or isinstance(
             c, Color), "The object passed is not a Color object."
         self._strokeColor = c
 
