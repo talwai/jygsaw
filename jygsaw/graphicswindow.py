@@ -9,6 +9,7 @@ from java.awt import Color, Dimension, RenderingHints
 from java.awt.Color import black, blue, cyan, darkGray, gray, green, lightGray, magenta, orange, pink, red, white, yellow
 from javax.swing import JFrame, JPanel
 from javax.swing.event import MouseInputListener
+from java.awt import GraphicsEnvironment
 from java.awt import Graphics2D
 from javax.swing import SwingUtilities
 from image import *
@@ -18,6 +19,8 @@ from shape import *
 from text import *
 from time import sleep
 from Queue import Queue
+import unicodedata
+
 
 # the -O switch can't be used with jython, which is used to turn off __debug__
 # so we use debug instead
@@ -162,7 +165,6 @@ class GraphicsWindow(ActionListener, KeyListener, MouseInputListener):
 
     def setFont(self, f):
         """Sets the font of the Canvas."""
-
         self.frame.contentPane.font = f
 
     def setTextSize(self, s):
@@ -495,7 +497,18 @@ class Canvas(JPanel):
         return self._font
 
     def _set_font(self, f):
+
+        ge = GraphicsEnvironment.getLocalGraphicsEnvironment();
+        fontFamilies = ge.getAvailableFontFamilyNames();
+        fontFamilies = fontFamilies.tolist()
+
+        convertedFontFamilies = [ unicodedata.normalize('NFKD', a).encode('ascii', 'ignore')   \
+                                for a in fontFamilies ]
+
+        assert (f in convertedFontFamilies), "Font is not avaliable or incorrect." 
+
         self._font = f
+
 
     font = property(_get_font, _set_font)
 

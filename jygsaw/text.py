@@ -9,8 +9,7 @@ from graphicsobject import *
 from java.awt import Font
 from java.awt.Font import *
 from java.awt.Graphics import setFont
-
-
+from java.awt.GraphicsEnvironment import *
 
 class Text(GraphicsObject):
     """
@@ -25,7 +24,7 @@ class Text(GraphicsObject):
         super(Text, self).__init__(x, y, color)
         assert attribute in self.attributes, "Attribute must be PLAIN, BOLD or ITALIC"
         self._s = s
-        self._font = 'Times New Roman'  # Font, however it's defined in Java...
+        self._font = 'Times New Roman'
         self._size = 12
         self._attribute = attribute  # PLAIN, BOLD, ITALIC
 
@@ -62,7 +61,7 @@ class Text(GraphicsObject):
         return self._font
 
     def _set_font(self, f):
-        assert isinstance(f, str), "The varible passed is not a string."
+        # Need to assert
         self._font = f
 
     font = property(_get_font, _set_font,
