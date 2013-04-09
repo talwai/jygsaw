@@ -4,6 +4,13 @@ clean:
 	cd jygsaw; rm -f *.class; rm -f *~
 	rm -rf build
 
+install:
+	jython setup.py install
+
+reinstall:
+	make clean
+	make install
+
 doc: $(RST_FILES)
 	cd doc; make html
 
