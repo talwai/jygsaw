@@ -173,7 +173,7 @@ def regPolygon(x, y, sides, length, color=None):
 def arc(x, y, width, height, startAngle, endAngle, color=None):
     """
     Creates, draws on the canvas, and returns an :py:class:`~jygsaw.shape.Arc`
-    whose bounding box's top left corner is at the given x, y coordinates. The width, 
+    whose bounding box's top left corner is at the given x, y coordinates. The width,
     height, start angle, end angle, set the arc's respective attributes.
 
     The start and end angle degrees refer to a circle where 0 is on the
