@@ -13,8 +13,6 @@ canvas(640, 360)
 bx = width() / 2
 by = height() / 2
 
-loop()
-
 
 def draw():
     global overBox
@@ -43,7 +41,6 @@ def mousePressed():
     if overBox:
         locked = True
         fill(255, 255, 255)
-        print "should fill"
     else:
         locked = False
 

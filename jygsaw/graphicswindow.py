@@ -9,6 +9,7 @@ from java.awt import Color, Dimension, RenderingHints
 from java.awt.Color import black, blue, cyan, darkGray, gray, green, lightGray, magenta, orange, pink, red, white, yellow
 from javax.swing import JFrame, JPanel
 from javax.swing.event import MouseInputListener
+from java.awt import GraphicsEnvironment
 from java.awt import Graphics2D
 from javax.swing import SwingUtilities
 from image import *
@@ -18,10 +19,13 @@ from shape import *
 from text import *
 from time import sleep
 from Queue import Queue
+import unicodedata
+
 
 # the -O switch can't be used with jython, which is used to turn off __debug__
 # so we use debug instead
 debug = False
+
 
 class GraphicsWindow(ActionListener, KeyListener, MouseInputListener):
     """
@@ -78,8 +82,6 @@ class GraphicsWindow(ActionListener, KeyListener, MouseInputListener):
         # Key values
         self.lastKeyChar = None
         self.lastKeyCode = None
-
-        self.lastKeyText = None
 
         self.charsPressed = Set()
 
@@ -163,7 +165,6 @@ class GraphicsWindow(ActionListener, KeyListener, MouseInputListener):
 
     def setFont(self, f):
         """Sets the font of the Canvas."""
-
         self.frame.contentPane.font = f
 
     def setTextSize(self, s):
@@ -317,22 +318,14 @@ class GraphicsWindow(ActionListener, KeyListener, MouseInputListener):
         Sets the last key character and code when a key is pressed. Calls a
         user key pressed function, if any.
         """
-        if debug:
-            print e
         self.keyEventType = e.getID()
-
-        self.lastKeyChar = e.getKeyChar()
         self.lastKeyCode = e.getKeyCode()
-
-        self.lastKeyText = e.getKeyText(e.getKeyCode())
-
-#self.charsPressed.add(self.lastKeyChar)
-        #self.codesPressed.add(self.lastKeyCode)
-
-        self.charsPressed.add(self.lastKeyText)
+        self.lastKeyChar = e.getKeyChar()
+        self.charsPressed.add(e.getKeyText(e.getKeyCode()).upper())
 
         if debug:
-            print "Printing keyPressed", e.getKeyText(e.getKeyCode())
+            print "Key pressed:"
+            print e.getKeyText(e.getKeyCode())
             print e.getKeyCode()
 
         if self.mainRunning:
@@ -346,17 +339,13 @@ class GraphicsWindow(ActionListener, KeyListener, MouseInputListener):
         Sets the last key character and code when a key is released. Calls a
         user key released function, if any.
         """
-        if debug:
-            print e
         self.keyEventType = e.getID()
-
-        self.lastKeyText = e.getKeyText(e.getKeyCode())
-
-        self.charsPressed.remove(self.lastKeyText)
+        self.charsPressed.remove(e.getKeyText(e.getKeyCode()).upper())
 
         if debug:
-            print "Printing keyReleased", e.getKeyText(e.getKeyCode())
-            print e.getKeyChar()
+            print "Key released:"
+            print e.getKeyText(e.getKeyCode())
+            print e.getKeyCode()
 
         if self.mainRunning:
             if self.onKeyReleased:
@@ -514,7 +503,18 @@ class Canvas(JPanel):
         return self._font
 
     def _set_font(self, f):
+
+        ge = GraphicsEnvironment.getLocalGraphicsEnvironment();
+        fontFamilies = ge.getAvailableFontFamilyNames();
+        fontFamilies = fontFamilies.tolist()
+
+        convertedFontFamilies = [ unicodedata.normalize('NFKD', a).encode('ascii', 'ignore')   \
+                                for a in fontFamilies ]
+
+        assert (f in convertedFontFamilies), "Font is not avaliable or incorrect." 
+
         self._font = f
+
 
     font = property(_get_font, _set_font)
 

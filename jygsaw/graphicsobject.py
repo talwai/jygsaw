@@ -4,7 +4,7 @@ from java.awt import Color
 
 class GraphicsObject(object):
     """
-    Anything drawn on the canvas is a child of GraphicsObject.
+    Anything drawn on the canvas is a child of GraphicsObject
     This class stores the location of the object (x, y) and
     has methods to rotate, flip, translate and move the object.
     The basic move method has been created rotate, scale, and flip are
@@ -16,7 +16,7 @@ class GraphicsObject(object):
         assert isinstance(x, int), "The x value given is not an integer."
         assert isinstance(y, int), "The x value given is not an integer."
         assert c == None or isinstance(
-            c, Color), "The object pass is not a Color object."
+            c, Color), "The object passed is not a Color object."
         self._x = x
         self._y = y
         self._color = c
@@ -45,11 +45,11 @@ class GraphicsObject(object):
     y = property(_get_y, _set_y, doc="y coordinate of object.")
 
     def _get_color(self):
-        """Returns the color of the GraphicsObject."""
+        """Returns the color of the :py:class:`~jygsaw.graphicsobject.GraphicsObject` """
         return self._color
 
     def _set_color(self, c):
-        """Sets the color of the GraphicsObject."""
+        """Sets the color of the :py:class:`~jygsaw.graphicsobject.GraphicsObject` """
         assert c == None or isinstance(
             c, Color), "The object passed is not a Color object."
         self._color = c
