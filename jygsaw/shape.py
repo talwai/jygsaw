@@ -19,7 +19,7 @@ class Shape():
 
     def __init__(self, color):
         """
-        Constructor for Shape class. This class does not take any parameters
+        Constructor for :py:class:`~jygsaw.shape.Shape` class. This class does not take any parameters
         except for the color. Initially stroke is set to False, strokeColor
         is black, and strokeWidth is set to 1. StrokeColor and stroke are
         later set by the draw method in graphicsWindow.
@@ -32,11 +32,11 @@ class Shape():
         self._strokeWidth = 1
 
     def _get_color(self):
-        """Returns the color of the Shape."""
+        """Returns the color of the :py:class:`~jygsaw.shape.Shape` """
         return self._color
 
     def _set_color(self, c):
-        """Sets the color of the Shape."""
+        """Sets the color of the :py:class:`~jygsaw.shape.Shape` """
         assert c is None or isinstance(
             c, Color), "The object passed is not a Color object."
         self._color = c
@@ -106,7 +106,7 @@ class Rectangle(Rectangle2D.Float, Shape):
 
     """
     The Rectangle class describes a rectangle defined by its top left corner,
-    width, and height. Rectangle inherits from Rectangle2D.Float and Shape.
+    width, and height. Rectangle inherits from Rectangle2D.Float and :py:class:`~jygsaw.shape.Shape` .
     """
 
     def __init__(self, x, y, width, height, color=None):
@@ -130,12 +130,12 @@ class Ellipse(Ellipse2D.Float, Shape):
 
     """
     The Ellipse class describes an ellipse that is defined by a bounding
-    rectangle. Inherits from Ellipse2D.Float and Shape.
+    rectangle. Inherits from Ellipse2D.Float and :py:class:`~jygsaw.shape.Shape` .
     """
 
     def __init__(self, x, y, width, height, color=None):
         """
-        Creates an Ellipse where x and y represent the top left hand corner
+        Creates an :py:class:`~jygsaw.shape.Ellipse` where x and y represent the top left hand corner
         of the counding rectangle. Width and height define the bounding
         rectangle's width and height, respectively. An optional color
         can also be passed.
@@ -155,7 +155,7 @@ class Circle(Ellipse2D.Float, Shape):
 
     """
     The Circle class describes a circle that is defined by its center point
-    and radius. It inherits from Ellipse2D and Shape.
+    and radius. It inherits from Ellipse2D and :py:class:`~jygsaw.shape.Shape` .
     """
 
     def __init__(self, x, y, radius, color=None):
@@ -208,7 +208,7 @@ class Line(Line2D.Float, Shape):
 
     """
     The Line class describes a line that is defined by a start point and
-    an end point. It inherits from Line2D and Shape.
+    an end point. It inherits from Line2D and :py:class:`~jygsaw.shape.Shape` .
     """
 
     def __init__(self, startX, startY, endX, endY, color=None):
@@ -231,7 +231,7 @@ class Point(Line):
 
     """
     The Point class describes a point that is defined by an x and y coordinate.
-    It inherits from Line; the start and end coordinates are the same.
+    It inherits from :py:class:`~jygsaw.shape.Line` ; the start and end coordinates are the same.
     """
 
     def __init__(self, x, y, color=None):
@@ -249,7 +249,7 @@ class Arc(Arc2D.Float, Shape):
     clockwise direction, and negative degree values are in the clockwise
     direction. The arc is defined by a bounding rectangle, start angle,
     and arc angle. The bounding rectangle is defined by its top left corner,
-    width, and height. Inherits from Arc2D and Shape.
+    width, and height. Inherits from Arc2D and :py:class:`~jygsaw.shape.Shape` .
 
     startAngle is where the arc begins; arc is extended for arcAngle degrees
     x, y - upper left corner of the arc's rectangle to be filled
@@ -279,7 +279,7 @@ class Polygon(JavaPolygon, Shape):
 
     """
     The Polygon class describes a polygon defined by a list of points. Inherits
-    from Java's Polygon class and Shape.
+    from Java's Polygon class and :py:class:`~jygsaw.shape.Shape` .
     """
 
     def __init__(self, vertices, color=None):
@@ -321,7 +321,7 @@ class RegPolygon(JavaPolygon, Shape):
     vertex, the number of sides, and side length. It inherits from Java's
     Polygon class and Shape.
 
-    Inherits from the Polygon class in java and Shape. Given an x, y
+    Inherits from the :py:class:`~jygsaw.shape.Polygon`  class in java and :py:class:`~jygsaw.shape.Shape`. Given an x, y
     coordinate, number of sides, length of the sides and a color a
     regular polygon is drawn on the window. The class generates a list of
     vertices, where the first vertex is the given x, y coordinate and the
