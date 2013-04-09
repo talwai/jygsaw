@@ -23,6 +23,7 @@ from Queue import Queue
 # so we use debug instead
 debug = False
 
+
 class GraphicsWindow(ActionListener, KeyListener, MouseInputListener):
     """
     Creates a GraphicsWindow with a Canvas object that can be drawn on.
@@ -78,8 +79,6 @@ class GraphicsWindow(ActionListener, KeyListener, MouseInputListener):
         # Key values
         self.lastKeyChar = None
         self.lastKeyCode = None
-
-        self.lastKeyText = None
 
         self.charsPressed = Set()
 
@@ -317,22 +316,14 @@ class GraphicsWindow(ActionListener, KeyListener, MouseInputListener):
         Sets the last key character and code when a key is pressed. Calls a
         user key pressed function, if any.
         """
-        if debug:
-            print e
         self.keyEventType = e.getID()
-
-        self.lastKeyChar = e.getKeyChar()
         self.lastKeyCode = e.getKeyCode()
-
-        self.lastKeyText = e.getKeyText(e.getKeyCode())
-
-#self.charsPressed.add(self.lastKeyChar)
-        #self.codesPressed.add(self.lastKeyCode)
-
-        self.charsPressed.add(self.lastKeyText)
+        self.lastKeyChar = e.getKeyChar()
+        self.charsPressed.add(e.getKeyText(e.getKeyCode()).upper())
 
         if debug:
-            print "Printing keyPressed", e.getKeyText(e.getKeyCode())
+            print "Key pressed:"
+            print e.getKeyText(e.getKeyCode())
             print e.getKeyCode()
 
         if self.mainRunning:
@@ -346,17 +337,13 @@ class GraphicsWindow(ActionListener, KeyListener, MouseInputListener):
         Sets the last key character and code when a key is released. Calls a
         user key released function, if any.
         """
-        if debug:
-            print e
         self.keyEventType = e.getID()
-
-        self.lastKeyText = e.getKeyText(e.getKeyCode())
-
-        self.charsPressed.remove(self.lastKeyText)
+        self.charsPressed.remove(e.getKeyText(e.getKeyCode()).upper())
 
         if debug:
-            print "Printing keyReleased", e.getKeyText(e.getKeyCode())
-            print e.getKeyChar()
+            print "Key released:"
+            print e.getKeyText(e.getKeyCode())
+            print e.getKeyCode()
 
         if self.mainRunning:
             if self.onKeyReleased:
