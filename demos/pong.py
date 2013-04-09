@@ -18,7 +18,7 @@
 from jygsaw.graphics import *
 
 # Constants for the keys that matter.
-RESTART_KEY = 'g'
+RESTART_KEY = "SPACE"
 QUIT_KEY = "q"
 LEFT_PADDLE_UP_KEY = "a"
 LEFT_PADDLE_DOWN_KEY = "z"
@@ -160,7 +160,7 @@ while True:
     # If no game in progress, tell user how to start.
     if not game_in_progress:
         text(GAME_START_MSG_X, GAME_START_MSG_Y,
-             "Press the 'g' key to start a game")
+             "Press the SPACE bar to start a game")
 
     # End the game if the ball touches a vertical wall.
     if (ball_touches_vert_line(ball_x, ball_y, LEFT_WALL_RIGHT,
