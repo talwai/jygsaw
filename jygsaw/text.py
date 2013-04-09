@@ -9,6 +9,7 @@ from graphicsobject import *
 from java.awt import Font
 from java.awt.Font import *
 from java.awt.Graphics import setFont
+from GraphicsWindow import Canvas
 
 class Text(GraphicsObject):
     """
@@ -61,7 +62,7 @@ class Text(GraphicsObject):
         return self._font
 
     def _set_font(self, f):
-        # Need to assert
+        assert (f in Canvas.convertedFontFamilies), "Font is not avaliable or incorrect." 
         self._font = f
 
     font = property(_get_font, _set_font,

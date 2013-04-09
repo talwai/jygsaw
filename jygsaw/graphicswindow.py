@@ -376,7 +376,10 @@ class Canvas(JPanel):
     Canvas where objects get drawn. The Canvas is automatically created
     and attached to a window upon window creation.
     """
-
+    
+    # Static variable that contains all a list of string that represent all the avaliable fonts
+    convertedFontFamilies = [ unicodedata.normalize('NFKD', a).encode('ascii', 'ignore')
+                              for a in GraphicsEnvironment.getLocalGraphicsEnvironment().getAvailableFontFamilyNames().tolist() ]
     def __init__(self, window, objects, backgroundColor):
         self.objs = objects
         self.window = window
@@ -390,6 +393,9 @@ class Canvas(JPanel):
         self._strokeWidth = 1
 
         self.redraw_requested = True
+
+        # Installed fonts
+
 
     def paintComponent(self, g):
         """
@@ -503,16 +509,7 @@ class Canvas(JPanel):
         return self._font
 
     def _set_font(self, f):
-
-        ge = GraphicsEnvironment.getLocalGraphicsEnvironment();
-        fontFamilies = ge.getAvailableFontFamilyNames();
-        fontFamilies = fontFamilies.tolist()
-
-        convertedFontFamilies = [ unicodedata.normalize('NFKD', a).encode('ascii', 'ignore')   \
-                                for a in fontFamilies ]
-
-        assert (f in convertedFontFamilies), "Font is not avaliable or incorrect." 
-
+        assert (f in self.convertedFontFamilies), "Font is not avaliable or incorrect." 
         self._font = f
 
 
