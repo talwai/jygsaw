@@ -151,7 +151,8 @@ while True:
 
     # print message
     if state is START:
-        text(25, 10, "Press Space to start game!", color=white, attribute=PLAIN)
+        text(25, 10, "Press Space to start game!", color=white,
+             attribute=PLAIN)
         text(25, 20, "i = UP", color=white, attribute=PLAIN)
         text(25, 30, "j = LEFT, l = RIGHT", color=white, attribute=PLAIN)
         text(25, 40, "k = DOWN", color=white, attribute=PLAIN)
@@ -173,6 +174,7 @@ while True:
     # check for collisions
     if check_self_collisions() or check_wall_collisions():
         state = START
-        text(25, 10, "You lost! Press Space to restart", color=white, attribute=PLAIN)
+        text(25, 10, "You lost! Press Space to restart",
+             color=white, attribute=PLAIN)
 
     refresh(DELAY)

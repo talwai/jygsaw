@@ -6,10 +6,19 @@ from shape import Shape
 
 
 class Group():
+
+    """
+    A Group object  will hold a list of shapes, text, image and other objects. You can 
+    move all the objects in a Group at once.
+    """
+    
+
     def __init__(self, *objects):
+        """Create a Group object, passing to it a variable number of objects."""
         self.group = []
         for o in objects:
-            assert (isinstance(o, Shape) or isinstance(o, GraphicsObject)), "%s is not Shape" % o
+            assert (isinstance(o, Shape) or isinstance(o,
+                    GraphicsObject)), "%s is not Shape" % o
             self.group.append(o)
 
     def __len__(self):
@@ -23,7 +32,8 @@ class Group():
     def append(self, *objects):
         """Appends all specified objects from the Group."""
         for o in objects:
-            assert (isinstance(o, Shape) or isinstance(o, GraphicsObject)), "%s is not Shape" % o
+            assert (isinstance(o, Shape) or isinstance(o,
+                    GraphicsObject)), "%s is not Shape" % o
             self.group.append(o)
 
     def move(self, deltaX, deltaY):

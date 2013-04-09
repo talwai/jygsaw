@@ -24,7 +24,7 @@ import unicodedata
 
 # the -O switch can't be used with jython, which is used to turn off __debug__
 # so we use debug instead
-debug = 0
+debug = False
 
 
 class GraphicsWindow(ActionListener, KeyListener, MouseInputListener):
@@ -82,15 +82,15 @@ class GraphicsWindow(ActionListener, KeyListener, MouseInputListener):
         # Key values
         self.lastKeyChar = None
         self.lastKeyCode = None
+
         self.charsPressed = Set()
-        self.codesPressed = Set()
 
         # Event queue
         self.eventQueue = Queue()
 
         self.mainRunning = False
 
-        # not needed, user_draw is called directly from onDraw
+        # not needed, user_draw is /called directly from onDraw
         self.onDraw = None
 
     def setVisible(self, isVisible):
@@ -169,7 +169,8 @@ class GraphicsWindow(ActionListener, KeyListener, MouseInputListener):
 
     def setTextSize(self, s):
         """Sets the text size of the Canvas."""
-        assert s >= 0 and isinstance(s, int), "Font size must be greater than or equal to 0"
+        assert s >= 0 and isinstance(
+            s, int), "Font size must be greater than or equal to 0"
         self.frame.contentPane.textSize = s
 
     def getBackgroundColor(self):
@@ -302,10 +303,10 @@ class GraphicsWindow(ActionListener, KeyListener, MouseInputListener):
         user key typed function, if any.
         """
         self.keyEventType = e.getID()
+
         if debug:
-            print e.getKeyChar()
-        self.lastKeyChar = e.getKeyChar()
-        self.lastKeyCode = e.getKeyCode()
+            print e.getKeyCode()
+
         if self.mainRunning:
             if self.onKeyTyped:
                 self.onKeyTyped()
@@ -318,13 +319,15 @@ class GraphicsWindow(ActionListener, KeyListener, MouseInputListener):
         user key pressed function, if any.
         """
         self.keyEventType = e.getID()
-        self.lastKeyChar = e.getKeyChar()
         self.lastKeyCode = e.getKeyCode()
-        self.charsPressed.add(self.lastKeyChar)
-        self.codesPressed.add(self.lastKeyCode)
+        self.lastKeyChar = e.getKeyChar()
+        self.charsPressed.add(e.getKeyText(e.getKeyCode()).upper())
 
         if debug:
-            print e.getKeyChar()
+            print "Key pressed:"
+            print e.getKeyText(e.getKeyCode())
+            print e.getKeyCode()
+
         if self.mainRunning:
             if self.onKeyPressed:
                 self.onKeyPressed()
@@ -337,10 +340,13 @@ class GraphicsWindow(ActionListener, KeyListener, MouseInputListener):
         user key released function, if any.
         """
         self.keyEventType = e.getID()
-        self.lastKeyChar = e.getKeyChar()
-        self.lastKeyCode = e.getKeyCode()
-        self.charsPressed.remove(self.lastKeyChar)
-        self.codesPressed.remove(self.lastKeyCode)
+        self.charsPressed.remove(e.getKeyText(e.getKeyCode()).upper())
+
+        if debug:
+            print "Key released:"
+            print e.getKeyText(e.getKeyCode())
+            print e.getKeyCode()
+
         if self.mainRunning:
             if self.onKeyReleased:
                 self.onKeyReleased()
@@ -414,12 +420,12 @@ class Canvas(JPanel):
         has been completed.
         """
 
-        #print "blocking redraw called.  redraw requested true"
+        # print "blocking redraw called.  redraw requested true"
         self.redraw_requested = True
 
         while self.redraw_requested:
             self.repaint()
-            #print "blocking"
+            # print "blocking"
             sleep(.001)
 
     def _get_defaultColor(self):
@@ -516,7 +522,8 @@ class Canvas(JPanel):
         return self._textSize
 
     def _set_textSize(self, f):
-        assert f > 0 or isinstance(f, bool), "Text size must be an integer greater than 0."
+        assert f > 0 or isinstance(
+            f, bool), "Text size must be an integer greater than 0."
         self._textSize = f
 
     textSize = property(_get_textSize, _set_textSize)

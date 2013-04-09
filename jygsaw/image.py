@@ -26,11 +26,12 @@ class Image(GraphicsObject):
 
     def __init__(self, x, y, path, width=None, height=None):
         super(Image, self).__init__(x, y)
-        assert (isinstance(width, int) and width > 0) or width == None, "Image width must be greater than zero"
-        assert (isinstance(height, int) and height > 0) or width == None, "Image width must be greater than zero"
+        assert (isinstance(width, int) and width >
+                0) or width == None, "Image width must be greater than zero"
+        assert (isinstance(height, int) and height >
+                0) or width == None, "Image width must be greater than zero"
         assert isinstance(x, int), "Coordinates must be an int."
         assert isinstance(y, int), "Coordinates must be an int."
-
 
         # Stores a boolean describing whether or not the path given is a
         # url or file path. Throws an exception if it isn't either
@@ -73,7 +74,8 @@ class Image(GraphicsObject):
         return self._width
 
     def _set_width(self, w):
-        assert isinstance(w, int) and w > 0, "Image width must be greater than zero"
+        assert isinstance(
+            w, int) and w > 0, "Image width must be greater than zero"
         self._width = w
 
     width = property(_get_width, _set_width, "Width of the image in pixels.")
@@ -82,7 +84,8 @@ class Image(GraphicsObject):
         return self._height
 
     def _set_height(self, h):
-        assert isinstance(h, int) and h > 0, "Image height must be greater than zero"
+        assert isinstance(
+            h, int) and h > 0, "Image height must be greater than zero"
         self._height = h
 
     height = property(

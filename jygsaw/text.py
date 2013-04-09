@@ -9,7 +9,6 @@ from graphicsobject import *
 from java.awt import Font
 from java.awt.Font import *
 from java.awt.Graphics import setFont
-from java.awt.GraphicsEnvironment import *
 
 class Text(GraphicsObject):
     """
@@ -42,7 +41,8 @@ class Text(GraphicsObject):
         return self._size
 
     def _set_size(self, s):
-        assert isinstance(s, int) and s > 0, "Text size must be greater than zero."
+        assert isinstance(
+            s, int) and s > 0, "Text size must be greater than zero."
         self._size = s
 
     size = property(_get_size, _set_size, "Size of the text.")

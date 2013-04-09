@@ -37,7 +37,7 @@ class TestShapeFunctions(unittest.TestCase):
 
         c = color(255, 255, 255)
 
-        self.circle.moveTo(1500,1500)
+        self.circle.moveTo(1500, 1500)
 
         self.arc._set_color(c)
         self.assertEqual(self.arc.color, c)
@@ -64,6 +64,12 @@ class TestShapeFunctions(unittest.TestCase):
     def test_circle(self):
         self.assertEqual(self.circle.x, 20)
         self.assertEqual(self.circle.y, 20)
+
+        self.circle.x = 40
+        self.circle.y = 40
+
+        self.assertEqual(self.circle.x, 40)
+        self.assertEqual(self.circle.y, 40)
 
 if (__name__ == '__main__') or (__name__ == 'main'):
     unittest.main()
