@@ -62,7 +62,7 @@ class Text(GraphicsObject):
         return self._font
 
     def _set_font(self, f):
-        assert (f in Canvas.convertedFontFamilies), "Font is not avaliable or incorrect." 
+        assert (f in Canvas._systemFonts), "Font is not available or incorrect."
         self._font = f
 
     font = property(_get_font, _set_font,

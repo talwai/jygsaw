@@ -446,6 +446,7 @@ def strokeWidth(w):
     """Sets the stroke width."""
     window.setStrokeWidth(w)
 
+
 def noStroke():
     """Sets stroke to false."""
     window.setStroke(False)

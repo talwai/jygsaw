@@ -29,9 +29,9 @@ debug = False
 
 class GraphicsWindow(ActionListener, KeyListener, MouseInputListener):
     """
-    Creates a GraphicsWindow with a Canvas object that can be drawn on.
-    Takes a title, window width, and window height. An optional background
-    color can be specified.
+    Creates a :py:class:`~jygsaw.graphicswindow.GraphicsWindow` with a :py:class:`~jygsaw.graphicswindow.Canvas`
+    object that can be drawn on. Takes a title, window width, and window height.
+    An optional background color can be specified.
     """
 
     def __init__(self, title, w, h, backgroundColor=white):
@@ -101,13 +101,11 @@ class GraphicsWindow(ActionListener, KeyListener, MouseInputListener):
 
     def draw(self, *params):
         """
-        Takes any number of :py:class:`~jygsaw.graphicsobject.GraphicsObject`s
-        or :py:class:`~jygsaw.shape.Shape`s, or :py:class:`~jygsaw.group.Group`s of
-        :py:class:`~jygsaw.graphicsobject.GraphicsObject`s or
-        :py:class:`~jygsaw.shape.Shape`s, and draws them on the Canvas. If a shape
-        is drawn without specifying a color the default color is used. The default
-        stroke option (:py:class:`True` or :py:class:`False`) and *strokeColor*
-        is saved in each object.
+        Takes any number of :py:class:`~jygsaw.graphicsobject.GraphicsObject`
+        or :py:class:`~jygsaw.shape.Shape` objects, or :py:class:`~jygsaw.group.Group`,
+        and draws them on the Canvas. If a shape is drawn without specifying a color
+        the default color is used. The default stroke option
+        (:py:class:`True` or :py:class:`False`) and *strokeColor* is saved in each object.
         """
         for arg in params:
             if isinstance(arg, GraphicsObject) or isinstance(arg, Shape):
@@ -137,54 +135,54 @@ class GraphicsWindow(ActionListener, KeyListener, MouseInputListener):
                 raise Exception("Passed in something that's not a Group or GraphicsObject.")
 
     def setDefaultColor(self, c):
-        """Sets the default color of the :py:class:`~jygsaw.grahpicswindow.Canvas`."""
+        """Sets the default color of the :py:class:`~jygsaw.graphicswindow.Canvas`."""
         assert isinstance(c, Color), "The object passed is not a Color object."
         self.frame.contentPane.defaultColor = c
 
     def setStrokeColor(self, c):
-        """Sets the stroke color in the :py:class:`~jygsaw.grahpicswindow.Canvas`."""
+        """Sets the stroke color in the :py:class:`~jygsaw.graphicswindow.Canvas`."""
         assert isinstance(c, Color), "The object passed is not a Color object."
         self.frame.contentPane.strokeColor = c
 
     def setStroke(self, b):
-        """Turns stroke on or off in the :py:class:`~jygsaw.grahpicswindow.Canvas`."""
+        """Turns stroke on or off in the :py:class:`~jygsaw.graphicswindow.Canvas`."""
         assert isinstance(b, bool), "Variable given is not a boolean."
         self.frame.contentPane.stroke = b
 
     def setStrokeWidth(self, w):
-        """Sets the width of the stroke in the :py:class:`~jygsaw.grahpicswindow.Canvas`."""
+        """Sets the width of the stroke in the :py:class:`~jygsaw.graphicswindow.Canvas`."""
         assert isinstance(w, int), "Variable given is not an integer."
         self.frame.contentPane.strokeWidth = w
 
     def setFilled(self, f):
-        """Turns fill on or off in the :py:class:`~jygsaw.grahpicswindow.Canvas`."""
+        """Turns fill on or off in the :py:class:`~jygsaw.graphicswindow.Canvas`."""
         assert isinstance(f, bool), "Variable given is not a boolean."
         self.frame.contentPane.filled = f
 
     def setBackgroundColor(self, c):
-        """Sets the background color of the :py:class:`~jygsaw.grahpicswindow.Canvas`."""
+        """Sets the background color of the :py:class:`~jygsaw.graphicswindow.Canvas`."""
         assert isinstance(c, Color), "The object passed is not a Color object."
         self.frame.contentPane.backgroundColor = c
         self.background = c
 
     def setFont(self, f):
-        """Sets the font of the :py:class:`~jygsaw.grahpicswindow.Canvas`."""
+        """Sets the font of the :py:class:`~jygsaw.graphicswindow.Canvas`."""
         self.frame.contentPane.font = f
 
     def setTextSize(self, s):
-        """Sets the text size of the :py:class:`~jygsaw.grahpicswindow.Canvas`."""
+        """Sets the text size of the :py:class:`~jygsaw.graphicswindow.Canvas`."""
         assert s >= 0 and isinstance(
             s, int), "Font size must be greater than or equal to 0"
         self.frame.contentPane.textSize = s
 
     def getBackgroundColor(self):
-        """Returns the background color of the :py:class:`~jygsaw.grahpicswindow.Canvas`."""
+        """Returns the background color of the :py:class:`~jygsaw.graphicswindow.Canvas`."""
         return self.background
 
     def redraw(self, delay=0.0):
         """
-        Redraws the :py:class:`~jygsaw.grahpicswindow.Canvas`;
-        only returns when done. An optional float can also be used to sleep after redrawing.
+        Redraws the :py:class:`~jygsaw.graphicswindow.Canvas`.
+        Only returns when done. An optional float can also be used to sleep after redrawing.
         """
         # Use non-blocking redraw because there is no one-to-one relation
         # between calling cavas.repaint() and execution of paintComponent()
@@ -199,7 +197,7 @@ class GraphicsWindow(ActionListener, KeyListener, MouseInputListener):
     def clear(self):
         """
         Clears the screen so that only the background is visible.
-        Also deletes all :py:class:`~jygsaw.shape.Shape`s and :py:class:`~jygsaw.grahpicsobject.GraphicsObject`s.
+        Also deletes all :py:class:`~jygsaw.graphicsobject.GraphicsObject` and :py:class:`~jygsaw.shape.Shape` and objects.
         """
         self.objs = []
         self.frame.contentPane.objs = self.objs
@@ -388,12 +386,12 @@ class GraphicsWindow(ActionListener, KeyListener, MouseInputListener):
 class Canvas(JPanel):
     """
     Canvas where objects get drawn. The Canvas is automatically created
-    and attached to a :py:meth:`jygsaw.graphicswindow.GraphicsWindow` upon creation.
+    and attached to a :py:class:`jygsaw.graphicswindow.GraphicsWindow` upon creation.
     """
 
-    # Static variable that contains all a list of string that represent all the avaliable fonts
-    convertedFontFamilies = [unicodedata.normalize('NFKD', a).encode('ascii', 'ignore')
-                             for a in GraphicsEnvironment.getLocalGraphicsEnvironment().getAvailableFontFamilyNames().tolist()]
+    # Static variable that contains all a list of string that represent all the available fonts
+    _systemFonts = [unicodedata.normalize('NFKD', _f).encode('ascii', 'ignore')
+                    for _f in GraphicsEnvironment.getLocalGraphicsEnvironment().getAvailableFontFamilyNames().tolist()]
 
     def __init__(self, window, objects, backgroundColor):
         self.objs = objects
@@ -415,7 +413,7 @@ class Canvas(JPanel):
         """
         This function is responsible for drawing on the Canvas. It is passed a
         Java Graphics object that is needed in order to draw all of the
-        :py:meth:`jygsaw.graphicsobject.GraphicsObject`s. Clears the window by
+        :py:class:`jygsaw.graphicsobject.GraphicsObject` objects. Clears the window by
         drawing a clear rectangle over the entire window. The function then runs
         through the entire list of objects and draws them on the Canvas.
         """
@@ -436,7 +434,7 @@ class Canvas(JPanel):
 
     def blocking_redraw(self):
         """
-        Sends a redraw command to the Canvas. Only returns when the redraw
+        Sends a redraw command to the :py:class:`~jygsaw.graphicswindow.Canvas`. Only returns when the redraw
         has been completed.
         """
 
@@ -449,35 +447,35 @@ class Canvas(JPanel):
             sleep(.001)
 
     def _get_defaultColor(self):
-        """Get the default color of the Canvas"""
+        """Get the default color of the :py:class:`~jygsaw.graphicswindow.Canvas`."""
         return self._defaultColor
 
     def _set_defaultColor(self, c):
-        """Set the default color of the Canvas"""
+        """Set the default color of the :py:class:`~jygsaw.graphicswindow.Canvas`."""
         assert isinstance(c, Color), "The object passed is not a Color object."
         self._defaultColor = c
 
     defaultColor = property(_get_defaultColor, _set_defaultColor,
-                            "Default fill color for all the objects")
+                            "Default fill color for all the objects.")
 
     def _get_backgroundColor(self):
-        """Get the background color of the Canvas"""
+        """Get the background color of the :py:class:`~jygsaw.graphicswindow.Canvas`."""
         return self._backgroundColor
 
     def _set_backgroundColor(self, c):
-        """Set the background color of the Canvas"""
+        """Set the background color of the :py:class:`~jygsaw.graphicswindow.Canvas`."""
         assert isinstance(c, Color), "The object passed is not a Color object."
         self._backgroundColor = c
 
     backgroundColor = property(_get_backgroundColor, _set_backgroundColor,
-                               "Background Color for the window.")
+                               "Background color for the window.")
 
     def _get_strokeColor(self):
-        """Returns the strokeColor"""
+        """Returns the strokeColor."""
         return self._strokeColor
 
     def _set_strokeColor(self, c):
-        """Sets the strokeColor with the color passed as an argument."""
+        """Sets the stroke color to *c*."""
         assert isinstance(c, Color), "The object passed is not a Color object."
         self._strokeColor = c
 
@@ -497,7 +495,7 @@ class Canvas(JPanel):
                       "Boolean describing whether a stroke is being drawn or not.")
 
     def _get_strokeWidth(self):
-        """Returns whether or not stroke is True or False"""
+        """Returns whether or not stroke is :py:class:`True` or :py:class:`False`."""
         return self._strokeWidth
 
     def _set_strokeWidth(self, b):
@@ -509,11 +507,11 @@ class Canvas(JPanel):
                            "Boolean describing whether a stroke is being drawn or not.")
 
     def _get_filled(self):
-        """Returns whether or not stroke is True of False"""
+        """Returns whether or not stroke is :py:class:`True` or :py:class:`False`."""
         return self._filled
 
     def _set_filled(self, f):
-        assert isinstance(f, bool), "The variable given is not a boolean"
+        assert isinstance(f, bool), "The variable given is not a boolean."
         self._filled = f
 
     filled = property(_get_filled, _set_filled,
@@ -523,11 +521,11 @@ class Canvas(JPanel):
         return self._font
 
     def _set_font(self, f):
-        assert (f in self.convertedFontFamilies), "Font is not available or incorrect."
+        assert (f in self._systemFonts), "Font is not available or incorrect."
 
         self._font = f
 
-    font = property(_get_font, _set_font)
+    font = property(_get_font, _set_font, "Returns the name of the current font.")
 
     def _get_textSize(self):
         return self._textSize
@@ -537,4 +535,4 @@ class Canvas(JPanel):
             f, bool), "Text size must be an integer greater than 0."
         self._textSize = f
 
-    textSize = property(_get_textSize, _set_textSize)
+    textSize = property(_get_textSize, _set_textSize, "Returns the text size.")
