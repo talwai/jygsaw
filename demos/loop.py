@@ -8,7 +8,7 @@ y = 100
 
 canvas(640, 360)      # Size should be the first statement
 stroke(255)           # Set stroke color to white
-noLoop()
+running = False
 
 y = int(height() * 0.5)
 
@@ -19,19 +19,20 @@ y = int(height() * 0.5)
 # line is run again.
 def draw():
     global y
-    clear()
-    background(black)        # Set the background to black
-    line(0, y, width(), y)
+    if running:
+        clear()
+        line(0, y, width(), y)
 
-    y = y - 1
-    if (y < 0):
-        y = height()
-
-    redraw()
+        y = y - 1
+        if (y < 0):
+            y = height()
 
 
 def mousePressed():
-    loop()
+    global running
+    running = True
 
 onMousePress(mousePressed)
 onDraw(draw)
+background(black)
+jygsawMain(1.0 / 30)

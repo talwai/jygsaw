@@ -1,75 +1,58 @@
-from graphicsobject import *
-from java.awt.Graphics import fillRect, fillOval
-from java.awt.Graphics2D import *  # Hopefully, refine this later.
-from java.lang.Math import PI, cos, sin
+from java.awt import BasicStroke
 from java.awt import Color
+from java.awt import Polygon as JavaPolygon
+from java.awt.geom import Rectangle2D, Ellipse2D, Line2D, Arc2D
+from java.lang.Math import PI, cos, sin
 from warnings import warn
 
 
-class Shape(GraphicsObject):
+class Shape():
+
     """
-    Shape inherits from GraphicsObject. Any shape that is drawn on the
-    canvas inherits from Shape. Shape stores the width and height of the
-    object. As well a boolean stating whether or not it is filled and
+    Any shape that is drawn on the canvas inherits from Shape. Shape
+    stores the width, height, color, strokeColor, and strokeWidth of
+    the object. As well a boolean stating whether or not it is filled and
     another boolean that stores whether or not the shape should be drawn
-    with a stroke. The stroke color for the Shape is also stored in this
-    class.
+    with a stroke. This class also contains the draw method for all of the
+    shapes.
+
+    Constructor for :py:class:`~jygsaw.shape.Shape` classs does not take
+    any parameters except for the color. Initially stroke is set to False,
+    strokeColor is black, and strokeWidth is set to 1. StrokeColor and stroke
+    are later set by the draw method in graphicsWindow.
+
     """
 
-    def __init__(self, x, y, width, height, color=None):
-        """
-        Constructor for Shape class. Coordinates and color are passed
-        to the super class. Coodinates, width and height are required
-        parameters in order to create the object. If no color is passed
-        the default color is the default color of the window. Initially
-        stroke is set to False and strokeColor is None. strokeColor and
-        stroke are later set by the draw method in window.
-        """
-
-        super(Shape, self).__init__(x, y, color)
-        assert isinstance(width, int) and width >= 0, "The width given is not an integer or it is not greater than or equal to 0."
-        assert isinstance(height, int) and height >= 0, "The height given is not an integer or it is not greater than or equal to 0."
-        self._width = width
-        self._height = height
+    def __init__(self, color):
+        self._color = color
         self._filled = True
         self._stroke = False
-        self._strokeColor = None
+        self._strokeColor = Color.black
+        self._strokeWidth = 1
 
-    def _get_width(self):
-        """Returns the value of width."""
-        return self._width
+    def _get_color(self):
+        """Returns the color of the :py:class:`~jygsaw.shape.Shape` """
+        return self._color
 
-    def _set_width(self, w):
-        """Sets the value of width as long as the value is greater than zero."""
-        assert isinstance(w, int) and w >= 0, "Shape width must be greater than or equal to zero and an integer."
-        self._width = w
+    def _set_color(self, c):
+        """Sets the color of the :py:class:`~jygsaw.shape.Shape` """
+        assert c is None or isinstance(
+            c, Color), "The object passed is not a Color object."
+        self._color = c
 
-    width = property(_get_width, _set_width,
-        "Integer describing the width of the Shape.")
-
-    def _get_height(self):
-        """Return the value of height"""
-        return self._height
-
-    def _set_height(self, h):
-        """Sets the value of height as long as the value is greater than zero"""
-        assert isinstance(h, int) and h > 0, "Shape height must be greater than zero and an integer."
-        self._height = h
-
-    height = property(_get_height, _set_height,
-        "Integer describing the height of the Shape")
+    color = property(_get_color, _set_color, doc="Color of the shape.")
 
     def _get_filled(self):
         """Returns the boolean value of filled"""
         return self._filled
 
     def _set_filled(self, f):
-        """Sets the value of filled"""
+        """Sets the boolean value of filled"""
         assert isinstance(f, bool), "Filled must be set to a Boolean"
         self._filled = f
 
     filled = property(_get_filled, _set_filled,
-        "Boolean describing whether the shaped is filled or not.")
+                      "Boolean describing if the shape is filled.")
 
     def _get_stroke(self):
         return self._stroke
@@ -79,178 +62,236 @@ class Shape(GraphicsObject):
         self._stroke = s
 
     stroke = property(_get_stroke, _set_stroke,
-        "Boolean describing whether the shape has a stroke or not.")
+                      "Boolean describing if the shape has a stroke.")
 
     def _get_strokeColor(self):
         return self._strokeColor
 
     def _set_strokeColor(self, c):
-        assert c == None or isinstance(c, Color), "The object passed is not a Color object."
+        assert c is None or isinstance(
+            c, Color), "The object passed is not a Color object."
         self._strokeColor = c
 
     strokeColor = property(_get_strokeColor, _set_strokeColor,
-        "Color of the stroke.")
+                           "Color of the stroke.")
+
+    def _get_strokeWidth(self):
+        return self._strokeWidth
+
+    def _set_strokeWidth(self, w):
+        assert isinstance(w, int), "strokeWidth must be an integer."
+        self._strokeWidth = w
+
+    strokeWidth = property(_get_strokeWidth, _set_strokeWidth,
+                           "Width of the stroke.")
 
     def _draw(self, g):
-
-        """
-        Hidden draw method for all Shape objects. Each shape that inherits from
-        Shape needs to have its own _draw method or two methods: _draw_fill()
-        and _draw_stroke(). If the class that inherits from Shape just has a
-        _draw method that method will be used to draw the object. This is the
-        case for shapes that don't need a stroke. If a shape has a fill,
-        it will be drawn using _draw_fill(). If it does have a stroke, then
-        the shape outline is drawn using _draw_stroke(). If stroke and filled
-        are false, then a warning is thrown.
-        """
-
         if self.filled:
             g.setColor(self.color)
-            self._draw_fill(g)
+            g.fill(self)
+        else:
+            g.setColor(self.color)
+            g.draw(self)
         if self.stroke:
-            g.setColor(self.strokeColor)
-            self._draw_stroke(g)
+            g.setPaint(self.strokeColor)
+            g.setStroke(BasicStroke(self.strokeWidth))
+            g.draw(self)
+
         if not self.filled and not self.stroke:
-            # Throw a warning!
-            warn('Shape filled and stroke are both set to false')
+            warn('Shape filled and stroke are both set to false.')
 
 
-class Ellipse(Shape):
+class Rectangle(Rectangle2D.Float, Shape):
 
     """
-    Inherits from Shape. The x, y coordinates represent top left hand corner
-    of the bounding rectangle, and width and height define the bounding
-    rectangle's width and height, respectively.
+    The Rectangle class describes a rectangle defined by its top left corner,
+    width, and height. Rectangle inherits from Rectangle2D.Float and 
+    :py:class:`~jygsaw.shape.Shape` .
+
+    Creates a Rectangle where x and y describe the top left coordinate of
+    the rectangle. Width and height set the width and height, respectively,
+    of the rectangle. An optional color can also be given.
+
     """
+
     def __init__(self, x, y, width, height, color=None):
-        super(Ellipse, self).__init__(x, y, width, height, color)
+        super(Rectangle, self).__init__(x, y, width, height, color=color)
 
-    def _draw_stroke(self, g):
-        g.drawOval(self.x, self.y, self.width, self.height)
+    def moveTo(self, x, y):
+        self.x = x
+        self.y = y
 
-    def _draw_fill(self, g):
-        g.fillOval(self.x, self.y, self.width, self.height)
+    def move(self, deltaX, deltaY):
+        self.x = self.x + deltaX
+        self.y = self.y + deltaY
 
 
-class Circle(Shape):
+class Ellipse(Ellipse2D.Float, Shape):
 
     """
-    Circle inherits from Shape. The x, y coordinates of a Circle
-    represent its center, instead of the upper left corner of
-    the bounding box, and it takes a radius as well.
+    The Ellipse class describes an ellipse that is defined by a bounding
+    rectangle. Inherits from Ellipse2D.Float and
+    :py:class:`~jygsaw.shape.Shape` .
+
+    Creates an :py:class:`~jygsaw.shape.Ellipse` where x and y represent the
+    top left hand corner of the counding rectangle. Width and height define
+    the bounding rectangle's width and height, respectively. An optional color
+    can also be passed.
+
     """
 
-    # (x,y) - center of Circle
+    def __init__(self, x, y, width, height, color=None):
+        super(Ellipse, self).__init__(x, y, width, height, color=color)
+
+    def moveTo(self, x, y):
+        self.x = x
+        self.y = y
+
+    def move(self, deltaX, deltaY):
+        self.x = self.x + deltaX
+        self.y = self.y + deltaY
+
+
+class Circle(Ellipse2D.Float, Shape):
+
+    """
+    The Circle class describes a circle that is defined by its center point
+    and radius. It inherits from Ellipse2D and
+    :py:class:`~jygsaw.shape.Shape` .
+
+    Creates a circle that is centered at (x, y) with a given radius. An
+    optional color can also be passed.
+
+    """
+
     def __init__(self, x, y, radius, color=None):
-        assert radius > 0, "Circle radius must be greater than zero"
-        super(Circle, self).__init__(x, y, radius * 2, radius * 2, color)
+        assert radius > 0, "Circle radius must be greater than zero."
+        super(Circle, self).__init__(x - radius, y - radius, radius * 2, radius * 2, color=color)
         self._radius = radius
-
-    def _draw_stroke(self, g):
-        g.drawOval(self.x - self.radius, self.y - self.radius,
-                   self.radius * 2, self.radius * 2)
-
-    def _draw_fill(self, g):
-        g.fillOval(self.x - self.radius, self.y - self.radius,
-                   self.radius * 2, self.radius * 2)
 
     def _get_radius(self):
         return self._radius
 
     def _set_radius(self, r):
-        assert isinstance(r, int) and r > 0, "Circle radius must be greater than zero and an integer."
+        assert isinstance(
+            r, int) and r > 0, "Circle radius must be greater than zero and an integer."
         self._radius = r
+        self.width = r * 2
 
-    radius = property(_get_radius, _set_radius, "Radius of the Circle.")
+    radius = property(_get_radius, _set_radius, "Radius of the circle.")
+
+    def _get_x(self):
+        return self.getX() + self.radius
+
+    def _set_x(self, x):
+        self.setFrame(x - self.radius, self.getY(), self.width, self.height)
+
+    x = property(_get_x, _set_x, "X coordinate of the circle.")
+
+    def _get_y(self):
+        return self.getY() + self.radius
+
+    def _set_y(self, y):
+        self.setFrame(self.getX(), y - self.radius, self.width, self.height)
+
+    y = property(_get_y, _set_y, "Y coordinate of the circle.")
+
+    def moveTo(self, x, y):
+        self.x = x
+        self.y = y
+
+    def move(self, deltaX, deltaY):
+        self.x = self.x + deltaX
+        self.y = self.y + deltaY
 
 
-class Rectangle(Shape):
+class Line(Line2D.Float, Shape):
 
     """
-    Inherits from Shape. Its arguments are x, y, coordinates, width,
-    height and optionally color. A rectangle is drawn on the screen with
-    its top-left corner at the x, y coordinate.
-    """
-    def __init__(self, x, y, width, height, color=None):
-        super(Rectangle, self).__init__(x, y, width, height, color)
+    The Line class describes a line that is defined by a start point and
+    an end point. It inherits from Line2D and :py:class:`~jygsaw.shape.Shape` .
 
-    def _draw_fill(self, g):
-        g.fillRect(self.x, self.y, self.width, self.height)
+    Creates a line that starts at startX and startY, and ends at endX
+    and endY. An optional color can also be given.
 
-    def _draw_stroke(self, g):
-        g.drawRect(self.x, self.y, self.width, self.height)
-
-
-class Line(Shape):
-
-    """
-    Inherits from Shape. Its arguments are the start x, y, the
-    end x, y and a color. A line is drawn on the screen from the
-    start point to the end point.
     """
 
     def __init__(self, startX, startY, endX, endY, color=None):
-        super(Line, self).__init__(startX, startY, 0, 0, color)
-        self.startX = startX
-        self.startY = startY
-        self.endX = endX
-        self.endY = endY
+        super(Line, self).__init__(startX, startY, endX, endY, color=color)
 
-    def _draw(self, g):
-        g.setColor(self.color)
-        g.drawLine(self.startX, self.startY, self.endX, self.endY)
+    def moveTo(self, x, y):
+        self.x = x
+        self.y = y
+
+    def move(self, deltaX, deltaY):
+        self.x = self.x + deltaX
+        self.y = self.y + deltaY
 
 
 class Point(Line):
 
     """
-    Inherits from Line. Its arguments are x, y coordinates and
-    color. The draw method from line is used; a line is drawn that
-    starts and ends at the same point.
+    The Point class describes a point that is defined by an x and y coordinate.
+    It inherits from :py:class:`~jygsaw.shape.Line` ; the start and end
+    coordinates are the same.
+
+    Creates a point at x, y with an optional color.
     """
-    # (x, y) - coordinate of point
-    # draws a line with the same start and end point
+
     def __init__(self, x, y, color=None):
         super(Point, self).__init__(x, y, x, y, color)
-        self.x = x
-        self.y = y
 
 
-class Arc(Shape):
+class Arc(Arc2D.Float, Shape):
 
     """
-    Based in polar coordinate convention, with 0 degrees pointing 3 o'clock
-    positive degree values are in the counter-clockwise direction; negative in clockwise
+    The Arc class describes an arc. According to polar coordinate convention,
+    0 degrees points and 3 o'clock, positive degree values are in the counter-
+    clockwise direction, and negative degree values are in the clockwise
+    direction. The arc is defined by a bounding rectangle, start angle,
+    and arc angle. The bounding rectangle is defined by its top left corner,
+    width, and height. Inherits from Arc2D and :py:class:`~jygsaw.shape.Shape`.
     startAngle is where the arc begins; arc is extended for arcAngle degrees
     x, y - upper left corner of the arc's rectangle to be filled
     width and height are the width and height of the arc to be filled
+
+    Creates an arc within a bounding rectangle defined by upper left
+    corner at x, y with given width and height. The arc begins at
+    startAngle and extends for arcAngle degrees. An optional color can
+    also be given.
+
     """
 
     def __init__(self, x, y, width, height, startAngle, arcAngle, color=None):
-        super(Arc, self).__init__(x, y, width, height, color)
-        self.startAngle = startAngle
-        self.arcAngle = arcAngle
+        super(Arc, self).__init__(x, y, width, height, startAngle,
+                                  arcAngle, Arc2D.OPEN, color=color)
 
-    def _draw_fill(self, g):
-        g.fillArc(self.x, self.y, self.width, self.height,
-                  self.startAngle, self.arcAngle)
+    def moveTo(self, x, y):
+        self.x = x
+        self.y = y
 
-    def _draw_stroke(self, g):
-        g.drawArc(self.x, self.y, self.width, self.height,
-                  self.startAngle, self.arcAngle)
+    def move(self, deltaX, deltaY):
+        self.x = self.x + deltaX
+        self.y = self.y + deltaY
 
 
-class Polygon(Shape):
+class Polygon(JavaPolygon, Shape):
 
     """
-    Inherits from Shape. Given a list of vertices, the points are connected
-    in order to create a polygon.
+    The Polygon class describes a polygon defined by a list of points. Inherits
+    from Java's Polygon class and :py:class:`~jygsaw.shape.Shape` .
+
+    Creates a polygon defined by a list of vertices as (x, y). Sequential
+    vertices are connected via line segments. The polygon is closed by
+    connecting the first and last vertices.
+
     """
 
     def __init__(self, vertices, color=None):
-        super(Polygon, self).__init__(
-            vertices[0][0], vertices[0][1], 0, 0, color)
         assert len(vertices) > 0, "Number of vertices must be greater than 0 "
+        (xValues, yValues) = zip(*vertices)
+        super(Polygon, self).__init__(xValues, yValues, len(
+            vertices), color=color)
         self._vertices = vertices
 
     def _get_vertices(self):
@@ -260,40 +301,40 @@ class Polygon(Shape):
         assert v >= 1, "Number of sides must be greater than or equal to 0 "
         self._vertices = v
 
-    vertices = property(_get_vertices, _set_vertices, "List of vertices, where the vertices are tuples of two integers.")
-
-    def _draw_fill(self, g):
-        (xValues, yValues) = zip(*self.vertices)
-        g.fillPolygon(xValues, yValues, len(self.vertices))
-
-    def _draw_stroke(self, g):
-        (xValues, yValues) = zip(*self.vertices)
-        g.drawPolygon(xValues, yValues, len(self.vertices))
+    vertices = property(_get_vertices, _set_vertices,
+                        "List of vertices, where the vertices are tuples of two integers.")
 
     def moveTo(self, x, y):
-        self.move(x - self.x, y - self.y)
+        self.move(x - self.vertices[0][0], y - self.vertices[0][1])
         self.x = x
         self.y = y
 
     def move(self, deltaX, deltaY):
-        assert isinstance(deltaX, int), "The x value given is not an integer."
-        assert isinstance(deltaY, int), "The y value given is not an integer."
         self.vertices = [(x + deltaX, y + deltaY) for x, y in self.vertices]
+        self.translate(deltaX, deltaY)
 
-        self.x = self.x + deltaX
-        self.y = self.y + deltaY
 
-class RegPolygon(Shape):
+class RegPolygon(JavaPolygon, Shape):
+
     """
-    Inherits from Shape. Given an x, y coordinate, number of sides, length of
-    the sides and a color a regular polygon is drawn on the window. The class
-    generates a list of vertices, where the first vertex is the given x, y
-    coordinate and the rest are calculated using the number of sides and the length
+    The RegPolygon class describes a regular polygon defined by a start
+    vertex, the number of sides, and side length. It inherits from Java's
+    Polygon class and Shape.
+
+    Inherits from the :py:class:`~jygsaw.shape.Polygon`  class in java and :py:class:`~jygsaw.shape.Shape`. Given an x, y
+    coordinate, number of sides, length of the sides and a color a
+    regular polygon is drawn on the window. The class generates a list of
+    vertices, where the first vertex is the given x, y coordinate and the
+    rest are calculated using the number of sides and the length
     of each of the sides.
+
+    Creates a regular polygon where the first vertex is x and y. It is
+    also defined by the number of sides and length. An optional color
+    can also be given.
+
     """
 
     def __init__(self, x, y, sides, length, color=None):
-        super(RegPolygon, self).__init__(x, y, 0, 0, color)
         assert sides >= 3, "Number of sides must be greater than or equal to 3"
         assert length > 0, "Length of sides must be greater than 0 "
 
@@ -307,6 +348,10 @@ class RegPolygon(Shape):
             self.vertices.append((int(round(x + self.radius * cos(
                 self.sideAngle * i))), int(round(y + self.radius * sin(self.sideAngle * i)))))
 
+        (xValues, yValues) = zip(*self.vertices)
+        super(RegPolygon, self).__init__(
+            xValues, yValues, len(self.vertices), color=color)
+
     def _get_vertices(self):
         return self._vertices
 
@@ -314,17 +359,19 @@ class RegPolygon(Shape):
         assert v > 0, "Number of vertices must be greater than 0"
         self._vertices = v
 
-    vertices = property(_get_vertices, _set_vertices, "List of vertices, where the vertices are tuples of two integers.")
+    vertices = property(_get_vertices, _set_vertices,
+                        "List of vertices, where the vertices are tuples of two integers.")
 
     def _get_sides(self):
         return self._sides
 
     def _set_sides(self, s):
-        assert s >= 3, "Number of sides must be greater than or equal to 3"
+        assert s >= 3, "Number of sides must be greater than or equal to 3."
         self._sides = s
         self.sideAngle = (2 * PI) / self._sides
 
-    sides = property(_get_sides, _set_sides, "An integer setting the number of sides. ")
+    sides = property(
+        _get_sides, _set_sides, "An integer setting the number of sides. ")
 
     def _set_sideLength(self):
         return self._sideLength
@@ -335,15 +382,14 @@ class RegPolygon(Shape):
         self.radius = self._sideLength * sin(.5 * (PI - self.sideAngle)) / \
             sin(self.sideAngle)
 
-    sideLength = property(_set_sideLength, _get_sideLength, "Length of each side.")
+    sideLength = property(
+        _set_sideLength, _get_sideLength, "Length of each side.")
 
-    def _draw_fill(self, g):
-        (xValues, yValues) = zip(*self.vertices)
-        g.fillPolygon(xValues, yValues, self.sides)
-
-    def _draw_stroke(self, g):
-        (xValues, yValues) = zip(*self.vertices)
-        g.drawPolygon(xValues, yValues, self.sides)
+    def moveTo(self, x, y):
+        self.move(x - self.vertices[0][0], y - self.vertices[0][1])
+        self.x = x
+        self.y = y
 
     def move(self, deltaX, deltaY):
         self.vertices = [(x + deltaX, y + deltaY) for x, y in self.vertices]
+        self.translate(deltaX, deltaY)

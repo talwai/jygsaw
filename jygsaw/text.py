@@ -8,8 +8,9 @@ Exports Text.
 from graphicsobject import *
 from java.awt import Font
 from java.awt.Font import *
-from java.awt.Graphics import setFont
-
+from java.awt import GraphicsEnvironment
+import unicodedata
+# from java.awt.Graphics import setFont
 
 
 class Text(GraphicsObject):
@@ -20,12 +21,15 @@ class Text(GraphicsObject):
     Attributes can be PLAIN, BOLD or ITALIC, by default the attribute is PLAIN.
     """
     attributes = [PLAIN, BOLD, ITALIC]
+    # Static variable that contains all a list of string that represent all the available fonts
+    _systemFonts = [unicodedata.normalize('NFKD', _f).encode('ascii', 'ignore')
+                    for _f in GraphicsEnvironment.getLocalGraphicsEnvironment().getAvailableFontFamilyNames().tolist()]
 
     def __init__(self, x, y, s, color=None, attribute=PLAIN):
         super(Text, self).__init__(x, y, color)
         assert attribute in self.attributes, "Attribute must be PLAIN, BOLD or ITALIC"
         self._s = s
-        self._font = 'Times New Roman'  # Font, however it's defined in Java...
+        self._font = 'Times New Roman'
         self._size = 12
         self._attribute = attribute  # PLAIN, BOLD, ITALIC
 
@@ -43,7 +47,8 @@ class Text(GraphicsObject):
         return self._size
 
     def _set_size(self, s):
-        assert isinstance(s, int) and s > 0, "Text size must be greater than zero."
+        assert isinstance(
+            s, int) and s > 0, "Text size must be greater than zero."
         self._size = s
 
     size = property(_get_size, _set_size, "Size of the text.")
@@ -62,7 +67,7 @@ class Text(GraphicsObject):
         return self._font
 
     def _set_font(self, f):
-        assert isinstance(f, str), "The varible passed is not a string."
+        assert (f in self._systemFonts), "Font is not available or incorrect."
         self._font = f
 
     font = property(_get_font, _set_font,
