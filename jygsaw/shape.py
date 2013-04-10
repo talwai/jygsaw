@@ -15,16 +15,15 @@ class Shape():
     another boolean that stores whether or not the shape should be drawn
     with a stroke. This class also contains the draw method for all of the
     shapes.
+
+    Constructor for :py:class:`~jygsaw.shape.Shape` classs does not take
+    any parameters except for the color. Initially stroke is set to False,
+    strokeColor is black, and strokeWidth is set to 1. StrokeColor and stroke
+    are later set by the draw method in graphicsWindow.
+
     """
 
     def __init__(self, color):
-        """
-        Constructor for :py:class:`~jygsaw.shape.Shape` class. This class does not take any parameters
-        except for the color. Initially stroke is set to False, strokeColor
-        is black, and strokeWidth is set to 1. StrokeColor and stroke are
-        later set by the draw method in graphicsWindow.
-        """
-
         self._color = color
         self._filled = True
         self._stroke = False
@@ -106,15 +105,16 @@ class Rectangle(Rectangle2D.Float, Shape):
 
     """
     The Rectangle class describes a rectangle defined by its top left corner,
-    width, and height. Rectangle inherits from Rectangle2D.Float and :py:class:`~jygsaw.shape.Shape` .
+    width, and height. Rectangle inherits from Rectangle2D.Float and 
+    :py:class:`~jygsaw.shape.Shape` .
+
+    Creates a Rectangle where x and y describe the top left coordinate of
+    the rectangle. Width and height set the width and height, respectively,
+    of the rectangle. An optional color can also be given.
+
     """
 
     def __init__(self, x, y, width, height, color=None):
-        """
-        Creates a Rectangle where x and y describe the top left coordinate of
-        the rectangle. Width and height set the width and height, respectively,
-        of the rectangle. An optional color can also be given.
-        """
         super(Rectangle, self).__init__(x, y, width, height, color=color)
 
     def moveTo(self, x, y):
@@ -130,16 +130,17 @@ class Ellipse(Ellipse2D.Float, Shape):
 
     """
     The Ellipse class describes an ellipse that is defined by a bounding
-    rectangle. Inherits from Ellipse2D.Float and :py:class:`~jygsaw.shape.Shape` .
+    rectangle. Inherits from Ellipse2D.Float and
+    :py:class:`~jygsaw.shape.Shape` .
+
+    Creates an :py:class:`~jygsaw.shape.Ellipse` where x and y represent the
+    top left hand corner of the counding rectangle. Width and height define
+    the bounding rectangle's width and height, respectively. An optional color
+    can also be passed.
+
     """
 
     def __init__(self, x, y, width, height, color=None):
-        """
-        Creates an :py:class:`~jygsaw.shape.Ellipse` where x and y represent the top left hand corner
-        of the counding rectangle. Width and height define the bounding
-        rectangle's width and height, respectively. An optional color
-        can also be passed.
-        """
         super(Ellipse, self).__init__(x, y, width, height, color=color)
 
     def moveTo(self, x, y):
@@ -155,15 +156,15 @@ class Circle(Ellipse2D.Float, Shape):
 
     """
     The Circle class describes a circle that is defined by its center point
-    and radius. It inherits from Ellipse2D and :py:class:`~jygsaw.shape.Shape` .
+    and radius. It inherits from Ellipse2D and
+    :py:class:`~jygsaw.shape.Shape` .
+
+    Creates a circle that is centered at (x, y) with a given radius. An
+    optional color can also be passed.
+
     """
 
     def __init__(self, x, y, radius, color=None):
-        """
-        Creates a circle that is centered at (x, y) with a given radius. An
-        optional color can also be passed.
-        """
-
         assert radius > 0, "Circle radius must be greater than zero."
         super(Circle, self).__init__(x - radius, y - radius, radius * 2, radius * 2, color=color)
         self._radius = radius
@@ -209,13 +210,13 @@ class Line(Line2D.Float, Shape):
     """
     The Line class describes a line that is defined by a start point and
     an end point. It inherits from Line2D and :py:class:`~jygsaw.shape.Shape` .
+
+    Creates a line that starts at startX and startY, and ends at endX
+    and endY. An optional color can also be given.
+
     """
 
     def __init__(self, startX, startY, endX, endY, color=None):
-        """
-        Creates a line that starts at startX and startY, and ends at endX
-        and endY. An optional color can also be given.
-        """
         super(Line, self).__init__(startX, startY, endX, endY, color=color)
 
     def moveTo(self, x, y):
@@ -231,13 +232,13 @@ class Point(Line):
 
     """
     The Point class describes a point that is defined by an x and y coordinate.
-    It inherits from :py:class:`~jygsaw.shape.Line` ; the start and end coordinates are the same.
+    It inherits from :py:class:`~jygsaw.shape.Line` ; the start and end
+    coordinates are the same.
+
+    Creates a point at x, y with an optional color.
     """
 
     def __init__(self, x, y, color=None):
-        """
-        Creates a point at x, y with an optional color.
-        """
         super(Point, self).__init__(x, y, x, y, color)
 
 
@@ -249,20 +250,19 @@ class Arc(Arc2D.Float, Shape):
     clockwise direction, and negative degree values are in the clockwise
     direction. The arc is defined by a bounding rectangle, start angle,
     and arc angle. The bounding rectangle is defined by its top left corner,
-    width, and height. Inherits from Arc2D and :py:class:`~jygsaw.shape.Shape` .
-
+    width, and height. Inherits from Arc2D and :py:class:`~jygsaw.shape.Shape`.
     startAngle is where the arc begins; arc is extended for arcAngle degrees
     x, y - upper left corner of the arc's rectangle to be filled
     width and height are the width and height of the arc to be filled
+
+    Creates an arc within a bounding rectangle defined by upper left
+    corner at x, y with given width and height. The arc begins at
+    startAngle and extends for arcAngle degrees. An optional color can
+    also be given.
+
     """
 
     def __init__(self, x, y, width, height, startAngle, arcAngle, color=None):
-        """
-        Creates an arc within a bounding rectangle defined by upper left
-        corner at x, y with given width and height. The arc begins at
-        startAngle and extends for arcAngle degrees. An optional color can
-        also be given.
-        """
         super(Arc, self).__init__(x, y, width, height, startAngle,
                                   arcAngle, Arc2D.OPEN, color=color)
 
@@ -280,14 +280,14 @@ class Polygon(JavaPolygon, Shape):
     """
     The Polygon class describes a polygon defined by a list of points. Inherits
     from Java's Polygon class and :py:class:`~jygsaw.shape.Shape` .
+
+    Creates a polygon defined by a list of vertices as (x, y). Sequential
+    vertices are connected via line segments. The polygon is closed by
+    connecting the first and last vertices.
+
     """
 
     def __init__(self, vertices, color=None):
-        """
-        Creates a polygon defined by a list of vertices as (x, y). Sequential
-        vertices are connected via line segments. The polygon is closed by
-        connecting the first and last vertices.
-        """
         assert len(vertices) > 0, "Number of vertices must be greater than 0 "
         (xValues, yValues) = zip(*vertices)
         super(Polygon, self).__init__(xValues, yValues, len(
@@ -327,14 +327,14 @@ class RegPolygon(JavaPolygon, Shape):
     vertices, where the first vertex is the given x, y coordinate and the
     rest are calculated using the number of sides and the length
     of each of the sides.
+
+    Creates a regular polygon where the first vertex is x and y. It is
+    also defined by the number of sides and length. An optional color
+    can also be given.
+
     """
 
     def __init__(self, x, y, sides, length, color=None):
-        """
-        Creates a regular polygon where the first vertex is x and y. It is
-        also defined by the number of sides and length. An optional color
-        can also be given.
-        """
         assert sides >= 3, "Number of sides must be greater than or equal to 3"
         assert length > 0, "Length of sides must be greater than 0 "
 
