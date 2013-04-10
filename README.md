@@ -4,7 +4,7 @@ Jygsaw is a graphics library for Jython which makes graphics programming easy to
 At the same time, it's flexible and extensible, making it ideal for beginners and 
 experienced programmers alike.
 
-Jygsaw takes many cues from the <a href="http://processing.org" target="_blank"> Processing language</a>, but it uses 
+Jygsaw takes many cues from the [Processing Language](http://processing.org), but it uses 
 Python, which is a powerful, dynamic programming language with clear and readable syntax, 
 and runs on the Java Virtual Machine, making it portable.
 
@@ -37,7 +37,7 @@ jygsawMain(.01)
 Jygsaw is developed on the Jython platform, using Java's Swing library.
 
 Our git repository is hosted 
-<a href="https://bitbucket.org/haplesshero13/cs98library/" target="_blank"> on BitBucket</a>.
+[on BitBucket](https://bitbucket.org/haplesshero13/cs98library/).
 
 You can run any demo using the local copy of Jygsaw (found in `jygsaw/`) by running, 
 for example, `jython demos/keyboard.py`.
@@ -50,8 +50,8 @@ run the demos using the latest codebase!
 #About Us
 
 Jygsaw was written by a group of students at 
-<a href="http://www.dartmouth.edu" target="_blank">Dartmouth College</a>, led by one 
-<a href="http://www.cs.dartmouth.edu/~devin" target="_blank">Professor Devin Balkcom</a> 
+[Dartmouth College](http://www.dartmouth.edu), led by one 
+[Professor Devin Balkcom](http://www.cs.dartmouth.edu/~devin) 
 as part of their senior culminating experience. These students are all Computer Science 
 majors:
 
@@ -74,10 +74,9 @@ We also intend to create more tutorials with more interactive elements
 for the website.
 
 ## Inspiration
-Jygsaw's design was heavily influenced by both
-<a href="http://www.processing.org" target="_blank">Processing</a> and the CS1 python 
-library written by Professor Devin Balkcom for use in the Computer Science 1 class at
-Dartmouth College.
+Jygsaw's design was heavily influenced by both [Processing](http://www.processing.org) 
+and the CS1 python library written by Professor Devin Balkcom for use in the Computer 
+Science 1 class at Dartmouth College.
 
 ## Contact
 
