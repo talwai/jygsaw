@@ -57,14 +57,14 @@ class GraphicsObject(object):
     color = property(_get_color, _set_color, doc="Color of the object.")
 
     def moveTo(self, x, y):
-        """The object is moved to the given coordinates."""
+        """Moves to object to the given coordinates (x,y)."""
         assert isinstance(x, int), "The x value given is not an integer."
         assert isinstance(y, int), "The y value given is not an integer."
         self.x = x
         self.y = y
 
     def move(self, deltaX, deltaY):
-        """The object moves by deltaX and deltaY in the x and y direction, respectively."""
+        """Moves the object by deltaX and deltaY in the x and y directions respectively."""
         assert isinstance(deltaX, int), "The x value given is not an integer."
         assert isinstance(deltaY, int), "The y value given is not an integer."
         self.moveTo(self.x + deltaX, self.y + deltaY)
