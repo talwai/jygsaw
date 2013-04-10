@@ -7,7 +7,6 @@ class TestShapeFunctions(unittest.TestCase):
 
     def setUp(self):
         canvas()
-        loop()
         stroke()
         frameRate(60.0)
 
@@ -30,13 +29,15 @@ class TestShapeFunctions(unittest.TestCase):
         self.assertEqual(self.arc.x, 300)
         self.assertEqual(self.arc.y, 100)
 
-        self.arc._set_x(130)
+        self.arc.x = 130
         self.assertEqual(self.arc.x, 130)
 
-        self.arc._set_y(170)
+        self.arc.y = 170
         self.assertEqual(self.arc.y, 170)
 
         c = color(255, 255, 255)
+
+        self.circle.moveTo(1500, 1500)
 
         self.arc._set_color(c)
         self.assertEqual(self.arc.color, c)
@@ -58,11 +59,17 @@ class TestShapeFunctions(unittest.TestCase):
         self.assertEqual(self.polygon.x, 240)
 
         self.polygon.move(350, 350)
-        self.assertEqual(self.polygon.y, 590)
+        self.assertEqual(self.polygon.y, 240)
 
     def test_circle(self):
         self.assertEqual(self.circle.x, 20)
         self.assertEqual(self.circle.y, 20)
+
+        self.circle.x = 40
+        self.circle.y = 40
+
+        self.assertEqual(self.circle.x, 40)
+        self.assertEqual(self.circle.y, 40)
 
 if (__name__ == '__main__') or (__name__ == 'main'):
     unittest.main()

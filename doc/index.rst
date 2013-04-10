@@ -9,7 +9,6 @@ Jygsaw Documentation
 .. toctree::
    :maxdepth: 1
 
-   tutorial
    api
    implementation
 

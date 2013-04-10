@@ -13,8 +13,6 @@ canvas(640, 360)
 bx = width() / 2
 by = height() / 2
 
-loop()
-
 
 def draw():
     global overBox
@@ -35,7 +33,6 @@ def draw():
 
     # Draw the box
     rect(bx, by, boxSize, boxSize)
-    redraw()
 
 
 def mousePressed():
@@ -67,3 +64,4 @@ onMousePress(mousePressed)
 onMouseDrag(mouseDragged)
 onMouseRelease(mouseReleased)
 onDraw(draw)
+jygsawMain(1.0 / 30)

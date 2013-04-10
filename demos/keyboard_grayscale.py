@@ -5,14 +5,13 @@ canvas(640, 360)
 noStroke()
 background(0)
 rectWidth = width() / 4
-loop()
 
 
 def draw():
     # Keep draw to continue looping while waiting for keys.
     # I don't know why this is necessary, but doesn't work without it.
     # Processing also has it in - JL
-    redraw()
+    pass
 
 
 def keyPressed():
@@ -21,7 +20,7 @@ def keyPressed():
         keyIndex = lastKeyCode() - ord('A')
     elif lastKeyCode() >= ord('a') and lastKeyCode() <= ord('z'):
         keyIndex = lastKeyCode() - ord('a')
-        
+
     if keyIndex == -1:
         # If it's not a letter key, clear the screen
         clear()
@@ -33,3 +32,4 @@ def keyPressed():
 
 onKeyPress(keyPressed)
 onDraw(draw)
+jygsawMain(0.05)
