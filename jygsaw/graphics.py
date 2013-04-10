@@ -446,7 +446,7 @@ def stroke(r=None, g=None, b=None, a=255):
 
 
 def strokeWidth(w):
-	"""Sets the stroke width."""
+    """Sets the stroke width."""
     window.setStrokeWidth(w)
 
 
