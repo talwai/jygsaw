@@ -1,19 +1,22 @@
-# Jygsaw
-Jygsaw is a graphics library for Jython which makes graphics programming easy to learn. At the same time, it is powerful, flexible, and extensible, making it ideal for beginners and experienced programmers alike.
+% Welcome
 
-Jygsaw takes many cues from the [Processing language](http://processing.org), but it uses Python, which is a powerful, dynamic programming language with clear and readable syntax, and runs on the Java Virtual Machine, making it portable and fast.
+Jygsaw is a graphics library for Jython which makes graphics programming easy to learn. 
+At the same time, it's flexible and extensible, making it ideal for beginners and 
+experienced programmers alike.
+
+Jygsaw takes many cues from the <a href="http://processing.org" target="_blank"> Processing language</a>, but it uses 
+Python, which is a powerful, dynamic programming language with clear and readable syntax, 
+and runs on the Java Virtual Machine, making it portable.
 
 Here's a quick demo (taken from a Processing demo) to show you what Jygsaw looks like.
 
 
-```
-:::python
+```python
 from jygsaw.graphics import *
 
 
 def draw():
     drawCircle(width() / 2, 280, 6)
-
 
 def drawCircle(x, radius, level):
     tt = int(126 * level / 4.0)
@@ -24,85 +27,59 @@ def drawCircle(x, radius, level):
         drawCircle(x - radius / 2, radius / 2, level)
         drawCircle(x + radius / 2, radius / 2, level)
 
-
 canvas(640, 360)
 noStroke()
-noLoop()
 onDraw(draw)
+jygsawMain(.01)
 ```
-
-## Installation
-Simply use `jython setup.py install`. If you are in a virtualenv using jython, `python setup.py install` will work, too.
 
 ## Code
 Jygsaw is developed on the Jython platform, using Java's Swing library.
 
-Our git repository is hosted [on Bitbucket](https://bitbucket.org/haplesshero13/cs98library/).
+Our git repository is hosted 
+<a href="https://bitbucket.org/haplesshero13/cs98library/" target="_blank"> on BitBucket</a>.
 
-### Testing
-#### Jython 2.7+
-Run `jython -m unittest discover`.
+You can run any demo using the local copy of Jygsaw (found in `jygsaw/`) by running, 
+for example, `jython demos/keyboard.py`.
 
-This will test the version of the code that lives in the current working directory, *not* the system-installed version.
+If you change directory into `demos/` and run demos, the demos are run using the 
+system-installed version of Jygsaw, so make sure to reinstall Jygsaw in order to 
+run the demos using the latest codebase!
 
-#### Jython < 2.7
-Install `unittest2`. The easiest way to do this is using `virtualenv` to create a local Jython installation in your current working directory. For example:
 
-```
-:::bash
-$ cd cs98library
-$ easy_install virtualenv
-$ virtualenv -p jython venv
-$ source venv/bin/activate
-$ pip install unittest2
-$ unit2 discover
-```
+#About Us
 
-#### Running individual tests (any version of Jython)
-You can run any test against the *system-installed* version of Jygsaw.
+Jygsaw was written by a group of students at 
+<a href="http://www.dartmouth.edu" target="_blank">Dartmouth College</a>, led by one 
+<a href="http://www.cs.dartmouth.edu/~devin" target="_blank">Professor Devin Balkcom</a> 
+as part of their senior culminating experience. These students are all Computer Science 
+majors:
 
-```
-:::bash
-$ cd jygsaw/test
-$ jython name_of_test.py
-```
+* Aaditya Talwai '13
+* Avery Yen '13
+* Carla Galarza '13
+* David Lam '11
+* Janet Kim '13
+* Jennifer Lure '13
+* Kyle Lawson '13
 
-### Demos
-You can run any demo using the local copy of Jygsaw (found in `jygsaw/`) by running, for example, `jython demos/keyboard.py`.
+## Future
 
-If you change directory into `demos/` and run demos, the demos run using the system-installed version of Jygsaw, so make sure to reinstall Jygsaw in order to run the demos using the latest codebase!
+Although Jygsaw is currently limited to graphics, it is an ever
+growing library. We intend to add more features like a physics
+package and a sound package, as well as an easy to use tool to allow
+you to build jython programs into the executable of your choice.
 
-### Building Documentation
-First make sure you have Sphinx installed under Jython. Assuming you have already installed Jython (and possibly Python), one way to do this is using `virtualenv`:
+We also intend to create more tutorials with more interactive elements
+for the website.
 
-```
-:::bash
-$ cd cs98library
-$ easy_install virtualenv
-$ virtualenv -p jython venv
-$ source venv/bin/activate
-```
+## Inspiration
+Jygsaw's design was heavily influenced by both
+<a href="http://www.processing.org" target="_blank">Processing</a> and the CS1 python 
+library written by Professor Devin Balkcom for use in the Computer Science 1 class at
+Dartmouth College.
 
-Now when you type `python --version` in the command line you should get `Jython 2.5.3` or whatever version of Jython you have installed, and you should be able to build the docs.
+## Contact
 
-```
-:::bash
-$ pip install sphinx
-$ cd doc
-$ make html
-```
-
-The documentation will appear in `doc/_build/html`.
-
-## Authors
-Balkcom's Army is:
-
-* Aaditya Talwai
-* Avery Yen
-* Carla Galarza
-* David Lam
-* Janet Kim
-* Jennifer Lure
-* Kyle Lawson
-
-We are led by our fearless leader, Commander (Professor) Devin Balkcom.
+If you'd like to contact us with bugs, ideas, questions, etc. you can email us at 
+<jygsaw@cs.dartmouth.edu>.
