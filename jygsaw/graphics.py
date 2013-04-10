@@ -53,7 +53,7 @@ def point(x, y, color=None):
 
     Keyword Arguments:
 
-    * *color* Color of the point. Defaults to fill color.
+    * *color* Color of the point. Defaults to the color set by the method :py:meth:`~jygsaw.graphics.fill`.
     """
     new_point = Point(int(x), int(y), color)
     window.draw(new_point)
@@ -67,7 +67,7 @@ def line(x1, y1, x2, y2, color=None):
 
     Keyword Arguments:
 
-    * *color* Color of the line. Defaults to fill color.
+    * *color* Color of the line. Defaults to the color set by the method :py:meth:`~jygsaw.graphics.fill`.
     """
     new_line = Line(int(x1), int(y1), int(x2), int(y2), color)
     window.draw(new_line)
@@ -82,7 +82,7 @@ def rect(x, y, rectWidth, rectHeight, color=None):
 
     Keyword Arguments:
 
-    * *color* Color of the rectangle. Defaults to fill color.
+    * *color* Color of the rectangle. Defaults to the color set by the method :py:meth:`~jygsaw.graphics.fill`.
     """
     new_rect = Rectangle(
         int(x), int(y), int(rectWidth), int(rectHeight), color)
@@ -98,7 +98,7 @@ def circle(x, y, radius, color=None):
 
     Keyword Arguments:
 
-    * *color* -- Color of the circle. Defaults to fill color.
+    * *color* Color of the circle. Defaults to the color set by the method :py:meth:`~jygsaw.graphics.fill`.
     """
     new_circle = Circle(int(x), int(y), int(radius), color)
     window.draw(new_circle)
@@ -113,7 +113,7 @@ def ellipse(x, y, width, height, color=None):
 
     Keyword Arguments:
 
-    * *color* Color of the ellipse. Defaults to fill color.
+    * *color* Color of the ellipse. Defaults to the color set by the method :py:meth:`~jygsaw.graphics.fill`.
     """
     new_ellipse = Ellipse(
         int(x), int(y), int(width), int(height), color)
@@ -129,7 +129,7 @@ def triangle(x1, y1, x2, y2, x3, y3, color=None):
 
     Keyword Arguments:
 
-    * *color* Color of the polygon. Defaults to fill color.
+    * *color* Color of the point. Defaults to the color set by the method :py:meth:`~jygsaw.graphics.fill`.
 
     """
     vertices = [(x1, y1), (x2, y2), (x3, y2)]
@@ -147,7 +147,7 @@ def polygon(vertices, color=None):
 
     Keyword Arguments:
 
-    * *color* Color of the polygon. Defaults to fill color.
+    * *color* Color of the polygon. Defaults to the color set by the method :py:meth:`~jygsaw.graphics.fill`.
     """
     new_polygon = Polygon(vertices, color)
     window.draw(new_polygon)
@@ -162,7 +162,7 @@ def regPolygon(x, y, sides, length, color=None):
 
     Keyword Arguments:
 
-    * *color* Color of the regular polygon. Defaults to fill color.
+    * *color* Color of the point. Defaults to the color set by the method :py:meth:`~jygsaw.graphics.fill`.
     """
     new_reg_polygon = RegPolygon(
         int(x), int(y), int(sides), int(length), color)
@@ -182,7 +182,7 @@ def arc(x, y, width, height, startAngle, endAngle, color=None):
 
     Keyword Arguments:
 
-    * *color* Color of the arc. Defaults to fill color.
+    * *color* Color of the point. Defaults to the color set by the method :py:meth:`~jygsaw.graphics.fill`.
     """
     new_arc = Arc(
         int(x), int(y), int(width), int(height), startAngle, (endAngle - startAngle), color)
@@ -223,7 +223,7 @@ def fill(r=None, g=None, b=None, a=255):
 
 
 def noFill():
-    """ Sets filled to False."""
+    """ Sets library variable _filled to False, so that shapes are drawn as unfilled."""
     window.setFilled(False)
 
 
@@ -288,8 +288,8 @@ def mouseExited():
 def onMousePress(mousePressed):
     """
     Sets the window's onMousePressed variable to be the user
-    defined mousePressed function. It will then be called by
-    the window's mouse listener when the event occurs.
+    defined mousePressed function. This function will then be called by
+    the window's mouse listener when the mouse event occurs.
     """
     window.onMousePressed = mousePressed
 
@@ -297,8 +297,8 @@ def onMousePress(mousePressed):
 def onMouseRelease(mouseReleased):
     """
     Sets the window's onMouseReleased variable to be the user
-    defined mouseReleased function. It will then be called by the
-    window's mouse listener when the event occurs.
+    defined mouseReleased function. This function will then be called by the
+    window's mouse listener when the mouse event occurs.
     """
     window.onMouseReleased = mouseReleased
 
@@ -306,8 +306,8 @@ def onMouseRelease(mouseReleased):
 def onMouseClick(mouseClicked):
     """
     Sets the window's onMouseClicked variable to be the user
-    defined mouseClicked function. It will then be called by the
-    window's mouse listener when the event occurs.
+    defined mouseClicked function. This function will then be called by the
+    window's mouse listener when the mouse event occurs.
     """
     window.onMouseClicked = mouseClicked
 
@@ -315,8 +315,8 @@ def onMouseClick(mouseClicked):
 def onMouseDrag(mouseDragged):
     """
     Sets the window's onMouseDragged variable to be the user
-    defined mouseDragged function. It will then be called by the
-    window's mouse listener when the event occurs.
+    defined mouseDragged function. This function will then be called by the
+    window's mouse listener when the mouse event occurs.
     """
     window.onMouseDragged = mouseDragged
 
@@ -324,8 +324,8 @@ def onMouseDrag(mouseDragged):
 def onMouseMove(mouseMoved):
     """
     Sets the window's onMouseMoved variable to be the user
-    defined mouseMoved function. It will then be called by the window's
-    mouse listener when the event occurs.
+    defined mouseMoved function. This function will then be called by the window's
+    mouse listener when the mouse event occurs.
     """
     window.onMouseMoved = mouseMoved
 
@@ -333,8 +333,8 @@ def onMouseMove(mouseMoved):
 def onMouseEnter(mouseEntered):
     """
     Sets the window's onMouseEntered variable to be the user
-    defined mouseEntered function. It will then be called by the
-    window's mouse listener when the event occurs.
+    defined mouseEntered function. This function will then be called by the
+    window's mouse listener when the mouse event occurs.
     """
     window.onMouseEntered = mouseEntered
 
@@ -342,8 +342,8 @@ def onMouseEnter(mouseEntered):
 def onMouseExit(mouseExited):
     """
     Sets the window's onMouseExited variable to be the user
-    defined mouseExited function. It will then be called by the
-    window's mouse listener when the event occurs.
+    defined mouseExited function. This function will then be called by the
+    window's mouse listener when the mouse event occurs.
     """
     window.onMouseExited = mouseExited
 
@@ -363,24 +363,27 @@ def keyReleased():
 
 def onKeyPress(keyPressed):
     """
-    Callback for window's key listener. Passes the user defined
-    function to the window's keyPressed method.
+    Sets the window's onKeyPressed variable to be the user
+    defined keyPressed function. This function will then be called by the
+    window's key listener when the key event occurs.
     """
     window.onKeyPressed = keyPressed
 
 
 def onKeyRelease(keyReleased):
     """
-    Callback for window's key listener. Passes the user defined
-    function to the window's keyReleased method.
+    Sets the window's onKeyReleased variable to be the user
+    defined keyReleased function. This function will then be called by the
+    window's key listener when the key event occurs.
     """
     window.onKeyReleased = keyReleased
 
 
 def onKeyType(keyTyped):
     """
-    Callback for window's key listener. Passes the user defined
-    function to the window's keyTyped method.
+    Sets the window's onKeyTyped variable to be the user
+    defined keyTyped function. This function will then be called by the
+    window's key listener when the key event occurs.
     """
     window.onKeyTyped = keyTyped
 
@@ -425,7 +428,7 @@ def frameRate(rate):
 
 def stroke(r=None, g=None, b=None, a=255):
     """
-    Sets stroke to true. If a color is given then set the stroke
+    Sets stroke to true. If a color is given then sets the stroke
     color to that color.
 
     See :py:meth:`~jygsaw.graphics.color` for how color values are handled.
@@ -448,7 +451,7 @@ def strokeWidth(w):
 
 
 def noStroke():
-    """Sets stroke to false."""
+    """Sets stroke to False."""
     window.setStroke(False)
 
 
@@ -458,12 +461,18 @@ def clear():
 
 
 def onDraw(user_draw):
-    """Callback function which calls the user defined draw function."""
+    """
+    Sets the window's onDraw variable to be the user
+    defined draw function. This function will then be called by the main loop of the program in :py:meth:`jygsaw.graphics.jygsawMain`.
+    """
     window.onDraw = user_draw
 
 
 def jygsawMain(delay=0.0):
-    """Repeatedly runs user-defined draw function."""
+    """
+    Main loop of the program.
+    Repeatedly runs the user-defined draw function that is passed to :py:meth:`jygsaw.graphics.onDraw`
+    """
     window.mainRunning = True
     if delay > 0:
         while True:
@@ -505,13 +514,13 @@ def refresh(delay=0.0):
 
 def text(x, y, string, color=None, attribute=PLAIN):
     """
-    Draws specified text "string" to the screen at x, y, with
-    specified font and size and optional color and attribute
+    Draws specified text "string" to the screen at coordinates x, y, with
+    specified font and size, and optional color and attribute
     (PLAIN, BOLD, ITALIC)
 
     Keyword Arguments:
 
-    * *color* Color of the text. Defaults to fill color.
+    * *color* Color of the text. Defaults to the color set by method :py:meth:`~jygsaw.graphics.fill`.
     * *attribute* Specifies if text is PLAIN, BOLD, or ITALIC. Defaults to PLAIN.
     """
     newText = Text(int(x), int(y), string, color, attribute)
@@ -520,12 +529,12 @@ def text(x, y, string, color=None, attribute=PLAIN):
 
 
 def font(f):
-    """Sets the font to the given font in *f*."""
+    """Sets the window font to the font specified by *f*."""
     window.setFont(f)
 
 
 def textSize(s):
-    """Sets the text size to the given size in *s*."""
+    """Sets the text size to size specified by *s*."""
     window.setTextSize(s)
 
 
@@ -547,9 +556,9 @@ def color(r, g=None, b=None, a=255):
 
     Keyword Arguments:
 
-    * *g* G value of RGB color which will be created. b must also be given. Defaults to None.
-    * *b* B value of RGB color which will be created. g must also be given. Defaults to None.
-    * *a* Alpha value of the RBG color which will be created. a does not have to be given, it will default to 255.
+    * *g*: G value of RGB color which will be created. b must also be given. Defaults to None.
+    * *b*: B value of RGB color which will be created. g must also be given. Defaults to None.
+    * *a*: Alpha value of the RBG color which will be created. a does not have to be given, it will default to 255.
     """
     if g is None or b is None:
         assert r is not None and g is None and b is None, \
