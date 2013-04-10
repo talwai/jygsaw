@@ -10,6 +10,7 @@ from group import *
 from image import *
 from text import *
 from java.awt import Color
+from java.awt.event import MouseEvent
 
 rectX = 0  # Just used for testing - delete or move eventually
 rectY = 0  # Just used for testing - delete or move eventually

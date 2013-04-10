@@ -4,13 +4,10 @@ GraphicsWindow on window creation. A window holds the drawing canvas.
 """
 
 from __future__ import with_statement
-from java.awt.event import ActionListener, KeyListener, MouseListener, MouseEvent, KeyEvent, ActionEvent
+from java.awt.event import ActionListener, KeyListener
 from java.awt import Color, Dimension, RenderingHints
-from java.awt.Color import black, blue, cyan, darkGray, gray, green, lightGray, magenta, orange, pink, red, white, yellow
 from javax.swing import JFrame, JPanel
 from javax.swing.event import MouseInputListener
-from java.awt import GraphicsEnvironment
-from java.awt import Graphics2D
 from javax.swing import SwingUtilities
 from image import *
 from group import *
@@ -19,7 +16,8 @@ from shape import *
 from text import *
 from time import sleep
 from Queue import Queue
-import unicodedata
+# These unused imports are for the user
+from java.awt.Color import black, blue, cyan, darkGray, gray, green, lightGray, magenta, orange, pink, red, white, yellow
 
 
 # the -O switch can't be used with jython, which is used to turn off __debug__
@@ -33,9 +31,7 @@ class GraphicsWindow(ActionListener, KeyListener, MouseInputListener):
     object that can be drawn on. Takes a title, window width, and window height.
     An optional background color can be specified.
     """
-
     def __init__(self, title, w, h, backgroundColor=white):
-
         assert w > 0, "GraphicsWindow width must be greater than zero"
         assert h > 0, "GraphicsWindow height must be greater than zero"
 
@@ -368,31 +364,26 @@ class GraphicsWindow(ActionListener, KeyListener, MouseInputListener):
     def _is_key_pressed(self):
         return bool(self.charsPressed)
 
-    isKeyPressed = property(_is_key_pressed, 'Width of canvas')
+    isKeyPressed = property(_is_key_pressed, ':py:class:`True` if any keys are pressed, else :py:class:`False`.')
 
     def _get_width(self):
         """Get the width of the canvas."""
         return self.frame.contentPane.width
 
-    width = property(_get_width, 'Width of canvas')
+    width = property(_get_width, 'Width of Canvas in pixels.')
 
     def _get_height(self):
         """Get the height of the canvas."""
         return self.frame.contentPane.height
 
-    height = property(_get_height, 'Height of canvas')
+    height = property(_get_height, 'Height of Canvas in pixels.')
 
 
 class Canvas(JPanel):
     """
     Canvas where objects get drawn. The Canvas is automatically created
-    and attached to a :py:class:`jygsaw.graphicswindow.GraphicsWindow` upon creation.
+    and attached to a :py:class:`~jygsaw.graphicswindow.GraphicsWindow` upon creation.
     """
-
-    # Static variable that contains all a list of string that represent all the available fonts
-    _systemFonts = [unicodedata.normalize('NFKD', _f).encode('ascii', 'ignore')
-                    for _f in GraphicsEnvironment.getLocalGraphicsEnvironment().getAvailableFontFamilyNames().tolist()]
-
     def __init__(self, window, objects, backgroundColor):
         self.objs = objects
         self.window = window
@@ -411,11 +402,11 @@ class Canvas(JPanel):
 
     def paintComponent(self, g):
         """
-        This function is responsible for drawing on the Canvas. It is passed a
+        This function is responsible for drawing on the :py:class:`~jygsaw.graphicswindow.Canvas`. It is passed a
         Java Graphics object that is needed in order to draw all of the
-        :py:class:`jygsaw.graphicsobject.GraphicsObject` objects. Clears the window by
+        :py:class:`~jygsaw.graphicsobject.GraphicsObject` objects. Clears the window by
         drawing a clear rectangle over the entire window. The function then runs
-        through the entire list of objects and draws them on the Canvas.
+        through the entire list of objects and draws them on the :py:class:`~jygsaw.graphicswindow.Canvas`.
         """
 
         if self.window.mainRunning and self.window.onDraw:
@@ -521,7 +512,7 @@ class Canvas(JPanel):
         return self._font
 
     def _set_font(self, f):
-        assert (f in self._systemFonts), "Font is not available or incorrect."
+        assert (f in Text._systemFonts), "Font is not available or incorrect."
 
         self._font = f
 

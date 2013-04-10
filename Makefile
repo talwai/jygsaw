@@ -8,10 +8,7 @@ clean:
 
 install:
 	jython setup.py install
-
-reinstall:
 	make clean
-	make install
 
 doc: $(RST_FILES) $(PROJ_FILES)
 	cd doc; make html
