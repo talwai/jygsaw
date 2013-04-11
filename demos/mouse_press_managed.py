@@ -2,8 +2,8 @@
 #
 # Jygsaw demo - prints a cross-hair centered at the mouse cursor
 #               and can change color
-# 
-# Attribution: inspired by the mousepress demo in Processing 
+#
+# Attribution: inspired by the mousepress demo in Processing
 # from http://processingjs.org/learning/basic/mousepress/
 # written by Casey Reas and Ben Fry
 

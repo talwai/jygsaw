@@ -2,7 +2,7 @@
 #
 # Jysaw demo - a pong game
 #
-# Attribution: Ported to Jygsaw by Avery Yen from Dartmouth 
+# Attribution: Ported to Jygsaw by Avery Yen from Dartmouth
 # CS 1 lab solution
 
 # pong.py
@@ -185,9 +185,11 @@ while True:
                                  right_paddle_y, right_paddle_y + PADDLE_HEIGHT)):
         ball_x_velocity = - ball_x_velocity
         if ball_x > WINDOW_WIDTH / 2:
-            ball_x = RIGHT_PADDLE_LEFT - BALL_RADIUS    # move away from right paddle
+            ball_x = RIGHT_PADDLE_LEFT - \
+                BALL_RADIUS    # move away from right paddle
         else:
-            ball_x = LEFT_PADDLE_RIGHT + BALL_RADIUS    # move away from left paddle
+            ball_x = LEFT_PADDLE_RIGHT + \
+                BALL_RADIUS    # move away from left paddle
 
     # Negate y velocity if the ball touches a horizontal wall.
     if (ball_touches_horiz_line(ball_x, ball_y, TOP_WALL_BOTTOM,

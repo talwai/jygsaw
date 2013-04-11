@@ -1,8 +1,8 @@
 # keyboard_grayscale.py
 #
 # Jygsaw demo - prints columns of gray  from keyboard presses
-# 
-# Attribution: inspired by the keyboard demo in Processing 
+#
+# Attribution: inspired by the keyboard demo in Processing
 # from http://processingjs.org/learning/basic/keyboard/
 # written by Casey Reas and Ben Fry.
 

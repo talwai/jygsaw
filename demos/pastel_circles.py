@@ -1,7 +1,7 @@
 # pastel_circles.py
 #
 # Jygsaw demo - draws a cascade of pastel circles
-# 
+#
 # Written by Devin Balkcom
 
 from jygsaw.graphics import *

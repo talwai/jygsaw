@@ -2,7 +2,7 @@
 #
 # Jysaw demo - draws a square and several points
 #
-# Attribution: inspired by the SetupDraw demo in Processing 
+# Attribution: inspired by the SetupDraw demo in Processing
 # from http://processingjs.org/learning/basic/setupdraw/
 # written by Casey Reas and Ben Fry
 
