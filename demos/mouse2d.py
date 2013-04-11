@@ -1,3 +1,7 @@
+# mouse2d.py
+#
+# Jygsaw demo - A ball follows the mouse cursor.
+
 from jygsaw.graphics import *
 
 canvas(640, 360)

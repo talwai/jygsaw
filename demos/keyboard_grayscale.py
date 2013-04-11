@@ -16,9 +16,6 @@ rectWidth = width() / 4
 
 
 def draw():
-    # Keep draw to continue looping while waiting for keys.
-    # I don't know why this is necessary, but doesn't work without it.
-    # Processing also has it in - JL
     pass
 
 

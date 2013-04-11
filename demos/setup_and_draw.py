@@ -27,4 +27,4 @@ canvas(640, 360)        # Size must be the first statement
 stroke(255)        # Set line drawing color to white
 
 onDraw(draw)
-jygsawMain(0.01)
+jygsawMain(0.02)

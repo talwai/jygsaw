@@ -15,12 +15,10 @@ LINELENGTH = 66
 
 
 def pressed():
-    print "Pressed!"
     stroke(white)
 
 
 def released():
-    print "Released!"
     stroke(black)
 
 onMousePress(pressed)
