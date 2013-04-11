@@ -1,3 +1,11 @@
+# recursive_circle.py
+#
+# Jysaw demo - draws recursive circles
+#
+# Attribution: inspired by the recursion demo in Processing 
+# from http://processingjs.org/learning/basic/recursion/
+# written by Casey Reas and Ben Fry
+
 from jygsaw.graphics import *
 
 

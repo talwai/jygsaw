@@ -1,4 +1,8 @@
-# pastel circles demo of jygsaw
+# pastel_circles.py
+#
+# Jygsaw demo - draws a cascade of pastel circles
+# 
+# Written by Devin Balkcom
 
 from jygsaw.graphics import *
 from random import randint

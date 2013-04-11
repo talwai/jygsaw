@@ -1,3 +1,11 @@
+# loop.py
+#
+# Jygsaw demo - Loops and draws a moving line.`
+# 
+# Attribution: Inspired by the loop demo in Processing 
+# from http://processingjs.org/learning/basic/keyboardfunctions/
+# written by Casey Reas and Ben Fry.
+
 from jygsaw.graphics import *
 
 y = 100

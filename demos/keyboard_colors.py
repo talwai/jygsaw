@@ -1,3 +1,11 @@
+# keyboard_colors.py
+#
+# Jygsaw demo - prints colors  from keyboard presses
+# 
+# Attribution: inspired by the keyboardfunction demo in Processing 
+# from http://processingjs.org/learning/basic/keyboardfunctions/
+# written by Casey Reas and Ben Fry.#
+
 from jygsaw.graphics import *
 
 maxHeight = 40

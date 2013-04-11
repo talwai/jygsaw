@@ -1,3 +1,11 @@
+# setup_and_draw.py
+#
+# Jysaw demo - draws a square and several points
+#
+# Attribution: inspired by the SetupDraw demo in Processing 
+# from http://processingjs.org/learning/basic/setupdraw/
+# written by Casey Reas and Ben Fry
+
 from jygsaw.graphics import *
 y = 100
 

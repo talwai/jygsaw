@@ -1,3 +1,11 @@
+# mouse_functions.py
+#
+# Jygsaw demo - has a box that can be dragged by the mouse
+# 
+# Attribution: inspired by the mousefunction demo in Processing 
+# from http://processingjs.org/learning/basic/mousefunctions/
+# written by Casey Reas and Ben Fry
+
 from jygsaw.graphics import *
 
 bx = 0.0

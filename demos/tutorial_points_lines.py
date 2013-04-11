@@ -1,3 +1,10 @@
+# tutorial_points_lines.py
+#
+# Jysaw demo - draws an animation of points and lines
+# shooting from the bottom center of the screen.
+#
+# Written by Janet Kim for Jygsaw
+
 from jygsaw.graphics import *
 from random import random, choice
 

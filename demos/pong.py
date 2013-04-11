@@ -1,4 +1,11 @@
 # pong.py
+#
+# Jysaw demo - a pong game
+#
+# Attribution: Ported to Jygsaw by Avery Yen from Dartmouth 
+# CS 1 lab solution
+
+# pong.py
 # Solution to CS 1 Lab Assignment #1.
 # Written by Peter Johnson, updated for cs1lib by Devin Balkcom.
 # Major changes by THC.

@@ -1,4 +1,12 @@
-# Basic shapes demo
+# shape_primitives.py
+#
+# Jysaw demo - draws some base shapes 
+#
+# Attribution: inspired by the shapeprimitives demo in Processing 
+# from http://processingjs.org/learning/basic/shapeprimitives/
+# written by Casey Reas and Ben Fry
+
+
 from jygsaw.graphics import *
 
 canvas(640, 360)
