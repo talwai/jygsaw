@@ -1,3 +1,11 @@
+# keyboard_grayscale.py
+#
+# Jygsaw demo - prints columns of gray  from keyboard presses
+#
+# Attribution: inspired by the keyboard demo in Processing
+# from http://processingjs.org/learning/basic/keyboard/
+# written by Casey Reas and Ben Fry.
+
 from jygsaw.graphics import *
 from random import random
 
@@ -8,9 +16,6 @@ rectWidth = width() / 4
 
 
 def draw():
-    # Keep draw to continue looping while waiting for keys.
-    # I don't know why this is necessary, but doesn't work without it.
-    # Processing also has it in - JL
     pass
 
 

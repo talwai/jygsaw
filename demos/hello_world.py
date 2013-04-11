@@ -1,3 +1,6 @@
+# hello_world.py
+#
+# Jygsaw demo - prints Hello World
 from jygsaw.graphics import *
 from time import sleep
 

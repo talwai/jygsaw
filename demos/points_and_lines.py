@@ -1,4 +1,11 @@
-# Basic points and lines demo
+# points_and_lines.py
+#
+# Jysaw demo - draws a square and several points
+#
+# Attribution: inspired by the pointslines demo in Processing
+# from http://processingjs.org/learning/basic/pointslines/
+# written by Casey Reas and Ben Fry
+
 from jygsaw.graphics import *
 
 d = 70

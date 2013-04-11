@@ -1,3 +1,8 @@
+# snake.py
+#
+# Jysaw demo - A snake video game, written by David Lam
+#
+
 from jygsaw.graphics import *
 import random
 
