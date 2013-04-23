@@ -14,7 +14,7 @@ def write():
     t.font = 'Arial'
     
     textSize(16)
-    font('Courier')
+    font('Courier New')
     fill(blue)
     text(120, 150, 'World, hello!')
 
