@@ -106,7 +106,7 @@ class GraphicsWindow(ActionListener, KeyListener, MouseInputListener):
             if isinstance(arg, GraphicsObject) or isinstance(arg, Shape):
                 if arg.color is None:
                     arg.color = self.frame.contentPane.default_color
-                arg.stroke_color = self.frame.contentPane.strokeColor
+                arg.stroke_color = self.frame.contentPane.stroke_color
                 arg.stroke = self.frame.contentPane.stroke
                 arg.filled = self.frame.contentPane.filled
                 arg.stroke_width = self.frame.contentPane.stroke_width
@@ -118,7 +118,7 @@ class GraphicsWindow(ActionListener, KeyListener, MouseInputListener):
                 for obj in arg.group:
                     if obj.color is None:
                         obj.color = self.frame.contentPane.default_color
-                    obj.stroke_color = self.frame.contentPane.strokeColor
+                    obj.stroke_color = self.frame.contentPane.stroke_color
                     obj.stroke = self.frame.contentPane.stroke
                     obj.filled = self.frame.contentPane.filled
                     arg.stroke_width = self.frame.contentPane.stroke_width

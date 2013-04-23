@@ -75,5 +75,5 @@ class Text(GraphicsObject):
 
     def _draw(self, g):
         g.setColor(self.color)
-        g.set_font(Font(self.font, self.attribute, self.size))
+        g.setFont(Font(self.font, self.attribute, self.size))
         g.drawString(self.s, self.x, self.y)
