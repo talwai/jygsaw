@@ -10,10 +10,6 @@ from jygsaw.graphics import *
 
 y = 100
 
-
-# The statements in the setup() function
-# run once when the program begins
-
 canvas(640, 360)      # Size should be the first statement
 stroke(255)           # Set stroke color to white
 running = False
@@ -21,14 +17,12 @@ running = False
 y = int(height() * 0.5)
 
 
-# The statements in draw() are run until the
-# program is stopped. Each statement is run in
-# sequence and after the last line is read, the first
-# line is run again.
 def draw():
     global y
+    clear()
+    line(0, y, width(), y)
+    
     if running:
-        clear()
         line(0, y, width(), y)
 
         y = y - 1
@@ -43,4 +37,4 @@ def mousePressed():
 onMousePress(mousePressed)
 onDraw(draw)
 background(black)
-jygsawMain(1.0 / 30)
+jygsawMain(0.05)
