@@ -33,7 +33,7 @@ def canvas(width=400, height=400, window_title='Jygsaw Canvas', background=white
     """
     global window
     window = GraphicsWindow(window_title, int(width), int(height), background)
-    window.setVisible(True)
+    window.set_visible(True)
     return window
 
 
@@ -155,7 +155,7 @@ def polygon(vertices, color=None):
     return new_polygon
 
 
-def regPolygon(x, y, sides, length, color=None):
+def reg_polygon(x, y, sides, length, color=None):
     """
     Creates, draws on the canvas and returns a :py:class:`~jygsaw.shape.RegPolygon`
     with the given number of sides at the given x, y coordinates. Each side's
@@ -218,14 +218,14 @@ def fill(r=None, g=None, b=None, a=255):
 
     See :py:meth:`~jygsaw.graphics.color` for how the color values are handled.
     """
-    window.setFilled(True)
+    window.set_filled(True)
     if r is not None:
-        window.setDefaultColor(color(r, g, b, a))
+        window.set_default_color(color(r, g, b, a))
 
 
-def noFill():
+def no_fill():
     """ Sets library variable _filled to False, so that shapes are drawn as unfilled."""
-    window.setFilled(False)
+    window.set_filled(False)
 
 
 def background(r=None, g=None, b=None, a=255):
@@ -234,77 +234,77 @@ def background(r=None, g=None, b=None, a=255):
 
     See :py:meth:`~jygsaw.graphics.color` for how the color values are handled.
     """
-    window.setBackgroundColor(color(r, g, b, a))
+    window.set_bg_color(color(r, g, b, a))
 
 #---------------------------------------------------------------
 #-----------Mouse Methods-------------------------------------
 
 
-def mouseX():
+def mouse_x():
     """Returns x coordinate of the mouse."""
-    return window.mouseX
+    return window.mouse_x
 
 
-def mouseY():
+def mouse_y():
     """Returns y coordinate of the mouse."""
-    return window.mouseY
+    return window.mouse_y
 
 
-def mousePressed():
+def mouse_pressed():
     """Returns whether the mouse was pressed or not."""
-    return window.mouseEventType == MouseEvent.MOUSE_PRESSED \
-        or window.mouseEventType == MouseEvent.MOUSE_DRAGGED
+    return window.mouse_event_type == MouseEvent.MOUSE_PRESSED \
+        or window.mouse_event_type == MouseEvent.MOUSE_DRAGGED
 
 
-def mouseReleased():
+def mouse_released():
     """Returns whether the mouse was released or not."""
-    return window.mouseEventType == MouseEvent.MOUSE_RELEASED
+    return window.mouse_event_type == MouseEvent.MOUSE_RELEASED
 
 
-def mouseClicked():
+def mouse_clicked():
     """Returns whether the mouse was clicked or not."""
-    return window.mouseEventType == MouseEvent.MOUSE_CLICKED
+    return window.mouse_event_type == MouseEvent.MOUSE_CLICKED
 
 
-def mouseDragged():
+def mouse_dragged():
     """Returns whether the mouse was dragged or not."""
-    return window.mouseEventType == MouseEvent.MOUSE_DRAGGED
+    return window.mouse_event_type == MouseEvent.MOUSE_DRAGGED
 
 
-def mouseMoved():
+def mouse_moved():
     """Returns whether the mouse was moved or not."""
-    return window.mouseEventType == MouseEvent.MOUSE_MOVED
+    return window.mouse_event_type == MouseEvent.MOUSE_MOVED
 
 
-def mouseEntered():
+def mouse_entered():
     """Returns whether the mouse has entered the window or not."""
-    return window.mouseEventType == MouseEvent.MOUSE_ENTERED
+    return window.mouse_event_type == MouseEvent.MOUSE_ENTERED
 
 
-def mouseExited():
+def mouse_exited():
     """Returns whether the mouse has exited the window or not."""
-    return window.mouseEventType == MouseEvent.MOUSE_EXITED
+    return window.mouse_event_type == MouseEvent.MOUSE_EXITED
 
 
-def onMousePress(mousePressed):
+def on_mouse_press(mousePressed):
     """
-    Sets the window's onMousePressed variable to be the user
+    Sets the window's on_,ouse_pressed variable to be the user
     defined mousePressed function. This function will then be called by
     the window's mouse listener when the mouse event occurs.
     """
-    window.onMousePressed = mousePressed
+    window.on_,ouse_pressed = mousePressed
 
 
-def onMouseRelease(mouseReleased):
+def on_mouse_release(mouseReleased):
     """
-    Sets the window's onMouseReleased variable to be the user
+    Sets the window's on_mouse_released variable to be the user
     defined mouseReleased function. This function will then be called by the
     window's mouse listener when the mouse event occurs.
     """
-    window.onMouseReleased = mouseReleased
+    window.on_mouse_released = mouseReleased
 
 
-def onMouseClick(mouseClicked):
+def on_mouse_click(mouseClicked):
     """
     Sets the window's onMouseClicked variable to be the user
     defined mouseClicked function. This function will then be called by the
@@ -313,115 +313,115 @@ def onMouseClick(mouseClicked):
     window.onMouseClicked = mouseClicked
 
 
-def onMouseDrag(mouseDragged):
+def on_mouse_drag(mouseDragged):
     """
-    Sets the window's onMouseDragged variable to be the user
+    Sets the window's on_mouse_dragged variable to be the user
     defined mouseDragged function. This function will then be called by the
     window's mouse listener when the mouse event occurs.
     """
-    window.onMouseDragged = mouseDragged
+    window.on_mouse_dragged = mouseDragged
 
 
-def onMouseMove(mouseMoved):
+def on_mouse_move(mouseMoved):
     """
-    Sets the window's onMouseMoved variable to be the user
+    Sets the window's on_mouse_moved variable to be the user
     defined mouseMoved function. This function will then be called by the window's
     mouse listener when the mouse event occurs.
     """
-    window.onMouseMoved = mouseMoved
+    window.on_mouse_moved = mouseMoved
 
 
 def onMouseEnter(mouseEntered):
     """
-    Sets the window's onMouseEntered variable to be the user
+    Sets the window's on_mouse_entered variable to be the user
     defined mouseEntered function. This function will then be called by the
     window's mouse listener when the mouse event occurs.
     """
-    window.onMouseEntered = mouseEntered
+    window.on_mouse_entered = mouseEntered
 
 
-def onMouseExit(mouseExited):
+def on_mouse_exit(mouseExited):
     """
-    Sets the window's onMouseExited variable to be the user
+    Sets the window's on_mouse_exited variable to be the user
     defined mouseExited function. This function will then be called by the
     window's mouse listener when the mouse event occurs.
     """
-    window.onMouseExited = mouseExited
+    window.on_mouse_exited = mouseExited
 
 #---------------------------------------------------------------
 #--------------------Keyboard Methods---------------------------
 
 
-def keyPressed():
+def key_pressed():
     """Returns if a key was pressed or not."""
-    return window.keyEventType is KeyEvent.KEY_PRESSED
+    return window.key_event_type is KeyEvent.KEY_PRESSED
 
 
-def keyReleased():
+def key_released():
     """Returns if a key was released or not."""
-    return window.keyEventType is KeyEvent.KEY_RELEASED
+    return window.key_event_type is KeyEvent.KEY_RELEASED
 
 
-def onKeyPress(keyPressed):
+def on_key_press(keyPressed):
     """
-    Sets the window's onKeyPressed variable to be the user
+    Sets the window's on_key_pressed variable to be the user
     defined keyPressed function. This function will then be called by the
     window's key listener when the key event occurs.
     """
-    window.onKeyPressed = keyPressed
+    window.on_key_pressed = keyPressed
 
 
-def onKeyRelease(keyReleased):
+def on_key_release(keyReleased):
     """
-    Sets the window's onKeyReleased variable to be the user
+    Sets the window's on_key_released variable to be the user
     defined keyReleased function. This function will then be called by the
     window's key listener when the key event occurs.
     """
-    window.onKeyReleased = keyReleased
+    window.on_key_released = keyReleased
 
 
-def onKeyType(keyTyped):
+def on_key_type(keyTyped):
     """
-    Sets the window's onKeyTyped variable to be the user
+    Sets the window's on_key_typed variable to be the user
     defined keyTyped function. This function will then be called by the
     window's key listener when the key event occurs.
     """
-    window.onKeyTyped = keyTyped
+    window.on_key_typed = keyTyped
 
 
-def lastKeyChar():
+def last_key_char():
     """
     Returns the last key character that was pressed. Non-ascii keys
     will return a question mark.
     """
-    return window.lastKeyChar
+    return window.last_key_char
 
 
-def lastKeyCode():
+def last_key_code():
     """
     Returns the last key code that was pressed. Comparisons with these codes should be
     of the form VK_[CODE], from the key event library. All the codes can be found at
     http://docs.oracle.com/javase/1.4.2/docs/api/java/awt/event/KeyEvent.html.
     """
-    return window.lastKeyCode
+    return window.last_key_code
 
 
-def isKeyPressed(char):
+def is_key_pressed(char):
     """
     Returns whether *char* is being pressed.
     isKeyPressed() is case-INSENSITIVE
     """
-    return char.upper() in window.charsPressed
+    return char.upper() in window.chars_pressed
 
 
-def isCodePressed(code):
+def is_code_pressed(code):
     """Returns whether *code* is being pressed."""
     return code in window.codesPressed
 
 #---------------------------------------------------------
 
 
-def frameRate(rate):
+def frame_rate(rate):
     """Sets the frame rate value."""
     global _fr
     _fr = float(rate)
@@ -441,19 +441,19 @@ def stroke(r=None, g=None, b=None, a=255):
     * *b* B value of the RGB stroke color. Defaults to None.
     * *a* Alpha value of the RGB stroke color. Default to 255.
     """
-    window.setStroke(True)
+    window.set_stroke(True)
     if r is not None:
-        window.setStrokeColor(color(r, g, b, a))
+        window.set_stroke_color(color(r, g, b, a))
 
 
-def strokeWidth(w):
+def stroke_width(w):
     """Sets the stroke width."""
-    window.setStrokeWidth(w)
+    window.set_stroke_width(w)
 
 
-def noStroke():
+def no_stroke():
     """Sets stroke to False."""
-    window.setStroke(False)
+    window.set_stroke(False)
 
 
 def clear():
@@ -461,20 +461,20 @@ def clear():
     window.clear()
 
 
-def onDraw(user_draw):
+def on_draw(user_draw):
     """
-    Sets the window's onDraw variable to be the user
+    Sets the window's on_draw variable to be the user
     defined draw function. This function will then be called by the main loop of the program in :py:meth:`jygsaw.graphics.jygsawMain`.
     """
-    window.onDraw = user_draw
+    window.on_draw = user_draw
 
 
-def jygsawMain(delay=0.0):
+def jygsaw_start(delay=0.0):
     """
     Main loop of the program.
-    Repeatedly runs the user-defined draw function that is passed to :py:meth:`jygsaw.graphics.onDraw`
+    Repeatedly runs the user-defined draw function that is passed to :py:meth:`jygsaw.graphics.on_draw`
     """
-    window.mainRunning = True
+    window.main_running = True
     if delay > 0:
         while True:
             sleep(delay)
@@ -493,24 +493,24 @@ def refresh(delay=0.0):
 
     * *delay* Delay before the window calls repaint. Defaults to 0.0.
     """
-    assert(not window.mainRunning)
+    assert(not window.main_running)
     window.redraw(delay)
-    while not window.eventQueue.empty():
-        event = window.eventQueue.get()
-        if event.getID() == MouseEvent.MOUSE_PRESSED and window.onMousePressed:
-            window.onMousePressed()
-        if event.getID() == MouseEvent.MOUSE_RELEASED and window.onMouseReleased:
-            window.onMouseReleased()
+    while not window.event_queue.empty():
+        event = window.event_queue.get()
+        if event.getID() == MouseEvent.MOUSE_PRESSED and window.on_mouse_pressed:
+            window.on_mouse_pressed()
+        if event.getID() == MouseEvent.MOUSE_RELEASED and window.on_mouse_released:
+            window.on_mouse_released()
         if event.getID() == MouseEvent.MOUSE_CLICKED and window.onMouseClicked:
             window.onMouseClicked()
-        if event.getID() == MouseEvent.MOUSE_DRAGGED and window.onMouseDragged:
-            window.onMouseDragged()
-        if event.getID() == MouseEvent.MOUSE_MOVED and window.onMouseMoved:
-            window.onMouseMoved()
-        if event.getID() == MouseEvent.MOUSE_ENTERED and window.onMouseEntered:
-            window.onMouseEntered()
-        if event.getID() == MouseEvent.MOUSE_EXITED and window.onMouseExited:
-            window.onMouseExited()
+        if event.getID() == MouseEvent.MOUSE_DRAGGED and window.on_mouse_dragged:
+            window.on_mouse_dragged()
+        if event.getID() == MouseEvent.MOUSE_MOVED and window.on_mouse_moved:
+            window.on_mouse_moved()
+        if event.getID() == MouseEvent.MOUSE_ENTERED and window.on_mouse_entered:
+            window.on_mouse_entered()
+        if event.getID() == MouseEvent.MOUSE_EXITED and window.on_mouse_exited:
+            window.on_mouse_exited()
 
 
 def text(x, y, string, color=None, attribute=PLAIN):
@@ -531,12 +531,12 @@ def text(x, y, string, color=None, attribute=PLAIN):
 
 def font(f):
     """Sets the window font to the font specified by *f*."""
-    window.setFont(f)
+    window.set_font(f)
 
 
-def textSize(s):
+def text_size(s):
     """Sets the text size to size specified by *s*."""
-    window.setTextSize(s)
+    window.set_text_size(s)
 
 
 def color(r, g=None, b=None, a=255):

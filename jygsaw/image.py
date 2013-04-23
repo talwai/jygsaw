@@ -111,4 +111,4 @@ class Image(GraphicsObject):
             self.height = img.getHeight()
 
         g.drawImage(img, self.x, self.y,
-                    self.width, self.height, g.backgroundColor, None)
+                    self.width, self.height, g.background_color, None)

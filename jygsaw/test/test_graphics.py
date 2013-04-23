@@ -36,10 +36,10 @@ class BaseShapeClassTests(object):
     def test_fill(self):
         fill(green)
         self.shape = self.create_shape()
-        self.assertEqual(self.c.frame.contentPane.defaultColor, green,
+        self.assertEqual(self.c.frame.contentPane.default_color, green,
                          msg="Changed fill color not reflected in Window")
         self.assertEqual(
-            self.shape.color, self.c.frame.contentPane.defaultColor, msg="Changed fill color not reflected in shape")
+            self.shape.color, self.c.frame.contentPane.default_color, msg="Changed fill color not reflected in shape")
 
         # pass in non valid inputs
         with self.assertRaises(Exception):
@@ -61,7 +61,7 @@ class BaseShapeClassTests(object):
                          msg="New shape's stroke color  doesn't match have stroke color of window")
         self.assertEqual(self.shape.stroke, True,
                          msg="New shape doesn't have stroke turned on")
-        self.assertEqual(self.shape.strokeColor, red,
+        self.assertEqual(self.shape.stroke_color, red,
                          msg="New shape doesn't have right stroke color")
 
         # pass in non valid inputs
@@ -129,7 +129,7 @@ class TestBackground(unittest2.TestCase):
     def test_background(self):
         self.c = canvas()
         background(blue)
-        self.assertEqual(self.c.frame.contentPane.backgroundColor, blue)
+        self.assertEqual(self.c.frame.contentPane.background_color, blue)
 
         # pass in non valid inputs
         with self.assertRaises(Exception):
