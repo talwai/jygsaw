@@ -292,7 +292,7 @@ def on_mouse_press(mousePressed):
     defined mousePressed function. This function will then be called by
     the window's mouse listener when the mouse event occurs.
     """
-    window.on_,ouse_pressed = mousePressed
+    window.on_mouse_pressed = mousePressed
 
 
 def on_mouse_release(mouseReleased):
@@ -306,11 +306,11 @@ def on_mouse_release(mouseReleased):
 
 def on_mouse_click(mouseClicked):
     """
-    Sets the window's onMouseClicked variable to be the user
+    Sets the window's on_mouse_clicked variable to be the user
     defined mouseClicked function. This function will then be called by the
     window's mouse listener when the mouse event occurs.
     """
-    window.onMouseClicked = mouseClicked
+    window.on_mouse_clicked = mouseClicked
 
 
 def on_mouse_drag(mouseDragged):
@@ -501,8 +501,8 @@ def refresh(delay=0.0):
             window.on_mouse_pressed()
         if event.getID() == MouseEvent.MOUSE_RELEASED and window.on_mouse_released:
             window.on_mouse_released()
-        if event.getID() == MouseEvent.MOUSE_CLICKED and window.onMouseClicked:
-            window.onMouseClicked()
+        if event.getID() == MouseEvent.MOUSE_CLICKED and window.on_mouse_clicked:
+            window.on_mouse_clicked()
         if event.getID() == MouseEvent.MOUSE_DRAGGED and window.on_mouse_dragged:
             window.on_mouse_dragged()
         if event.getID() == MouseEvent.MOUSE_MOVED and window.on_mouse_moved:

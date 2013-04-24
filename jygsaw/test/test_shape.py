@@ -8,7 +8,7 @@ class TestShapeFunctions(unittest.TestCase):
     def setUp(self):
         canvas()
         stroke()
-        frameRate(60.0)
+        frame_rate(60.0)
 
         self.arc = arc(300, 100, 123, 33, 34, 33)
 
@@ -16,7 +16,7 @@ class TestShapeFunctions(unittest.TestCase):
 
         self.polygon = polygon(
             [(250, 250), (250, 370), (360, 340), (360, 250)])
-        self.regPolygon = regPolygon(10, 300, 40, 40)
+        self.reg_polygon = reg_polygon(10, 300, 40, 40)
 
     def test_arc(self):
         self.assertEqual(self.arc._get_color(), color(128, 128, 128))
@@ -43,15 +43,15 @@ class TestShapeFunctions(unittest.TestCase):
                          370), (360, 340), (360, 250)])
 
     def test_regpolygon(self):
-        self.assertEqual(self.regPolygon.sides, 40)
-        self.regPolygon.sides = 30
+        self.assertEqual(self.reg_polygon.sides, 40)
+        self.reg_polygon.sides = 30
 
-        self.assertEqual(self.regPolygon.sides, 30)
+        self.assertEqual(self.reg_polygon.sides, 30)
 
-        self.assertEqual(self.regPolygon.side_length, 40)
+        self.assertEqual(self.reg_polygon.side_length, 40)
 
-        self.regPolygon.side_length = 20
-        self.assertEqual(self.regPolygon.side_length, 20)
+        self.reg_polygon.side_length = 20
+        self.assertEqual(self.reg_polygon.side_length, 20)
 
 if (__name__ == '__main__') or (__name__ == 'main'):
     unittest.main()

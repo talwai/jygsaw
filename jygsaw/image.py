@@ -27,9 +27,9 @@ class Image(GraphicsObject):
     def __init__(self, x, y, path, width=None, height=None):
         super(Image, self).__init__(x, y)
         assert (isinstance(width, int) and width >
-                0) or width == None, "Image width must be greater than zero"
+                0) or width is None, "Image width must be greater than zero"
         assert (isinstance(height, int) and height >
-                0) or width == None, "Image width must be greater than zero"
+                0) or width is None, "Image width must be greater than zero"
         assert isinstance(x, int), "Coordinates must be an int."
         assert isinstance(y, int), "Coordinates must be an int."
 
@@ -105,10 +105,10 @@ class Image(GraphicsObject):
         else:
             img = ImageIO.read(File(self.path))
 
-        if self.width == None:
+        if self.width is None:
             self.width = img.getWidth()
-        if self.height == None:
+        if self.height is None:
             self.height = img.getHeight()
 
         g.drawImage(img, self.x, self.y,
-                    self.width, self.height, g.background_color, None)
+                    self.width, self.height, g.backgroundColor, None)

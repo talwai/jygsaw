@@ -94,7 +94,7 @@ class Shape():
             g.draw(self)
         if self.stroke:
             g.setPaint(self.stroke_color)
-            g.set_stroke(BasicStroke(self.stroke_width))
+            g.setStroke(BasicStroke(self.stroke_width))
             g.draw(self)
 
         if not self.filled and not self.stroke:
