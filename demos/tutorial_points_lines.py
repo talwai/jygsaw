@@ -9,17 +9,17 @@ from jygsaw.graphics import *
 from random import random, choice
 
 canvas(900, 500)
-background(darkGray)
+background(DARK_GRAY)
 
 
 def draw():
     lineX = random() * 800 + 50
     lineY = random() * 300 + 125
-    lineColor = choice([lightGray, white, orange, gray])
-    stroke(lineColor)
+    line_color = choice([LIGHT_GRAY, WHITE, ORANGE, GRAY])
+    stroke(line_color)
     line(width() / 2, height(), lineX, lineY)
     point(lineX, lineY - 100)
 
-onDraw(draw)
+on_draw(draw)
 
-jygsawMain(0.1)
+jygsaw_start(0.1)

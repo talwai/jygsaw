@@ -10,7 +10,7 @@ class Shape():
 
     """
     Any shape that is drawn on the canvas inherits from Shape. Shape
-    stores the width, height, color, strokeColor, and strokeWidth of
+    stores the width, height, color, stroke_color, and stroke_width of
     the object. As well a boolean stating whether or not it is filled and
     another boolean that stores whether or not the shape should be drawn
     with a stroke. This class also contains the draw method for all of the
@@ -18,7 +18,7 @@ class Shape():
 
     Constructor for :py:class:`~jygsaw.shape.Shape` classs does not take
     any parameters except for the color. Initially stroke is set to False,
-    strokeColor is black, and strokeWidth is set to 1. StrokeColor and stroke
+    stroke_color is black, and stroke_width is set to 1. StrokeColor and stroke
     are later set by the draw method in graphicsWindow.
 
     """
@@ -27,8 +27,8 @@ class Shape():
         self._color = color
         self._filled = True
         self._stroke = False
-        self._strokeColor = Color.black
-        self._strokeWidth = 1
+        self._stroke_color = Color.black
+        self._stroke_width = 1
 
     def _get_color(self):
         """Returns the color of the :py:class:`~jygsaw.shape.Shape` """
@@ -64,26 +64,26 @@ class Shape():
     stroke = property(_get_stroke, _set_stroke,
                       "Boolean describing if the shape has a stroke.")
 
-    def _get_strokeColor(self):
-        return self._strokeColor
+    def _get_stroke_color(self):
+        return self._stroke_color
 
-    def _set_strokeColor(self, c):
+    def _set_stroke_color(self, c):
         assert c is None or isinstance(
             c, Color), "The object passed is not a Color object."
-        self._strokeColor = c
+        self._stroke_color = c
 
-    strokeColor = property(_get_strokeColor, _set_strokeColor,
-                           "Color of the stroke.")
+    stroke_color = property(_get_stroke_color, _set_stroke_color,
+                            "Color of the stroke.")
 
-    def _get_strokeWidth(self):
-        return self._strokeWidth
+    def _get_stroke_width(self):
+        return self._stroke_width
 
-    def _set_strokeWidth(self, w):
-        assert isinstance(w, int), "strokeWidth must be an integer."
-        self._strokeWidth = w
+    def _set_stroke_width(self, w):
+        assert isinstance(w, int), "stroke_width must be an integer."
+        self._stroke_width = w
 
-    strokeWidth = property(_get_strokeWidth, _set_strokeWidth,
-                           "Width of the stroke.")
+    stroke_width = property(_get_stroke_width, _set_stroke_width,
+                            "Width of the stroke.")
 
     def _draw(self, g):
         if self.filled:
@@ -93,8 +93,8 @@ class Shape():
             g.setColor(self.color)
             g.draw(self)
         if self.stroke:
-            g.setPaint(self.strokeColor)
-            g.setStroke(BasicStroke(self.strokeWidth))
+            g.setPaint(self.stroke_color)
+            g.setStroke(BasicStroke(self.stroke_width))
             g.draw(self)
 
         if not self.filled and not self.stroke:
@@ -105,7 +105,7 @@ class Rectangle(Rectangle2D.Float, Shape):
 
     """
     The Rectangle class describes a rectangle defined by its top left corner,
-    width, and height. Rectangle inherits from Rectangle2D.Float and 
+    width, and height. Rectangle inherits from Rectangle2D.Float and
     :py:class:`~jygsaw.shape.Shape` .
 
     Creates a Rectangle where x and y describe the top left coordinate of
@@ -117,7 +117,7 @@ class Rectangle(Rectangle2D.Float, Shape):
     def __init__(self, x, y, width, height, color=None):
         super(Rectangle, self).__init__(x, y, width, height, color=color)
 
-    def moveTo(self, x, y):
+    def move_to(self, x, y):
         self.x = x
         self.y = y
 
@@ -143,7 +143,7 @@ class Ellipse(Ellipse2D.Float, Shape):
     def __init__(self, x, y, width, height, color=None):
         super(Ellipse, self).__init__(x, y, width, height, color=color)
 
-    def moveTo(self, x, y):
+    def move_to(self, x, y):
         self.x = x
         self.y = y
 
@@ -196,7 +196,7 @@ class Circle(Ellipse2D.Float, Shape):
 
     y = property(_get_y, _set_y, "Y coordinate of the circle.")
 
-    def moveTo(self, x, y):
+    def move_to(self, x, y):
         self.x = x
         self.y = y
 
@@ -219,7 +219,7 @@ class Line(Line2D.Float, Shape):
     def __init__(self, startX, startY, endX, endY, color=None):
         super(Line, self).__init__(startX, startY, endX, endY, color=color)
 
-    def moveTo(self, x, y):
+    def move_to(self, x, y):
         self.x = x
         self.y = y
 
@@ -266,7 +266,7 @@ class Arc(Arc2D.Float, Shape):
         super(Arc, self).__init__(x, y, width, height, startAngle,
                                   arcAngle, Arc2D.OPEN, color=color)
 
-    def moveTo(self, x, y):
+    def move_to(self, x, y):
         self.x = x
         self.y = y
 
@@ -304,7 +304,7 @@ class Polygon(JavaPolygon, Shape):
     vertices = property(_get_vertices, _set_vertices,
                         "List of vertices, where the vertices are tuples of two integers.")
 
-    def moveTo(self, x, y):
+    def move_to(self, x, y):
         self.move(x - self.vertices[0][0], y - self.vertices[0][1])
         self.x = x
         self.y = y
@@ -321,7 +321,8 @@ class RegPolygon(JavaPolygon, Shape):
     vertex, the number of sides, and side length. It inherits from Java's
     Polygon class and Shape.
 
-    Inherits from the :py:class:`~jygsaw.shape.Polygon`  class in java and :py:class:`~jygsaw.shape.Shape`. Given an x, y
+    Inherits from the :py:class:`~jygsaw.shape.Polygon` class in java and
+    :py:class:`~jygsaw.shape.Shape`. Given an x, y
     coordinate, number of sides, length of the sides and a color a
     regular polygon is drawn on the window. The class generates a list of
     vertices, where the first vertex is the given x, y coordinate and the
@@ -340,17 +341,16 @@ class RegPolygon(JavaPolygon, Shape):
 
         self._vertices = []
         self._sides = sides
-        self._sideLength = length
-        self.sideAngle = (2 * PI) / self.sides
-        self.radius = self.sideLength * sin(.5 * (PI - self.sideAngle)) / \
-            sin(self.sideAngle)
+        self._side_length = length
+        self.side_angle = (2 * PI) / self.sides
+        self.radius = self.side_length * sin(.5 * (PI - self.side_angle)) / \
+            sin(self.side_angle)
         for i in range(self.sides):
             self.vertices.append((int(round(x + self.radius * cos(
-                self.sideAngle * i))), int(round(y + self.radius * sin(self.sideAngle * i)))))
+                self.side_angle * i))), int(round(y + self.radius * sin(self.side_angle * i)))))
 
-        (xValues, yValues) = zip(*self.vertices)
-        super(RegPolygon, self).__init__(
-            xValues, yValues, len(self.vertices), color=color)
+        (xs, ys) = zip(*self.vertices)
+        super(RegPolygon, self).__init__(xs, ys, len(self.vertices), color=color)
 
     def _get_vertices(self):
         return self._vertices
@@ -368,24 +368,24 @@ class RegPolygon(JavaPolygon, Shape):
     def _set_sides(self, s):
         assert s >= 3, "Number of sides must be greater than or equal to 3."
         self._sides = s
-        self.sideAngle = (2 * PI) / self._sides
+        self.side_angle = (2 * PI) / self._sides
 
     sides = property(
         _get_sides, _set_sides, "An integer setting the number of sides. ")
 
-    def _set_sideLength(self):
-        return self._sideLength
+    def _set_side_length(self):
+        return self._side_length
 
-    def _get_sideLength(self, l):
+    def _get_side_length(self, l):
         assert l > 0, "Length of sides must be greater than 0"
-        self._sideLength = l
-        self.radius = self._sideLength * sin(.5 * (PI - self.sideAngle)) / \
-            sin(self.sideAngle)
+        self._side_length = l
+        self.radius = self._side_length * sin(.5 * (PI - self.side_angle)) / \
+            sin(self.side_angle)
 
-    sideLength = property(
-        _set_sideLength, _get_sideLength, "Length of each side.")
+    side_length = property(
+        _set_side_length, _get_side_length, "Length of each side.")
 
-    def moveTo(self, x, y):
+    def move_to(self, x, y):
         self.move(x - self.vertices[0][0], y - self.vertices[0][1])
         self.x = x
         self.y = y

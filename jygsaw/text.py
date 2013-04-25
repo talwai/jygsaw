@@ -8,9 +8,9 @@ Exports Text.
 from graphicsobject import *
 from java.awt import Font
 from java.awt.Font import *
-from java.awt import GraphicsEnvironment
+from java.awt.GraphicsEnvironment import getLocalGraphicsEnvironment
 import unicodedata
-# from java.awt.Graphics import setFont
+# from java.awt.Graphics import set_font
 
 
 class Text(GraphicsObject):
@@ -22,8 +22,8 @@ class Text(GraphicsObject):
     """
     attributes = [PLAIN, BOLD, ITALIC]
     # Static variable that contains all a list of string that represent all the available fonts
-    _systemFonts = [unicodedata.normalize('NFKD', _f).encode('ascii', 'ignore')
-                    for _f in GraphicsEnvironment.getLocalGraphicsEnvironment().getAvailableFontFamilyNames().tolist()]
+    _system_fonts = [unicodedata.normalize('NFKD', _f).encode('ascii', 'ignore')
+                     for _f in getLocalGraphicsEnvironment().getAvailableFontFamilyNames().tolist()]
 
     def __init__(self, x, y, s, color=None, attribute=PLAIN):
         super(Text, self).__init__(x, y, color)
@@ -67,7 +67,7 @@ class Text(GraphicsObject):
         return self._font
 
     def _set_font(self, f):
-        assert (f in self._systemFonts), "Font is not available or incorrect."
+        assert (f in self._system_fonts), "Font is not available or incorrect."
         self._font = f
 
     font = property(_get_font, _set_font,

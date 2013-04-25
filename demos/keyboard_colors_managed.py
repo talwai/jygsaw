@@ -8,26 +8,26 @@
 
 from jygsaw.graphics import *
 
-maxHeight = 40
-minHeight = 20
-letterHeight = maxHeight
-letterWidth = 20
+max_height = 40
+min_height = 20
+letter_height = max_height
+letter_width = 20
 
-x = -letterWidth
+x = -letter_width
 y = 0
 
 newletter = False
 
-numChars = 26
+num_chars = 26
 colors = []
 
 canvas(640, 360)
-noStroke()
+no_stroke()
 background(100)
 
 # Set a color for each key
-for i in range(numChars):
-    colors.append(Color.getHSBColor(float(i) / float(numChars), 1, 1))
+for i in range(num_chars):
+    colors.append(Color.getHSBColor(float(i) / float(num_chars), 1, 1))
 
 
 def draw():
@@ -35,31 +35,31 @@ def draw():
     if newletter is True:
         # Draw the 'letter'
         y_pos = 0
-        if letterHeight == maxHeight:
+        if letter_height == max_height:
             y_pos = y
-            rect(x, y_pos, letterWidth, letterHeight)
+            rect(x, y_pos, letter_width, letter_height)
         else:
-            y_pos = y + minHeight
-            rect(x, y_pos, letterWidth, letterHeight)
+            y_pos = y + min_height
+            rect(x, y_pos, letter_width, letter_height)
         newletter = False
 
 
 def keyPressed():
     # If the key is between 'A' (65) and 'z' (122)
-    global letterHeight
-    if ord(lastKeyChar()) >= ord('A') and ord(lastKeyChar()) <= ord('z'):
+    global letter_height
+    if ord(last_key_char()) >= ord('A') and ord(last_key_char()) <= ord('z'):
         keyIndex = -1
-        if ord(lastKeyChar()) <= ord('Z'):
-            keyIndex = ord(lastKeyChar()) - ord('A')
-            letterHeight = maxHeight
+        if ord(last_key_char()) <= ord('Z'):
+            keyIndex = ord(last_key_char()) - ord('A')
+            letter_height = max_height
             fill(colors[keyIndex])
         else:
-            keyIndex = ord(lastKeyChar()) - ord('a')
-            letterHeight = minHeight
+            keyIndex = ord(last_key_char()) - ord('a')
+            letter_height = min_height
             fill(colors[keyIndex])
     else:
         fill(0)
-        letterHeight = 10
+        letter_height = 10
 
     global newletter
     newletter = True
@@ -67,17 +67,17 @@ def keyPressed():
     # Update the "letter" position
     global x
     global y
-    x = x + letterWidth
+    x = x + letter_width
 
     # Wrap horizontally
-    if x > width() - letterWidth:
+    if x > width() - letter_width:
         x = 0
-        y = y + maxHeight
+        y = y + max_height
 
     # Wrap vertically
-    if y > height() - letterHeight:
+    if y > height() - letter_height:
         y = 0  # Reset y to 0
 
-onKeyPress(keyPressed)
-onDraw(draw)
-jygsawMain(0.05)
+on_key_press(keyPressed)
+on_draw(draw)
+jygsaw_start(0.05)

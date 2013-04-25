@@ -6,7 +6,7 @@
 from jygsaw.graphics import *
 import random
 
-# Snake for Jygsay by David Lam
+# Snake for Jygsaw by David Lam
 
 # Keys for controlling game
 keys = {"start": " ",  # space bar
@@ -30,9 +30,9 @@ MAX_BLOCK = CANVAS_SIZE / BLOCK_SIZE
 # Nap time
 DELAY = 0.2
 # colors of objects
-BACKGROUND_COLOR = gray
-SNAKE_COLOR = yellow
-FOOD_COLOR = green
+BACKGROUND_COLOR = GRAY
+SNAKE_COLOR = YELLOW
+FOOD_COLOR = GREEN
 
 # state variables
 FOOD_EXISTS = False
@@ -141,7 +141,7 @@ while True:
 
     # Get the key pressed and change state
     # or direction as appropriate
-    key = lastKeyChar()
+    key = last_key_char()
 
     if key == keys["left"]:
         DIR = direction["left"]
@@ -156,17 +156,17 @@ while True:
 
     # print message
     if state is START:
-        text(25, 10, "Press Space to start game!", color=white,
+        text(25, 10, "Press Space to start game!", color=WHITE,
              attribute=PLAIN)
-        text(25, 20, "i = UP", color=white, attribute=PLAIN)
-        text(25, 30, "j = LEFT, l = RIGHT", color=white, attribute=PLAIN)
-        text(25, 40, "k = DOWN", color=white, attribute=PLAIN)
+        text(25, 20, "i = UP", color=WHITE, attribute=PLAIN)
+        text(25, 30, "j = LEFT, l = RIGHT", color=WHITE, attribute=PLAIN)
+        text(25, 40, "k = DOWN", color=WHITE, attribute=PLAIN)
 
         reset()
         continue
 
     # generate food pellet
-    if FOOD_EXISTS is False:
+    if not FOOD_EXISTS:
         generate_food_pellet()
         FOOD_EXISTS = True
 
@@ -180,6 +180,6 @@ while True:
     if check_self_collisions() or check_wall_collisions():
         state = START
         text(25, 10, "You lost! Press Space to restart",
-             color=white, attribute=PLAIN)
+             color=WHITE, attribute=PLAIN)
 
     refresh(DELAY)

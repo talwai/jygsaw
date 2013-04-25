@@ -21,7 +21,7 @@ def draw():
     global y
     clear()
     line(0, y, width(), y)
-    
+
     if running:
         line(0, y, width(), y)
 
@@ -30,11 +30,12 @@ def draw():
             y = height()
 
 
-def mousePressed():
+def mousepressed():
     global running
     running = True
 
-onMousePress(mousePressed)
-onDraw(draw)
-background(black)
-jygsawMain(0.05)
+
+on_mouse_press(mousepressed)
+on_draw(draw)
+background(BLACK)
+jygsaw_start(0.05)
