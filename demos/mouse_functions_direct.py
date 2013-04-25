@@ -18,29 +18,9 @@ yOffset = 0.0
 
 
 canvas(640, 360)
+background(0)
 bx = width() / 2
 by = height() / 2
-
-
-def draw():
-    global overBox
-    clear()
-    background(0)
-
-    # Test if the cursor is over the box
-    if (mouseX() > bx and mouseX() < bx + boxSize and
-            mouseY() > by and mouseY() < by + boxSize):
-        overBox = True
-        if not locked:
-            stroke(255)
-            fill(153)
-    else:
-        stroke(153)
-        fill(153)
-        overBox = False
-
-    # Draw the box
-    rect(bx, by, boxSize, boxSize)
 
 
 def mousePressed():
@@ -71,5 +51,23 @@ def mouseReleased():
 onMousePress(mousePressed)
 onMouseDrag(mouseDragged)
 onMouseRelease(mouseReleased)
-onDraw(draw)
-jygsawMain(1.0 / 30)
+
+while True:
+    clear()
+
+    # Test if the cursor is over the box
+    if (mouseX() > bx and mouseX() < bx + boxSize and
+            mouseY() > by and mouseY() < by + boxSize):
+        overBox = True
+        if not locked:
+            stroke(255)
+            fill(153)
+    else:
+        stroke(153)
+        fill(153)
+        overBox = False
+
+    # Draw the box
+    rect(bx, by, boxSize, boxSize)
+
+    refresh(1.0 / 30)
