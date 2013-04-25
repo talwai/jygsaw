@@ -16,8 +16,9 @@ from shape import *
 from text import *
 from time import sleep
 from Queue import Queue
-# These unused imports are for the user
-from java.awt.Color import black, blue, cyan, gray, green, magenta, orange, pink, red, white, yellow
+from java.awt.Color import (BLACK, BLUE, CYAN, DARK_GRAY,
+                            GRAY, GREEN, LIGHT_GRAY, MAGENTA,
+                            ORANGE, PINK, RED, WHITE, YELLOW)
 
 
 # the -O switch can't be used with jython, which is used to turn off __debug__
@@ -31,19 +32,21 @@ class GraphicsWindow(ActionListener, KeyListener, MouseInputListener):
     object that can be drawn on. Takes a title, window width, and window height.
     An optional background color can be specified.
     """
-    def __init__(self, title, w, h, backgroundColor=white):
+    def __init__(self, title, w, h, bg_color=WHITE):
         assert w > 0, "GraphicsWindow width must be greater than zero"
         assert h > 0, "GraphicsWindow height must be greater than zero"
 
         self.objs = []  # List of GraphicsObjects
-        self.backgroundColor = backgroundColor
+        self.bg_color = bg_color
+        self.colors = [BLACK, BLUE, CYAN, DARK_GRAY, GRAY, GREEN,
+                       LIGHT_GRAY, MAGENTA, ORANGE, PINK, RED, WHITE, YELLOW]
 
         self.frame = JFrame(
             title, defaultCloseOperation=JFrame.EXIT_ON_CLOSE,
             size=(w, h))
 
         self.frame.setLocationRelativeTo(None)
-        self.frame.contentPane = Canvas(self, self.objs, self.backgroundColor)
+        self.frame.contentPane = Canvas(self, self.objs, self.bg_color)
         self.frame.contentPane.setPreferredSize(Dimension(w, h))
 
         self.frame.addMouseListener(self)
@@ -82,7 +85,6 @@ class GraphicsWindow(ActionListener, KeyListener, MouseInputListener):
 
         # Event queue
         self.event_queue = Queue()
-
         self.main_running = False
 
         # not needed, user_draw is /called directly from on_draw
@@ -383,21 +385,18 @@ class Canvas(JPanel):
     Canvas where objects get drawn. The Canvas is automatically created
     and attached to a :py:class:`~jygsaw.graphicswindow.GraphicsWindow` upon creation.
     """
-    def __init__(self, window, objects, backgroundColor):
+    def __init__(self, window, objects, bg_color):
         self.objs = objects
         self.window = window
-        self._default_color = gray
-        self._background_color = backgroundColor
-        self._stroke_color = black
+        self._default_color = GRAY
+        self._background_color = bg_color
+        self._stroke_color = BLACK
         self._stroke = False  # sets whether or not strokes are being drawn for shapes
         self._filled = True
         self._font = "Times New Roman"
         self._text_size = 12
         self._stroke_width = 1
-
         self.redraw_requested = True
-
-        # Installed fonts
 
     def paintComponent(self, g):
         """

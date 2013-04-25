@@ -36,11 +36,11 @@ def draw():
             y = height()
 
 
-def mousePressed():
+def mousepressed():
     global running
     running = True
 
-onMousePress(mousePressed)
-onDraw(draw)
-background(black)
-jygsawMain(1.0 / 30)
+on_mouse_press(mousepressed)
+on_draw(draw)
+background(BLACK)
+jygsaw_start(1.0 / 30)

@@ -1,5 +1,4 @@
 from jygsaw.graphics import *
-
 import unittest
 
 
@@ -25,9 +24,9 @@ class TestShapeFunctions(unittest.TestCase):
         self.arc = arc(300, 100, 123, 33, 34, 33)
 
         self.assertEqual(self.arc._get_filled(), True)
-        self.assertEqual(self.arc._color, green)
+        self.assertEqual(self.arc._color, GREEN)
 
-        self.assertEqual(self.arc._get_color(), green)
+        self.assertEqual(self.arc._get_color(), GREEN)
 
         self.assertEqual(self.arc.width, 123)
         self.assertEqual(self.arc.height, 33)
@@ -52,6 +51,7 @@ class TestShapeFunctions(unittest.TestCase):
 
         self.reg_polygon.side_length = 20
         self.assertEqual(self.reg_polygon.side_length, 20)
+
 
 if (__name__ == '__main__') or (__name__ == 'main'):
     unittest.main()

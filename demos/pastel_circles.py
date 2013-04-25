@@ -8,10 +8,9 @@ from jygsaw.graphics import *
 from random import randint
 
 canvas()
-background(black)
+background(BLACK)
 
 while True:
-
     # clear screen with nearly-transparent black rectangle
     fill(0, 0, 0, 15)
     rect(0, 0, 399, 399)

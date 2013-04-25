@@ -1,5 +1,4 @@
 from jygsaw.graphics import *
-
 import unittest
 
 
@@ -24,7 +23,7 @@ class TestShapeFunctions(unittest.TestCase):
         fill(0, 255, 0)
         self.arc = arc(300, 100, 123, 33, 34, 33)
 
-        self.assertEqual(self.arc.color, green)
+        self.assertEqual(self.arc.color, GREEN)
 
         self.assertEqual(self.arc.x, 300)
         self.assertEqual(self.arc.y, 100)

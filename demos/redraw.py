@@ -25,13 +25,13 @@ def draw():
     line(0, y, width(), y)
 
 canvas(640, 360)        # Size should be the first statement
-stroke(255)       # Se t line drawing color to white
+stroke(255)             # Set line drawing color to white
 
 y = int(height() * 0.5)
 
-background(black)            # Set the background to black
+background(BLACK)       # Set the background to black
 draw()
-onMousePress(draw)
+on_mouse_press(draw)
 
 while True:
     refresh(0.01)

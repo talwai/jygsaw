@@ -19,7 +19,7 @@ directionY = 1  # Just used for testing - delete or move eventually
 _fr = 60.0  # Frame Rate
 
 
-def canvas(width=400, height=400, window_title='Jygsaw Canvas', background=white):
+def canvas(width=400, height=400, window_title='Jygsaw Canvas', background=WHITE):
     """
     Creates and returns a new Jygsaw :py:class:`~jygsaw.graphicswindow.GraphicsWindow` and
     :py:class:`~jygsaw.graphicswindow.Canvas`.
@@ -252,8 +252,8 @@ def mouse_y():
 
 def mouse_pressed():
     """Returns whether the mouse was pressed or not."""
-    return window.mouse_event_type == MouseEvent.MOUSE_PRESSED \
-        or window.mouse_event_type == MouseEvent.MOUSE_DRAGGED
+    return (window.mouse_event_type == MouseEvent.MOUSE_PRESSED or
+            window.mouse_event_type == MouseEvent.MOUSE_DRAGGED)
 
 
 def mouse_released():
@@ -419,6 +419,7 @@ def is_code_pressed(code):
     return code in window.codesPressed
 
 #---------------------------------------------------------
+#--------------------State Methods------------------------
 
 
 def frame_rate(rate):
@@ -537,6 +538,11 @@ def font(f):
 def text_size(s):
     """Sets the text size to size specified by *s*."""
     window.set_text_size(s)
+
+
+def get_colors():
+    """Returns a list of all the colors imported from java.awt."""
+    window.colors
 
 
 def color(r, g=None, b=None, a=255):

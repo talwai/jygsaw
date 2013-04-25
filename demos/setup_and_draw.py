@@ -26,5 +26,5 @@ def draw():
 canvas(640, 360)        # Size must be the first statement
 stroke(255)        # Set line drawing color to white
 
-onDraw(draw)
-jygsawMain(0.02)
+on_draw(draw)
+jygsaw_start(0.02)

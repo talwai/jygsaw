@@ -16,9 +16,9 @@ class BaseShapeClassTests(object):
         self.c = canvas()
 
     def test_fill(self):
-        fill(green)
+        fill(GREEN)
         self.shape = self.create_shape()
-        self.assertEqual(self.c.frame.contentPane.default_color, green,
+        self.assertEqual(self.c.frame.contentPane.default_color, GREEN,
                          msg="Changed fill color not reflected in Window")
         self.assertEqual(
             self.shape.color, self.c.frame.contentPane.default_color, msg="Changed fill color not reflected in shape")
@@ -37,13 +37,13 @@ class BaseShapeClassTests(object):
                          msg="Windows fill bool not set correctly")
 
     def test_stroke(self):
-        stroke(red)
+        stroke(RED)
         self.shape = self.create_shape()
         self.assertEqual(self.shape.stroke, self.c.frame.contentPane.stroke,
                          msg="New shape's stroke color  doesn't match have stroke color of window")
         self.assertEqual(self.shape.stroke, True,
                          msg="New shape doesn't have stroke turned on")
-        self.assertEqual(self.shape.stroke_color, red,
+        self.assertEqual(self.shape.stroke_color, RED,
                          msg="New shape doesn't have right stroke color")
 
         # pass in non valid inputs
@@ -58,11 +58,6 @@ class BaseShapeClassTests(object):
             self.shape.stroke, msg="new shape doesn't have stroke turned off")
         self.assertFalse(
             self.shape.stroke, msg="Window doesn't have stroke turned off")
-
-#     def test_no_strokeAndno_fill_RaiseWarning(self):
-#          no_stroke()
-#          no_fill()
-#          self.assertRaises(UserWarning, self.create_shape)
 
 
 class TestPoint(BaseShapeClassTests, unittest2.TestCase):
@@ -110,8 +105,8 @@ class TestBackground(unittest2.TestCase):
     # this fails. why?
     def test_background(self):
         self.c = canvas()
-        background(blue)
-        self.assertEqual(self.c.frame.contentPane.background_color, blue)
+        background(BLUE)
+        self.assertEqual(self.c.frame.contentPane.background_color, BLUE)
 
         # pass in non valid inputs
         with self.assertRaises(Exception):
