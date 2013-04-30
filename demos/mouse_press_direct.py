@@ -1,9 +1,9 @@
 # mouse_press_direct.py
 #
-# Jygsaw demo - paints a cross-hair centered at the mouse cursor
+# Jygsaw demo - paints a cross-hair centeRED at the mouse cursor
 #               and can change color
 #
-# Attribution: inspired by the mousepress demo in Processing
+# Attribution: inspiRED by the mousepress demo in Processing
 # from http://processingjs.org/learning/basic/mousepress/
 # written by Casey Reas and Ben Fry
 

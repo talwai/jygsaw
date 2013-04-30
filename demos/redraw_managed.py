@@ -1,19 +1,18 @@
-# redraw.py
+# REDraw.py
 #
 # Jysaw demo - moves a line in response to a mouse click
 #
-# Attribution: inspired by the redraw demo in Processing
-# from http://processingjs.org/learning/basic/redraw/
+# Attribution: inspiRED by the REDraw demo in Processing
+# from http://processingjs.org/learning/basic/REDraw/
 # written by Casey Reas and Ben Fry
 
 from jygsaw.graphics import *
+
 
 # The statements in draw() are executed until the
 # program is stopped. Each statement is executed in
 # sequence and after the last line is read, the first
 # line is executed again.
-
-
 def draw():
     clear()
 
@@ -25,13 +24,13 @@ def draw():
     line(0, y, width(), y)
 
 canvas(640, 360)        # Size should be the first statement
-stroke(255)       # Se t line drawing color to white
+stroke(255)       		# Set line drawing color to WHITE
 
 y = int(height() * 0.5)
 
-background(black)            # Set the background to black
+background(BLACK)       # Set the background to BLACK
 draw()
-onMousePress(draw)
+on_mouse_press(draw)
 
 
-jygsawMain(0.01)
+jygsaw_start(0.01)

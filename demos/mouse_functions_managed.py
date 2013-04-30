@@ -2,15 +2,13 @@
 #
 # Jygsaw demo - Has a box that can be dragged by the mouse.
 #
-# Attribution: inspired by the mousefunction demo in Processing
+# Attribution: inspiRED by the mousefunction demo in Processing
 # from http://processingjs.org/learning/basic/mousefunctions/
 # written by Casey Reas and Ben Fry
 
 from jygsaw.graphics import *
 
-bx = 0.0
-by = 0.0
-box_size = 75
+BOX_SIZE = 75
 over_box = False
 locked = False
 x_offset = 0.0
@@ -18,8 +16,8 @@ y_offset = 0.0
 
 
 canvas(640, 360)
-bx = width() / 2
-by = height() / 2
+BX = width() / 2
+BY = height() / 2
 
 
 def draw():
@@ -28,8 +26,8 @@ def draw():
     background(0)
 
     # Test if the cursor is over the box
-    if (mouse_x() > bx and mouse_x() < bx + box_size and
-            mouse_y() > by and mouse_y() < by + box_size):
+    if (mouse_x() > BX and mouse_x() < BX + BOX_SIZE and
+            mouse_y() > BY and mouse_y() < BY + BOX_SIZE):
         over_box = True
         if not locked:
             stroke(255)
@@ -40,7 +38,7 @@ def draw():
         over_box = False
 
     # Draw the box
-    rect(bx, by, box_size, box_size)
+    rect(BX, BY, BOX_SIZE, BOX_SIZE)
 
 
 def mouse_pressed():
@@ -52,15 +50,15 @@ def mouse_pressed():
     else:
         locked = False
 
-    x_offset = mouse_x() - bx
-    y_offset = mouse_y() - by
+    x_offset = mouse_x() - BX
+    y_offset = mouse_y() - BY
 
 
 def mouse_dragged():
-    global bx, by
+    global BX, BY
     if locked:
-        bx = mouse_x() - x_offset
-        by = mouse_y() - y_offset
+        BX = mouse_x() - x_offset
+        BY = mouse_y() - y_offset
 
 
 def mouse_released():

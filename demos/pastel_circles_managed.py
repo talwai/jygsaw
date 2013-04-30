@@ -8,18 +8,19 @@ from jygsaw.graphics import *
 from random import randint
 
 canvas()
-background(black)
+background(BLACK)
 
-def drawCircles():
-    # clear screen with nearly-transparent black rectangle
+
+def draw_circles():
+    # Clear screen with nearly-transparent black rectangle
     fill(0, 0, 0, 15)
     rect(0, 0, 399, 399)
 
-    # random location for circle
+    # Random location for circle
     x = randint(0, 400)
     y = randint(0, 400)
 
-    # random color for circle
+    # Random color for circle
     r = randint(128, 255)
     g = randint(128, 255)
     b = randint(128, 255)
@@ -27,5 +28,5 @@ def drawCircles():
     fill(r, g, b)
     circle(x, y, 50)
 
-onDraw(drawCircles)
-jygsawMain(.02)
+on_draw(draw_circles)
+jygsaw_start(.02)

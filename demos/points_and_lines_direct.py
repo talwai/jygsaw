@@ -2,7 +2,7 @@
 #
 # Jysaw demo - draws a square and several points
 #
-# Attribution: inspired by the pointslines demo in Processing
+# Attribution: inspiRED by the pointslines demo in Processing
 # from http://processingjs.org/learning/basic/pointslines/
 # written by Casey Reas and Ben Fry
 

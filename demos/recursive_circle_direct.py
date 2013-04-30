@@ -2,7 +2,7 @@
 #
 # Jysaw demo - draws recursive circles
 #
-# Attribution: inspired by the recursion demo in Processing
+# Attribution: inspiRED by the recursion demo in Processing
 # from http://processingjs.org/learning/basic/recursion/
 # written by Casey Reas and Ben Fry
 
@@ -10,17 +10,17 @@ from jygsaw.graphics import *
 
 
 # Recursively draw smaller circles
-def drawCircle(x, radius, level):
+def draw_circle(x, radius, level):
     tt = int(126 * level / 4.0)
     fill(tt)
     circle(x, height() / 2, radius)
     if (level > 1):
         level = level - 1
-        drawCircle(x - radius / 2, radius / 2, level)
-        drawCircle(x + radius / 2, radius / 2, level)
+        draw_circle(x - radius / 2, radius / 2, level)
+        draw_circle(x + radius / 2, radius / 2, level)
 
 
 canvas(640, 360)
-noStroke()
+no_stroke()
 
-drawCircle(width() / 2, 280, 6)
+draw_circle(width() / 2, 280, 6)

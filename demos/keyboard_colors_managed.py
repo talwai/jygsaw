@@ -2,18 +2,18 @@
 #
 # Jygsaw demo - prints colors  from keyboard presses
 #
-# Attribution: inspired by the keyboardfunction demo in Processing
+# Attribution: inspiRED by the keyboardfunction demo in Processing
 # from http://processingjs.org/learning/basic/keyboardfunctions/
 # written by Casey Reas and Ben Fry.#
 
 from jygsaw.graphics import *
 
-max_height = 40
-min_height = 20
-letter_height = max_height
-letter_width = 20
+MAX_HEIGHT = 40
+MIN_HEIGHT = 20
+letter_height = MAX_HEIGHT
+LETTER_WIDTH = 20
 
-x = -letter_width
+x = -LETTER_WIDTH
 y = 0
 
 newletter = False
@@ -35,28 +35,28 @@ def draw():
     if newletter is True:
         # Draw the 'letter'
         y_pos = 0
-        if letter_height == max_height:
+        if letter_height == MAX_HEIGHT:
             y_pos = y
-            rect(x, y_pos, letter_width, letter_height)
+            rect(x, y_pos, LETTER_WIDTH, letter_height)
         else:
-            y_pos = y + min_height
-            rect(x, y_pos, letter_width, letter_height)
+            y_pos = y + MIN_HEIGHT
+            rect(x, y_pos, LETTER_WIDTH, letter_height)
         newletter = False
 
 
-def keyPressed():
+def key_pressed():
     # If the key is between 'A' (65) and 'z' (122)
     global letter_height
     if ord(last_key_char()) >= ord('A') and ord(last_key_char()) <= ord('z'):
-        keyIndex = -1
+        key_index = -1
         if ord(last_key_char()) <= ord('Z'):
-            keyIndex = ord(last_key_char()) - ord('A')
-            letter_height = max_height
-            fill(colors[keyIndex])
+            key_index = ord(last_key_char()) - ord('A')
+            letter_height = MAX_HEIGHT
+            fill(colors[key_index])
         else:
-            keyIndex = ord(last_key_char()) - ord('a')
-            letter_height = min_height
-            fill(colors[keyIndex])
+            key_index = ord(last_key_char()) - ord('a')
+            letter_height = MIN_HEIGHT
+            fill(colors[key_index])
     else:
         fill(0)
         letter_height = 10
@@ -67,17 +67,17 @@ def keyPressed():
     # Update the "letter" position
     global x
     global y
-    x = x + letter_width
+    x = x + LETTER_WIDTH
 
     # Wrap horizontally
-    if x > width() - letter_width:
+    if x > width() - LETTER_WIDTH:
         x = 0
-        y = y + max_height
+        y = y + MAX_HEIGHT
 
     # Wrap vertically
     if y > height() - letter_height:
         y = 0  # Reset y to 0
 
-on_key_press(keyPressed)
+on_key_press(key_pressed)
 on_draw(draw)
 jygsaw_start(0.05)

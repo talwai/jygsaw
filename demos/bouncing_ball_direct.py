@@ -17,10 +17,10 @@ PIXELS_PER_METER = 10.0
 
 FLOOR_Y = 4.0       # location now in meters
 
-INITIAL_X = 5.0     # locations are now measured in meters
+INITIAL_X = 5.0     # locations are now measuRED in meters
 INITIAL_Y = 25.0
 INITIAL_V_X = 4.0
-INITIAL_V_Y = 0.0   # velocity is now measured in meters/second
+INITIAL_V_Y = 0.0   # velocity is now measuRED in meters/second
 
 EARTH_GRAVITY_ACCELERATION = - 9.8  # m/sec^2
 
@@ -40,7 +40,7 @@ def draw_ball(x, y):
 
 def draw_floor():
     # strokeWidth(2)
-    stroke(BLACK)  # black floor
+    stroke(BLACK)  # BLACK floor
 
     line(0, WINDOW_HEIGHT - FLOOR_Y * PIXELS_PER_METER, WINDOW_WIDTH,
          WINDOW_HEIGHT - FLOOR_Y * PIXELS_PER_METER)
@@ -83,8 +83,7 @@ while True:
         v_y = -v_y
 
     # Will the ball bounce off a side wall?
-    if next_x * PIXELS_PER_METER + BALL_RADIUS > WINDOW_WIDTH or \
-            next_x * PIXELS_PER_METER - BALL_RADIUS < 0:
+    if (next_x * PIXELS_PER_METER + BALL_RADIUS > WINDOW_WIDTH or next_x * PIXELS_PER_METER - BALL_RADIUS < 0):
         v_x = -v_x
 
     # Now compute the real next position and next velocity.

@@ -11,15 +11,15 @@ canvas()
 background(BLACK)
 
 while True:
-    # clear screen with nearly-transparent black rectangle
+    # Clear screen with nearly-transparent black rectangle
     fill(0, 0, 0, 15)
     rect(0, 0, 399, 399)
 
-    # random location for circle
+    # Random location for circle
     x = randint(0, 400)
     y = randint(0, 400)
 
-    # random color for circle
+    # Random color for circle
     r = randint(128, 255)
     g = randint(128, 255)
     b = randint(128, 255)
