@@ -20,10 +20,14 @@ def canvas(width=400, height=400, window_title='Jygsaw Canvas', background=WHITE
     :py:class:`~jygsaw.graphicswindow.GraphicsWindow` and
     :py:class:`~jygsaw.graphicswindow.Canvas`.
 
-    :param width: Width of the canvas in the window. Defaults to 400.
-    :param height: Height of the canvas in the window. Defaults to 400.
-    :param window_title: Title of the window. Defaults to 'Jygsaw Canvas'.
-    :param background: Color of the canvas's background. Defaults to white.
+    :param width: Width of the :py:class:`~jygsaw.graphicswindow.Canvas`.
+    :type width: int, optional
+    :param height: Height of the :py:class:`~jygsaw.graphicswindow.Canvas`.
+    :type height: int, optional
+    :param window_title: Title of the window.
+    :type window_title: str, optional
+    :param background: Color of the background.
+    :type background: :py:class:`Color`, optional
     :rtype: :py:class:`~jygsaw.graphicswindow.GraphicsWindow`
     """
     global window
@@ -34,7 +38,7 @@ def canvas(width=400, height=400, window_title='Jygsaw Canvas', background=WHITE
 
 def width():
     """
-    Returns the width of the window's canvas.
+    Returns the width of the :py:class:`~jygsaw.graphicswindow.Canvas`.
 
     :rtype: int
     """
@@ -43,7 +47,7 @@ def width():
 
 def height():
     """
-    Returns the height of the window's canvas.
+    Returns the height of the :py:class:`~jygsaw.graphicswindow.Canvas`.
 
     :rtype: int
     """
@@ -582,7 +586,7 @@ def jygsaw_start(delay=0.0):
     Start the main drawing loop.
 
     Runs the user-defined draw function set by
-    :py:meth:`~jygsaw.graphics.on_draw`. Loop if *delay* is non-zero.
+    :py:meth:`~jygsaw.graphics.on_draw`. Loop if ``delay`` is non-zero.
 
     :param delay: Amount of delay in seconds before the Canvas redraws itself.
     :type delay: float, optional

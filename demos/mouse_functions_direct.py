@@ -21,7 +21,7 @@ BX = width() / 2
 BY = height() / 2
 
 
-def mousePressed():
+def mouse_pressed():
     global locked, x_offset, y_offset
 
     if over_box:
@@ -34,21 +34,21 @@ def mousePressed():
     y_offset = mouse_y() - BY
 
 
-def mouseDragged():
+def mouse_dragged():
     global BX, BY
     if locked:
         BX = mouse_x() - x_offset
         BY = mouse_y() - y_offset
 
 
-def mouseReleased():
+def mouse_released():
     global locked
     locked = False
 
 
-on_mouse_press(mousePressed)
-on_mouse_drag(mouseDragged)
-on_mouse_release(mouseReleased)
+on_mouse_press(mouse_pressed)
+on_mouse_drag(mouse_dragged)
+on_mouse_release(mouse_released)
 
 while True:
     clear()

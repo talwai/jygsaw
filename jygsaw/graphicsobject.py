@@ -4,18 +4,21 @@ from java.awt import Color
 
 class GraphicsObject(object):
     """
-    Anything drawn on the canvas is a child of GraphicsObject
-    This class stores the location of the object (x, y) and
-    has methods to rotate, flip, translate and move the object.
-    The basic move method has been created rotate, scale, and flip are
-    still in the process of being created.
+    The parent class for all drawn objects (shapes, text, images).
+
+    :param x: x-coordinate.
+    :type x: int, optional
+    :param y: y-coordinate.
+    :type y: int, optional
+    :param color: Color of the object.
+    :type color: :py:class:`Color`, optional
     """
 
     def __init__(self, x=0, y=0, c=None):
         super(GraphicsObject, self).__init__()
         assert isinstance(x, int), "The x value given is not an integer."
         assert isinstance(y, int), "The x value given is not an integer."
-        assert c == None or isinstance(
+        assert c is None or isinstance(
             c, Color), "The object passed is not a Color object."
         self._x = x
         self._y = y
@@ -31,7 +34,7 @@ class GraphicsObject(object):
         assert isinstance(i, int), "The x value given is not an integer."
         self._x = i
 
-    x = property(_get_x, _set_x, doc="x coordinate of object.")
+    x = property(_get_x, _set_x, doc="x-coordinate of object.")
 
     def _get_y(self):
         """Returns the y coordinate value."""
@@ -42,29 +45,43 @@ class GraphicsObject(object):
         assert isinstance(i, int), "The y value given is not an integer."
         self._y = i
 
-    y = property(_get_y, _set_y, doc="y coordinate of object.")
+    y = property(_get_y, _set_y, doc="y-coordinate of object.")
 
     def _get_color(self):
-        """Returns the color of the :py:class:`~jygsaw.graphicsobject.GraphicsObject` """
+        """Returns the color of the GraphicsObject."""
         return self._color
 
     def _set_color(self, c):
-        """Sets the color of the :py:class:`~jygsaw.graphicsobject.GraphicsObject` """
-        assert c == None or isinstance(
+        """Sets the color of the GraphicsObject."""
+        assert c is None or isinstance(
             c, Color), "The object passed is not a Color object."
         self._color = c
 
     color = property(_get_color, _set_color, doc="Color of the object.")
 
-    def moveTo(self, x, y):
-        """Moves to object to the given coordinates (x,y)."""
+    def move_to(self, x, y):
+        """
+        Moves object to a new location.
+
+        :param x: New ``x`` coordinate.
+        :type x: int
+        :param y: New ``y`` coordinate.
+        :type y: int
+        """
         assert isinstance(x, int), "The x value given is not an integer."
         assert isinstance(y, int), "The y value given is not an integer."
         self.x = x
         self.y = y
 
-    def move(self, deltaX, deltaY):
-        """Moves the object by deltaX and deltaY in the x and y directions respectively."""
-        assert isinstance(deltaX, int), "The x value given is not an integer."
-        assert isinstance(deltaY, int), "The y value given is not an integer."
-        self.moveTo(self.x + deltaX, self.y + deltaY)
+    def move(self, delta_x, delta_y):
+        """
+        Moves object by the specified amount.
+
+        :param delta_x: Amount by which to move x-coordinate.
+        :type delta_x: int
+        :param delta_y: Amount by which to move y-coordinate.
+        :type delta_y: int
+        """
+        assert isinstance(delta_x, int), "The x value given is not an integer."
+        assert isinstance(delta_y, int), "The y value given is not an integer."
+        self.move_to(self.x + delta_x, self.y + delta_y)

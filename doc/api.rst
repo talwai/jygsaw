@@ -1,5 +1,5 @@
-API Reference
-=============
+User Reference
+==============
 Jygsaw is a graphics library for Jython which makes graphics programming easy
 to learn. At the same time, it's flexible and extensible, making it ideal for
 beginners and experienced programmers alike.
