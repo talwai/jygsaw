@@ -180,7 +180,7 @@ def polygon(vertices, color=None):
     Draws and returns a :py:class:`~jygsaw.shape.Polygon` determined by a list
     of vertices.
 
-    :param vertices:
+    :param vertices: List of vertices to join to form a polygon.
     :type vertices: list of pairs (2-tuples) of ints
     :param color: Color of the polygon. Defaults to the color set by :py:meth:`~jygsaw.graphics.fill`.
     :type color: :py:class:`Color`, optional
