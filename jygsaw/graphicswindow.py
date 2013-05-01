@@ -28,18 +28,20 @@ debug = False
 
 class GraphicsWindow(ActionListener, KeyListener, MouseInputListener):
     """
-    Creates a :py:class:`~jygsaw.graphicswindow.GraphicsWindow` with a :py:class:`~jygsaw.graphicswindow.Canvas`
-    object that can be drawn on. Takes a title, window width, and window height.
+    Creates a :py:class:`~jygsaw.graphicswindow.GraphicsWindow` with a
+    :py:class:`~jygsaw.graphicswindow.Canvas` object that can be drawn on.
+    Takes a title, window width, and window height.
     An optional background color can be specified.
     """
+    colors = [BLACK, BLUE, CYAN, DARK_GRAY, GRAY, GREEN,
+              LIGHT_GRAY, MAGENTA, ORANGE, PINK, RED, WHITE, YELLOW]
+
     def __init__(self, title, w, h, bg_color=WHITE):
         assert w > 0, "GraphicsWindow width must be greater than zero"
         assert h > 0, "GraphicsWindow height must be greater than zero"
 
         self.objs = []  # List of GraphicsObjects
         self.bg_color = bg_color
-        self.colors = [BLACK, BLUE, CYAN, DARK_GRAY, GRAY, GREEN,
-                       LIGHT_GRAY, MAGENTA, ORANGE, PINK, RED, WHITE, YELLOW]
 
         self.frame = JFrame(
             title, defaultCloseOperation=JFrame.EXIT_ON_CLOSE,
@@ -54,9 +56,9 @@ class GraphicsWindow(ActionListener, KeyListener, MouseInputListener):
         self.frame.addKeyListener(self)
 
         # MouseEvent attributes
-        self.mouse_event_type = 0
         self.mouse_x = 0
         self.mouse_y = 0
+        self.mouse_buttons = Set()
 
         # Mouse callbacks
         self.on_mouse_clicked = None
@@ -66,11 +68,6 @@ class GraphicsWindow(ActionListener, KeyListener, MouseInputListener):
         self.on_mouse_released = None
         self.on_mouse_exited = None
         self.on_mouse_entered = None
-
-        # KeyEvent booleans key_pressed, key_typed
-        self.key_event_type = 0
-        self.key_pressed = False
-        self.key_typed = False
 
         # Key callbacks
         self.on_key_pressed = None
@@ -82,12 +79,13 @@ class GraphicsWindow(ActionListener, KeyListener, MouseInputListener):
         self.last_key_code = None
 
         self.chars_pressed = Set()
+        self.codes_pressed = Set()
 
         # Event queue
         self.event_queue = Queue()
         self.main_running = False
 
-        # not needed, user_draw is /called directly from on_draw
+        # not needed, user_draw is called directly from on_draw
         self.on_draw = None
 
     def set_visible(self, visible):
@@ -205,9 +203,10 @@ class GraphicsWindow(ActionListener, KeyListener, MouseInputListener):
         Sets the mouse coordinates to the current mouse position.
         Calls a user-provided :py:meth:`mouse_entered` function, if any.
         """
-        self.mouse_event_type = e.getID()
-        self.mouse_x = e.getX()
-        self.mouse_y = e.getY() - 25
+        pos = self.frame.contentPane.getMousePosition()
+        if pos:
+            self.mouse_x = pos.x
+            self.mouse_y = pos.y
         if self.main_running:
             if self.on_mouse_entered:
                 self.on_mouse_entered()
@@ -222,9 +221,10 @@ class GraphicsWindow(ActionListener, KeyListener, MouseInputListener):
         Sets the mouse X and Y coordinates to the current mouse position.
         Calls a user-provided :py:meth:`mouse_clicked` function, if any.
         """
-        self.mouse_event_type = e.getID()
-        self.mouse_x = e.getX()
-        self.mouse_y = e.getY() - 25
+        pos = self.frame.contentPane.getMousePosition()
+        if pos:
+            self.mouse_x = pos.x
+            self.mouse_y = pos.y
         if self.main_running:
             if self.on_mouse_clicked:
                 self.on_mouse_clicked()
@@ -237,9 +237,10 @@ class GraphicsWindow(ActionListener, KeyListener, MouseInputListener):
         Sets the mouse X and Y coordinates to the current mouse position.
         Calls a user-provided :py:meth:`mouse_exited` function, if any.
         """
-        self.mouse_event_type = e.getID()
-        self.mouse_x = e.getX()
-        self.mouse_y = e.getY() - 25
+        pos = self.frame.contentPane.getMousePosition()
+        if pos:
+            self.mouse_x = pos.x
+            self.mouse_y = pos.y
         if self.main_running:
             if self.on_mouse_exited:
                 self.on_mouse_exited()
@@ -252,9 +253,11 @@ class GraphicsWindow(ActionListener, KeyListener, MouseInputListener):
         Sets the mouse X and Y coordinates to the current mouse position.
         Calls a user-provided :py:meth:`mouse_pressed` function, if any.
         """
-        self.mouse_event_type = e.getID()
-        self.mouse_x = e.getX()
-        self.mouse_y = e.getY() - 25
+        pos = self.frame.contentPane.getMousePosition()
+        if pos:
+            self.mouse_x = pos.x
+            self.mouse_y = pos.y
+        self.mouse_buttons.add(e.getButton())
         if self.main_running:
             if self.on_mouse_pressed:
                 self.on_mouse_pressed()
@@ -267,7 +270,11 @@ class GraphicsWindow(ActionListener, KeyListener, MouseInputListener):
         Sets the mouse X and Y coordinates to the current mouse position.
         Calls a user-provided :py:meth:`mouse_released` function, if any.
         """
-        self.mouse_event_type = e.getID()
+        pos = self.frame.contentPane.getMousePosition()
+        if pos:
+            self.mouse_x = pos.x
+            self.mouse_y = pos.y
+        self.mouse_buttons.remove(e.getButton())
         if self.main_running:
             if self.on_mouse_released:
                 self.on_mouse_released()
@@ -280,9 +287,10 @@ class GraphicsWindow(ActionListener, KeyListener, MouseInputListener):
         Sets the mouse X and Y coordinates to the current mouse position.
         Calls a user-provided :py:meth:`mouse_moved` function, if any.
         """
-        self.mouse_event_type = e.getID()
-        self.mouse_x = e.getX()
-        self.mouse_y = e.getY() - 25
+        pos = self.frame.contentPane.getMousePosition()
+        if pos:
+            self.mouse_x = pos.x
+            self.mouse_y = pos.y
         if self.main_running:
             if self.on_mouse_moved:
                 self.on_mouse_moved()
@@ -297,9 +305,10 @@ class GraphicsWindow(ActionListener, KeyListener, MouseInputListener):
         Sets the mouse X and Y coordinates to the current mouse position.
         Calls a user-provided :py:meth:`mouseDragged` function, if any.
         """
-        self.mouse_event_type = e.getID()
-        self.mouse_x = e.getX()
-        self.mouse_y = e.getY() - 25
+        pos = self.frame.contentPane.getMousePosition()
+        if pos:
+            self.mouse_x = pos.x
+            self.mouse_y = pos.y
         if self.main_running:
             if self.on_mouse_dragged:
                 self.on_mouse_dragged()
@@ -311,8 +320,6 @@ class GraphicsWindow(ActionListener, KeyListener, MouseInputListener):
         Sets the last key character and code when a key is typed. Calls a
         user-provided :py:meth:`keyTyped` function, if any.
         """
-        self.key_event_type = e.getID()
-
         if debug:
             print e.getKeyCode()
 
@@ -327,10 +334,10 @@ class GraphicsWindow(ActionListener, KeyListener, MouseInputListener):
         Sets the last key character and code when a key is pressed. Calls a
         user-provided :py:meth:`key_pressed` function, if any.
         """
-        self.key_event_type = e.getID()
         self.last_key_code = e.getKeyCode()
         self.last_key_char = e.getKeyChar()
         self.chars_pressed.add(e.getKeyText(e.getKeyCode()).upper())
+        self.codes_pressed.add(e.getKeyCode())
 
         if debug:
             print "Key pressed:"
@@ -348,8 +355,8 @@ class GraphicsWindow(ActionListener, KeyListener, MouseInputListener):
         Sets the last key character and code when a key is released. Calls a
         user-provided :py:meth:`key_released` function, if any.
         """
-        self.key_event_type = e.getID()
         self.chars_pressed.remove(e.getKeyText(e.getKeyCode()).upper())
+        self.codes_pressed.remove(e.getKeyCode())
 
         if debug:
             print "Key released:"
