@@ -10,7 +10,7 @@ from group import *
 from image import *
 from text import *
 from java.awt import Color
-from java.awt.event import MouseEvent
+from java.awt.event import MouseEvent, KeyEvent
 
 rectX = 0  # Just used for testing - delete or move eventually
 rectY = 0  # Just used for testing - delete or move eventually
@@ -519,6 +519,12 @@ def refresh(delay=0.0):
             window.onMouseEntered()
         if event.getID() == MouseEvent.MOUSE_EXITED and window.onMouseExited:
             window.onMouseExited()
+        if event.getID() == KeyEvent.KEY_PRESSED and window.onKeyPressed:
+            window.onKeyPressed()
+        if event.getID() == KeyEvent.KEY_RELEASED and window.onKeyReleased:
+            window.onKeyReleased()
+        if event.getID() == KeyEvent.KEY_TYPED and window.onKeyTyped:
+            window.onKeyTyped()
 
 
 def text(x, y, string, color=None, attribute=PLAIN):

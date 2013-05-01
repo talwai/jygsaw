@@ -1,4 +1,8 @@
-# pastel circles demo of jygsaw
+# pastel_circles.py
+#
+# Jygsaw demo - draws a cascade of pastel circles
+#
+# Written by Devin Balkcom
 
 from jygsaw.graphics import *
 from random import randint
@@ -6,7 +10,7 @@ from random import randint
 canvas()
 background(black)
 
-while True:
+def drawCircles():
     # clear screen with nearly-transparent black rectangle
     fill(0, 0, 0, 15)
     rect(0, 0, 399, 399)
@@ -22,6 +26,6 @@ while True:
 
     fill(r, g, b)
     circle(x, y, 50)
-    clearHalfIfFull()
 
-    refresh(.02)
+onDraw(drawCircles)
+jygsawMain(.02)

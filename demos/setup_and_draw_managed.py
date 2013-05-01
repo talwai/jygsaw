@@ -1,3 +1,11 @@
+# setup_and_draw.py
+#
+# Jysaw demo - draws a square and several points
+#
+# Attribution: inspired by the SetupDraw demo in Processing
+# from http://processingjs.org/learning/basic/setupdraw/
+# written by Casey Reas and Ben Fry
+
 from jygsaw.graphics import *
 y = 100
 
@@ -19,4 +27,4 @@ canvas(640, 360)        # Size must be the first statement
 stroke(255)        # Set line drawing color to white
 
 onDraw(draw)
-jygsawMain(0.01)
+jygsawMain(0.02)

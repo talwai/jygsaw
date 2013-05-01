@@ -1,3 +1,9 @@
+# tutorial_shapes.py
+#
+# Jygsaw demo - draws some shapes
+#
+# Written by Janet Kim for Jygsaw
+
 from jygsaw.graphics import *
 
 canvas(700, 300)

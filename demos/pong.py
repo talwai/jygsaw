@@ -1,8 +1,12 @@
 # pong.py
+#
+# Jysaw demo - a pong game
+#
+# Attribution: Ported to Jygsaw by Avery Yen
+#
 # Solution to CS 1 Lab Assignment #1.
 # Written by Peter Johnson, updated for cs1lib by Devin Balkcom.
 # Major changes by THC.
-# Ported to Jygsaw by Avery Yen.
 # Plays a game of pong.  A ball bounces around, and paddles move
 # up and down to meet the ball.  Whenever the ball hits the left or
 # right wall, the game is over.  Whenever the ball hits the top or
@@ -178,9 +182,11 @@ while True:
                                  right_paddle_y, right_paddle_y + PADDLE_HEIGHT)):
         ball_x_velocity = - ball_x_velocity
         if ball_x > WINDOW_WIDTH / 2:
-            ball_x = RIGHT_PADDLE_LEFT - BALL_RADIUS    # move away from right paddle
+            ball_x = RIGHT_PADDLE_LEFT - \
+                BALL_RADIUS    # move away from right paddle
         else:
-            ball_x = LEFT_PADDLE_RIGHT + BALL_RADIUS    # move away from left paddle
+            ball_x = LEFT_PADDLE_RIGHT + \
+                BALL_RADIUS    # move away from left paddle
 
     # Negate y velocity if the ball touches a horizontal wall.
     if (ball_touches_horiz_line(ball_x, ball_y, TOP_WALL_BOTTOM,
