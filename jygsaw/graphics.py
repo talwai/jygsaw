@@ -448,7 +448,7 @@ def last_key_code():
 
     **Notes**
 
-    The codes are of the form KeyEvent.VK_CODE. All the codes can be found at
+    The codes are of the form ``KeyEvent.VK_KEY``. All the codes can be found at
     the `KeyEvent documentation <http://docs.oracle.com/javase/7/docs/api/java/awt/event/KeyEvent.html#field_summary>`_.
     """
     return window.last_key_code
@@ -485,7 +485,7 @@ def is_code_pressed(code):
 
     **Notes**
 
-    The code should be of the form KeyEvent.VK_CODE. All the codes can be found
+    The code should be of the form ``KeyEvent.VK_KEY``. All the codes can be found
     at the `KeyEvent documentation <http://docs.oracle.com/javase/7/docs/api/java/awt/event/KeyEvent.html#field_summary>`_.
     """
     return code in window.codes_pressed
@@ -507,8 +507,9 @@ def fill(r=None, g=None, b=None, a=255):
 
 def no_fill():
     """
-    Disables filling geometry. If both no_stroke() and no_fill() are called,
-    nothing will be drawn to the screen.
+    Disables filling geometry. If both :py:meth:`~jygsaw.graphics.no_stroke()`
+    and :py:meth:`~jygsaw.graphics.no_fill()` are called, nothing will be drawn
+    to the screen.
     """
     window.set_filled(False)
 
@@ -539,8 +540,10 @@ def stroke_width(width):
 
 def no_stroke():
     """
-    Disables drawing the stroke (outline). If both no_stroke() and no_fill()
-    are called, nothing will be drawn to the screen.
+    Disables drawing the stroke (outline). If both
+    :py:meth:`~jygsaw.graphics.no_stroke()` and
+    :py:meth:`~jygsaw.graphics.no_fill()` are called, nothing will be drawn to
+    the screen.
     """
     window.set_stroke(False)
 
@@ -582,6 +585,7 @@ def jygsaw_start(delay=0.0):
     :py:meth:`~jygsaw.graphics.on_draw`. Loop if *delay* is non-zero.
 
     :param delay: Amount of delay in seconds before the Canvas redraws itself.
+    :type delay: float, optional
     """
     window.main_running = True
     if delay > 0:
@@ -597,6 +601,7 @@ def refresh(delay=0.0):
     Redraws the :py:class:`~jygsaw.graphicswindow.Canvas`.
 
     :param delay: Amount of delay in seconds before the Canvas redraws itself.
+    :type delay: float, optional
     """
     assert(not window.main_running)
     window.redraw(delay)
@@ -637,8 +642,10 @@ def text(x, y, string, color=None, attribute=PLAIN):
     :type string: str
     :param color: Color of the text. Defaults to the color set by
         :py:meth:`~jygsaw.graphics.fill`.
-    :type color: :py:class:`Color`
+    :type color: :py:class:`Color`, optional
     :param attribute: Text style (one of ``PLAIN``, ``BOLD``, or ``ITALIC``).
+    :type attribute: int, optional
+    :rtype: :py:class:`~jygsaw.text.Text`
     """
     newText = Text(int(x), int(y), string, color, attribute)
     window.draw(newText)
@@ -680,9 +687,9 @@ def color(r, g=None, b=None, a=255):
 
     :param r: Gray value, R value, or :py:class:`Color` constant.
     :type r: int or :py:class:`Color`
-    :param g: G value of RGB color which will be created. *b* must also be given. Defaults to :py:class:`None`.
+    :param g: G value of RGB color which will be created. ``b`` must also be given. Defaults to :py:class:`None`.
     :type g: int
-    :param b: B value of RGB color which will be created. *g* must also be given. Defaults to :py:class:`None`.
+    :param b: B value of RGB color which will be created. ``g`` must also be given. Defaults to :py:class:`None`.
     :type b: int
     :param a: Optional alpha value of the RBG color which will be created.
     :type a: int
@@ -690,16 +697,16 @@ def color(r, g=None, b=None, a=255):
 
     **Notes**
 
-    If *r* is the only value passed and is a color constant (one of ``BLACK``,
+    If ``r`` is the only value passed and is a color constant (one of ``BLACK``,
     ``BLUE``, ``CYAN``, ``DARK_GRAY``, ``GRAY``, ``GREEN``, ``LIGHT_GRAY``,
     ``MAGENTA``, ``ORANGE``, ``PINK``, ``RED``, ``WHITE``, ``YELLOW``),
     then that color is simply returned.
 
-    If *r* is the only value passed and it's an integer, all three values of
-    *r*, *g*, *b* are set to *r*.
+    If ``r`` is the only value passed and it's an integer, all three values of
+    ``r``, ``g``, ``b`` are set to ``r``.
 
-    If *r*, *g*, and *b* all have integer values then *r*, *g*, *b* will have
-    the corresponding values.
+    If ``r``, ``g``, and ``b`` all have integer values then ``r``, ``g``, ``b``
+    will take the corresponding values.
     """
     if g is None or b is None:
         assert r is not None and g is None and b is None, \
