@@ -1,9 +1,9 @@
 # mouse_press_managed.py
 #
-# Jygsaw demo - prints a cross-hair centeRED at the mouse cursor
+# Jygsaw demo - prints a cross-hair centered at the mouse cursor
 #               and can change color
 #
-# Attribution: inspiRED by the mousepress demo in Processing
+# Attribution: inspired by the mousepress demo in Processing
 # from http://processingjs.org/learning/basic/mousepress/
 # written by Casey Reas and Ben Fry
 

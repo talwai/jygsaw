@@ -2,7 +2,7 @@
 #
 # Jysaw demo - draws recursive circles
 #
-# Attribution: inspiRED by the recursion demo in Processing
+# Attribution: inspired by the recursion demo in Processing
 # from http://processingjs.org/learning/basic/recursion/
 # written by Casey Reas and Ben Fry
 

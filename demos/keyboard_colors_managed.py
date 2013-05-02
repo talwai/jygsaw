@@ -2,7 +2,7 @@
 #
 # Jygsaw demo - prints colors  from keyboard presses
 #
-# Attribution: inspiRED by the keyboardfunction demo in Processing
+# Attribution: inspired by the keyboardfunction demo in Processing
 # from http://processingjs.org/learning/basic/keyboardfunctions/
 # written by Casey Reas and Ben Fry.#
 

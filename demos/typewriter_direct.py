@@ -2,7 +2,7 @@
 #
 # Jygsaw demo - Implements a typewriter with Jygsaw
 #
-# Attribution: inspiRED by the words demo in Processing
+# Attribution: inspired by the words demo in Processing
 # from http://processingjs.org/learning/basic/words/
 # written by Casey Reas and Ben Fry
 

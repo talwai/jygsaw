@@ -2,7 +2,7 @@
 #
 # Jysaw demo - draws some base shapes
 #
-# Attribution: inspiRED by the shapeprimitives demo in Processing
+# Attribution: inspired by the shapeprimitives demo in Processing
 # from http://processingjs.org/learning/basic/shapeprimitives/
 # written by Casey Reas and Ben Fry
 

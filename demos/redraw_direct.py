@@ -1,9 +1,9 @@
-# REDraw.py
+# redraw.py
 #
 # Jysaw demo - moves a line in response to a mouse click
 #
-# Attribution: inspiRED by the REDraw demo in Processing
-# from http://processingjs.org/learning/basic/REDraw/
+# Attribution: inspired by the redraw demo in Processing
+# from http://processingjs.org/learning/basic/redraw/
 # written by Casey Reas and Ben Fry
 
 from jygsaw.graphics import *

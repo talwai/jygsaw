@@ -2,7 +2,7 @@
 #
 # Jygsaw demo - Has a box that can be dragged by the mouse.
 #
-# Attribution: inspiRED by the mousefunction demo in Processing
+# Attribution: inspired by the mousefunction demo in Processing
 # from http://processingjs.org/learning/basic/mousefunctions/
 # written by Casey Reas and Ben Fry
 

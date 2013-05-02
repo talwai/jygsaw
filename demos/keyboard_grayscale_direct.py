@@ -2,7 +2,7 @@
 #
 # Jygsaw demo - prints columns of GRAY  from keyboard presses
 #
-# Attribution: inspiRED by the keyboard demo in Processing
+# Attribution: inspired by the keyboard demo in Processing
 # from http://processingjs.org/learning/basic/keyboard/
 # written by Casey Reas and Ben Fry.
 
