@@ -30,20 +30,18 @@ def keyPressed():
 
 onKeyPress(keyPressed)
 
+textSize(textHeight)
 
 while True:
     clear()
 
-    t = text(25, 25, "Type onto the screen:", color=gray, attribute=PLAIN)
-    t._set_size(textHeight)
-    t._set_font("Georgia")
+    font("Georgia")
+    t = text(25, 25, "Type onto the screen:", color=gray)
 
+    font("Arial")
     for (i, h) in textList:
-        ti = text(25, h, i, color=white, attribute=PLAIN)
-        ti._set_font("Arial")
-        ti._set_size(textHeight)
+        text(25, h, i, color=white)
 
-    tw = text(25, currentLineHeight, words, color=white, attribute=PLAIN)
-    tw._set_font("Arial")
-    tw._set_size(textHeight)
+
+    text(25, currentLineHeight, words, color=white)
     refresh(0.01)
