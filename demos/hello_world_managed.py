@@ -1,6 +1,7 @@
 # hello_world_managed.py
 #
 # Jygsaw demo - prints Hello World
+
 from jygsaw.graphics import *
 
 

@@ -1,6 +1,7 @@
 # hello_world_direct.py
 #
 # Jygsaw demo - prints Hello World
+
 from jygsaw.graphics import *
 
 canvas()
