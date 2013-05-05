@@ -1,4 +1,4 @@
-# keyboard_GRAYscale.py
+# keyboard_grayscale_managed.py
 #
 # Jygsaw demo - prints columns of GRAY  from keyboard presses
 #

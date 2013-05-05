@@ -1,4 +1,4 @@
-# keyboard_colors.py
+# keyboard_colors_direct.py
 #
 # Jygsaw demo - prints colors  from keyboard presses
 #

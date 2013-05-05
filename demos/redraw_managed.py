@@ -1,4 +1,4 @@
-# redraw.py
+# redraw_managed.py
 #
 # Jysaw demo - moves a line in response to a mouse click
 #

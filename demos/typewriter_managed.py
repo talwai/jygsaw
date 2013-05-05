@@ -1,4 +1,4 @@
-# typewriter.py
+# typewriter_managed.py
 #
 # Jygsaw demo - Implements a typewriter with Jygsaw
 #

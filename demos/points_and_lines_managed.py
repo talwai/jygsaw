@@ -1,4 +1,4 @@
-# points_and_lines.py
+# points_and_lines_managed.py
 #
 # Jysaw demo - draws a square and several points
 #

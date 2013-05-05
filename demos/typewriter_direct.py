@@ -1,4 +1,4 @@
-# typewriter.py
+# typewriter_direct.py
 #
 # Jygsaw demo - Implements a typewriter with Jygsaw
 #

@@ -1,4 +1,4 @@
-# shape_primitives.py
+# shape_primitives_managed.py
 #
 # Jysaw demo - draws some base shapes
 #
