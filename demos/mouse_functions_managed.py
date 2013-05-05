@@ -8,68 +8,66 @@
 
 from jygsaw.graphics import *
 
-bx = 0.0
-by = 0.0
-boxSize = 75
-overBox = False
+BOX_SIZE = 75
+over_box = False
 locked = False
-xOffset = 0.0
-yOffset = 0.0
+x_offset = 0.0
+y_offset = 0.0
 
 
 canvas(640, 360)
-bx = width() / 2
-by = height() / 2
+BX = width() / 2
+BY = height() / 2
 
 
 def draw():
-    global overBox
+    global over_box
     clear()
     background(0)
 
     # Test if the cursor is over the box
-    if (mouseX() > bx and mouseX() < bx + boxSize and
-            mouseY() > by and mouseY() < by + boxSize):
-        overBox = True
+    if (mouse_x() > BX and mouse_x() < BX + BOX_SIZE and
+            mouse_y() > BY and mouse_y() < BY + BOX_SIZE):
+        over_box = True
         if not locked:
             stroke(255)
             fill(153)
     else:
         stroke(153)
         fill(153)
-        overBox = False
+        over_box = False
 
     # Draw the box
-    rect(bx, by, boxSize, boxSize)
+    rect(BX, BY, BOX_SIZE, BOX_SIZE)
 
 
-def mousePressed():
-    global locked, xOffset, yOffset
+def mouse_pressed():
+    global locked, x_offset, y_offset
 
-    if overBox:
+    if over_box:
         locked = True
         fill(255, 255, 255)
     else:
         locked = False
 
-    xOffset = mouseX() - bx
-    yOffset = mouseY() - by
+    x_offset = mouse_x() - BX
+    y_offset = mouse_y() - BY
 
 
-def mouseDragged():
-    global bx, by
+def mouse_dragged():
+    global BX, BY
     if locked:
-        bx = mouseX() - xOffset
-        by = mouseY() - yOffset
+        BX = mouse_x() - x_offset
+        BY = mouse_y() - y_offset
 
 
-def mouseReleased():
+def mouse_released():
     global locked
     locked = False
 
 
-onMousePress(mousePressed)
-onMouseDrag(mouseDragged)
-onMouseRelease(mouseReleased)
-onDraw(draw)
-jygsawMain(1.0 / 30)
+on_mouse_press(mouse_pressed)
+on_mouse_drag(mouse_dragged)
+on_mouse_release(mouse_released)
+on_draw(draw)
+jygsaw_start(1.0 / 30)

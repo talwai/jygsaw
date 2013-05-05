@@ -1,8 +1,6 @@
 # """This file test_image.py contains unit tests for image.py"""
 from __future__ import with_statement
-
 from jygsaw.graphics import *
-
 import unittest2
 from inspect import getfile, currentframe
 import os.path as path

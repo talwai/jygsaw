@@ -1,5 +1,4 @@
 from jygsaw.graphics import *
-
 import unittest
 
 
@@ -8,7 +7,7 @@ class TestShapeFunctions(unittest.TestCase):
     def setUp(self):
         canvas()
         stroke()
-        frameRate(60.0)
+        frame_rate(60.0)
 
         self.arc = arc(300, 100, 123, 33, 34, 33)
         self.ellipse = ellipse(10, 150, 40, 40)
@@ -16,7 +15,7 @@ class TestShapeFunctions(unittest.TestCase):
 
         self.polygon = polygon(
             [(250, 250), (250, 370), (360, 340), (360, 250)])
-        self.regPolygon = regPolygon(10, 300, 40, 40)
+        self.reg_polygon = reg_polygon(10, 300, 40, 40)
 
     def test_arc(self):
         self.assertEqual(self.arc.color, color(128, 128, 128))
@@ -24,7 +23,7 @@ class TestShapeFunctions(unittest.TestCase):
         fill(0, 255, 0)
         self.arc = arc(300, 100, 123, 33, 34, 33)
 
-        self.assertEqual(self.arc.color, green)
+        self.assertEqual(self.arc.color, GREEN)
 
         self.assertEqual(self.arc.x, 300)
         self.assertEqual(self.arc.y, 100)
@@ -37,12 +36,12 @@ class TestShapeFunctions(unittest.TestCase):
 
         c = color(255, 255, 255)
 
-        self.circle.moveTo(1500, 1500)
+        self.circle.move_to(1500, 1500)
 
         self.arc._set_color(c)
         self.assertEqual(self.arc.color, c)
 
-        self.arc.moveTo(1500, 1500)
+        self.arc.move_to(1500, 1500)
         self.assertEqual(self.arc.x, 1500)
         self.assertEqual(self.arc.y, 1500)
 
@@ -53,7 +52,7 @@ class TestShapeFunctions(unittest.TestCase):
     def test_polygon(self):
         self.assertEqual(self.polygon._get_vertices(),
                          [(250, 250), (250, 370), (360, 340), (360, 250)])
-        self.polygon.moveTo(240, 240)
+        self.polygon.move_to(240, 240)
         self.assertEquals(self.polygon._get_vertices(),
                           [(240, 240), (240, 360), (350, 330), (350, 240)])
         self.assertEqual(self.polygon.x, 240)

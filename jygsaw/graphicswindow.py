@@ -16,8 +16,9 @@ from shape import *
 from text import *
 from time import sleep
 from Queue import Queue
-# These unused imports are for the user
-from java.awt.Color import black, blue, cyan, darkGray, gray, green, lightGray, magenta, orange, pink, red, white, yellow
+from java.awt.Color import (BLACK, BLUE, CYAN, DARK_GRAY,
+                            GRAY, GREEN, LIGHT_GRAY, MAGENTA,
+                            ORANGE, PINK, RED, WHITE, YELLOW)
 
 
 # the -O switch can't be used with jython, which is used to turn off __debug__
@@ -27,23 +28,27 @@ debug = False
 
 class GraphicsWindow(ActionListener, KeyListener, MouseInputListener):
     """
-    Creates a :py:class:`~jygsaw.graphicswindow.GraphicsWindow` with a :py:class:`~jygsaw.graphicswindow.Canvas`
-    object that can be drawn on. Takes a title, window width, and window height.
+    Creates a :py:class:`~jygsaw.graphicswindow.GraphicsWindow` with a
+    :py:class:`~jygsaw.graphicswindow.Canvas` object that can be drawn on.
+    Takes a title, window width, and window height.
     An optional background color can be specified.
     """
-    def __init__(self, title, w, h, backgroundColor=white):
+    colors = [BLACK, BLUE, CYAN, DARK_GRAY, GRAY, GREEN,
+              LIGHT_GRAY, MAGENTA, ORANGE, PINK, RED, WHITE, YELLOW]
+
+    def __init__(self, title, w, h, bg_color=WHITE):
         assert w > 0, "GraphicsWindow width must be greater than zero"
         assert h > 0, "GraphicsWindow height must be greater than zero"
 
         self.objs = []  # List of GraphicsObjects
-        self.backgroundColor = backgroundColor
+        self.bg_color = bg_color
 
         self.frame = JFrame(
             title, defaultCloseOperation=JFrame.EXIT_ON_CLOSE,
             size=(w, h))
 
         self.frame.setLocationRelativeTo(None)
-        self.frame.contentPane = Canvas(self, self.objs, self.backgroundColor)
+        self.frame.contentPane = Canvas(self, self.objs, self.bg_color)
         self.frame.contentPane.setPreferredSize(Dimension(w, h))
 
         self.frame.addMouseListener(self)
@@ -51,49 +56,43 @@ class GraphicsWindow(ActionListener, KeyListener, MouseInputListener):
         self.frame.addKeyListener(self)
 
         # MouseEvent attributes
-        self.mouseEventType = 0
-        self.mouseX = 0
-        self.mouseY = 0
+        self.mouse_x = 0
+        self.mouse_y = 0
+        self.mouse_buttons = Set()
 
         # Mouse callbacks
-        self.onMouseClicked = None
-        self.onMouseDragged = None
-        self.onMouseMoved = None
-        self.onMousePressed = None
-        self.onMouseReleased = None
-        self.onMouseDragged = None
-        self.onMouseExited = None
-        self.onMouseEntered = None
-
-        # KeyEvent booleans keyPressed, keyTyped
-        self.keyEventType = 0
-        self.keyP = False
-        self.keyT = False
+        self.on_mouse_clicked = None
+        self.on_mouse_dragged = None
+        self.on_mouse_moved = None
+        self.on_mouse_pressed = None
+        self.on_mouse_released = None
+        self.on_mouse_exited = None
+        self.on_mouse_entered = None
 
         # Key callbacks
-        self.onKeyPressed = None
-        self.onKeyReleased = None
-        self.onKeyTyped = None
+        self.on_key_pressed = None
+        self.on_key_released = None
+        self.on_key_typed = None
 
         # Key values
-        self.lastKeyChar = None
-        self.lastKeyCode = None
+        self.last_key_char = None
+        self.last_key_code = None
 
-        self.charsPressed = Set()
+        self.chars_pressed = Set()
+        self.codes_pressed = Set()
 
         # Event queue
-        self.eventQueue = Queue()
+        self.event_queue = Queue()
+        self.main_running = False
 
-        self.mainRunning = False
+        # not needed, user_draw is called directly from on_draw
+        self.on_draw = None
 
-        # not needed, user_draw is /called directly from onDraw
-        self.onDraw = None
-
-    def setVisible(self, isVisible):
+    def set_visible(self, visible):
         """Sets the window to visible."""
-        assert isinstance(isVisible, bool), "Variable is not a boolean."
+        assert isinstance(visible, bool), "Variable is not a boolean."
         self.frame.pack()
-        self.frame.visible = isVisible
+        self.frame.visible = visible
 
     def draw(self, *params):
         """
@@ -101,77 +100,77 @@ class GraphicsWindow(ActionListener, KeyListener, MouseInputListener):
         or :py:class:`~jygsaw.shape.Shape` objects, or :py:class:`~jygsaw.group.Group`,
         and draws them on the Canvas. If a shape is drawn without specifying a color
         the default color is used. The default stroke option
-        (:py:class:`True` or :py:class:`False`) and *strokeColor* is saved in each object.
+        (:py:class:`True` or :py:class:`False`) and *stroke_color* is saved in each object.
         """
         for arg in params:
             if isinstance(arg, GraphicsObject) or isinstance(arg, Shape):
                 if arg.color is None:
-                    arg.color = self.frame.contentPane.defaultColor
-                arg.strokeColor = self.frame.contentPane.strokeColor
+                    arg.color = self.frame.contentPane.default_color
+                arg.stroke_color = self.frame.contentPane.stroke_color
                 arg.stroke = self.frame.contentPane.stroke
                 arg.filled = self.frame.contentPane.filled
-                arg.strokeWidth = self.frame.contentPane.strokeWidth
+                arg.stroke_width = self.frame.contentPane.stroke_width
                 if isinstance(arg, Text):
                     arg.font = self.frame.contentPane.font
-                    arg.size = self.frame.contentPane.textSize
+                    arg.size = self.frame.contentPane.text_size
                 self.objs.append(arg)
             elif isinstance(arg, Group):
                 for obj in arg.group:
                     if obj.color is None:
-                        obj.color = self.frame.contentPane.defaultColor
-                    obj.strokeColor = self.frame.contentPane.strokeColor
+                        obj.color = self.frame.contentPane.default_color
+                    obj.stroke_color = self.frame.contentPane.stroke_color
                     obj.stroke = self.frame.contentPane.stroke
                     obj.filled = self.frame.contentPane.filled
-                    arg.strokeWidth = self.frame.contentPane.strokeWidth
+                    arg.stroke_width = self.frame.contentPane.stroke_width
                     if isinstance(arg, Text):
                         arg.font = self.frame.contentPane.font
-                        arg.size = self.frame.contentPane.textSize
+                        arg.size = self.frame.contentPane.text_size
                     self.objs.append(obj)
             else:
                 raise Exception("Passed in something that's not a Group or GraphicsObject.")
 
-    def setDefaultColor(self, c):
+    def set_default_color(self, c):
         """Sets the default color of the :py:class:`~jygsaw.graphicswindow.Canvas`."""
         assert isinstance(c, Color), "The object passed is not a Color object."
-        self.frame.contentPane.defaultColor = c
+        self.frame.contentPane.default_color = c
 
-    def setStrokeColor(self, c):
+    def set_stroke_color(self, c):
         """Sets the stroke color in the :py:class:`~jygsaw.graphicswindow.Canvas`."""
         assert isinstance(c, Color), "The object passed is not a Color object."
-        self.frame.contentPane.strokeColor = c
+        self.frame.contentPane.stroke_color = c
 
-    def setStroke(self, b):
+    def set_stroke(self, b):
         """Turns stroke on or off in the :py:class:`~jygsaw.graphicswindow.Canvas`."""
         assert isinstance(b, bool), "Variable given is not a boolean."
         self.frame.contentPane.stroke = b
 
-    def setStrokeWidth(self, w):
+    def set_stroke_width(self, w):
         """Sets the width of the stroke in the :py:class:`~jygsaw.graphicswindow.Canvas`."""
         assert isinstance(w, int), "Variable given is not an integer."
-        self.frame.contentPane.strokeWidth = w
+        self.frame.contentPane.stroke_width = w
 
-    def setFilled(self, f):
+    def set_filled(self, f):
         """Turns fill on or off in the :py:class:`~jygsaw.graphicswindow.Canvas`."""
         assert isinstance(f, bool), "Variable given is not a boolean."
         self.frame.contentPane.filled = f
 
-    def setBackgroundColor(self, c):
+    def set_bg_color(self, c):
         """Sets the background color of the :py:class:`~jygsaw.graphicswindow.Canvas`."""
         assert isinstance(c, Color), "The object passed is not a Color object."
-        self.frame.contentPane.backgroundColor = c
+        self.frame.contentPane.background_color = c
         self.background = c
 
-    def setFont(self, f):
+    def set_font(self, f):
         """Sets the font of the :py:class:`~jygsaw.graphicswindow.Canvas`."""
         self.frame.contentPane.font = f
 
-    def setTextSize(self, s):
+    def set_text_size(self, s):
         """Sets the text size of the :py:class:`~jygsaw.graphicswindow.Canvas`."""
         assert s >= 0 and isinstance(
             s, int), "Font size must be greater than or equal to 0"
-        self.frame.contentPane.textSize = s
+        self.frame.contentPane.text_size = s
 
-    def getBackgroundColor(self):
+    def get_bg_color(self):
         """Returns the background color of the :py:class:`~jygsaw.graphicswindow.Canvas`."""
         return self.background
 
@@ -202,93 +201,103 @@ class GraphicsWindow(ActionListener, KeyListener, MouseInputListener):
         """
         Runs when the mouse enters the window.
         Sets the mouse coordinates to the current mouse position.
-        Calls a user-provided :py:meth:`mouseEntered` function, if any.
+        Calls a user-provided :py:meth:`mouse_entered` function, if any.
         """
-        self.mouseEventType = e.getID()
-        self.mouseX = e.getX()
-        self.mouseY = e.getY() - 25
-        if self.mainRunning:
-            if self.onMouseEntered:
-                self.onMouseEntered()
+        pos = self.frame.contentPane.getMousePosition()
+        if pos:
+            self.mouse_x = pos.x
+            self.mouse_y = pos.y
+        if self.main_running:
+            if self.on_mouse_entered:
+                self.on_mouse_entered()
         else:
-            self.eventQueue.put(e)
+            self.event_queue.put(e)
         if debug:
-            print (self.mouseX, self.mouseY)
+            print (self.mouse_x, self.mouse_y)
 
     def mouseClicked(self, e):
         """
         Runs when the mouse is clicked.
         Sets the mouse X and Y coordinates to the current mouse position.
-        Calls a user-provided :py:meth:`mouseClicked` function, if any.
+        Calls a user-provided :py:meth:`mouse_clicked` function, if any.
         """
-        self.mouseEventType = e.getID()
-        self.mouseX = e.getX()
-        self.mouseY = e.getY() - 25
-        if self.mainRunning:
-            if self.onMouseClicked:
-                self.onMouseClicked()
+        pos = self.frame.contentPane.getMousePosition()
+        if pos:
+            self.mouse_x = pos.x
+            self.mouse_y = pos.y
+        if self.main_running:
+            if self.on_mouse_clicked:
+                self.on_mouse_clicked()
         else:
-            self.eventQueue.put(e)
+            self.event_queue.put(e)
 
     def mouseExited(self, e):
         """
         Runs when the mouse exits the window.
         Sets the mouse X and Y coordinates to the current mouse position.
-        Calls a user-provided :py:meth:`mouseExited` function, if any.
+        Calls a user-provided :py:meth:`mouse_exited` function, if any.
         """
-        self.mouseEventType = e.getID()
-        self.mouseX = e.getX()
-        self.mouseY = e.getY() - 25
-        if self.mainRunning:
-            if self.onMouseExited:
-                self.onMouseExited()
+        pos = self.frame.contentPane.getMousePosition()
+        if pos:
+            self.mouse_x = pos.x
+            self.mouse_y = pos.y
+        if self.main_running:
+            if self.on_mouse_exited:
+                self.on_mouse_exited()
         else:
-            self.eventQueue.put(e)
+            self.event_queue.put(e)
 
     def mousePressed(self, e):
         """
         Runs when the mouse button is pressed.
         Sets the mouse X and Y coordinates to the current mouse position.
-        Calls a user-provided :py:meth:`mousePressed` function, if any.
+        Calls a user-provided :py:meth:`mouse_pressed` function, if any.
         """
-        self.mouseEventType = e.getID()
-        self.mouseX = e.getX()
-        self.mouseY = e.getY() - 25
-        if self.mainRunning:
-            if self.onMousePressed:
-                self.onMousePressed()
+        pos = self.frame.contentPane.getMousePosition()
+        if pos:
+            self.mouse_x = pos.x
+            self.mouse_y = pos.y
+        self.mouse_buttons.add(e.getButton())
+        if self.main_running:
+            if self.on_mouse_pressed:
+                self.on_mouse_pressed()
         else:
-            self.eventQueue.put(e)
+            self.event_queue.put(e)
 
     def mouseReleased(self, e):
         """
         Runs when the mouse button is released.
         Sets the mouse X and Y coordinates to the current mouse position.
-        Calls a user-provided :py:meth:`mouseReleased` function, if any.
+        Calls a user-provided :py:meth:`mouse_released` function, if any.
         """
-        self.mouseEventType = e.getID()
-        if self.mainRunning:
-            if self.onMouseReleased:
-                self.onMouseReleased()
+        pos = self.frame.contentPane.getMousePosition()
+        if pos:
+            self.mouse_x = pos.x
+            self.mouse_y = pos.y
+        self.mouse_buttons.remove(e.getButton())
+        if self.main_running:
+            if self.on_mouse_released:
+                self.on_mouse_released()
         else:
-            self.eventQueue.put(e)
+            self.event_queue.put(e)
 
     def mouseMoved(self, e):
         """
         Runs when the mouse is moved.
         Sets the mouse X and Y coordinates to the current mouse position.
-        Calls a user-provided :py:meth:`mouseMoved` function, if any.
+        Calls a user-provided :py:meth:`mouse_moved` function, if any.
         """
-        self.mouseEventType = e.getID()
-        self.mouseX = e.getX()
-        self.mouseY = e.getY() - 25
-        if self.mainRunning:
-            if self.onMouseMoved:
-                self.onMouseMoved()
+        pos = self.frame.contentPane.getMousePosition()
+        if pos:
+            self.mouse_x = pos.x
+            self.mouse_y = pos.y
+        if self.main_running:
+            if self.on_mouse_moved:
+                self.on_mouse_moved()
         else:
-            self.eventQueue.put(e)
+            self.event_queue.put(e)
         if debug:
-            print '(%d, %d)' % (self.mouseX, self.mouseY)
+            print '(%d, %d)' % (self.mouse_x, self.mouse_y)
 
     def mouseDragged(self, e):
         """
@@ -296,73 +305,72 @@ class GraphicsWindow(ActionListener, KeyListener, MouseInputListener):
         Sets the mouse X and Y coordinates to the current mouse position.
         Calls a user-provided :py:meth:`mouseDragged` function, if any.
         """
-        self.mouseEventType = e.getID()
-        self.mouseX = e.getX()
-        self.mouseY = e.getY() - 25
-        if self.mainRunning:
-            if self.onMouseDragged:
-                self.onMouseDragged()
+        pos = self.frame.contentPane.getMousePosition()
+        if pos:
+            self.mouse_x = pos.x
+            self.mouse_y = pos.y
+        if self.main_running:
+            if self.on_mouse_dragged:
+                self.on_mouse_dragged()
         else:
-            self.eventQueue.put(e)
+            self.event_queue.put(e)
 
     def keyTyped(self, e):
         """
         Sets the last key character and code when a key is typed. Calls a
         user-provided :py:meth:`keyTyped` function, if any.
         """
-        self.keyEventType = e.getID()
-
         if debug:
             print e.getKeyCode()
 
-        if self.mainRunning:
-            if self.onKeyTyped:
-                self.onKeyTyped()
+        if self.main_running:
+            if self.on_key_typed:
+                self.on_key_typed()
         else:
-            self.eventQueue.put(e)
+            self.event_queue.put(e)
 
     def keyPressed(self, e):
         """
         Sets the last key character and code when a key is pressed. Calls a
-        user-provided :py:meth:`keyPressed` function, if any.
+        user-provided :py:meth:`key_pressed` function, if any.
         """
-        self.keyEventType = e.getID()
-        self.lastKeyCode = e.getKeyCode()
-        self.lastKeyChar = e.getKeyChar()
-        self.charsPressed.add(e.getKeyText(e.getKeyCode()).upper())
+        self.last_key_code = e.getKeyCode()
+        self.last_key_char = e.getKeyChar()
+        self.chars_pressed.add(e.getKeyText(e.getKeyCode()).upper())
+        self.codes_pressed.add(e.getKeyCode())
 
         if debug:
             print "Key pressed:"
             print e.getKeyText(e.getKeyCode())
             print e.getKeyCode()
 
-        if self.mainRunning:
-            if self.onKeyPressed:
-                self.onKeyPressed()
+        if self.main_running:
+            if self.on_key_pressed:
+                self.on_key_pressed()
         else:
-            self.eventQueue.put(e)
+            self.event_queue.put(e)
 
     def keyReleased(self, e):
         """
         Sets the last key character and code when a key is released. Calls a
-        user-provided :py:meth:`keyReleased` function, if any.
+        user-provided :py:meth:`key_released` function, if any.
         """
-        self.keyEventType = e.getID()
-        self.charsPressed.remove(e.getKeyText(e.getKeyCode()).upper())
+        self.chars_pressed.remove(e.getKeyText(e.getKeyCode()).upper())
+        self.codes_pressed.remove(e.getKeyCode())
 
         if debug:
             print "Key released:"
             print e.getKeyText(e.getKeyCode())
             print e.getKeyCode()
 
-        if self.mainRunning:
-            if self.onKeyReleased:
-                self.onKeyReleased()
+        if self.main_running:
+            if self.on_key_released:
+                self.on_key_released()
         else:
-            self.eventQueue.put(e)
+            self.event_queue.put(e)
 
     def _is_key_pressed(self):
-        return bool(self.charsPressed)
+        return bool(self.chars_pressed)
 
     isKeyPressed = property(_is_key_pressed, ':py:class:`True` if any keys are pressed, else :py:class:`False`.')
 
@@ -384,21 +392,18 @@ class Canvas(JPanel):
     Canvas where objects get drawn. The Canvas is automatically created
     and attached to a :py:class:`~jygsaw.graphicswindow.GraphicsWindow` upon creation.
     """
-    def __init__(self, window, objects, backgroundColor):
+    def __init__(self, window, objects, bg_color):
         self.objs = objects
         self.window = window
-        self._defaultColor = gray
-        self._backgroundColor = backgroundColor
-        self._strokeColor = black
+        self._default_color = GRAY
+        self._background_color = bg_color
+        self._stroke_color = BLACK
         self._stroke = False  # sets whether or not strokes are being drawn for shapes
         self._filled = True
         self._font = "Times New Roman"
-        self._textSize = 12
-        self._strokeWidth = 1
-
+        self._text_size = 12
+        self._stroke_width = 1
         self.redraw_requested = True
-
-        # Installed fonts
 
     def paintComponent(self, g):
         """
@@ -409,12 +414,12 @@ class Canvas(JPanel):
         through the entire list of objects and draws them on the :py:class:`~jygsaw.graphicswindow.Canvas`.
         """
 
-        if self.window.mainRunning and self.window.onDraw:
-            self.window.onDraw()
+        if self.window.main_running and self.window.on_draw:
+            self.window.on_draw()
 
         g.setRenderingHint(RenderingHints.KEY_ANTIALIASING,
                            RenderingHints.VALUE_ANTIALIAS_ON)
-        g.background = self.backgroundColor
+        g.background = self.background_color
         g.clearRect(0, 0, self.window.width, self.window.height)
 
         # Iterates through and draws all of the objects
@@ -437,41 +442,41 @@ class Canvas(JPanel):
             # print "blocking"
             sleep(.001)
 
-    def _get_defaultColor(self):
+    def _get_default_color(self):
         """Get the default color of the :py:class:`~jygsaw.graphicswindow.Canvas`."""
-        return self._defaultColor
+        return self._default_color
 
-    def _set_defaultColor(self, c):
+    def _set_default_color(self, c):
         """Set the default color of the :py:class:`~jygsaw.graphicswindow.Canvas`."""
         assert isinstance(c, Color), "The object passed is not a Color object."
-        self._defaultColor = c
+        self._default_color = c
 
-    defaultColor = property(_get_defaultColor, _set_defaultColor,
-                            "Default fill color for all the objects.")
+    default_color = property(_get_default_color, _set_default_color,
+                             "Default fill color for all the objects.")
 
-    def _get_backgroundColor(self):
+    def _get_background_color(self):
         """Get the background color of the :py:class:`~jygsaw.graphicswindow.Canvas`."""
-        return self._backgroundColor
+        return self._background_color
 
-    def _set_backgroundColor(self, c):
+    def _set_background_color(self, c):
         """Set the background color of the :py:class:`~jygsaw.graphicswindow.Canvas`."""
         assert isinstance(c, Color), "The object passed is not a Color object."
-        self._backgroundColor = c
+        self._background_color = c
 
-    backgroundColor = property(_get_backgroundColor, _set_backgroundColor,
-                               "Background color for the window.")
+    background_color = property(_get_background_color, _set_background_color,
+                                "Background color for the window.")
 
-    def _get_strokeColor(self):
-        """Returns the strokeColor."""
-        return self._strokeColor
+    def _get_stroke_color(self):
+        """Returns the stroke_color."""
+        return self._stroke_color
 
-    def _set_strokeColor(self, c):
+    def _set_stroke_color(self, c):
         """Sets the stroke color to *c*."""
         assert isinstance(c, Color), "The object passed is not a Color object."
-        self._strokeColor = c
+        self._stroke_color = c
 
-    strokeColor = property(
-        _get_strokeColor, _set_strokeColor, "Stroke color of the Shape.")
+    stroke_color = property(
+        _get_stroke_color, _set_stroke_color, "Stroke color of the Shape.")
 
     def _get_stroke(self):
         """Returns whether or not stroke is True or False"""
@@ -485,17 +490,17 @@ class Canvas(JPanel):
     stroke = property(_get_stroke, _set_stroke,
                       "Boolean describing whether a stroke is being drawn or not.")
 
-    def _get_strokeWidth(self):
+    def _get_stroke_width(self):
         """Returns whether or not stroke is :py:class:`True` or :py:class:`False`."""
-        return self._strokeWidth
+        return self._stroke_width
 
-    def _set_strokeWidth(self, b):
+    def _set_stroke_width(self, b):
         """Sets stroke to the boolean given."""
         assert isinstance(b, int), "The variable given is not an integer."
-        self._strokeWidth = b
+        self._stroke_width = b
 
-    strokeWidth = property(_get_strokeWidth, _set_strokeWidth,
-                           "Boolean describing whether a stroke is being drawn or not.")
+    stroke_width = property(_get_stroke_width, _set_stroke_width,
+                            "Boolean describing whether a stroke is being drawn or not.")
 
     def _get_filled(self):
         """Returns whether or not stroke is :py:class:`True` or :py:class:`False`."""
@@ -512,18 +517,18 @@ class Canvas(JPanel):
         return self._font
 
     def _set_font(self, f):
-        assert (f in Text._systemFonts), "Font is not available or incorrect."
+        assert (f in Text._system_fonts), "Font is not available or incorrect."
 
         self._font = f
 
     font = property(_get_font, _set_font, "Returns the name of the current font.")
 
-    def _get_textSize(self):
-        return self._textSize
+    def _get_text_size(self):
+        return self._text_size
 
-    def _set_textSize(self, f):
+    def _set_text_size(self, f):
         assert f > 0 or isinstance(
             f, bool), "Text size must be an integer greater than 0."
-        self._textSize = f
+        self._text_size = f
 
-    textSize = property(_get_textSize, _set_textSize, "Returns the text size.")
+    text_size = property(_get_text_size, _set_text_size, "Returns the text size.")

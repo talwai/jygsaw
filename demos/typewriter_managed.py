@@ -9,42 +9,41 @@
 from jygsaw.graphics import *
 
 canvas(750, 360)
-background(darkGray)
-currentLineHeight = 60
-textHeight = 30
+background(DARK_GRAY)
+line_height = 60
+TEXT_HEIGHT = 30
 words = ""
-textList = []
+text_list = []
 
 
 def draw():
-    global currentLineHeight, textHeight, words
+    global line_height, TEXT_HEIGHT, words
     clear()
 
     font("Georgia")
-    t = text(25, 25, "Type onto the screen:", color=gray)
+    t = text(25, 25, "Type onto the screen:", color=GRAY)
 
     font("Arial")
-    for (i, h) in textList:
-        text(25, h, i, color=white)
+    for (i, h) in text_list:
+        text(25, h, i, color=WHITE)
 
-    text(25, currentLineHeight, words, color=white)
+    text(25, line_height, words, color=WHITE)
 
-
-def keyPressed():
-    global words, textList, currentLineHeight, textHeight
-    k = lastKeyChar()
-    c = lastKeyCode()
+def keypressed():
+    global words, text_list, line_height, TEXT_HEIGHT
+    k = last_key_char()
+    c = last_key_code()
     if (c != 10 and c != 16):  # as long as the key pressed is not a return or shift
         words += k
     elif c == 10:  # else if the key pressed is a return
-        newLine = words
+        new_line = words
         words = ""
-        textList.append((newLine, currentLineHeight))
-        currentLineHeight += textHeight  # lower the current line by textHeight
+        text_list.append((new_line, line_height))
+        line_height += TEXT_HEIGHT  # lower the current line by TEXT_HEIGHT
 
-onKeyPress(keyPressed)
-onDraw(draw)
+on_key_press(keypressed)
+on_draw(draw)
 
-textSize(textHeight)
+text_size(TEXT_HEIGHT)
 
-jygsawMain(0.01)
+jygsaw_start(0.01)

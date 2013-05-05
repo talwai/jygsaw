@@ -9,38 +9,38 @@
 from jygsaw.graphics import *
 
 canvas(750, 360)
-background(darkGray)
-currentLineHeight = 60
-textHeight = 30
+background(DARK_GRAY)
+line_height = 60
+TEXT_HEIGHT = 30
 words = ""
-textList = []
+text_list = []
 
 
-def keyPressed():
-    global words, textList, currentLineHeight, textHeight
-    k = lastKeyChar()
-    c = lastKeyCode()
+def key_pressed():
+    global words, text_list, line_height, TEXT_HEIGHT
+    k = last_key_char()
+    c = last_key_code()
     if (c != 10 and c != 16):  # as long as the key pressed is not a return or shift
         words += k
     elif c == 10:  # else if the key pressed is a return
-        newLine = words
+        new_line = words
         words = ""
-        textList.append((newLine, currentLineHeight))
-        currentLineHeight += textHeight  # lower the current line by textHeight
+        text_list.append((new_line, line_height))
+        line_height += TEXT_HEIGHT  # lower the current line by TEXT_HEIGHT
 
-onKeyPress(keyPressed)
+on_key_press(key_pressed)
 
-textSize(textHeight)
+text_size(TEXT_HEIGHT)
 
 while True:
     clear()
 
     font("Georgia")
-    t = text(25, 25, "Type onto the screen:", color=gray)
+    t = text(25, 25, "Type onto the screen:", color=GRAY)
 
     font("Arial")
-    for (i, h) in textList:
-        text(25, h, i, color=white)
+    for (i, h) in text_list:
+        text(25, h, i, color=WHITE)
 
-    text(25, currentLineHeight, words, color=white)
+    text(25, line_height, words, color=WHITE)
     refresh(0.01)

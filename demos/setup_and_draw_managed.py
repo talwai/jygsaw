@@ -16,7 +16,7 @@ y = 100
 # line is executed again.
 def draw():
     global y
-    background(0)       # Set the background to black
+    background(0)       # Set the background to BLACK
     clear()
     y = y - 1
     if (y < 0):
@@ -24,7 +24,7 @@ def draw():
     line(0, y, width(), y)
 
 canvas(640, 360)        # Size must be the first statement
-stroke(255)        # Set line drawing color to white
+stroke(255)        		# Set line drawing color to WHITE
 
-onDraw(draw)
-jygsawMain(0.02)
+on_draw(draw)
+jygsaw_start(0.02)

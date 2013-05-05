@@ -1,6 +1,6 @@
 # loop.py
 #
-# Jygsaw demo - Loops and draws a moving line.`
+# Jygsaw demo - Loops and draws a moving line.
 #
 # Attribution: Inspired by the loop demo in Processing
 # from http://processingjs.org/learning/basic/keyboardfunctions/
@@ -11,19 +11,19 @@ from jygsaw.graphics import *
 y = 100
 
 canvas(640, 360)      # Size should be the first statement
-stroke(255)           # Set stroke color to white
+stroke(255)           # Set stroke color to WHITE
 running = False
 
 y = int(height() * 0.5)
 
 
-def mousePressed():
+def mouse_pressed():
     global running
     running = True
 
-onMousePress(mousePressed)
+on_mouse_press(mouse_pressed)
 
-background(black)
+background(BLACK)
 line(0, y, width(), y)
 
 while True:

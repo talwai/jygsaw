@@ -1,8 +1,6 @@
-# """This file test_image.py contains unit tests for image.py"""
+"""This file test_image.py contains unit tests for image.py"""
 from __future__ import with_statement
-
 from jygsaw.graphics import *
-
 import unittest2
 
 
@@ -63,10 +61,10 @@ class TestTextClass(unittest2.TestCase):
         self.assertEqual(self.text.font, 'Times New Roman',
                          msg="Default font in text object not correct")
 
-        self.newFont = 'Times'
-        self.text.font = self.newFont
+        self.new_font = 'Times'
+        self.text.font = self.new_font
 
-        self.assertEqual(self.text.font, self.newFont,
+        self.assertEqual(self.text.font, self.new_font,
                          msg="Was not able to change font in text object")
 
         # pass in a non font input
@@ -76,5 +74,6 @@ class TestTextClass(unittest2.TestCase):
         with self.assertRaises(Exception):
             self.text.font = 'INVALID TEXT FONT'
 
-if __name__ == '__main__':
+
+if (__name__ == '__main__') or (__name__ == 'main'):
     unittest2.main()

@@ -1,6 +1,6 @@
 # mouse_press_direct.py
 #
-# Jygsaw demo - prints a cross-hair centered at the mouse cursor
+# Jygsaw demo - paints a cross-hair centered at the mouse cursor
 #               and can change color
 #
 # Attribution: inspired by the mousepress demo in Processing
@@ -15,18 +15,18 @@ LINELENGTH = 66
 
 
 def pressed():
-    stroke(white)
+    stroke(WHITE)
 
 
 def released():
-    stroke(black)
+    stroke(BLACK)
 
-onMousePress(pressed)
-onMouseRelease(released)
-stroke(black)
+on_mouse_press(pressed)
+on_mouse_release(released)
+stroke(BLACK)
 
 while True:
     clear()
-    line(mouseX() - LINELENGTH, mouseY(), mouseX() + LINELENGTH, mouseY())
-    line(mouseX(), mouseY() - LINELENGTH, mouseX(), mouseY() + LINELENGTH)
+    line(mouse_x() - LINELENGTH, mouse_y(), mouse_x() + LINELENGTH, mouse_y())
+    line(mouse_x(), mouse_y() - LINELENGTH, mouse_x(), mouse_y() + LINELENGTH)
     refresh(1.0 / 30)
