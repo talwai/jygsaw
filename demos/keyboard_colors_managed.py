@@ -4,7 +4,7 @@
 #
 # Attribution: inspired by the keyboardfunction demo in Processing
 # from http://processingjs.org/learning/basic/keyboardfunctions/
-# written by Casey Reas and Ben Fry.#
+# written by Casey Reas and Ben Fry.
 
 from jygsaw.graphics import *
 
