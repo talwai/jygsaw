@@ -21,17 +21,17 @@ def draw():
     clear()
 
     t = text(25, 25, "Type onto the screen:", color=GRAY, attribute=PLAIN)
-    t._set_size(TEXT_HEIGHT)
-    t._set_font("Georgia")
+    t.size = TEXT_HEIGHT
+    t.font = "Georgia"
 
     for (i, h) in text_list:
         ti = text(25, h, i, color=WHITE, attribute=PLAIN)
-        ti._set_font("Arial")
-        ti._set_size(TEXT_HEIGHT)
+        ti.font = "Arial"
+        ti.size = TEXT_HEIGHT
 
     tw = text(25, LINE_HEIGHT, words, color=WHITE, attribute=PLAIN)
-    tw._set_font("Arial")
-    tw._set_size(TEXT_HEIGHT)
+    tw.font = "Arial"
+    tw.size = TEXT_HEIGHT
 
 
 def keypressed():

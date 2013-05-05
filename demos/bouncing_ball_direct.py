@@ -40,7 +40,7 @@ def draw_ball(x, y):
 
 def draw_floor():
     # strokeWidth(2)
-    stroke(BLACK)  # black floor
+    stroke(BLACK)  # BLACK floor
 
     line(0, WINDOW_HEIGHT - FLOOR_Y * PIXELS_PER_METER, WINDOW_WIDTH,
          WINDOW_HEIGHT - FLOOR_Y * PIXELS_PER_METER)
@@ -83,8 +83,7 @@ while True:
         v_y = -v_y
 
     # Will the ball bounce off a side wall?
-    if next_x * PIXELS_PER_METER + BALL_RADIUS > WINDOW_WIDTH or \
-            next_x * PIXELS_PER_METER - BALL_RADIUS < 0:
+    if (next_x * PIXELS_PER_METER + BALL_RADIUS > WINDOW_WIDTH or next_x * PIXELS_PER_METER - BALL_RADIUS < 0):
         v_x = -v_x
 
     # Now compute the real next position and next velocity.

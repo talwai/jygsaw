@@ -15,18 +15,19 @@ p3 = p2 + d
 p4 = p3 + d
 
 canvas(640, 360)
-background(black)
+background(BLACK)
+
 
 def draw():
     # Draw gray box
-    stroke(gray)
+    stroke(GRAY)
     line(p3, p3, p2, p3)
     line(p2, p3, p2, p2)
     line(p2, p2, p3, p2)
     line(p3, p2, p3, p3)
-    
+
     # Draw white points
-    stroke(white)
+    stroke(WHITE)
     point(p1, p1)
     point(p1, p3)
     point(p2, p4)
@@ -34,5 +35,5 @@ def draw():
     point(p4, p2)
     point(p4, p4)
 
-onDraw(draw)
-jygsawMain()
+on_draw(draw)
+jygsaw_start()

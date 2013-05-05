@@ -12,9 +12,8 @@ from jygsaw.graphics import *
 def draw():
     recursive_circle(width() / 2, 280, 6)
 
+
 # Recursively draw smaller circles
-
-
 def recursive_circle(x, radius, level):
     tt = int(126 * level / 4.0)
     fill(tt)

@@ -1,6 +1,6 @@
-# keyboard_grayscale.py
+# keyboard_GRAYscale.py
 #
-# Jygsaw demo - prints columns of gray  from keyboard presses
+# Jygsaw demo - prints columns of GRAY  from keyboard presses
 #
 # Attribution: inspired by the keyboard demo in Processing
 # from http://processingjs.org/learning/basic/keyboard/
@@ -12,7 +12,7 @@ from random import random
 canvas(640, 360)
 no_stroke()
 background(0)
-rect_width = width() / 4
+RECT_WIDTH = width() / 4
 
 
 def draw():
@@ -32,8 +32,8 @@ def keypressed():
     else:
         # It's a letter key, fill a rectangle
         fill(int(random() * 255))
-        x = int(float(key_index) / 26.0 * float(width() - rect_width))
-        rect(x, 0, rect_width, height())
+        x = int(float(key_index) / 26.0 * float(width() - RECT_WIDTH))
+        rect(x, 0, RECT_WIDTH, height())
 
 on_key_press(keypressed)
 on_draw(draw)

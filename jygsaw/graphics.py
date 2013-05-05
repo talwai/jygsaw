@@ -1,8 +1,8 @@
-"""
-A simple graphics library that wraps around Java's Swing library.
-It's easy to use, and most importantly easy to learn for
-both new and old programmers alike.
-"""
+# graphics.py
+# by Balkcom's Army
+#
+# These are the functions for end-users for Jygsaw.
+
 from graphicsobject import *
 from graphicswindow import *
 from shape import *
@@ -12,24 +12,23 @@ from text import *
 from java.awt import Color
 from java.awt.event import MouseEvent, KeyEvent
 
-rectX = 0  # Just used for testing - delete or move eventually
-rectY = 0  # Just used for testing - delete or move eventually
-directionX = 1  # Just used for testing - delete or move eventually
-directionY = 1  # Just used for testing - delete or move eventually
-_fr = 60.0  # Frame Rate
 
-
+#-----------------------Canvas Functions------------------------
 def canvas(width=400, height=400, window_title='Jygsaw Canvas', background=WHITE):
     """
-    Creates and returns a new Jygsaw :py:class:`~jygsaw.graphicswindow.GraphicsWindow` and
+    Creates and returns a new Jygsaw
+    :py:class:`~jygsaw.graphicswindow.GraphicsWindow` and
     :py:class:`~jygsaw.graphicswindow.Canvas`.
 
-    Keyword arguments:
-
-    * *width* Width of the canvas in the window. Defaults to 400.
-    * *height* Height of the canvas in the window. Defaults to 400.
-    * *window_title* Title of the window. Defaults to 'Jygsaw Canvas'.
-    * *background* Color of the canvas's background. Defaults to white.
+    :param width: Width of the :py:class:`~jygsaw.graphicswindow.Canvas`.
+    :type width: int, optional
+    :param height: Height of the :py:class:`~jygsaw.graphicswindow.Canvas`.
+    :type height: int, optional
+    :param window_title: Title of the window.
+    :type window_title: str, optional
+    :param background: Color of the background.
+    :type background: :py:class:`Color`, optional
+    :rtype: :py:class:`~jygsaw.graphicswindow.GraphicsWindow`
     """
     global window
     window = GraphicsWindow(window_title, int(width), int(height), background)
@@ -38,23 +37,35 @@ def canvas(width=400, height=400, window_title='Jygsaw Canvas', background=WHITE
 
 
 def width():
-    """Returns the width of the window's canvas."""
+    """
+    Returns the width of the :py:class:`~jygsaw.graphicswindow.Canvas`.
+
+    :rtype: int
+    """
     return window.width
 
 
 def height():
-    """Returns the height of the window's canvas."""
+    """
+    Returns the height of the :py:class:`~jygsaw.graphicswindow.Canvas`.
+
+    :rtype: int
+    """
     return window.height
 
 
+#----------------------Drawing Functions------------------------
 def point(x, y, color=None):
     """
-    Creates, draws on the canvas and returns a :py:class:`~jygsaw.shape.Point`
-    at x, y. You can optionally set the color.
+    Draws and returns a :py:class:`~jygsaw.shape.Point`.
 
-    Keyword Arguments:
-
-    * *color* Color of the point. Defaults to the color set by the method :py:meth:`~jygsaw.graphics.fill`.
+    :param x: x-coordinate of point.
+    :type x: int
+    :param y: y-coordinate of point.
+    :type y: int
+    :param color: Color of the point. Defaults to the color set by :py:meth:`~jygsaw.graphics.fill`.
+    :type color: :py:class:`Color`, optional
+    :rtype: :py:class:`~jygsaw.shape.Point`
     """
     new_point = Point(int(x), int(y), color)
     window.draw(new_point)
@@ -63,12 +74,19 @@ def point(x, y, color=None):
 
 def line(x1, y1, x2, y2, color=None):
     """
-    Creates, draws on the canvas and returns a :py:class:`~jygsaw.shape.Line`
-    between coordinates x1, y1, and x2, y2. You can optionally set the color.
+    Draws and returns a :py:class:`~jygsaw.shape.Line` between two points.
 
-    Keyword Arguments:
-
-    * *color* Color of the line. Defaults to the color set by the method :py:meth:`~jygsaw.graphics.fill`.
+    :param x1: x-coordinate of first point.
+    :type x: int
+    :param y1: y-coordinate of first point.
+    :type y: int
+    :param x2: x-coordinate of second point.
+    :type x: int
+    :param y2: y-coordinate of second point.
+    :type y: int
+    :param color: Color of the line. Defaults to the color set by :py:meth:`~jygsaw.graphics.fill`.
+    :type color: :py:class:`Color`, optional
+    :rtype: :py:class:`~jygsaw.shape.Line`
     """
     new_line = Line(int(x1), int(y1), int(x2), int(y2), color)
     window.draw(new_line)
@@ -77,13 +95,15 @@ def line(x1, y1, x2, y2, color=None):
 
 def rect(x, y, rectWidth, rectHeight, color=None):
     """
-    Creates, draws on the canvas and returns a :py:class:`~jygsaw.shape.Rect`
-    with the upper left corner at the given x, y coordinates. You can optionally set the
-    color.
+    Draws and returns a :py:class:`~jygsaw.shape.Rectangle`.
 
-    Keyword Arguments:
-
-    * *color* Color of the rectangle. Defaults to the color set by the method :py:meth:`~jygsaw.graphics.fill`.
+    :param x: x-coordinate of upper-left corner.
+    :type x: int
+    :param y: y-coordinate of upper-left corner.
+    :type y: int
+    :param color: Color of the rectangle. Defaults to the color set by :py:meth:`~jygsaw.graphics.fill`.
+    :type color: :py:class:`Color`, optional
+    :rtype: :py:class:`~jygsaw.shape.Rectangle`
     """
     new_rect = Rectangle(
         int(x), int(y), int(rectWidth), int(rectHeight), color)
@@ -93,13 +113,17 @@ def rect(x, y, rectWidth, rectHeight, color=None):
 
 def circle(x, y, radius, color=None):
     """
-    Creates, draws on the canvas and returns a :py:class:`~jygsaw.shape.Circle`
-    centered at the given x, y coordinates with the given radius.
-    The color can be optionally set.
+    Draws and returns a :py:class:`~jygsaw.shape.Circle`.
 
-    Keyword Arguments:
-
-    * *color* Color of the circle. Defaults to the color set by the method :py:meth:`~jygsaw.graphics.fill`.
+    :param x: x-coordinate of center.
+    :type x: int
+    :param y: y-coordinate of center.
+    :type y: int
+    :param radius: Radius of circle.
+    :type radius: int
+    :param color: Color of the circle. Defaults to the color set by :py:meth:`~jygsaw.graphics.fill`.
+    :type color: :py:class:`Color`, optional
+    :rtype: :py:class:`~jygsaw.shape.Circle`
     """
     new_circle = Circle(int(x), int(y), int(radius), color)
     window.draw(new_circle)
@@ -108,13 +132,19 @@ def circle(x, y, radius, color=None):
 
 def ellipse(x, y, width, height, color=None):
     """
-    Creates, draws on the canvas and returns an :py:class:`~jygsaw.shape.Ellipse`
-    centered at the given x, y coordinates, with the given width and height.
-    Color can be optionally set.
+    Draws and returns an :py:class:`~jygsaw.shape.Ellipse`.
 
-    Keyword Arguments:
-
-    * *color* Color of the ellipse. Defaults to the color set by the method :py:meth:`~jygsaw.graphics.fill`.
+    :param x: x-coordinate of center.
+    :type x: int
+    :param y: y-coordinate of center.
+    :type y: int
+    :param width: width of ellipse.
+    :type width: int
+    :param height: height of ellipse.
+    :type height: int
+    :param color: Color of the ellipse. Defaults to the color set by :py:meth:`~jygsaw.graphics.fill`.
+    :type color: :py:class:`Color`, optional
+    :rtype: :py:class:`~jygsaw.shape.Ellipse`
     """
     new_ellipse = Ellipse(
         int(x), int(y), int(width), int(height), color)
@@ -124,14 +154,23 @@ def ellipse(x, y, width, height, color=None):
 
 def triangle(x1, y1, x2, y2, x3, y3, color=None):
     """
-    Creates, draws on the canvas and returns a :py:class:`~jygsaw.shape.Polygon`
-    whose points create a triangle. The function takes in six variables describing
-    the coordinates of the triangle to be drawn. Color can be optionally set.
+    Draws and returns a triangular :py:class:`~jygsaw.shape.Polygon`.
 
-    Keyword Arguments:
-
-    * *color* Color of the point. Defaults to the color set by the method :py:meth:`~jygsaw.graphics.fill`.
-
+    :param x1: x-coordinate of first point.
+    :type x: int
+    :param y1: y-coordinate of first point.
+    :type y: int
+    :param x2: x-coordinate of second point.
+    :type x: int
+    :param y2: y-coordinate of second point.
+    :type y: int
+    :param x3: x-coordinate of third point.
+    :type x: int
+    :param y3: y-coordinate of third point.
+    :type y: int
+    :param color: Color of the point. Defaults to the color set by :py:meth:`~jygsaw.graphics.fill`.
+    :type color: :py:class:`Color`, optional
+    :rtype: :py:class:`~jygsaw.shape.Polygon`
     """
     vertices = [(x1, y1), (x2, y2), (x3, y2)]
 
@@ -142,13 +181,14 @@ def triangle(x1, y1, x2, y2, x3, y3, color=None):
 
 def polygon(vertices, color=None):
     """
-    Creates, draws on the canvas and returns a :py:class:`~jygsaw.shape.Polygon`
-    whose points are given in a list as the first argument.
-    Color can be optionally set.
+    Draws and returns a :py:class:`~jygsaw.shape.Polygon` determined by a list
+    of vertices.
 
-    Keyword Arguments:
-
-    * *color* Color of the polygon. Defaults to the color set by the method :py:meth:`~jygsaw.graphics.fill`.
+    :param vertices: List of vertices to join to form a polygon.
+    :type vertices: list of pairs (2-tuples) of ints
+    :param color: Color of the polygon. Defaults to the color set by :py:meth:`~jygsaw.graphics.fill`.
+    :type color: :py:class:`Color`, optional
+    :rtype: :py:class:`~jygsaw.shape.Polygon`
     """
     new_polygon = Polygon(vertices, color)
     window.draw(new_polygon)
@@ -157,13 +197,19 @@ def polygon(vertices, color=None):
 
 def reg_polygon(x, y, sides, length, color=None):
     """
-    Creates, draws on the canvas and returns a :py:class:`~jygsaw.shape.RegPolygon`
-    with the given number of sides at the given x, y coordinates. Each side's
-    length is determined by the given length. The color can be optionally set.
+    Draws and returns a regular polygon (:py:class:`~jygsaw.shape.RegPolygon`).
 
-    Keyword Arguments:
-
-    * *color* Color of the point. Defaults to the color set by the method :py:meth:`~jygsaw.graphics.fill`.
+    :param x: x-coordinate of center.
+    :type x: int
+    :param y: y-coordinate of center.
+    :type y: int
+    :param sides: Number of sides.
+    :type sides: int
+    :param length: Length of each side.
+    :type length: int
+    :param color: Color of the polygon. Defaults to the color set by :py:meth:`~jygsaw.graphics.fill`.
+    :type color: :py:class:`Color`, optional
+    :rtype: :py:class:`~jygsaw.shape.RegPolygon`
     """
     new_reg_polygon = RegPolygon(
         int(x), int(y), int(sides), int(length), color)
@@ -171,52 +217,292 @@ def reg_polygon(x, y, sides, length, color=None):
     return new_reg_polygon
 
 
-def arc(x, y, width, height, startAngle, endAngle, color=None):
+def arc(x, y, width, height, start_angle, end_angle, color=None):
     """
-    Creates, draws on the canvas, and returns an :py:class:`~jygsaw.shape.Arc`
-    whose bounding box's top left corner is at the given x, y coordinates. The width,
-    height, start angle, end angle, set the arc's respective attributes.
+    Draws and returns an :py:class:`~jygsaw.shape.Arc` within a bounding box.
+
+    :param x: x-coordinate of upper-left corner of bounding box.
+    :type x: int
+    :param y: y-coordinate of upper-left corner of bounding box.
+    :type y: int
+    :param width: width of bounding box.
+    :type width: int
+    :param height: height of bounding box.
+    :type height: int
+    :param start_angle: Starting angle.
+    :type start_angle: int
+    :param end_angle: Ending angle.
+    :type end_angle: int
+    :param color: Color of the arc. Defaults to the color set by :py:meth:`~jygsaw.graphics.fill`.
+    :type color: :py:class:`Color`, optional
+    :rtype: :py:class:`~jygsaw.shape.Arc`
+
+    **Notes**
 
     The start and end angle degrees refer to a circle where 0 is on the
     left side of the screen, 90 is at the top, 180 is on the right and 270
     is at the bottom.
-
-    Keyword Arguments:
-
-    * *color* Color of the point. Defaults to the color set by the method :py:meth:`~jygsaw.graphics.fill`.
     """
     new_arc = Arc(
-        int(x), int(y), int(width), int(height), startAngle, (endAngle - startAngle), color)
+        int(x), int(y), int(width), int(height), start_angle, (end_angle - start_angle), color)
     window.draw(new_arc)
     return new_arc
 
 
-def image(x, y, imagePath, width=None, height=None):
+def image(x, y, path, width=None, height=None):
     """
-    Creates, draws on the canvas, and returns an :py:class:`~jygsaw.image.Image`
-    with upper left corner at the given x, y coordinates.
+    Draws and returns an :py:class:`~jygsaw.image.Image`.
 
-    The image should be located on your computer or online
-    at the location specified by imagePath. The width and height of the
-    image can be optionally set, otherwise the image's original width and height
-    will be used.
+    :param x: x-coordinate of upper-left corner.
+    :type x: int
+    :param y: y-coordinate of upper-left corner.
+    :type y: int
+    :param path: Internet URL or local file path to the image.
+    :type path: str
+    :param width: Width of the image. Defaults to image's original width.
+    :type width: int, optional
+    :param height: Height of the image. Defaults to image's original height.
+    :type height: int, optional
+    :rtype: :py:class:`~jygsaw.image.Image`
 
-    Keyword Arguments:
+    **Notes**
 
-    * *width* Width of the image. Defaults to image's original width.
-    * *height* Height of the image. Defaults to image's original height.
+    The image will fail to be created if the URL or local file path is invalid.
     """
     global window
-    img = Image(int(x), int(y), imagePath, width, height)
+    img = Image(int(x), int(y), path, width, height)
     window.draw(img)
     return img
 
 
+#-----------------------Mouse Functions-------------------------
+def mouse_x():
+    """
+    Returns x-coordinate of the mouse with respect to the upper-left corner
+    of the Canvas. Starts at 0 and stays at its last coordinate when the mouse
+    leaves the Canvas.
+
+    :rtype: int
+    """
+    return window.mouse_x
+
+
+def mouse_y():
+    """
+    Returns y-coordinate of the mouse with respect to the upper-left corner
+    of the Canvas. Starts at 0 and stays at its last coordinate when the mouse
+    leaves the Canvas.
+
+    :rtype: int
+    """
+    return window.mouse_y
+
+
+def mouse_pressed():
+    """
+    Returns :py:class:`True` if any mouse button is pressed or not, else
+    :py:class:`False`.
+
+    :rtype: bool
+    """
+    return bool(window.mouse_buttons)
+
+
+def is_button_pressed(button):
+    """
+    Determines if a mouse button is being pressed.
+
+    :param button: Name of button to test for.
+    :type button: int or constant such as ``MouseEvent.BUTTON1``
+    :rtype: bool
+
+    **Notes**
+
+    The list of ``MouseEvent`` button constants can be found at the
+    `MouseEvent documentation <http://docs.oracle.com/javase/7/docs/api/java/awt/event/MouseEvent.html#getButton()>`_.
+    """
+    return button in window.mouse_buttons
+
+
+def on_mouse_press(f):
+    """
+    Sets the function that runs when the mouse is pressed.
+
+    :param f: Function that runs on mouse press.
+    :type f: function
+    """
+    window.on_mouse_pressed = f
+
+
+def on_mouse_release(f):
+    """
+    Sets the function that runs when the mouse is released.
+
+    :param f: Function that runs on mouse release.
+    :type f: function
+    """
+    window.on_mouse_released = f
+
+
+def on_mouse_click(f):
+    """
+    Sets the function that runs when the mouse is clicked.
+
+    :param f: Function that runs on mouse click.
+    :type f: function
+    """
+    window.on_mouse_clicked = f
+
+
+def on_mouse_drag(f):
+    """
+    Sets the function that runs when the mouse is dragged.
+
+    :param f: Function that runs on mouse drag.
+    :type f: function
+    """
+    window.on_mouse_dragged = f
+
+
+def on_mouse_move(f):
+    """
+    Sets the function that runs when the mouse moves.
+
+    :param f: Function that runs on mouse move.
+    :type f: function
+    """
+    window.on_mouse_moved = f
+
+
+def on_mouse_enter(f):
+    """
+    Sets the function that runs when the mouse enters the Canvas.
+
+    :param f: Function that runs on mouse enter.
+    :type f: function
+    """
+    window.on_mouse_entered = f
+
+
+def on_mouse_exit(f):
+    """
+    Sets the function that runs when the mouse exits the Canvas.
+
+    :param f: Function that runs on mouse exit.
+    :type f: function
+    """
+    window.on_mouse_exited = f
+
+
+#--------------------Keyboard Functions-------------------------
+def key_pressed():
+    """
+    :py:class:`True` if any key is being pressed, else :py:class:`False`.
+
+    :rtype: bool
+    """
+    return bool(window.codes_pressed)
+
+
+def on_key_press(f):
+    """
+    Sets the function that runs when a key is pressed.
+
+    :param f: Function that runs on key pressed.
+    :type f: function
+    """
+    window.on_key_pressed = f
+
+
+def on_key_release(f):
+    """
+    Sets the function that runs when a key is released.
+
+    :param f: Function that runs on key released.
+    :type f: function
+    """
+    window.on_key_released = f
+
+
+def on_key_type(f):
+    """
+    Sets the function that runs when a key is typed.
+
+    :param f: Function that runs on key typed.
+    :type f: function
+    """
+    window.on_key_typed = f
+
+
+def last_key_char():
+    """
+    Returns the last character that was pressed. Non-ASCII keys
+    will be returned as "?".
+
+    :rtype: str
+    """
+    return window.last_key_char
+
+
+def last_key_code():
+    """
+    Returns the last key code that was pressed.
+
+    :rtype: int
+
+    **Notes**
+
+    The codes are of the form ``KeyEvent.VK_KEY``. All the codes can be found at
+    the `KeyEvent documentation <http://docs.oracle.com/javase/7/docs/api/java/awt/event/KeyEvent.html#field_summary>`_.
+    """
+    return window.last_key_code
+
+
+def is_key_pressed(char):
+    """
+    Determines if a key is being pressed.
+
+    :param code: Case-insensitive string containing name of key to test.
+    :type code: str
+    :rtype: bool
+
+    **Notes**
+
+    The names of the keys come from
+    `java.awt.event.KeyEvent.getKeyText <http://docs.oracle.com/javase/7/docs/api/java/awt/event/KeyEvent.html#getKeyText(int)>`_
+    and change depending on the locale of the user's Java AWT installation.
+
+    Therefore, it is recommended to use
+    :py:meth:`~jygsaw.graphics.last_key_code` when testing for non-ASCII keys
+    because of this inconsistency across different systems.
+    """
+    return char.upper() in window.chars_pressed
+
+
+def is_code_pressed(code):
+    """
+    Determines if a key is being pressed.
+
+    :param code: Code of the key to test.
+    :type code: int
+    :rtype: bool
+
+    **Notes**
+
+    The code should be of the form ``KeyEvent.VK_KEY``. All the codes can be found
+    at the `KeyEvent documentation <http://docs.oracle.com/javase/7/docs/api/java/awt/event/KeyEvent.html#field_summary>`_.
+    """
+    return code in window.codes_pressed
+
+
+#--------------------State Functions----------------------
 def fill(r=None, g=None, b=None, a=255):
     """
-    Sets the color to fill shapes with.
+    Sets the fill color.
 
-    See :py:meth:`~jygsaw.graphics.color` for how the color values are handled.
+    **Notes**
+
+    See :py:meth:`~jygsaw.graphics.color` for how colors are specified.
     """
     window.set_filled(True)
     if r is not None:
@@ -224,256 +510,86 @@ def fill(r=None, g=None, b=None, a=255):
 
 
 def no_fill():
-    """ Sets library variable _filled to False, so that shapes are drawn as unfilled."""
+    """
+    Disables filling geometry. If both :py:meth:`~jygsaw.graphics.no_stroke()`
+    and :py:meth:`~jygsaw.graphics.no_fill()` are called, nothing will be drawn
+    to the screen.
+    """
     window.set_filled(False)
-
-
-def background(r=None, g=None, b=None, a=255):
-    """
-    Sets the background color of the window.
-
-    See :py:meth:`~jygsaw.graphics.color` for how the color values are handled.
-    """
-    window.set_bg_color(color(r, g, b, a))
-
-#---------------------------------------------------------------
-#-----------Mouse Methods-------------------------------------
-
-
-def mouse_x():
-    """Returns x coordinate of the mouse."""
-    return window.mouse_x
-
-
-def mouse_y():
-    """Returns y coordinate of the mouse."""
-    return window.mouse_y
-
-
-def mouse_pressed():
-    """Returns whether the mouse was pressed or not."""
-    return (window.mouse_event_type == MouseEvent.MOUSE_PRESSED or
-            window.mouse_event_type == MouseEvent.MOUSE_DRAGGED)
-
-
-def mouse_released():
-    """Returns whether the mouse was released or not."""
-    return window.mouse_event_type == MouseEvent.MOUSE_RELEASED
-
-
-def mouse_clicked():
-    """Returns whether the mouse was clicked or not."""
-    return window.mouse_event_type == MouseEvent.MOUSE_CLICKED
-
-
-def mouse_dragged():
-    """Returns whether the mouse was dragged or not."""
-    return window.mouse_event_type == MouseEvent.MOUSE_DRAGGED
-
-
-def mouse_moved():
-    """Returns whether the mouse was moved or not."""
-    return window.mouse_event_type == MouseEvent.MOUSE_MOVED
-
-
-def mouse_entered():
-    """Returns whether the mouse has entered the window or not."""
-    return window.mouse_event_type == MouseEvent.MOUSE_ENTERED
-
-
-def mouse_exited():
-    """Returns whether the mouse has exited the window or not."""
-    return window.mouse_event_type == MouseEvent.MOUSE_EXITED
-
-
-def on_mouse_press(mousePressed):
-    """
-    Sets the window's on_,ouse_pressed variable to be the user
-    defined mousePressed function. This function will then be called by
-    the window's mouse listener when the mouse event occurs.
-    """
-    window.on_mouse_pressed = mousePressed
-
-
-def on_mouse_release(mouseReleased):
-    """
-    Sets the window's on_mouse_released variable to be the user
-    defined mouseReleased function. This function will then be called by the
-    window's mouse listener when the mouse event occurs.
-    """
-    window.on_mouse_released = mouseReleased
-
-
-def on_mouse_click(mouseClicked):
-    """
-    Sets the window's on_mouse_clicked variable to be the user
-    defined mouseClicked function. This function will then be called by the
-    window's mouse listener when the mouse event occurs.
-    """
-    window.on_mouse_clicked = mouseClicked
-
-
-def on_mouse_drag(mouseDragged):
-    """
-    Sets the window's on_mouse_dragged variable to be the user
-    defined mouseDragged function. This function will then be called by the
-    window's mouse listener when the mouse event occurs.
-    """
-    window.on_mouse_dragged = mouseDragged
-
-
-def on_mouse_move(mouseMoved):
-    """
-    Sets the window's on_mouse_moved variable to be the user
-    defined mouseMoved function. This function will then be called by the window's
-    mouse listener when the mouse event occurs.
-    """
-    window.on_mouse_moved = mouseMoved
-
-
-def onMouseEnter(mouseEntered):
-    """
-    Sets the window's on_mouse_entered variable to be the user
-    defined mouseEntered function. This function will then be called by the
-    window's mouse listener when the mouse event occurs.
-    """
-    window.on_mouse_entered = mouseEntered
-
-
-def on_mouse_exit(mouseExited):
-    """
-    Sets the window's on_mouse_exited variable to be the user
-    defined mouseExited function. This function will then be called by the
-    window's mouse listener when the mouse event occurs.
-    """
-    window.on_mouse_exited = mouseExited
-
-#---------------------------------------------------------------
-#--------------------Keyboard Methods---------------------------
-
-
-def key_pressed():
-    """Returns if a key was pressed or not."""
-    return window.key_event_type is KeyEvent.KEY_PRESSED
-
-
-def key_released():
-    """Returns if a key was released or not."""
-    return window.key_event_type is KeyEvent.KEY_RELEASED
-
-
-def on_key_press(keyPressed):
-    """
-    Sets the window's on_key_pressed variable to be the user
-    defined keyPressed function. This function will then be called by the
-    window's key listener when the key event occurs.
-    """
-    window.on_key_pressed = keyPressed
-
-
-def on_key_release(keyReleased):
-    """
-    Sets the window's on_key_released variable to be the user
-    defined keyReleased function. This function will then be called by the
-    window's key listener when the key event occurs.
-    """
-    window.on_key_released = keyReleased
-
-
-def on_key_type(keyTyped):
-    """
-    Sets the window's on_key_typed variable to be the user
-    defined keyTyped function. This function will then be called by the
-    window's key listener when the key event occurs.
-    """
-    window.on_key_typed = keyTyped
-
-
-def last_key_char():
-    """
-    Returns the last key character that was pressed. Non-ascii keys
-    will return a question mark.
-    """
-    return window.last_key_char
-
-
-def last_key_code():
-    """
-    Returns the last key code that was pressed. Comparisons with these codes should be
-    of the form VK_[CODE], from the key event library. All the codes can be found at
-    http://docs.oracle.com/javase/1.4.2/docs/api/java/awt/event/KeyEvent.html.
-    """
-    return window.last_key_code
-
-
-def is_key_pressed(char):
-    """
-    Returns whether *char* is being pressed.
-    isKeyPressed() is case-INSENSITIVE
-    """
-    return char.upper() in window.chars_pressed
-
-
-def is_code_pressed(code):
-    """Returns whether *code* is being pressed."""
-    return code in window.codesPressed
-
-#---------------------------------------------------------
-#--------------------State Methods------------------------
-
-
-def frame_rate(rate):
-    """Sets the frame rate value."""
-    global _fr
-    _fr = float(rate)
 
 
 def stroke(r=None, g=None, b=None, a=255):
     """
-    Sets stroke to true. If a color is given then sets the stroke
-    color to that color.
+    Turns on the stroke. If a color is given, then sets the stroke
+    to that color.
 
-    See :py:meth:`~jygsaw.graphics.color` for how color values are handled.
+    **Notes**
 
-    Keyword Arguments:
-
-    * *r* R value of the RGB stroke color. Defaults to None.
-    * *g* G value of the RGB stroke color. Defaults to None.
-    * *b* B value of the RGB stroke color. Defaults to None.
-    * *a* Alpha value of the RGB stroke color. Default to 255.
+    See :py:meth:`~jygsaw.graphics.color` for how colors are specified.
     """
     window.set_stroke(True)
     if r is not None:
         window.set_stroke_color(color(r, g, b, a))
 
 
-def stroke_width(w):
-    """Sets the stroke width."""
-    window.set_stroke_width(w)
+def stroke_width(width):
+    """
+    Sets the stroke width.
+
+    :param width: Width of stroke in pixels.
+    :type width: int
+    """
+    window.set_stroke_width(width)
 
 
 def no_stroke():
-    """Sets stroke to False."""
+    """
+    Disables drawing the stroke (outline). If both
+    :py:meth:`~jygsaw.graphics.no_stroke()` and
+    :py:meth:`~jygsaw.graphics.no_fill()` are called, nothing will be drawn to
+    the screen.
+    """
     window.set_stroke(False)
 
 
+def background(r=None, g=None, b=None, a=255):
+    """
+    Sets the background color of the window.
+
+    **Notes**
+
+    See :py:meth:`~jygsaw.graphics.color` for how colors are specified.
+    """
+    window.set_bg_color(color(r, g, b, a))
+
+
 def clear():
-    """Clears the window of all objects and redraws screen."""
+    """
+    Deletes all :py:class:`~jygsaw.graphicsobject.GraphicsObject` objects then
+    redraws the Canvas.
+    """
     window.clear()
 
 
 def on_draw(user_draw):
     """
-    Sets the window's on_draw variable to be the user
-    defined draw function. This function will then be called by the main loop of the program in :py:meth:`jygsaw.graphics.jygsawMain`.
+    Sets the Canvas draw function which will be run by
+    :py:meth:`~jygsaw.graphics.jygsaw_start`.
+
+    :param user_draw: Function to run when drawing.
     """
     window.on_draw = user_draw
 
 
 def jygsaw_start(delay=0.0):
     """
-    Main loop of the program.
-    Repeatedly runs the user-defined draw function that is passed to :py:meth:`jygsaw.graphics.on_draw`
+    Start the main drawing loop.
+
+    Runs the user-defined draw function set by
+    :py:meth:`~jygsaw.graphics.on_draw`. Loop if ``delay`` is non-zero.
+
+    :param delay: Amount of delay in seconds before the Canvas redraws itself.
+    :type delay: float, optional
     """
     window.main_running = True
     if delay > 0:
@@ -486,13 +602,10 @@ def jygsaw_start(delay=0.0):
 
 def refresh(delay=0.0):
     """
-    Redraws all of the objects on the window.
+    Redraws the :py:class:`~jygsaw.graphicswindow.Canvas`.
 
-    A delay between redrawing can be optionally set.
-
-    Keyword Arguments:
-
-    * *delay* Delay before the window calls repaint. Defaults to 0.0.
+    :param delay: Amount of delay in seconds before the Canvas redraws itself.
+    :type delay: float, optional
     """
     assert(not window.main_running)
     window.redraw(delay)
@@ -523,60 +636,85 @@ def refresh(delay=0.0):
 
 def text(x, y, string, color=None, attribute=PLAIN):
     """
-    Draws specified text "string" to the screen at coordinates x, y, with
-    specified font and size, and optional color and attribute
-    (PLAIN, BOLD, ITALIC)
+    Draws text to the screen.
 
-    Keyword Arguments:
-
-    * *color* Color of the text. Defaults to the color set by method :py:meth:`~jygsaw.graphics.fill`.
-    * *attribute* Specifies if text is PLAIN, BOLD, or ITALIC. Defaults to PLAIN.
+    :param x: x-coordinate of text.
+    :type x: int
+    :param y: y-coordinate of text.
+    :type y: int
+    :param string: String of characters to display on-screen.
+    :type string: str
+    :param color: Color of the text. Defaults to the color set by
+        :py:meth:`~jygsaw.graphics.fill`.
+    :type color: :py:class:`Color`, optional
+    :param attribute: Text style (one of ``PLAIN``, ``BOLD``, or ``ITALIC``).
+    :type attribute: int, optional
+    :rtype: :py:class:`~jygsaw.text.Text`
     """
     newText = Text(int(x), int(y), string, color, attribute)
     window.draw(newText)
     return newText
 
 
-def font(f):
-    """Sets the window font to the font specified by *f*."""
-    window.set_font(f)
+def font(font):
+    """
+    Sets the window font.
+
+    :param font: Name of a font installed on the user's system.
+    :type font: str
+    """
+    window.set_font(font)
 
 
-def text_size(s):
-    """Sets the text size to size specified by *s*."""
-    window.set_text_size(s)
+def text_size(size):
+    """
+    Sets the text size.
+
+    :param size: Text size in points.
+    :type size: int
+    """
+    window.set_text_size(size)
 
 
 def get_colors():
-    """Returns a list of all the colors imported from java.awt."""
-    window.colors
+    """
+    Returns a list of all the available color constants.
+
+    :rtype: list of :py:class:`Color`
+    """
+    return GraphicsWindow.colors
 
 
 def color(r, g=None, b=None, a=255):
     """
-    Returns a color based on the values passed to the function.
+    Creates a color object.
 
-    If *r* is the only value passed and it's the name of a color,
-    then that color will be created and returned.
+    :param r: Gray value, R value, or :py:class:`Color` constant.
+    :type r: int or :py:class:`Color`
+    :param g: G value of RGB color which will be created. ``b`` must also be given. Defaults to :py:class:`None`.
+    :type g: int
+    :param b: B value of RGB color which will be created. ``g`` must also be given. Defaults to :py:class:`None`.
+    :type b: int
+    :param a: Optional alpha value of the RBG color which will be created.
+    :type a: int
+    :rtype: :py:class:`Color`
 
-    If *r* is the only value passed and it's an integer, a color
-    will be created and returned where all three values of the
-    color's r, g, b are the same as *r*.
+    **Notes**
 
-    If *r*, *g*, and *b* all have values then a color will be
-    created and returned with the corresponding r, g, b values.
+    If ``r`` is the only value passed and is a color constant (one of ``BLACK``,
+    ``BLUE``, ``CYAN``, ``DARK_GRAY``, ``GRAY``, ``GREEN``, ``LIGHT_GRAY``,
+    ``MAGENTA``, ``ORANGE``, ``PINK``, ``RED``, ``WHITE``, ``YELLOW``),
+    then that color is simply returned.
 
-    Otherwise an assert is thrown.
+    If ``r`` is the only value passed and it's an integer, all three values of
+    ``r``, ``g``, ``b`` are set to ``r``.
 
-    Keyword Arguments:
-
-    * *g*: G value of RGB color which will be created. b must also be given. Defaults to None.
-    * *b*: B value of RGB color which will be created. g must also be given. Defaults to None.
-    * *a*: Alpha value of the RBG color which will be created. a does not have to be given, it will default to 255.
+    If ``r``, ``g``, and ``b`` all have integer values then ``r``, ``g``, ``b``
+    will take the corresponding values.
     """
     if g is None or b is None:
         assert r is not None and g is None and b is None, \
-            "color takes exactly 1 or 3 or 4 parameters"
+            "color takes exactly 1, 3, or 4 parameters"
         if isinstance(r, int):
             # Will create color (r, r, r)
             return Color(r, r, r, a)
@@ -587,7 +725,7 @@ def color(r, g=None, b=None, a=255):
             pass
     else:
         assert r is not None and g is not None and b is not None, \
-            "color takes exactly 1 or 3 or 4 parameters"
+            "color takes exactly 1, 3, or 4 parameters"
         assert isinstance(r, int) and isinstance(
             g, int) and isinstance(b, int), "color takes 3 integers"
         return Color(r, g, b, a)
