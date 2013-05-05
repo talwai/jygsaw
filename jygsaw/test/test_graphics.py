@@ -4,27 +4,9 @@ booleans and colors for all shapes.
 """
 
 from __future__ import with_statement
-
 from jygsaw.graphics import *
-
 import unittest2
-import warnings
 
-
-# http://stackoverflow.com/questions/3892218/
-# how-to-test-with-pythons-unittest-that-a-warning-has-been-
-# thrown/3892413#3892413
-
-# class WarningTestMixin(object):
-#     'A test which checks if the specified warning was raised'
-
-#     def assertWarns(self, warning, callable, *args, **kwds):
-#         with warnings.catch_warnings(record=True) as warning_list:
-#             warnings.simplefilter('always')
-
-#             result = callable(*args, **kwds)
-
-# self.assertTrue(any(item.category == warning for item in warning_list))
 
 class BaseShapeClassTests(object):
     def create_shape(self):
@@ -34,19 +16,19 @@ class BaseShapeClassTests(object):
         self.c = canvas()
 
     def test_fill(self):
-        fill(green)
+        fill(GREEN)
         self.shape = self.create_shape()
-        self.assertEqual(self.c.frame.contentPane.defaultColor, green,
+        self.assertEqual(self.c.frame.contentPane.default_color, GREEN,
                          msg="Changed fill color not reflected in Window")
         self.assertEqual(
-            self.shape.color, self.c.frame.contentPane.defaultColor, msg="Changed fill color not reflected in shape")
+            self.shape.color, self.c.frame.contentPane.default_color, msg="Changed fill color not reflected in shape")
 
         # pass in non valid inputs
         with self.assertRaises(Exception):
             fill("fdasdfsa")
 
-    def test_noFill(self):
-        noFill()
+    def test_no_fill(self):
+        no_fill()
         stroke()
         self.shape = self.create_shape()
         self.assertEqual(
@@ -55,32 +37,27 @@ class BaseShapeClassTests(object):
                          msg="Windows fill bool not set correctly")
 
     def test_stroke(self):
-        stroke(red)
+        stroke(RED)
         self.shape = self.create_shape()
         self.assertEqual(self.shape.stroke, self.c.frame.contentPane.stroke,
                          msg="New shape's stroke color  doesn't match have stroke color of window")
         self.assertEqual(self.shape.stroke, True,
                          msg="New shape doesn't have stroke turned on")
-        self.assertEqual(self.shape.strokeColor, red,
+        self.assertEqual(self.shape.stroke_color, RED,
                          msg="New shape doesn't have right stroke color")
 
         # pass in non valid inputs
         with self.assertRaises(Exception):
             stroke("FDsafdsa")
 
-    def test_noStroke(self):
+    def test_no_stroke(self):
         fill()
-        noStroke()
+        no_stroke()
         self.shape = self.create_shape()
         self.assertFalse(
             self.shape.stroke, msg="new shape doesn't have stroke turned off")
         self.assertFalse(
             self.shape.stroke, msg="Window doesn't have stroke turned off")
-
-#     def test_noStrokeAndnoFill_RaiseWarning(self):
-#          noStroke()
-#          noFill()
-#          self.assertRaises(UserWarning, self.create_shape)
 
 
 class TestPoint(BaseShapeClassTests, unittest2.TestCase):
@@ -115,7 +92,7 @@ class TestPolygon(BaseShapeClassTests, unittest2.TestCase):
 
 class TestRegPolygon(BaseShapeClassTests, unittest2.TestCase):
     def create_shape(self):
-        return regPolygon(10, 10, 5, 20)
+        return reg_polygon(10, 10, 5, 20)
 
 
 class TestArc(BaseShapeClassTests, unittest2.TestCase):
@@ -128,8 +105,8 @@ class TestBackground(unittest2.TestCase):
     # this fails. why?
     def test_background(self):
         self.c = canvas()
-        background(blue)
-        self.assertEqual(self.c.frame.contentPane.backgroundColor, blue)
+        background(BLUE)
+        self.assertEqual(self.c.frame.contentPane.background_color, BLUE)
 
         # pass in non valid inputs
         with self.assertRaises(Exception):

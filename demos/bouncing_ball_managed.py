@@ -22,25 +22,25 @@ INITIAL_Y = 25.0
 INITIAL_V_X = 4.0
 INITIAL_V_Y = 0.0   # velocity is now measured in meters/second
 
-EARTH_GRAVITY_ACCELERATION = - 9.8  # m/sec^2
+EARTH_GRAVITY_ACCELERATION = -9.8  # m/sec^2
 
 BALL_RADIUS = 10  # radius of the ball in pixels, not used in velocity computations
 
 
 def draw_ball(x, y):
-    fill(blue)   # blue ball
+    fill(BLUE)   # blue ball
 
     # compute screen coordinates based on meter location of ball
     sx = x * PIXELS_PER_METER
     sy = WINDOW_HEIGHT - y * PIXELS_PER_METER
 
-    noStroke()
+    no_stroke()
     circle(sx, sy, BALL_RADIUS)
 
 
 def draw_floor():
     # strokeWidth(2)
-    stroke(black)  # black floor
+    stroke(BLACK)  # black floor
 
     line(0, WINDOW_HEIGHT - FLOOR_Y * PIXELS_PER_METER, WINDOW_WIDTH,
          WINDOW_HEIGHT - FLOOR_Y * PIXELS_PER_METER)
@@ -64,7 +64,7 @@ v_y = INITIAL_V_Y
 
 canvas(WINDOW_WIDTH, WINDOW_HEIGHT, "Bouncing ball")
 
-background(white)
+background(WHITE)
 
 def bounce():
     global x, y, v_x, v_y
@@ -84,8 +84,8 @@ def bounce():
         v_y = -v_y
 
     # Will the ball bounce off a side wall?
-    if next_x * PIXELS_PER_METER + BALL_RADIUS > WINDOW_WIDTH or \
-            next_x * PIXELS_PER_METER - BALL_RADIUS < 0:
+    if (next_x * PIXELS_PER_METER + BALL_RADIUS > WINDOW_WIDTH or
+        next_x * PIXELS_PER_METER - BALL_RADIUS < 0):
         v_x = -v_x
 
     # Now compute the real next position and next velocity.
@@ -93,5 +93,5 @@ def bounce():
     y = compute_next_position(y, v_y, TIMESTEP)
     v_y = compute_next_velocity(v_y, EARTH_GRAVITY_ACCELERATION, TIMESTEP)
 
-onDraw(bounce)
-jygsawMain(TIMESTEP)
+on_draw(bounce)
+jygsaw_start(TIMESTEP)

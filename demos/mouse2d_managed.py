@@ -5,12 +5,12 @@
 from jygsaw.graphics import *
 
 canvas(640, 360)
-background(black)
+background(BLACK)
 
 
 def draw():
     clear()
-    circle(mouseX(), mouseY(), 5, color=red)
+    circle(mouse_x(), mouse_y(), 5, color=RED)
 
-onDraw(draw)
-jygsawMain(1.0 / 30)
+on_draw(draw)
+jygsaw_start(1.0 / 30)

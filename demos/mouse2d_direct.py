@@ -5,10 +5,10 @@
 from jygsaw.graphics import *
 
 canvas(640, 360)
-background(black)
+background(BLACK)
 
 
 while True:
     clear()
-    circle(mouseX(), mouseY(), 5, color=red)
+    circle(mouse_x(), mouse_y(), 5, color=RED)
     refresh(1.0 / 30)

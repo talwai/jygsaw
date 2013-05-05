@@ -15,23 +15,23 @@ LINELENGTH = 66
 
 
 def pressed():
-    stroke(white)
+    stroke(WHITE)
 
 
 def released():
-    stroke(black)
+    stroke(BLACK)
 
 
 def draw():
     global LINELENGTH
     clear()
 
-    line(mouseX() - LINELENGTH, mouseY(), mouseX() + LINELENGTH, mouseY())
-    line(mouseX(), mouseY() - LINELENGTH, mouseX(), mouseY() + LINELENGTH)
+    line(mouse_x() - LINELENGTH, mouse_y(), mouse_x() + LINELENGTH, mouse_y())
+    line(mouse_x(), mouse_y() - LINELENGTH, mouse_x(), mouse_y() + LINELENGTH)
 
-onMousePress(pressed)
-onMouseRelease(released)
-onDraw(draw)
+on_mouse_press(pressed)
+on_mouse_release(released)
+on_draw(draw)
 
-stroke(black)
-jygsawMain(1.0 / 30)
+stroke(BLACK)
+jygsaw_start(1.0 / 30)

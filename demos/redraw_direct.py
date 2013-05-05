@@ -27,7 +27,7 @@ y = int(height() * 0.5)
 
 background(black)       # Set the background to black
 draw()
-onMousePress(draw)
+on_mouse_press(draw)
 
 while True:
     refresh(0.01)

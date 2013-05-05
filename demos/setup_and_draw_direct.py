@@ -16,11 +16,10 @@ y = 100
 # line is executed again.
 
 canvas(640, 360)        # Size must be the first statement
-stroke(255)        # Set line drawing color to white
-background(0)       # Set the background to black
+stroke(255)        # Set line drawing color to WHITE
+background(0)       # Set the background to BLACK
 
 while True:
-
     clear()
     y = y - 1
     if (y < 0):
