@@ -1,4 +1,4 @@
-# shape_primitives.py
+# shape_primitives_direct.py
 #
 # Jysaw demo - draws some base shapes
 #

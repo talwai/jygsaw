@@ -1,4 +1,4 @@
-# mouse2d.py
+# mouse2d_managed.py
 #
 # Jygsaw demo - A ball follows the mouse cursor.
 

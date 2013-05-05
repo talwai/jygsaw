@@ -1,4 +1,4 @@
-# pastel_circles.py
+# pastel_circles_managed.py
 #
 # Jygsaw demo - draws a cascade of pastel circles
 #

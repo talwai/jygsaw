@@ -1,4 +1,4 @@
-# mouse_functions.py
+# mouse_functions_managed.py
 #
 # Jygsaw demo - Has a box that can be dragged by the mouse.
 #
