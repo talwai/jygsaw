@@ -29,6 +29,7 @@ def draw():
 
     text(25, currentLineHeight, words, color=white)
 
+
 def keyPressed():
     global words, textList, currentLineHeight, textHeight
     k = lastKeyChar()

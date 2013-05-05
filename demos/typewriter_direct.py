@@ -42,6 +42,5 @@ while True:
     for (i, h) in textList:
         text(25, h, i, color=white)
 
-
     text(25, currentLineHeight, words, color=white)
     refresh(0.01)
