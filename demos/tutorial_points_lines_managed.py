@@ -1,4 +1,4 @@
-# tutorial_points_lines.py
+# tutorial_points_lines_managed.py
 #
 # Jysaw demo - draws an animation of points and lines
 # shooting from the bottom center of the screen.

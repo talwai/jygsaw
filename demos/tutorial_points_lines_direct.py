@@ -13,10 +13,10 @@ background(DARK_GRAY)
 
 
 while True:
-    lineX = random() * 800 + 50
-    lineY = random() * 300 + 125
-    lineColor = choice([LIGHT_GRAY, WHITE, ORANGE, GRAY])
-    stroke(lineColor)
-    line(width() / 2, height(), lineX, lineY)
-    point(lineX, lineY - 100)
+    line_x = random() * 800 + 50
+    line_y = random() * 300 + 125
+    line_color = choice([LIGHT_GRAY, WHITE, ORANGE, GRAY])
+    stroke(line_color)
+    line(width() / 2, height(), line_x, line_y)
+    point(line_x, line_y - 100)
     refresh(0.1)

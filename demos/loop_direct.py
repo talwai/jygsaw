@@ -1,4 +1,4 @@
-# loop.py
+# loop_direct.py
 #
 # Jygsaw demo - Loops and draws a moving line.
 #

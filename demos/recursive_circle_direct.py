@@ -1,4 +1,4 @@
-# recursive_circle.py
+# recursive_circle_direct.py
 #
 # Jysaw demo - draws recursive circles
 #

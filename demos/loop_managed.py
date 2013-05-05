@@ -1,4 +1,4 @@
-# loop.py
+# loop_managed.py
 #
 # Jygsaw demo - Loops and draws a moving line.
 #

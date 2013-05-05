@@ -1,4 +1,4 @@
-# setup_and_draw.py
+# setup_and_draw_managed.py
 #
 # Jysaw demo - draws a square and several points
 #
