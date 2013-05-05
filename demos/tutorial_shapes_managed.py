@@ -1,4 +1,4 @@
-# tutorial_shapes.py
+# tutorial_shapes_managed.py
 #
 # Jygsaw demo - draws some shapes
 #
