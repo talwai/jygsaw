@@ -97,8 +97,6 @@ $ make html
 The documentation will appear in `doc/_build/html`.
 
 ## Authors
-Balkcom's Army is:
-
 * Aaditya Talwai
 * Avery Yen
 * Carla Galarza
@@ -107,4 +105,3 @@ Balkcom's Army is:
 * Jennifer Lure
 * Kyle Lawson
 
-We are led by our fearless leader, Commander (Professor) Devin Balkcom.
