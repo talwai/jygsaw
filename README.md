@@ -32,14 +32,8 @@ no_stroke()
 on_draw(draw)
 jygsaw_start()
 ```
-
 ## Installation
-Simply use `jython setup.py install`. If you are in a virtualenv using jython, `python setup.py install` will work, too.
-
-## Code
-Jygsaw is developed on the Jython platform, using Java's Swing library.
-
-Our git repository is hosted [on Bitbucket](https://bitbucket.org/haplesshero13/cs98library/).
+Simply use `jython setup.py install`. If you are in a virtualenv using jython, `python setup.py install` will work, too. Jygsaw is developed on the Jython platform, using Java's Swing library.
 
 ### Testing
 #### Jython 2.7+
@@ -74,28 +68,6 @@ You can run any demo using the local copy of Jygsaw (found in `jygsaw/`) by runn
 
 If you change directory into `demos/` and run demos, the demos run using the system-installed version of Jygsaw, so make sure to reinstall Jygsaw in order to run the demos using the latest codebase!
 
-### Building Documentation
-First make sure you have Sphinx installed under Jython. Assuming you have already installed Jython (and possibly Python), one way to do this is using `virtualenv`:
-
-```
-:::bash
-$ cd cs98library
-$ easy_install virtualenv
-$ virtualenv -p jython venv
-$ source venv/bin/activate
-```
-
-Now when you type `python --version` in the command line you should get `Jython 2.5.3` or whatever version of Jython you have installed, and you should be able to build the docs.
-
-```
-:::bash
-$ pip install sphinx
-$ cd doc
-$ make html
-```
-
-The documentation will appear in `doc/_build/html`.
-
 ## Authors
 * Aaditya Talwai
 * Avery Yen
@@ -105,3 +77,5 @@ The documentation will appear in `doc/_build/html`.
 * Jennifer Lure
 * Kyle Lawson
 
+## Release and Docs
+Download and install our latest stable release here [www.cs.dartmouth.edu/~jygsaw/downloads.html]. You can also go through tutorials [http://www.cs.dartmouth.edu/~jygsaw/tutorial.html] and view our documentation [http://jygsaw.bitbucket.org/api.html].
