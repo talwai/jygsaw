@@ -78,4 +78,4 @@ If you change directory into `demos/` and run demos, the demos run using the sys
 * Kyle Lawson
 
 ## Release and Docs
-Download and install our latest stable release here[www.cs.dartmouth.edu/~jygsaw/downloads.html]. You can also go through tutorials[http://www.cs.dartmouth.edu/~jygsaw/tutorial.html] and view our documentation[http://jygsaw.bitbucket.org/api.html].
+Download and install our latest stable release [here](www.cs.dartmouth.edu/~jygsaw/downloads.html). You can also go through [tutorials](http://www.cs.dartmouth.edu/~jygsaw/tutorial.html) and view our [documentation](http://jygsaw.bitbucket.org/api.html).
